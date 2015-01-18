@@ -145,8 +145,6 @@ var app = angular.module('app', [
     footable:       ['js/jquery/footable/footable.all.min.js',
                         'js/jquery/footable/footable.core.css']
 
-
-    
     }
 )
 
