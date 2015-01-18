@@ -2,13 +2,12 @@
 
 /* Controllers */
 
-angular.module('app.controllers', ['pascalprecht.translate', 'ngCookies'])
-  .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', 
-    function(              $scope,   $translate,   $localStorage,   $window ) {
+angular.module('app.controllers', ['ngCookies'])
+  .controller('AppCtrl', ['$scope', '$localStorage', '$window', 
+    function(              $scope,   $localStorage,   $window ) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
       isIE && angular.element($window.document.body).addClass('ie');
-      isSmartDevice( $window ) && angular.element($window.document.body).addClass('smart');
 
       // config
       $scope.app = {
@@ -25,6 +24,7 @@ angular.module('app.controllers', ['pascalprecht.translate', 'ngCookies'])
           dark:    '#3a3f51',
           black:   '#1c2b36'
         },
+
         settings: {
           themeID: 1,
           navbarHeaderColor: 'bg-black',
@@ -44,249 +44,10 @@ angular.module('app.controllers', ['pascalprecht.translate', 'ngCookies'])
       }
       $scope.$watch('app.settings', function(){ $localStorage.settings = $scope.app.settings; }, true);
 
-      // angular translate
-      $scope.lang = { isopen: false };
-      $scope.langs = {en:'English', de_DE:'German', it_IT:'Italian'};
-      $scope.selectLang = $scope.langs[$translate.proposedLanguage()] || "English";
-      $scope.setLang = function(langKey, $event) {
-        // set the current lang
-        $scope.selectLang = $scope.langs[langKey];
-        // You can change the language during runtime
-        $translate.use(langKey);
-        $scope.lang.isopen = !$scope.lang.isopen;
-      };
-
-      function isSmartDevice( $window )
-      {
-          // Adapted from http://www.detectmobilebrowsers.com
-          var ua = $window['navigator']['userAgent'] || $window['navigator']['vendor'] || $window['opera'];
-          // Checks for iOs, Android, Blackberry, Opera Mini, and Windows mobile devices
-          return (/iPhone|iPod|iPad|Silk|Android|BlackBerry|Opera Mini|IEMobile/).test(ua);
-      }
 
   }])
 
-  // bootstrap controller
-  .controller('AccordionDemoCtrl', ['$scope', function($scope) {
-    $scope.oneAtATime = true;
 
-    $scope.groups = [
-      {
-        title: 'Accordion group header - #1',
-        content: 'Dynamic group body - #1'
-      },
-      {
-        title: 'Accordion group header - #2',
-        content: 'Dynamic group body - #2'
-      }
-    ];
-
-    $scope.items = ['Item 1', 'Item 2', 'Item 3'];
-
-    $scope.addItem = function() {
-      var newItemNo = $scope.items.length + 1;
-      $scope.items.push('Item ' + newItemNo);
-    };
-
-    $scope.status = {
-      isFirstOpen: true,
-      isFirstDisabled: false
-    };
-  }])
-  .controller('AlertDemoCtrl', ['$scope', function($scope) {
-    $scope.alerts = [
-      { type: 'success', msg: 'Well done! You successfully read this important alert message.' },
-      { type: 'info', msg: 'Heads up! This alert needs your attention, but it is not super important.' },
-      { type: 'warning', msg: 'Warning! Best check yo self, you are not looking too good...' }
-    ];
-
-    $scope.addAlert = function() {
-      $scope.alerts.push({type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.'});
-    };
-
-    $scope.closeAlert = function(index) {
-      $scope.alerts.splice(index, 1);
-    };
-  }])
-  .controller('ButtonsDemoCtrl', ['$scope', function($scope) {
-    $scope.singleModel = 1;
-
-    $scope.radioModel = 'Middle';
-
-    $scope.checkModel = {
-      left: false,
-      middle: true,
-      right: false
-    };
-  }])
-  .controller('CarouselDemoCtrl', ['$scope', function($scope) {
-    $scope.myInterval = 5000;
-    var slides = $scope.slides = [];
-    $scope.addSlide = function() {
-      slides.push({
-        image: 'img/c' + slides.length + '.jpg',
-        text: ['Carousel text #0','Carousel text #1','Carousel text #2','Carousel text #3'][slides.length % 4]
-      });
-    };
-    for (var i=0; i<4; i++) {
-      $scope.addSlide();
-    }
-  }])
-  .controller('DropdownDemoCtrl', ['$scope', function($scope) {
-    $scope.items = [
-      'The first choice!',
-      'And another choice for you.',
-      'but wait! A third!'
-    ];
-
-    $scope.status = {
-      isopen: false
-    };
-
-    $scope.toggled = function(open) {
-      //console.log('Dropdown is now: ', open);
-    };
-
-    $scope.toggleDropdown = function($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-      $scope.status.isopen = !$scope.status.isopen;
-    };
-  }])
-  .controller('ModalDemoCtrl', ['$scope', '$modal', '$log', function($scope, $modal, $log) {
-    $scope.items = ['item1', 'item2', 'item3'];
-    var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
-      $scope.items = items;
-      $scope.selected = {
-        item: $scope.items[0]
-      };
-
-      $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
-      };
-
-      $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-      };
-    };
-
-    $scope.open = function (size) {
-      var modalInstance = $modal.open({
-        templateUrl: 'myModalContent.html',
-        controller: ModalInstanceCtrl,
-        size: size,
-        resolve: {
-          items: function () {
-            return $scope.items;
-          }
-        }
-      });
-
-      modalInstance.result.then(function (selectedItem) {
-        $scope.selected = selectedItem;
-      }, function () {
-        $log.info('Modal dismissed at: ' + new Date());
-      });
-    };
-  }])
-  .controller('PaginationDemoCtrl', ['$scope', '$log', function($scope, $log) {
-    $scope.totalItems = 64;
-    $scope.currentPage = 4;
-
-    $scope.setPage = function (pageNo) {
-      $scope.currentPage = pageNo;
-    };
-
-    $scope.pageChanged = function() {
-      $log.info('Page changed to: ' + $scope.currentPage);
-    };
-
-    $scope.maxSize = 5;
-    $scope.bigTotalItems = 175;
-    $scope.bigCurrentPage = 1;
-  }])
-  .controller('PopoverDemoCtrl', ['$scope', function($scope) {
-    $scope.dynamicPopover = 'Hello, World!';
-    $scope.dynamicPopoverTitle = 'Title';
-  }])
-  .controller('ProgressDemoCtrl', ['$scope', function($scope) {
-    $scope.max = 200;
-
-    $scope.random = function() {
-      var value = Math.floor((Math.random() * 100) + 1);
-      var type;
-
-      if (value < 25) {
-        type = 'success';
-      } else if (value < 50) {
-        type = 'info';
-      } else if (value < 75) {
-        type = 'warning';
-      } else {
-        type = 'danger';
-      }
-
-      $scope.showWarning = (type === 'danger' || type === 'warning');
-
-      $scope.dynamic = value;
-      $scope.type = type;
-    };
-    $scope.random();
-
-    $scope.randomStacked = function() {
-      $scope.stacked = [];
-      var types = ['success', 'info', 'warning', 'danger'];
-
-      for (var i = 0, n = Math.floor((Math.random() * 4) + 1); i < n; i++) {
-          var index = Math.floor((Math.random() * 4));
-          $scope.stacked.push({
-            value: Math.floor((Math.random() * 30) + 1),
-            type: types[index]
-          });
-      }
-    };
-    $scope.randomStacked();
-  }])
-  .controller('TabsDemoCtrl', ['$scope', function($scope) {
-    $scope.tabs = [
-      { title:'Dynamic Title 1', content:'Dynamic content 1' },
-      { title:'Dynamic Title 2', content:'Dynamic content 2', disabled: true }
-    ];
-  }])
-  .controller('RatingDemoCtrl', ['$scope', function($scope) {
-    $scope.rate = 7;
-    $scope.max = 10;
-    $scope.isReadonly = false;
-
-    $scope.hoveringOver = function(value) {
-      $scope.overStar = value;
-      $scope.percent = 100 * (value / $scope.max);
-    };
-  }])
-  .controller('TooltipDemoCtrl', ['$scope', function($scope) {
-    $scope.dynamicTooltip = 'Hello, World!';
-    $scope.dynamicTooltipText = 'dynamic';
-    $scope.htmlTooltip = 'I\'ve been made <b>bold</b>!';
-  }])
-  .controller('TypeaheadDemoCtrl', ['$scope', '$http', function($scope, $http) {
-    $scope.selected = undefined;
-    $scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
-    // Any function returning a promise object can be used to load values asynchronously
-    $scope.getLocation = function(val) {
-      return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
-        params: {
-          address: val,
-          sensor: false
-        }
-      }).then(function(res){
-        var addresses = [];
-        angular.forEach(res.data.results, function(item){
-          addresses.push(item.formatted_address);
-        });
-        return addresses;
-      });
-    };
-  }])
   .controller('DatepickerDemoCtrl', ['$scope', function($scope) {
     $scope.today = function() {
       $scope.dt = new Date();
@@ -324,37 +85,6 @@ angular.module('app.controllers', ['pascalprecht.translate', 'ngCookies'])
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
     $scope.format = $scope.formats[0];
   }])
-  .controller('TimepickerDemoCtrl', ['$scope', function($scope) {
-    $scope.mytime = new Date();
-
-    $scope.hstep = 1;
-    $scope.mstep = 15;
-
-    $scope.options = {
-      hstep: [1, 2, 3],
-      mstep: [1, 5, 10, 15, 25, 30]
-    };
-
-    $scope.ismeridian = true;
-    $scope.toggleMode = function() {
-      $scope.ismeridian = ! $scope.ismeridian;
-    };
-
-    $scope.update = function() {
-      var d = new Date();
-      d.setHours( 14 );
-      d.setMinutes( 0 );
-      $scope.mytime = d;
-    };
-
-    $scope.changed = function () {
-      //console.log('Time changed to: ' + $scope.mytime);
-    };
-
-    $scope.clear = function() {
-      $scope.mytime = null;
-    };
-  }])
 
   // Form controller
   .controller('FormDemoCtrl', ['$scope', function($scope) {
@@ -388,59 +118,6 @@ angular.module('app.controllers', ['pascalprecht.translate', 'ngCookies'])
 
   }])
 
-  // Flot Chart controller 
-  .controller('FlotChartDemoCtrl', ['$scope', function($scope) {
-    $scope.d = [ [1,6.5],[2,6.5],[3,7],[4,8],[5,7.5],[6,7],[7,6.8],[8,7],[9,7.2],[10,7],[11,6.8],[12,7] ];
-
-    $scope.d0_1 = [ [0,7],[1,6.5],[2,12.5],[3,7],[4,9],[5,6],[6,11],[7,6.5],[8,8],[9,7] ];
-
-    $scope.d0_2 = [ [0,4],[1,4.5],[2,7],[3,4.5],[4,3],[5,3.5],[6,6],[7,3],[8,4],[9,3] ];
-
-    $scope.d1_1 = [ [10, 120], [20, 70], [30, 70], [40, 60] ];
-
-    $scope.d1_2 = [ [10, 50],  [20, 60], [30, 90],  [40, 35] ];
-
-    $scope.d1_3 = [ [10, 80],  [20, 40], [30, 30],  [40, 20] ];
-
-    $scope.d2 = [];
-
-    for (var i = 0; i < 20; ++i) {
-      $scope.d2.push([i, Math.sin(i)]);
-    }   
-
-    $scope.d3 = [ 
-      { label: "iPhone5S", data: 40 }, 
-      { label: "iPad Mini", data: 10 },
-      { label: "iPad Mini Retina", data: 20 },
-      { label: "iPhone4S", data: 12 },
-      { label: "iPad Air", data: 18 }
-    ];
-
-    $scope.getRandomData = function() {
-      var data = [],
-      totalPoints = 150;
-      if (data.length > 0)
-        data = data.slice(1);
-      while (data.length < totalPoints) {
-        var prev = data.length > 0 ? data[data.length - 1] : 50,
-          y = prev + Math.random() * 10 - 5;
-        if (y < 0) {
-          y = 0;
-        } else if (y > 100) {
-          y = 100;
-        }
-        data.push(y);
-      }
-      // Zip the generated y values with the x values
-      var res = [];
-      for (var i = 0; i < data.length; ++i) {
-        res.push([i, data[i]])
-      }
-      return res;
-    }
-
-    $scope.d4 = $scope.getRandomData();
-  }])
 
   // jVectorMap controller
   .controller('JVectorMapDemoCtrl', ['$scope', function($scope) {
