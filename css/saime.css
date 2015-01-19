@@ -1,0 +1,89 @@
+input {
+    border-top: none;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 2px solid rgb(155,156,155) !important;
+	height: 40px !important;
+    width: 100%;
+    background-color: rgb(240,243,244);
+}
+
+select {
+    border-top: none;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 2px solid rgb(155,156,155) !important;
+	height: 40px !important;
+    width: 100%;
+    background-color: rgb(240,243,244);
+}
+
+select  option.selected{
+	color: rgb(238,238,238) !important;
+}
+
+label + input{
+	display: inline-block !important;
+}
+
+.form-horizontal .control-label-2 {
+    padding-top: 18px;
+    margin-bottom: 0px;
+    text-align: right;
+    font-size: 12pt;
+}
+
+.m-top-19{
+	margin-top: -19px;
+}
+
+.btn-saime-stand {
+  color: gray;
+  background-color: #F9C822;
+  border-radius: 5px !important;
+}
+
+.btn-saime-stand:hover,
+.btn-saime-stand:focus,
+.btn-saime-stand:active,
+.btn-saime-stand.active,
+.open > .dropdown-toggle.btn-saime-stand {
+  color: #fff;
+  background-color: #3071a9;
+  border-color: #285e8e;
+}
+.btn-saime-stand:active,
+.btn-saime-stand.active,
+.open > .dropdown-toggle.btn-saime-stand {
+  background-image: none;
+}
+.btn-saime-stand.disabled,
+.btn-saime-stand[disabled],
+fieldset[disabled] .btn-saime-stand,
+.btn-saime-stand.disabled:hover,
+.btn-saime-stand[disabled]:hover,
+fieldset[disabled] .btn-saime-stand:hover,
+.btn-saime-stand.disabled:focus,
+.btn-saime-stand[disabled]:focus,
+fieldset[disabled] .btn-saime-stand:focus,
+.btn-saime-stand.disabled:active,
+.btn-saime-stand[disabled]:active,
+fieldset[disabled] .btn-saime-stand:active,
+.btn-saime-stand.disabled.active,
+.btn-saime-stand[disabled].active,
+fieldset[disabled] .btn-saime-stand.active {
+  background-color: #428bca;
+  border-color: #357ebd;
+}
+.btn-saime-stand .badge {
+  color: #428bca;
+  background-color: #fff;
+}
+.findbtn {
+    font-size: 16pt;
+    padding: 4px;
+}
+.saime-btn-lg {
+    width: 21% !important;
+    font-size: 22pt !important; 
+}
