@@ -1,0 +1,128 @@
+
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+  
+    <div class="col">
+    
+        <div class="bg-light lter b-b wrapper-md">
+          <div class="row">
+            <div class="col-md-12">
+              <h1 class="m-n font-thin h3 text-black">Solicitud de Pasaporte en Venezuela - Nino, nina o adolescente</h1>
+              <small class="text-muted">Venezolanos por nacimiento, menores de 9 anios y cedulados</small>
+            </div>
+          </div>
+        </div>
+<<<<<<< HEAD
+      </div>
+    </div>
+    
+    <div class="wrapper-md" ng-controller="FormDemoCtrl">
+
+
+      <div class="panel hbox hbox-auto-xs no-border">
+
+        <p>Datos Personales</p>
+
+        <input type="text" placeholder="Primer nombre">
+        <input type="text" placeholder="Segundo nombre">
+        <br>
+=======
+>>>>>>> 4f0b2c711775f0c4850af22357411f0c1e4faacb
+        
+        <div class="wrapper-md" ng-controller="FlotChartDemoCtrl">
+            <div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <p><h3>Datos Personales</h3></p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" placeholder="Primer nombre">        
+                                <input type="text" placeholder="Primer apellido">
+                                <input type="text" placeholder="Fecha de Nacimiento">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" placeholder="Segundo nombre">        
+                                <input type="text" placeholder="Segundo apellido">
+                            </div>    
+                        </div>
+                        <br>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <p><h3>Datos De Nacionalidad</h3></p>
+                        <select type="text">
+                            <option>Pais de Nacimiento</option>
+                            <option>Venezuela</option>
+                        </select>
+                        <br>
+                        <select type="text">
+                            <option>Ciudad</option>
+                            <option>San Juan</option>
+                        </select>
+                        <br>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <p><h3>Responsabilidad Legal</h3></p>
+                        <div class="row">
+                            <form action="" class="form-horizontal">
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label-2">Madre:</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="" placeholder="V">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="Numero de Cedula">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="btn btn-saime-stand findbtn">Buscar</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label-2">Padre:</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="" placeholder="V">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="Numero de Cedula">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="btn btn-saime-stand findbtn">Buscar</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label-2 m-top-19">Representante Legal:</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="" placeholder="V">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="Numero de Cedula">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="btn btn-saime-stand findbtn">Buscar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="col-md-2"></div>
+                    
+                </div>
+                <div class="text-center">
+                    <div   class="text-muted"><h4>Debe indicar al menos uno de los tres, Madre, Padre o Representante Legal</h4></div>
+                    <button ui-sref="saime.solicitud" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
+                </div>
+          
+            </div>
+        </div>
+    </div>
+</div>
