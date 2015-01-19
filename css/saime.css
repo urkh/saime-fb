@@ -87,3 +87,6 @@ fieldset[disabled] .btn-saime-stand.active {
     width: 21% !important;
     font-size: 22pt !important; 
 }
+.saime-bg{
+	background-color: rgb(244,246,111) !important;
+}
