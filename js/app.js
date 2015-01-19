@@ -137,10 +137,10 @@ var app = angular.module('app', [
  
     slimScroll:     ['js/jquery/slimscroll/jquery.slimscroll.min.js'],
 
-    vectorMap:      ['js/jquery/jvectormap/jquery-jvectormap.min.js', 
-                    'js/jquery/jvectormap/jquery-jvectormap-world-mill-en.js',
-                    'js/jquery/jvectormap/jquery-jvectormap-us-aea-en.js',
-                    'js/jquery/jvectormap/jquery-jvectormap.css'],
+    vectorMap:      ['js/jquery/jvectormap/jquery.vmap.min.js', 
+                    'js/jquery/jvectormap/maps/jquery.vmap.world.js',
+                   // 'js/jquery/jvectormap/jquery-jvectormap-us-aea-en.js',
+                    'js/jquery/jvectormap/jqvmap.css'],
 
     footable:       ['js/jquery/footable/footable.all.min.js',
                         'js/jquery/footable/footable.core.css']
