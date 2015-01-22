@@ -5,6 +5,7 @@ body {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: #58666e;
+  /*background-color: transparent;*/
   -webkit-font-smoothing: antialiased;
   line-height: 1.42857143;
 }
@@ -1241,7 +1242,7 @@ body {
   box-shadow: none;
 }
 .btn-default {
-  color: #58666e !important;
+  color: #58666e;
   background-color: #fcfdfd;
   border-color: #dee5e7;
   background-color: #fff;
@@ -1254,7 +1255,7 @@ body {
 .btn-default:active,
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
-  color: #58666e !important;
+  color: #58666e;
   background-color: #edf1f2;
   border-color: #c7d3d6;
 }

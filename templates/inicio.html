@@ -1,34 +1,39 @@
 
 <div class="hbox hbox-auto-xs hbox-auto-sm">
   
-  <div class="col">
+    <div class="col">
     
-    <div class="bg-light lter b-b wrapper-md">
-      <div class="row">
-        <div class="col-sm-6 col-xs-12">
-          <h1 class="m-n font-thin h3 text-black">Bienvenido a Pasaporte SAIME</h1>
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 class="m-n font-thin h3 text-black">Bienvenido a Pasaporte SAIME</h1>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
     
-    <div class="wrapper-md" ng-controller="FormDemoCtrl">
+        <div class="wrapper-md" ng-controller="FormDemoCtrl">
 
-      <div class="panel hbox hbox-auto-xs no-border">
+            <div class="panel hbox hbox-auto-xs no-border">
+                
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6 col-center">
+                        <div class="btn-group-vertical saime-menu" role="group" aria-label="Vertical button group">
+                            <button ui-sref="saime.solicitud" type="button" class="btn btn-default  saime-btn-menu">Solicitud de Pasaporte</button>
+                            <button ui-sref="saime.tramites" type="button" class="btn btn-default saime-btn-menu">Estado Tramite de Pasaporte</button>   
+                            <button ui-sref="saime.pasaporte_domicilio" type="button" class="btn btn-default saime-btn-menu">Solicite su pasaporte a domicilio</button>  
+                            <button ui-sref="saime.oficinas" type="button" class="btn btn-default saime-btn-menu">Ubique su oficina SAIME</button>
+                            <button ui-sref="saime.reclamos" type="button" class="btn btn-default saime-btn-menu">Gestione su Reclamo</button>
+                            <button ui-sref="saime.noticias" type="button" class="btn btn-default saime-btn-menu">Noticias</button>
+                            <button ui-sref="saime.otros_tramites" type="button" class="btn btn-default saime-btn-menu">Otros Tramites</button>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+                        
   
-        <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-
-          <button ui-sref="saime.solicitud" type="button" class="btn btn-default">Solicitud de Pasaporte</button>
-          <button ui-sref="saime.tramites" type="button" class="btn btn-default">Estado Tramite de Pasaporte</button>
-          <button ui-sref="saime.pasaporte_domicilio" type="button" class="btn btn-default">Solicite su pasaporte a domicilio</button>
-          <button ui-sref="saime.oficinas" type="button" class="btn btn-default">Ubique su oficina SAIME</button>
-          <button ui-sref="saime.reclamos" type="button" class="btn btn-default">Gestione su Reclamo</button>
-          <button ui-sref="saime.noticias" type="button" class="btn btn-default">Noticias</button>
-          <button ui-sref="saime.otros_tramites" type="button" class="btn btn-default">Otros Tramites</button>
+            </div>
 
         </div>
-  
-      </div>
-
     </div>
-  </div>
 </div>

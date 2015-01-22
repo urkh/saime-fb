@@ -90,3 +90,47 @@ fieldset[disabled] .btn-saime-stand.active {
 .saime-bg{
 	background-color: rgb(244,246,111) !important;
 }
+
+.saime-menu .btn-default{
+  margin-bottom: 4px;
+  width: 685px;
+  height: 75px;
+}
+
+.saime-btn-menu{
+  font-size: 25pt;
+  border-radius: 10px !important;
+  background-image: -webkit-linear-gradient(bottom, rgb(191,191,193) 0%, rgb(220,220,220) 100%);
+  background-image: -moz-linear-gradient(bottom, rgb(191,191,193) 0%, rgb(220,220,220) 100%);
+  background-image: -o-linear-gradient(bottom, rgb(191,191,193) 0%, rgb(220,220,220) 100%);
+  background-image: -ms-linear-gradient(bottom, rgb(191,191,193) 0%, rgb(220,220,220) 100%);
+}
+
+.col-center{
+  text-align: center;
+}
+
+.saime-btn-yellow{
+  font-size: 25pt;
+  border-radius: 10px !important;
+  background-image: -moz-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+  background-image: -webkit-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+  background-image: -o-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+  background-image: -ms-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+}
+
+.saime-btn-blue{
+  font-size: 25pt;
+  color: white !important;
+  border-radius: 10px !important;
+  background-image: -moz-linear-gradient(bottom, rgb(53,71,111) 0%, rgb(62,100,171)  100%);
+  background-image: -webkit-linear-gradient(bottom, rgb(53,71,111) 0%, rgb(62,100,171) 100%);
+  background-image: -o-linear-gradient(bottom, rgb(53,71,111) 0%, rgb(62,100,171) 100%);
+  background-image: -ms-linear-gradient(bottom, rgb(53,71,111) 0%, rgb(62,100,171) 100%);
+}
+.saime-btn-blue:hover{
+  color: white !important;
+}
+
+
+
