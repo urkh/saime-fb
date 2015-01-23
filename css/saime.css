@@ -136,3 +136,15 @@ fieldset[disabled] .btn-saime-stand.active {
   float:left !important;
 }
 
+.saime-btn-search{
+  width: 145px;
+  height: 43px;
+  border-radius: 6px !important;
+  font-size: 14pt;
+  background-image: -moz-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+  background-image: -webkit-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+  background-image: -o-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+  background-image: -ms-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+
+}
+
