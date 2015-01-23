@@ -725,10 +725,17 @@ body {
   .app-aside-folded .navbar-header {
     width: 60px;
   }
+  /* css original con espacio hacia la iquierda ladilloso
   .app-aside-folded .app-content,
   .app-aside-folded .app-footer {
     margin-left: 60px;
+  }*/
+/*   csss modificado para el peo del espacio hacia la izquierda  */
+  .app-aside-folded .app-content,
+  .app-aside-folded .app-footer {
+    margin-left: 0px;
   }
+
   .app-aside-folded .app-header .navbar-brand {
     display: block;
     padding: 0;

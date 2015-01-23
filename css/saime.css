@@ -132,5 +132,7 @@ fieldset[disabled] .btn-saime-stand.active {
   color: white !important;
 }
 
-
+.left-tittle{
+  float:left !important;
+}
 
