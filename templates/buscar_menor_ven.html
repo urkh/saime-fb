@@ -25,10 +25,10 @@
                             <form action="" class="form-horizontal">
                                 <div class="form-group">
                                     <label  class="col-sm-2 control-label-2"></label>
-                                    <div class="col-sm-2">
-                                        <input type="text" class="" placeholder="                    V">
+                                    <div class="col-sm-2 saime-input">
+                                        <input type="text"  placeholder="                    V">
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 saime-input">
                                         <input type="text" placeholder="Numero de Cedulad del Menor">
                                     </div>
                                     <div class="col-sm-2">
@@ -51,3 +51,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    $( document ).ready(function() {
+        $("input[type=text]").after("<div class='border-input'></div>");
+    });
+</script>

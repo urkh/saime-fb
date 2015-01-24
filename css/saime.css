@@ -148,3 +148,11 @@ fieldset[disabled] .btn-saime-stand.active {
 
 }
 
+.border-input{
+  height: 10px;
+  border-left: 1px solid rgb(155,156,155);
+  border-right: 1px solid rgb(155,156,155);
+  width: 100%;
+  position: relative;
+  top: -10px;
+}
