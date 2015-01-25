@@ -9,13 +9,14 @@ input {
 }
 
 select {
-    border-top: none;
-    border-left: none !important;
-    border-right: none !important;
-    border-bottom: 2px solid rgb(155,156,155) !important;
+  border-top: none;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 2px solid rgb(155,156,155) !important;
 	height: 40px !important;
-    width: 100%;
-    background-color: rgb(240,243,244);
+  width: 100%;
+  background-color: rgb(240,243,244);
+  /*background: url('../img/icon_select.png') no-repeat scroll 50% 50% transparent;*/
 }
 
 select  option.selected{
@@ -39,7 +40,10 @@ label + input{
 
 .btn-saime-stand {
   color: gray;
-  background-color: #F9C822;
+  background-image: -moz-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+  background-image: -webkit-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+  background-image: -o-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+  background-image: -ms-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
   border-radius: 5px !important;
 }
 
@@ -48,9 +52,8 @@ label + input{
 .btn-saime-stand:active,
 .btn-saime-stand.active,
 .open > .dropdown-toggle.btn-saime-stand {
-  color: #fff;
+  color: white;
   background-color: #3071a9;
-  border-color: #285e8e;
 }
 .btn-saime-stand:active,
 .btn-saime-stand.active,
@@ -180,4 +183,17 @@ fieldset[disabled] .btn-saime-stand.active {
   left: 0px;
   overflow: hidden;
   transition: all 0.4s ease-out 0s;
+}
+
+.saime-menu h1,
+.saime-menu h2,
+.saime-menu h3,
+.saime-menu h4,
+.saime-menu h5,
+.saime-menu h6{
+  margin-top: 5px;
+}
+
+.saime-menu h2 + h5{
+  margin-top: -5px !important;
 }
