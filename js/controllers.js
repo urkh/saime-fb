@@ -1,6 +1,6 @@
 'use strict';
 
-/* Controllers */
+
 
 angular.module('app.controllers', ['ngCookies'])
   .controller('AppCtrl', ['$scope', '$localStorage', '$window', 
@@ -46,6 +46,10 @@ angular.module('app.controllers', ['ngCookies'])
 
 
   }])
+
+
+
+
 
 
 
@@ -125,6 +129,19 @@ angular.module('app.controllers', ['ngCookies'])
         'simple_tags': true,
         'tags': ['tag1', 'tag2', 'tag3', 'tag4']  // Can be empty list.
     };
+
+
+
+/* Controllers */
+$scope.inputs_jq = function() {
+    $("input[type=text]").after("<div class='border-input'></div>");
+};
+
+$scope.inputs_jq();
+
+
+
+
 
   }])
 
