@@ -95,6 +95,7 @@ fieldset[disabled] .btn-saime-stand.active {
   margin-bottom: 4px;
   width: 685px;
   height: 75px;
+  overflow: hidden;
 }
 
 .saime-btn-menu{
@@ -155,4 +156,28 @@ fieldset[disabled] .btn-saime-stand.active {
   width: 100%;
   position: relative;
   top: -10px;
+}
+
+.btn-group-vertical button .triangulo-y{
+  width: 160px;
+  height: 0px;
+  border-bottom: 74px solid rgb(240,199,29);
+  border-right: 98px solid transparent;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  overflow: hidden;
+  transition: all 0.4s ease-out 0s;
+}
+
+.btn-group-vertical button .triangulo-b{
+  width: 145px;
+  height: 0px;
+  border-bottom: 74px solid rgb(62,100,171);
+  border-right: 98px solid transparent;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  overflow: hidden;
+  transition: all 0.4s ease-out 0s;
 }
