@@ -48,6 +48,16 @@ angular.module('app.controllers', ['ngCookies'])
   }])
 
 
+
+
+.controller('MainCtrl', ['$scope', 'UsersFactory', function ($scope, UsersFactory) {
+    UsersFactory.get({}, function (usersFactory) {
+        $scope.firstname = usersFactory.firstName;
+    })
+}])
+
+
+
   .controller('DatepickerDemoCtrl', ['$scope', function($scope) {
     $scope.today = function() {
       $scope.dt = new Date();
