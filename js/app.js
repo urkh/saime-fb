@@ -87,6 +87,11 @@ var app = angular.module('app', [
                 templateUrl: 'templates/buscar_menor_ven_nc.html'
             })
 
+            .state('saime.buscar_menor_ven_ubicacion_nc', {
+                url: '/buscar/menor_nc/venezolano/ubicacion',
+                templateUrl: 'templates/buscar_menor_ven_ubicacion_nc.html'
+            })
+
             .state('saime.buscar_menor_ext_nc', {
                 url: '/buscar/menor_nc/extranjero',
                 templateUrl: 'templates/buscar_menor_ext_nc.html'
