@@ -1,26 +1,82 @@
 
 <div class="hbox hbox-auto-xs hbox-auto-sm">
-  
-  <div class="col">
-    
-    <div class="bg-light lter b-b wrapper-md">
-      <div class="row">
-        <div class="col-sm-6 col-xs-12">
-          <h1 class="m-n font-thin h3 text-black">Pasaporte Domicilio</h1>
+    <div class="col">
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="m-n font-thin h3 text-center">Solicite Su Pasaporte Domicilio</h1>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    
-    <div class="wrapper-md" ng-controller="FormDemoCtrl">
-
-      <div class="panel hbox hbox-auto-xs no-border">
-  
-        <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-
+        <div class="wrapper-md" ng-controller="FormDemoCtrl">
+            <form action="">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <p><h3>Dirección Actual</h3></p>
+                        <div class="row">
+                            <select type="text">
+                                <option>Estado</option>
+                                <option>Venezuela</option>
+                            </select>
+                                    
+                            <select type="text">
+                                <option>Municipio</option>
+                                <option>Venezuela</option>
+                            </select>
+                            
+                            <select type="text">
+                                <option>Parroquia</option>
+                                <option>Venezuela</option>
+                            </select>
+                            
+                            <div class="form-grup">
+                                <input type="text" placeholder="  Ciudad">
+                            </div>        
+                            <input type="text" placeholder="  Urbanizacion">
+                            <input type="text" placeholder="  Nro Casa / Apto">        
+                            <input type="text" placeholder="  Av / Calle ">
+                            <input type="text" placeholder="  Codigo Postal">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-3 saime-input">
+                                        <input type="text"  placeholder="  Código">
+                                    </div>
+                                    <div class="col-sm-9 saime-input">
+                                        <input type="text" placeholder="    Telefono Celular">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-3 saime-input">
+                                        <input type="text"  placeholder="  Código">
+                                    </div>
+                                    <div class="col-sm-9 saime-input">
+                                        <input type="text" placeholder="    Telefono Residencial">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-3 saime-input">
+                                        <input type="text"  placeholder="  Código">
+                                    </div>
+                                    <div class="col-sm-9 saime-input">
+                                        <input type="text" placeholder="    Telefono Trabajo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <h3>CODIGO DE CONFIRMACION QUE APARECE ARRIBA</h3>
+                            <button ui-sref="saime.solicitud" type="button" class="btn btn-saime-stand saime-btn-send">Enviar Datos</button>
+                        </div>
+                            
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </form>
         </div>
-  
-      </div>
-
     </div>
-  </div>
 </div>

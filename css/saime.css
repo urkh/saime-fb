@@ -7,7 +7,11 @@ input {
     width: 100%;
     background-color: rgb(240,243,244);
 }
+a{
+  color: blue !important;
+  border-bottom: 1px solid blue;
 
+}
 select {
   border-top: none;
   border-left: none !important;
@@ -90,14 +94,19 @@ fieldset[disabled] .btn-saime-stand.active {
     width: 21% !important;
     font-size: 22pt !important; 
 }
+
+.saime-btn-send {
+    width: 34% !important;
+    font-size: 22pt !important; 
+}
 .saime-bg{
 	background-color: rgb(244,246,111) !important;
 }
 
 .saime-menu .btn-default{
-  margin-bottom: 4px;
+  margin-bottom: 8px;
   width: 685px;
-  height: 75px;
+  height: 90px;
   overflow: hidden;
 }
 
@@ -164,7 +173,7 @@ fieldset[disabled] .btn-saime-stand.active {
 .btn-group-vertical button .triangulo-y{
   width: 160px;
   height: 0px;
-  border-bottom: 74px solid rgb(240,199,29);
+  border-bottom: 99px solid rgb(240,199,29);
   border-right: 98px solid transparent;
   position: absolute;
   bottom: 0px;
@@ -176,7 +185,7 @@ fieldset[disabled] .btn-saime-stand.active {
 .btn-group-vertical button .triangulo-b{
   width: 145px;
   height: 0px;
-  border-bottom: 74px solid rgb(62,100,171);
+  border-bottom: 99px solid rgb(62,100,171);
   border-right: 98px solid transparent;
   position: absolute;
   bottom: 0px;
@@ -196,4 +205,8 @@ fieldset[disabled] .btn-saime-stand.active {
 
 .saime-menu h2 + h5{
   margin-top: -5px !important;
+}
+
+form select{
+  margin-bottom: 10px;
 }

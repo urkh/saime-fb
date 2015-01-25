@@ -102,6 +102,11 @@ var app = angular.module('app', [
                 templateUrl: 'templates/pasaporte_domicilio.html'
             })
 
+            .state('saime.pasaporte_domicilio_exitoso', {
+                url: '/pasaporte_domicilio/exitoso',
+                templateUrl: 'templates/pasaporte_domicilio_exitoso.html'
+            })
+
             .state('saime.otros_tramites', {
                 url: '/otros_tramites',
                 templateUrl: 'templates/otros_tramites.html'

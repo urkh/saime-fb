@@ -1,24 +1,40 @@
-<div class="container w-xxl w-auto-xs" ng-controller="SigninFormController">
-  <a href class="navbar-brand block m-t">SAIME - Autenticacion de Usuario</a>
-  <div class="m-b-lg">
-    <div class="wrapper text-center">
-      <strong>Autenticacion de Usuario</strong>
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+  
+    <div class="col">
+    
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 class="m-n font-thin h3 text-black">Bienvenido a Pasaporte SAIME</h1>
+                </div>
+            </div>
+        </div>
+    
+        <div class="wrapper-md" ng-controller="FormDemoCtrl">
+
+            <div class="panel hbox hbox-auto-xs no-border">
+                
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6 col-center">
+                        <div class="btn-group-vertical saime-menu" role="group" aria-label="Vertical button group">
+                            <button ui-sref="saime.solicitud" type="button" class="btn btn-default  saime-btn-menu">Inicie Sesión
+                                <div class="triangulo-b"></div>
+                            </button>
+                            <button ui-sref="saime.tramites" type="button" class="btn btn-default saime-btn-menu">Registro
+                                <div class="triangulo-y"></div>
+                            </button>
+                        </div>
+                        <div class="text-center">
+                            <a href="">¿Olvido Su Contraseña?</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+                        
+  
+            </div>
+
+        </div>
     </div>
-    <form name="form" class="form-validation">
-      <div class="text-danger wrapper text-center" ng-show="authError">
-          {{authError}}
-      </div>
-      <div class="list-group list-group-sm">
-        <div class="list-group-item">
-          <input type="text" placeholder="Usuario" class="form-control no-border" ng-model="user.email" required>
-        </div>
-        <div class="list-group-item">
-           <input type="password" placeholder="Contrasena" class="form-control no-border" ng-model="user.password" required>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()" ng-disabled='form.$invalid'>Ingresar</button>
-      <div class="text-center m-t m-b"><a href="#">Olvido Contrasena?</a></div>
-      <div class="line line-dashed"></div>
-    </form>
-  </div>
 </div>
