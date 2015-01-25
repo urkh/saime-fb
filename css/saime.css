@@ -90,3 +90,94 @@ fieldset[disabled] .btn-saime-stand.active {
 .saime-bg{
 	background-color: rgb(244,246,111) !important;
 }
+
+.saime-menu .btn-default{
+  margin-bottom: 4px;
+  width: 685px;
+  height: 75px;
+  overflow: hidden;
+}
+
+.saime-btn-menu{
+  font-size: 25pt;
+  border-radius: 10px !important;
+  background-image: -webkit-linear-gradient(bottom, rgb(191,191,193) 0%, rgb(220,220,220) 100%);
+  background-image: -moz-linear-gradient(bottom, rgb(191,191,193) 0%, rgb(220,220,220) 100%);
+  background-image: -o-linear-gradient(bottom, rgb(191,191,193) 0%, rgb(220,220,220) 100%);
+  background-image: -ms-linear-gradient(bottom, rgb(191,191,193) 0%, rgb(220,220,220) 100%);
+}
+
+.col-center{
+  text-align: center;
+}
+
+.saime-btn-yellow{
+  font-size: 25pt;
+  border-radius: 10px !important;
+  background-image: -moz-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+  background-image: -webkit-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+  background-image: -o-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+  background-image: -ms-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+}
+
+.saime-btn-blue{
+  font-size: 25pt;
+  color: white !important;
+  border-radius: 10px !important;
+  background-image: -moz-linear-gradient(bottom, rgb(53,71,111) 0%, rgb(62,100,171)  100%);
+  background-image: -webkit-linear-gradient(bottom, rgb(53,71,111) 0%, rgb(62,100,171) 100%);
+  background-image: -o-linear-gradient(bottom, rgb(53,71,111) 0%, rgb(62,100,171) 100%);
+  background-image: -ms-linear-gradient(bottom, rgb(53,71,111) 0%, rgb(62,100,171) 100%);
+}
+.saime-btn-blue:hover{
+  color: white !important;
+}
+
+.left-tittle{
+  float:left !important;
+}
+
+.saime-btn-search{
+  width: 145px;
+  height: 43px;
+  border-radius: 6px !important;
+  font-size: 14pt;
+  background-image: -moz-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+  background-image: -webkit-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+  background-image: -o-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+  background-image: -ms-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);
+
+}
+
+.border-input{
+  height: 10px;
+  border-left: 1px solid rgb(155,156,155);
+  border-right: 1px solid rgb(155,156,155);
+  width: 100%;
+  position: relative;
+  top: -10px;
+}
+
+.btn-group-vertical button .triangulo-y{
+  width: 160px;
+  height: 0px;
+  border-bottom: 74px solid rgb(240,199,29);
+  border-right: 98px solid transparent;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  overflow: hidden;
+  transition: all 0.4s ease-out 0s;
+}
+
+.btn-group-vertical button .triangulo-b{
+  width: 145px;
+  height: 0px;
+  border-bottom: 74px solid rgb(62,100,171);
+  border-right: 98px solid transparent;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  overflow: hidden;
+  transition: all 0.4s ease-out 0s;
+}

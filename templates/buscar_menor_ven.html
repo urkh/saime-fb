@@ -1,26 +1,59 @@
 
 <div class="hbox hbox-auto-xs hbox-auto-sm">
-  
-  <div class="col">
-    
-    <div class="bg-light lter b-b wrapper-md">
-      <div class="row">
-        <div class="col-sm-6 col-xs-12">
-          <h1 class="m-n font-thin h3 text-black">Solicitud de Pasaporte en Venezuela - Nino, nina o adolescente</h1>
-          <small class="text-muted">Venezolanos por nacimiento, mayores de 9 anios y cedulados</small>
+    <div class="col">
+        <div class="bg-light lter b-b wrapper-md">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h2 class="m-n font-thin  text-black">Solicitud de Pasaporte en Venezuela - </h2>
+              <h2 class="m-n font-thin  text-black">Nino, nina o adolescente</h2>
+            </div>
+          </div>
         </div>
-      </div>
+        <div class="bg-light lter b-b wrapper-md saime-bg">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h2 class="m-n font-thin  text-black">Venezolanos por nacimiento - </h2>
+              <h2 class="m-n font-thin  text-black">mayores de 9 anios y cedulados</h2>
+            </div>
+          </div>
+        </div>
+        <div class="wrapper-md" ng-controller="FormDemoCtrl">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <form action="" class="form-horizontal">
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label-2"></label>
+                                    <div class="col-sm-2 saime-input">
+                                        <input type="text"  placeholder="                    V">
+                                    </div>
+                                    <div class="col-sm-6 saime-input">
+                                        <input type="text" placeholder="Numero de Cedulad del Menor">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-6 col-center">
+                                        <button ui-sref="saime.solicitud" type="button" class="btn saime-btn-search">Buscar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="col-md-2"></div>
+                    
+                </div>
+        </div>
     </div>
-    
-    <div class="wrapper-md" ng-controller="FormDemoCtrl">
-
-      <div class="panel hbox hbox-auto-xs no-border">
-
-        <input type="text" placeholder="numero de cedula del menor">
-        <button ui-sref="saime.solicitud" type="button" class="btn btn-default">Buscar</button>
-  
-      </div>
-
-    </div>
-  </div>
 </div>
+
+<script>
+    $( document ).ready(function() {
+        $("input[type=text]").after("<div class='border-input'></div>");
+    });
+</script>
