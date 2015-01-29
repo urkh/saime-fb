@@ -210,3 +210,8 @@ fieldset[disabled] .btn-saime-stand.active {
 form select{
   margin-bottom: 10px;
 }
+
+#header-saime{
+  background-image:url(../img/header.png);
+  background-repeat:no-repeat;
+}
