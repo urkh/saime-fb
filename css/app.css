@@ -591,6 +591,7 @@ body {
   vertical-align: top;
   height: 100%;
   float: none;
+  background-image:url(../img/fondo2.png);
 }
 .v-middle {
   vertical-align: middle !important;
@@ -3959,3 +3960,5 @@ a.text-black:hover {
     background-color: #7266ba;
   }
 }
+
+

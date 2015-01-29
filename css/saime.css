@@ -5,7 +5,7 @@ input {
     border-bottom: 2px solid rgb(155,156,155) !important;
 	height: 40px !important;
     width: 100%;
-    background-color: rgb(240,243,244);
+    background-color: rgb(244,244,244);
 }
 a{
   color: blue !important;
@@ -91,8 +91,9 @@ fieldset[disabled] .btn-saime-stand.active {
     padding: 4px;
 }
 .saime-btn-lg {
-    width: 21% !important;
-    font-size: 22pt !important; 
+    width: auto !important;
+    font-size: 22pt !important;
+    padding: 10px 45px 10px 45px;
 }
 
 .saime-btn-send {
@@ -211,7 +212,83 @@ form select{
   margin-bottom: 10px;
 }
 
-#header-saime{
-  background-image:url(../img/header.png);
-  background-repeat:no-repeat;
+.header-saime{
+  width: 100%;    
 }
+
+
+.tramite-list{
+  background-color: rgb(46,60,123);
+  width: 16px;
+  color: rgb(46,60,123);
+  height: 100px;
+  margin-left: -18px;
+  margin-bottom: -1px;
+  margin-top: -36px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.tramite-circulo{
+  background-color: rgb(46,60,123);
+  color: rgb(46,60,123);
+  width: 31px;
+  border-radius: 15px;
+  margin-left: -25px;
+  margin-bottom: -23px;
+  height: 31px;
+}
+
+.tramite-nombre{
+  margin-left: 30px;
+  font-size: 30pt;
+}
+
+.img-saime{
+  border-radius: 92px;
+  margin-top: -485px;
+  margin-left: 555px;
+  border-radius: 80px;
+  border: 17px solid rgb(47,59,117);
+}
+
+.saime-saludo{
+  margin-left: 700px;
+  width: 100px;
+  background-color: rgb(47,59,117);
+  margin-top: -300px;
+  opacity: 0.99;
+  text-align: center;
+  color: white;
+  height: 37px;
+  font-size: 15pt;
+  padding: 4px 0px 0px 0px;
+}
+  
+.saime-saludo + div{
+  margin-left: 726px;
+  width: auto;
+  background-color: #D3DAD3;
+  margin-top: -243px;
+  opacity: 0.99;
+  text-align: center;
+  color: #A6A4B2;
+  height: 37px;
+  font-size: 15pt;
+  padding: 4px 25px 0px 25px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

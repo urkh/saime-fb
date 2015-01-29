@@ -136,6 +136,10 @@ var app = angular.module('app', [
                 url: '/login',
                 templateUrl: 'templates/login.html'
             })
+            .state('saime.autenticacion', {
+                url: '/autenticacion',
+                templateUrl: 'templates/autenticacion.html'
+            })
 
     }
   ]
