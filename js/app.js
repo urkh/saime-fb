@@ -140,6 +140,10 @@ var app = angular.module('app', [
                 url: '/autenticacion',
                 templateUrl: 'templates/autenticacion.html'
             })
+            .state('saime.olvido', {
+                url: '/resetear_contrasena',
+                templateUrl: 'templates/olvido_contrasena.html'
+            })
 
     }
   ]
