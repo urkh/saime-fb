@@ -1,11 +1,12 @@
 input {
-    border-top: none;
-    border-left: none !important;
-    border-right: none !important;
-    border-bottom: 2px solid rgb(155,156,155) !important;
-	height: 40px !important;
-    width: 100%;
-    background-color: rgb(244,244,244);
+  border-top: none;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 2px solid rgb(155,156,155) !important;
+  height: 40px !important;
+  width: 100%;
+  background-color: rgb(244,244,244);
+  padding-left: 10px;
 }
 a{
   color: blue !important;
@@ -280,6 +281,9 @@ ul {
   padding: 4px 25px 0px 25px;
 }
 
+.full-width{
+  width: 100% !important;
+}
 
 
 

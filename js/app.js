@@ -148,6 +148,10 @@ var app = angular.module('app', [
                 url: '/resetear_contrasena/contrasena_enviada',
                 templateUrl: 'templates/envio_contrasena.html'
             })
+            .state('saime.registro', {
+                url: '/registro',
+                templateUrl: 'templates/registro.html'
+            })
 
     }
   ]

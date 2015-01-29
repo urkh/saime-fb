@@ -135,6 +135,7 @@ angular.module('app.controllers', ['ngCookies'])
 /* Controllers */
 $scope.inputs_jq = function() {
     $("input[type=text]").after("<div class='border-input'></div>");
+    $("input[type=email]").after("<div class='border-input'></div>");
 };
 
 $scope.inputs_jq();
