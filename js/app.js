@@ -144,6 +144,10 @@ var app = angular.module('app', [
                 url: '/resetear_contrasena',
                 templateUrl: 'templates/olvido_contrasena.html'
             })
+            .state('saime.enviocontrasena', {
+                url: '/resetear_contrasena/contrasena_enviada',
+                templateUrl: 'templates/envio_contrasena.html'
+            })
 
     }
   ]
