@@ -8,6 +8,12 @@ input {
   background-color: rgb(244,244,244);
   padding-left: 10px;
 }
+
+::-webkit-input-placeholder { font-size: 17pt; }
+::-moz-placeholder { font-size: 17pt; } /* firefox 19+ */
+:-ms-input-placeholder { font-size: 17pt; } /* ie */
+input:-moz-placeholder { font-size: 17pt; }
+
 a{
   color: blue !important;
   border-bottom: 1px solid blue;
@@ -285,7 +291,11 @@ ul {
   width: 100% !important;
 }
 
-
+.text-aside-input{
+  margin: 10px 0px 0px 0px !important;
+  font-size: 15pt;
+  letter-spacing: 4px;
+}
 
 
 
