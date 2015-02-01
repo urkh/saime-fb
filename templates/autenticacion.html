@@ -8,22 +8,27 @@
             </div>
           </div>
         </div>
-        <div class="wrapper-md" ng-controller="FormDemoCtrl">
+        <div class="wrapper-md" ng-controller="SignInCtrl">
+
+            <div class="text-danger wrapper text-center" ng-show="authError">
+                  {{authError}}
+              </div>
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
                     <form action="" class="form-horizontal">
                         <div class="form-group">
-                            <input type="text" placeholder="Usuario">                            
+                            <input type="text" placeholder="Usuario" ng-model="formData.username">                            
                         </div>
                         <div class="form-group">
-                            <input type="text" placeholder="Contraseña">                            
+                            <input type="password" placeholder="Contraseña" ng-model="formData.password">     
                         </div>
                         <div class="text-center">
                             <!--<div   class="text-muted"><h4>Debe indicar al menos uno de los tres, Madre, Padre o Representante Legal</h4></div>-->
-                            <button ui-sref="saime.buscar_menor_ven_ubicacion_nc" type="button" class="btn btn-saime-stand saime-btn-lg"> Ingresar</button>
+                            <button ng-click="login()" type="button" class="btn btn-saime-stand saime-btn-lg"> Ingresar</button>
                         </div> 
                     </form>
+<<<<<<< HEAD
                     <br>
                     <div class="text-center">
                         <a ui-sref="saime.registro" >Registrarse en el SAIME</a>
@@ -33,6 +38,11 @@
                         <a ui-sref="saime.olvido" >¿Olvido Su Contraseña?</a>
                     </div>
                 <br>
+=======
+
+
+                    <br>
+>>>>>>> c994bd40e78c1944208aac51b2f22282b1dc7b20
                 </div>
                 <div class="col-md-3"></div> 
                   

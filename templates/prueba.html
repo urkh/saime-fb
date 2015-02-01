@@ -1,0 +1,12 @@
+ 		<div  ng-controller="MainCtrl"> <!-- ng-controller define qué controlador se encargará de manejar la tabla-->
+      <form >
+        <input type="text" placeholder="¿Algo que quieras agregar?" ng-model="formData.identidadfederal" />
+         <button class="btn btn-primary btn-lg" ng-click="newTodo()">Añadir</button>
+      </form>
+
+
+  		<li ng-repeat="pais in paises">
+        País: <span>{{pais.name}}</span>, capital: {{pais.capital}}
+      </li>
+
+ 		</div>

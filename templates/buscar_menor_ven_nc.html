@@ -20,101 +20,210 @@
           </div>
         </div>
         
-        <div class="wrapper-md" ng-controller="FormDemoCtrl">
-            <div>
-                <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
-                        <p><h3>Datos Personales</h3></p>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" placeholder="Primer nombre">        
-                                <input type="text" placeholder="Primer apellido">
-                                <input type="text" placeholder="Fecha de Nacimiento">
+        <div class="wrapper-md" ng-controller="FormMenorVenNcCtrl">
+            <form action="" class="form-horizontal">
+                <div style="display:block; {{step1}}">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <p><h3>Datos Personales</h3></p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" placeholder="Primer nombre" ng-model="formData.name1">        
+                                    <input type="text" placeholder="Primer apellido" ng-model="formData.lastName1">
+                                    <input type="text" placeholder="Fecha de Nacimiento" ng-model="formData.bDate">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" placeholder="Segundo nombre" ng-model="formData.name2">        
+                                    <input type="text" placeholder="Segundo apellido" ng-model="formData.lastName2">
+                                </div>    
                             </div>
-                            <div class="col-md-6">
-                                <input type="text" placeholder="Segundo nombre">        
-                                <input type="text" placeholder="Segundo apellido">
-                            </div>    
+                            <br>
                         </div>
-                        <br>
+                        <div class="col-md-2"></div>
                     </div>
-                    <div class="col-md-2"></div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <p><h3>Datos De Nacionalidad</h3></p>
+                            <select ng-model="formData.countryIni" placeholder="Pais de Nacimiento">
+                                <option></option>
+                                <option value="VEN">Venezuela</option>
+                                <option value="COL">Colombia</option>
+                            </select>
+                            <br>
+                            <select ng-model="formData.state" placeholder="Estado de Nacimiento">
+                                <option value="1">Aragua</option>
+                                <option value="2">Guarico</option>
+                            </select>
+                            <br>
+                            <select ng-model="formData.city" placeholder="Ciudad">
+                                <option value="Maracay">Maracay</option>
+                                <option value="San Juan de los Morros">San Juan de los Morros</option>
+                            </select>
+                            <br>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                    <hr>
+                   
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <p><h3>Responsabilidad Legal</h3></p>
+                            <div class="row">
+                                
+                                    
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label-2">Madre:</label>
+                                        <div class="col-sm-2">
+                                            <input ng-model="formSearch" type="text" class="" placeholder="V">
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <input ng-model="formSearch" type="text" placeholder="Numero de Cedula">
+                                            <input ng-model="formData.motherId" type="hidden">
+                                        </div>
+                                        
+                                        <div class="col-sm-2">
+                                            <button class="btn btn-saime-stand findbtn">Buscar</button>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label-2">Padre:</label>
+                                        <div class="col-sm-2">
+                                            <input ng-model="formSearch" type="text" class="" placeholder="V">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input ng-model="formSearch" type="text" placeholder="Numero de Cedula">
+                                            <input ng-model="formData.fatherId" type="hidden">
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button class="btn btn-saime-stand findbtn">Buscar</button>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label-2 m-top-19">Representante Legal:</label>
+                                        <div class="col-sm-2">
+                                            <input ng-model="formSearch" type="text" class="" placeholder="V">
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <input ng-model="formSearch" type="text" placeholder="Numero de Cedula">
+                                            <input ng-model="formData.legalId" type="hidden">
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <button class="btn btn-saime-stand findbtn">Buscar</button>
+                                        </div>
+
+                                    </div>
+                                
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-md-2"></div>
+                        
+                    </div>
+
+                    <div class="text-center">
+                        <div class="text-muted">
+                            <h4>Debe indicar al menos uno de los tres, Madre, Padre o Representante Legal</h4>
+                        </div>
+                        
+                        <button ng-click="continuar()" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
+                    </div>
+
                 </div>
-                <hr>
-                <div class="row">
+
+                <!-- Parte 2 formulario -->
+                <div class="row" style="display:none; {{step2}}">
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
-                        <p><h3>Datos De Nacionalidad</h3></p>
-                        <select type="text">
-                            <option>Pais de Nacimiento</option>
-                            <option>Venezuela</option>
-                        </select>
-                        <br>
-                        <select type="text">
-                            <option>Ciudad</option>
-                            <option>San Juan</option>
-                        </select>
-                        <br>
-                    </div>
-                    <div class="col-md-2"></div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
-                        <p><h3>Responsabilidad Legal</h3></p>
+                        <p><h3>Dirección Actual</h3></p>
                         <div class="row">
-                            <form action="" class="form-horizontal">
-                                <div class="form-group">
-                                    <label  class="col-sm-2 control-label-2">Madre:</label>
-                                    <div class="col-sm-2">
-                                        <input type="text" class="" placeholder="V">
+
+                            <br>
+                            <select ng-model="formData.currentState" placeholder="Estado">
+                                <option value="1">Aragua</option>
+                                <option value="2">Guarico</option>
+                            </select>
+                            <br>
+                            <select ng-model="formData.currentCity" placeholder="Ciudad">
+                                <option value="Maracay">Maracay</option>
+                                <option value="San Juan de los Morros">San Juan de los Morros</option>
+                            </select>
+
+                            <select ng-model="formData.currentParish" placeholder="Parroquia">
+                                <option value="1">Ju</option>
+                                <option value="2">San Juan de los Morros</option>
+                            </select>
+                            
+                            
+                            <input ng-model="formData.urbanization" type="text" placeholder="Urbanizacion">
+                            <input ng-model="formData.noApto" type="text" placeholder="Nro Casa / Apto">        
+                            <input ng-model="formData.street" type="text" placeholder="Av / Calle ">
+                            <input ng-model="formData.pCode" type="text" placeholder="Codigo Postal">
+                            
+                            <input ng-model="formData.cellPhone" type="text" placeholder="Telefono Celular">
+                            <input ng-model="formData.homePhone" type="text" placeholder="Telefono Residencial">
+                            <input ng-model="formData.workPhone" type="text" placeholder="Telefono Trabajo">
+                            <!-- 
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-3 saime-input">
+                                        <input ng-model="formData.pCode" type="text" placeholder="Código">
                                     </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" placeholder="Numero de Cedula">
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <button class="btn btn-saime-stand findbtn">Buscar</button>
+                                    <div class="col-sm-9 saime-input">
+                                        <input type="text" placeholder="Telefono Celular">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label  class="col-sm-2 control-label-2">Padre:</label>
-                                    <div class="col-sm-2">
-                                        <input type="text" class="" placeholder="V">
+                            </div> 
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-3 saime-input">
+                                        <input type="text"  placeholder="Código">
                                     </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" placeholder="Numero de Cedula">
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <button class="btn btn-saime-stand findbtn">Buscar</button>
+                                    <div class="col-sm-9 saime-input">
+                                        <input type="text" placeholder="Telefono Residencial">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label  class="col-sm-2 control-label-2 m-top-19">Representante Legal:</label>
-                                    <div class="col-sm-2">
-                                        <input type="text" class="" placeholder="V">
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-3 saime-input">
+                                        <input type="text"  placeholder="Código">
                                     </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" placeholder="Numero de Cedula">
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <button class="btn btn-saime-stand findbtn">Buscar</button>
+                                    <div class="col-sm-9 saime-input">
+                                        <input type="text" placeholder="Telefono Trabajo">
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+
+                        -->
+
                         </div>
-                        <br>
+                        <div class="text-center">
+                            <h3>CODIGO DE CONFIRMACION QUE APARECE ARRIBA</h3>
+                            <button ng-click="registrar()" type="button" class="btn btn-saime-stand saime-btn-send">Guardar Datos</button>
+                        </div>
+                         <br>   
                     </div>
-                    <div class="col-md-2"></div>
-                    
+                    <div class="col-md-3"></div>
                 </div>
-                <div class="text-center">
-                    <div   class="text-muted"><h4>Debe indicar al menos uno de los tres, Madre, Padre o Representante Legal</h4></div>
-                    <button ui-sref="saime.buscar_menor_ven_ubicacion_nc" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
-                </div>
+                <!-- Fin Parte 2 formulario -->
+
+
+                
           
-            </div>
+            </form>
+
         </div>
     </div>
 </div><br><br><br>

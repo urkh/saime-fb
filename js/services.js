@@ -50,4 +50,6 @@ angular.module('app.services', ['ngResource'])
 
 */
 
+//angular.module('myAppServices', ['ngResource']).
+
 
