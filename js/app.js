@@ -172,6 +172,10 @@ var app = angular.module('app', [
                 url: '/solicitud/ya_existe',
                 templateUrl: 'templates/solicitud_pasaporte_ya_existe.html'
             })
+            .state('saime.solicitud_ext_ya_existe', {
+                url: '/solicitud/extranjeros/ya_existe',
+                templateUrl: 'templates/solicitud_ext_pasaporte_ya_existe.html'
+            })
 
 
 
