@@ -156,6 +156,10 @@ var app = angular.module('app', [
                 url: '/registro/datos_personales',
                 templateUrl: 'templates/registro_datos_personales.html'
             })
+            .state('saime.registro_datos_personales_ubicacion', {
+                url: '/registro/datos_personales/ubicacion',
+                templateUrl: 'templates/registro_datos_personales_ubicacion.html'
+            })
 
 
 
