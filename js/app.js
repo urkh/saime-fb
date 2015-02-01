@@ -152,6 +152,10 @@ var app = angular.module('app', [
                 url: '/registro',
                 templateUrl: 'templates/registro.html'
             })
+            .state('saime.registro_exitoso', {
+                url: '/registro/exitoso',
+                templateUrl: 'templates/registro_exitoso.html'
+            })
 
     }
   ]
