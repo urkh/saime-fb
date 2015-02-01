@@ -49,15 +49,63 @@ angular.module('app.controllers', ['ngCookies'])
 
 
 
+.controller('SignInCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+
+      $scope.formData = {};
+
+      $scope.login = function() {
+
+          $http.post("api/api.php?opc=signin", $scope.formData)
+
+          .success(function(response) {
+            if(response.respuesta == 'aceptado'){
+              $state.go('saime.inicio');
+              
+            }else{
+              $scope.authError = response.error_description;
+            }
+              
+          })
+
+      }
+
+}])
+
+.controller('FormMenorVenNcCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
 
 
+      $scope.inputs_jq = function() {
+          $("input[type=text]").after("<div class='border-input'></div>");
+          $("input[type=email]").after("<div class='border-input'></div>");
+      };
+
+      $scope.inputs_jq();
 
 
+      $scope.continuar = function(){
+        $scope.step1 = "display:none;";
+        $scope.step2 = "display:block;";
+      }
 
-.controller('MainCtrl', ['$scope', 'UsersFactory', function ($scope, UsersFactory) {
-    UsersFactory.get({}, function (usersFactory) {
-        $scope.firstname = usersFactory.firstName;
-    })
+
+      $scope.formData = {};
+
+      $scope.registro = function() {
+
+          $http.post("api/api.php?opc=menorvennc", $scope.formData)
+
+          .success(function(response) {
+            if(response == 'aceptado'){
+              //$state.go('saime.inicio');
+              
+            }else{
+              $scope.authError = response.error_description;
+            }
+              
+          })
+
+      }
+
 }])
 
 
@@ -161,25 +209,7 @@ $scope.inputs_jq();
     ];
   }])
 
-  // signin controller
-  .controller('SigninFormController', ['$scope', '$http', '$state', function($scope, $http, $state) {
-    $scope.user = {};
-    $scope.authError = null;
-    $scope.login = function() {
-      $scope.authError = null;
-      // Try to login
-      $http.post('api/login', {email: $scope.user.email, password: $scope.user.password})
-      .then(function(response) {
-        if ( !response.data.user ) {
-          $scope.authError = 'Email or Password not right';
-        }else{
-          $state.go('saime.inicio');
-        }
-      }, function(x) {
-        $scope.authError = 'Server Error';
-      });
-    };
-  }])
+
 
   // signup controller
   .controller('SignupFormController', ['$scope', '$http', '$state', function($scope, $http, $state) {

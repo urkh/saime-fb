@@ -153,10 +153,14 @@ var app = angular.module('app', [
                 templateUrl: 'templates/registro.html'
             })
 
+            .state('saime.prueba', {
+                url: '/prueba',
+                templateUrl: 'templates/prueba.html'
+            })
+
     }
   ]
 )
-
 
 
 .constant('JQ_CONFIG', {
