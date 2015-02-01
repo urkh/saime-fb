@@ -164,6 +164,14 @@ var app = angular.module('app', [
                 url: '/registro/datos_personales/oficinas',
                 templateUrl: 'templates/registro_datos_personales_oficinas.html'
             })
+            .state('saime.registro_datos_personales_exitoso', {
+                url: '/registro/datos_personales/exitoso',
+                templateUrl: 'templates/registro_personales_exitoso.html'
+            })
+            .state('saime.solicitud_ya_existe', {
+                url: '/solicitud/ya_existe',
+                templateUrl: 'templates/solicitud_pasaporte_ya_existe.html'
+            })
 
 
 
