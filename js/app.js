@@ -136,18 +136,22 @@ var app = angular.module('app', [
                 url: '/login',
                 templateUrl: 'templates/login.html'
             })
+
             .state('saime.autenticacion', {
                 url: '/autenticacion',
                 templateUrl: 'templates/autenticacion.html'
             })
+
             .state('saime.olvido', {
                 url: '/resetear_contrasena',
                 templateUrl: 'templates/olvido_contrasena.html'
             })
+
             .state('saime.enviocontrasena', {
                 url: '/resetear_contrasena/contrasena_enviada',
                 templateUrl: 'templates/envio_contrasena.html'
             })
+            
             .state('saime.registro', {
                 url: '/registro',
                 templateUrl: 'templates/registro.html'
