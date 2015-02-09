@@ -9,6 +9,8 @@ var app = angular.module('app', [
     'ui.bootstrap',
     'ui.load',
     'ui.jq',
+    'ngSanitize',
+    'ui.select',
     'ui.validate',
     'app.filters',
     'app.services',
@@ -98,8 +100,8 @@ var app = angular.module('app', [
             })
 
             .state('saime.tramites', {
-                url: '/tramites',
-                templateUrl: 'templates/tramites.html'
+                url: '/estado_tramite',
+                templateUrl: 'templates/estado_tramite.html'
             })
 
             .state('saime.pasaporte_domicilio', {
@@ -136,18 +138,22 @@ var app = angular.module('app', [
                 url: '/login',
                 templateUrl: 'templates/login.html'
             })
+
             .state('saime.autenticacion', {
                 url: '/autenticacion',
                 templateUrl: 'templates/autenticacion.html'
             })
+
             .state('saime.olvido', {
                 url: '/resetear_contrasena',
                 templateUrl: 'templates/olvido_contrasena.html'
             })
+
             .state('saime.enviocontrasena', {
                 url: '/resetear_contrasena/contrasena_enviada',
                 templateUrl: 'templates/envio_contrasena.html'
             })
+            
             .state('saime.registro', {
                 url: '/registro',
                 templateUrl: 'templates/registro.html'

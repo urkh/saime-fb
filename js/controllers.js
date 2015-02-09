@@ -11,8 +11,8 @@ angular.module('app.controllers', ['ngCookies'])
 
       // config
       $scope.app = {
-        name: 'Angulr',
-        version: '1.1.3',
+        name: 'Saime - AngularJS',
+        version: '1',
         // for chart colors
         color: {
           primary: '#7266ba',
@@ -58,11 +58,11 @@ angular.module('app.controllers', ['ngCookies'])
           $http.post("api/api.php?opc=signin", $scope.formData)
 
           .success(function(response) {
-            if(response.respuesta == 'aceptado'){
+            if(response.status == 'granted'){
               $state.go('saime.inicio');
               
             }else{
-              $scope.authError = response.error_description;
+              $scope.authError = response.msg;
             }
               
           })
@@ -71,9 +71,163 @@ angular.module('app.controllers', ['ngCookies'])
 
 }])
 
-.controller('FormMenorVenNcCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
 
 
+
+.controller('InicioCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+
+      $scope.formData = {};
+
+
+}])
+
+
+.controller('EstadoTramiteCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+
+      $scope.formData = {};
+
+      $http.get("api/api.php?opc=get_estado_tramites")
+
+        .success(function(response) {       
+
+          if(response.transaction == ''){
+
+            $scope.estado = 'en_proceso';
+            $scope.procesos = response;
+            
+          }else{
+            $scope.mensaje = response.applicationMessage;
+            $scope.estado = 'sin_solicitud';
+          }
+          
+            
+        })
+
+
+}])
+
+
+
+.controller('FormMenorVenNcCtrl', ['$scope', '$http', '$state', '$timeout', function($scope, $http, $state, $timeout) {
+
+    $scope.formData = {};
+
+    /*
+    $http.get("api/api.php?opc=get_paises")
+    .success(function(response) { 
+      $scope.paises = response.countryList
+    })*/
+
+
+    $scope.buscar_madre = function(cedula) {
+
+      $http.post("api/api.php?opc=get_cedula", {letra: 'V', cedula: cedula})
+      .success(function(response) {
+          $scope.madre = [response.cedulado]; 
+        })
+    }
+
+    $scope.buscar_padre = function(cedula){
+      $http.post("api/api.php?opc=get_cedula", {letra: 'V', cedula: cedula})
+        .success(function(response) {
+          $scope.padre = [response.cedulado]; 
+        })
+    }
+
+    $scope.buscar_legal = function(cedula){
+      $http.post("api/api.php?opc=get_cedula", {letra: 'V', cedula: cedula})
+        .success(function(response) {
+          $scope.legal = [response.cedulado]; 
+        })
+    }
+
+
+    $scope.set_mid = function(item, model) {
+      $scope.formData.motherId = item.idpersona; 
+    }
+
+    $scope.set_pid = function(item, model) {
+      $scope.formData.fatherId = item.idpersona; 
+    }
+
+    $scope.set_lid = function(item, model) {
+      $scope.formData.legalId = item.idpersona; 
+    }
+
+
+    $scope.get_estados = function(){
+      $http.get("api/api.php?opc=get_estados")
+      .success(function(response) { 
+        $scope.estados = response.stateList
+      })
+    }
+
+    $scope.get_municipios = function(){
+      $http.get("api/api.php?opc=get_municipios")
+      .success(function(response) { 
+        $scope.municipios = response.townList
+      })
+    }
+
+    $scope.get_parroquias = function(){
+      $http.get("api/api.php?opc=get_parroquias")
+      .success(function(response) { 
+        $scope.parroquias = response.parishList
+      })
+    }
+
+
+    
+
+
+    $scope.continuar = function(){
+      $scope.step1 = "display:none;";
+      $scope.step2 = "display:block;";
+    }
+    
+
+    $scope.registro = function() {
+
+        console.log($scope.formData)
+
+        /*$http.post("api/api.php?opc=menorvennc", $scope.formData)
+
+        .success(function(response) {
+          if(response == 'aceptado'){
+            //$state.go('saime.inicio');
+            
+          }else{
+            $scope.authError = response.error_description;
+          }
+            
+        })*/
+
+    }
+
+
+
+
+
+    $scope.date_clear = function () {
+      $scope.dt = null;
+    };
+  
+    $scope.date_open = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+      $scope.opened = true;
+    };
+
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1,
+      class: 'datepicker'
+    };
+
+    $scope.format = 'dd/MM/yyyy';
+
+
+    /*
       $scope.inputs_jq = function() {
           $("input[type=text]").after("<div class='border-input'></div>");
           $("input[type=email]").after("<div class='border-input'></div>");
@@ -82,31 +236,14 @@ angular.module('app.controllers', ['ngCookies'])
       $scope.inputs_jq();
 
 
-      $scope.continuar = function(){
-        $scope.step1 = "display:none;";
-        $scope.step2 = "display:block;";
-      }
-
-
-      $scope.formData = {};
-
-      $scope.registro = function() {
-
-          $http.post("api/api.php?opc=menorvennc", $scope.formData)
-
-          .success(function(response) {
-            if(response == 'aceptado'){
-              //$state.go('saime.inicio');
-              
-            }else{
-              $scope.authError = response.error_description;
-            }
-              
-          })
-
-      }
+      */
 
 }])
+
+
+
+
+
 
 
 
