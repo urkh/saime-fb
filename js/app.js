@@ -9,6 +9,8 @@ var app = angular.module('app', [
     'ui.bootstrap',
     'ui.load',
     'ui.jq',
+    'ngSanitize',
+    'ui.select',
     'ui.validate',
     'app.filters',
     'app.services',
@@ -98,8 +100,8 @@ var app = angular.module('app', [
             })
 
             .state('saime.tramites', {
-                url: '/tramites',
-                templateUrl: 'templates/tramites.html'
+                url: '/estado_tramite',
+                templateUrl: 'templates/estado_tramite.html'
             })
 
             .state('saime.pasaporte_domicilio', {

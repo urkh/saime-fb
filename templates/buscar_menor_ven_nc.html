@@ -31,7 +31,9 @@
                                 <div class="col-md-6">
                                     <input type="text" placeholder="Primer nombre" ng-model="formData.name1">        
                                     <input type="text" placeholder="Primer apellido" ng-model="formData.lastName1">
-                                    <input type="text" placeholder="Fecha de Nacimiento" ng-model="formData.bDate">
+
+                                    <input placeholder="Fecha de Nacimiento" ng-model="formData.bDate" type="text" datepicker-popup="{{format}}" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" ng-click="date_open($event)" readOnly/>
+                                      
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" placeholder="Segundo nombre" ng-model="formData.name2">        
@@ -47,22 +49,31 @@
                         <div class="col-md-2"></div>
                         <div class="col-md-8">
                             <p><h3>Datos De Nacionalidad</h3></p>
-                            <select ng-model="formData.countryIni" placeholder="Pais de Nacimiento">
+
+                            <div ui-module="select2">
+                              <select ng-click="get_estados()" ng-model="formData.countryIni" ui-select2 class="form-control w-md" data-placeholder="Pais">
                                 <option></option>
-                                <option value="VEN">Venezuela</option>
-                                <option value="COL">Colombia</option>
-                            </select>
+                                <option  ng-repeat="pais in paises" value="{{pais.idpais}}">{{pais.descripcion}}</option>
+                              </select>
+                            </div>
                             <br>
-                            <select ng-model="formData.state" placeholder="Estado de Nacimiento">
-                                <option value="1">Aragua</option>
-                                <option value="2">Guarico</option>
-                            </select>
+
+                            <div ui-module="select2">
+                              <select ng-click="get_municipios()" ng-model="formData.state" ui-select2 class="form-control w-md" data-placeholder="Estado">
+                                <option></option>
+                                <option ng-repeat="estado in estados" value="{{estado.identidadfederal}}">{{estado.descripcion}}</option>
+                              </select>
+                            </div>
                             <br>
-                            <select ng-model="formData.city" placeholder="Ciudad">
-                                <option value="Maracay">Maracay</option>
-                                <option value="San Juan de los Morros">San Juan de los Morros</option>
-                            </select>
+
+                            <div ui-module="select2">
+                              <select ng-click="get_parroquias()" ng-model="formData.city" ui-select2 class="form-control w-md" data-placeholder="Municipio">
+                                <option></option>
+                                <option ng-repeat="municipio in municipios" value="{{municipio.idmunicipio}}">{{municipio.descripcion}}</option>
+                              </select>
+                            </div>
                             <br>
+                            
                         </div>
                         <div class="col-md-2"></div>
                     </div>
@@ -72,37 +83,61 @@
                         <div class="col-md-2"></div>
                         <div class="col-md-8">
                             <p><h3>Responsabilidad Legal</h3></p>
-                            <div class="row">
-                                
-                                    
-                                    <div class="form-group">
-                                        <label  class="col-sm-2 control-label-2">Madre:</label>
-                                        <div class="col-sm-2">
-                                            <input ng-model="formSearch" type="text" class="" placeholder="V">
-                                        </div>
 
-                                        <div class="col-sm-6">
-                                            <input ng-model="formSearch" type="text" placeholder="Numero de Cedula">
-                                            <input ng-model="formData.motherId" type="hidden">
-                                        </div>
+                            <div class="form-group">
+
+                                                                            
+                                           
+
+                                
+
+                                
+                                    <form action="">
+                                        <div class="form-group">
+
+
+                                            <label  class="col-sm-2 control-label-2">Madre:</label>
+
+                                            <div class="col-sm-2">
+                                                <input ng-model="formSearchm.letra" type="text" class="" placeholder="V">
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <ui-select on-select="set_mid($item, $model)" ng-model="formSearch.motherId" style="width: 100%;" title="Madre">
                                         
-                                        <div class="col-sm-2">
-                                            <button class="btn btn-saime-stand findbtn">Buscar</button>
+                                                    <ui-select-match placeholder="Escriba el numero de cedula...">
+                                                    {{$select.selected.numerocedula}} - {{$select.selected.primernombre}} {{$select.selected.primerapellido}}
+                                                    </ui-select-match>
+                                                
+                                                    <ui-select-choices repeat="mad in madre" refresh="buscar_madre($select.search)">
+                                                    <span ng-bind-html="mad.numerocedula | highlight: $select.search"></span>
+                                                    <small ng-bind-html="mad.primernombre | highlight: $select.search"></small>
+                                                    <small ng-bind-html="mad.primerapellido | highlight: $select.search"></small>
+                                                        
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                                <input ng-model="formData.motherId" type="hidden" >
+                                            </div>
+                                            
+                                            <div class="col-sm-2">
+                                                <button ng-click="buscar_madre()" class="btn btn-saime-stand findbtn">Buscar</button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
+                                    
 
 
                                     <div class="form-group">
                                         <label  class="col-sm-2 control-label-2">Padre:</label>
                                         <div class="col-sm-2">
-                                            <input ng-model="formSearch" type="text" class="" placeholder="V">
+                                            <input ng-model="formSearchp.letra" type="text" class="" placeholder="V">
                                         </div>
                                         <div class="col-sm-6">
-                                            <input ng-model="formSearch" type="text" placeholder="Numero de Cedula">
+                                            <input ng-model="formSearchp.cedula" type="text" placeholder="Numero de Cedula">
                                             <input ng-model="formData.fatherId" type="hidden">
                                         </div>
                                         <div class="col-sm-2">
-                                            <button class="btn btn-saime-stand findbtn">Buscar</button>
+                                            <button ng-click="buscar_padre()" class="btn btn-saime-stand findbtn">Buscar</button>
                                         </div>
                                     </div>
 
@@ -110,21 +145,23 @@
                                     <div class="form-group">
                                         <label  class="col-sm-2 control-label-2 m-top-19">Representante Legal:</label>
                                         <div class="col-sm-2">
-                                            <input ng-model="formSearch" type="text" class="" placeholder="V">
+                                            <input ng-model="formSearchl.letra" type="text" class="" placeholder="V">
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <input ng-model="formSearch" type="text" placeholder="Numero de Cedula">
+                                            <input ng-model="formSearchl.cedula" type="text" placeholder="Numero de Cedula">
                                             <input ng-model="formData.legalId" type="hidden">
                                         </div>
 
                                         <div class="col-sm-2">
-                                            <button class="btn btn-saime-stand findbtn">Buscar</button>
+                                            <button ng-click="buscar_otro()" class="btn btn-saime-stand findbtn">Buscar</button>
                                         </div>
 
                                     </div>
                                 
                             </div>
+
+
                             <br>
                         </div>
                         <div class="col-md-2"></div>
@@ -148,22 +185,35 @@
                         <p><h3>Dirección Actual</h3></p>
                         <div class="row">
 
-                            <br>
-                            <select ng-model="formData.currentState" placeholder="Estado">
-                                <option value="1">Aragua</option>
-                                <option value="2">Guarico</option>
-                            </select>
-                            <br>
-                            <select ng-model="formData.currentCity" placeholder="Ciudad">
-                                <option value="Maracay">Maracay</option>
-                                <option value="San Juan de los Morros">San Juan de los Morros</option>
-                            </select>
 
-                            <select ng-model="formData.currentParish" placeholder="Parroquia">
-                                <option value="1">Ju</option>
-                                <option value="2">San Juan de los Morros</option>
-                            </select>
-                            
+
+
+                            <div ui-module="select2">
+                              <select ng-model="formData.currentState" ui-select2 class="form-control w-md" data-placeholder="Estado">
+                                <option></option>
+                                <option ng-repeat="estado in estados" value="{{estado.identidadfederal}}">{{estado.descripcion}}</option>
+                              </select>
+                            </div>
+                            <br>
+
+                            <div ui-module="select2">
+                              <select ng-model="formData.currentCity" ui-select2 class="form-control w-md" data-placeholder="Municipio">
+                                <option></option>
+                                <option ng-repeat="municipio in municipios" value="{{municipio.idmunicipio}}">{{municipio.descripcion}}</option>
+                              </select>
+                            </div>
+                            <br>
+
+
+                            <div ui-module="select2">
+                              <select ng-model="formData.currentParish" ui-select2 class="form-control w-md" data-placeholder="Parroquia">
+                                <option></option>
+                                <option ng-repeat="parroquia in parroquias" value="{{parroquia.idparroquia}}">{{parroquia.descripcion}}</option>
+                              </select>
+                            </div>
+                            <br>
+
+                                                      
                             
                             <input ng-model="formData.urbanization" type="text" placeholder="Urbanizacion">
                             <input ng-model="formData.noApto" type="text" placeholder="Nro Casa / Apto">        
@@ -211,7 +261,7 @@
                         </div>
                         <div class="text-center">
                             <h3>CODIGO DE CONFIRMACION QUE APARECE ARRIBA</h3>
-                            <button ng-click="registrar()" type="button" class="btn btn-saime-stand saime-btn-send">Guardar Datos</button>
+                            <button ng-click="registro()" type="button" class="btn btn-saime-stand saime-btn-send">Guardar Datos</button>
                         </div>
                          <br>   
                     </div>

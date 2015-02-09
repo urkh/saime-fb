@@ -11,7 +11,12 @@
   <link rel="stylesheet" href="css/simple-line-icons.css" type="text/css" />
   <link rel="stylesheet" href="css/font.css" type="text/css" />
   <link rel="stylesheet" href="css/app.css" type="text/css" />
-</head>
+  
+  <link rel="stylesheet" href="js/modules/select2/select.css">
+
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
+
+ </head>
 <body ng-controller="AppCtrl">
   <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded}" ui-view>
     
@@ -20,6 +25,7 @@
   <script src="js/jquery/jquery.min.js"></script>
   
   <script src="js/angular/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.js"></script>
   <script src="js/angular/angular-cookies.min.js"></script>
   <script src="js/angular/angular-animate.min.js"></script>
   <script src="js/angular/angular-ui-router.min.js"></script>
@@ -38,6 +44,7 @@
   <script src="js/controllers.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/directives.js"></script>
+  <script src="js/modules/select2/select.js"></script>
   
   <!--
   <script>

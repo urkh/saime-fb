@@ -3,7 +3,7 @@ include('Requests-1.6.0/library/Requests.php');
 
 Requests::register_autoloader();
 
-$HOST = "http://www.predimania.com:8080";
+$host = "http://www.predimania.com:8080";
 
 $data = json_decode(file_get_contents("php://input"));
 $data =  (array) $data;
@@ -12,11 +12,11 @@ extract($data);
 
 switch ($_GET['opc']) {
     case "signin":
-        get_login($username, $password);
+        get_login($username, $password, $host);
         break;
 
     case "get_perfil":
-        get_bearer_auth($URI="/saime-ws/v1.0/me");
+        get_bearer_auth($host, $uri="/saime-ws/v1.0/me");
         break;
 
     case "reg_usuario":
@@ -64,27 +64,27 @@ switch ($_GET['opc']) {
 
 
     case "get_paises":
-        get_bearer_auth($URI="/saime-ws/v1.0/common/countryList", $data);
+        get_bearer_auth($host, $uri="/saime-ws/v1.0/common/countryList");
         break;
 
 
     case "get_estados":
-        get_bearer_auth($URI="/saime-ws/v1.0/common/stateList");
+        get_bearer_auth($host, $uri="/saime-ws/v1.0/common/stateList");
         break;
 
 
     case "get_municipios":
-        get_bearer_auth($URI="/saime-ws/v1.0/common/townList");
+        get_bearer_auth($host, $uri="/saime-ws/v1.0/common/townList");
         break;
 
 
     case "get_parroquias":
-        get_bearer_auth($URI="/saime-ws/v1.0/common/parishList");
+        get_bearer_auth($host, $uri="/saime-ws/v1.0/common/parishList");
         break;
 
 
     case "get_oficinas":
-        get_bearer_auth($URI="/saime-ws/v1.0/common/officeList");
+        get_bearer_auth($host, $uri="/saime-ws/v1.0/common/officeList");
         break;
 
 
@@ -99,7 +99,7 @@ switch ($_GET['opc']) {
 
 
 	case "get_cedula":
-        post_bearer_auth($URI="/saime-ws/v1.0/cedulado", $data_string);
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/cedulado", $data);
         break;
 
 
@@ -109,7 +109,7 @@ switch ($_GET['opc']) {
 
 
     case "get_estado_tramites":
-        get_bearer_auth($URI="/saime-ws/v1.0/transaction/list");
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/transaction/list", $data);
         break;
 
 
@@ -158,51 +158,69 @@ function gen_crc($data){
 
 
 // Login
-function get_login($username, $password){
+function get_login($username, $password, $host){
 
-	$URI = "/saime-ws/oauth/token?grant_type=password&username=$username&password=$password";
+	$uri = "/saime-ws/oauth/token?grant_type=password&username=$username&password=$password";
 	$headers = array('Content-Type' => 'application/json', 'Authorization' => 'Basic MzUzYjMwMmM0NDU3NGY1NjUwNDU2ODdlNTM0ZTdkNmE6Mjg2OTI0Njk3ZTYxNWE2NzJhNjQ2YTQ5MzU0NTY0NmM=');
-	$response = Requests::post($HOST+$URI, $headers);
+	$response = Requests::post($host.$uri, $headers);
+    $json = json_decode($response->body, true);
+
+    //echo $response->body;
+    
+    
+    if ($json['token_type'] == 'bearer') {
+        
+        setcookie("access_token", $json['access_token']); 
+        $headers = array('Content-Type' => 'application/json', 'Authorization' => 'Bearer '.$json['access_token']);
+        $response = Requests::get($host."/saime-ws/v1.0/me", $headers);
+        $json = json_decode($response->body, true);
+
+        echo '{"status":"granted", "msg":"Bienvenido, '.$json['firstName'].' '.$json['lastName'].'"}';
+        
+    }else{
+        echo '{"status":"denied", "msg":"Usuario o Contrasena incorrecta"}';
+    }
+
+    
+
+}
+
+
+function get_bearer_auth($host, $uri){
+
+	$headers = array('Content-Type' => 'application/json', 'Authorization' => 'Bearer '.$_COOKIE['access_token']);
+	$response = Requests::get($host.$uri, $headers);
 	echo $response->body;
 
 }
 
 
-function get_bearer_auth($URI){
-
-	$headers = array('Content-Type' => 'application/json', 'Authorization' => 'Bearer <access_token>');
-	$response = Requests::get($HOST.$URI, $headers);
-	var_dump($response->body);
-
-}
-
-
-function post_bearer_auth($URI, $datos){
+function post_bearer_auth($host, $uri, $datos){
 	
-	$headers = array('Content-Type' => 'application/json', 'Authorization' => 'Bearer <access_token>');
+	$headers = array('Content-Type' => 'application/json', 'Authorization' => 'Bearer '.$_COOKIE['access_token']);
 	$data = array('data' => parser_datos($datos), 'crc'=> gen_crc(parser_datos($datos)));
-	$response = Requests::post($HOST.$URI, $headers, json_encode($data));
-	var_dump($response->body);
+	$response = Requests::post($host.$uri, $headers, json_encode($data));
+	echo $response->body;
 
 }
 
 
 
-function get_basic_auth($URI, $datos){
+function get_basic_auth($host, $uri, $datos){
 
 	$headers = array('Content-Type' => 'application/json', 'Authorization' => 'Basic MzUzYjMwMmM0NDU3NGY1NjUwNDU2ODdlNTM0ZTdkNmE6Mjg2OTI0Njk3ZTYxNWE2NzJhNjQ2YTQ5MzU0NTY0NmM=');
-	$response = Requests::get($HOST.$URI, $headers);
-	var_dump($response->body);
+	$response = Requests::get($host.$uri, $headers);
+	echo $response->body;
 
 }
 
 
 
-function post_basic_auth($URI, $datos){
+function post_basic_auth($host, $uri, $datos){
 
 	$headers = array('Content-Type' => 'application/json', 'Authorization' => 'Basic MzUzYjMwMmM0NDU3NGY1NjUwNDU2ODdlNTM0ZTdkNmE6Mjg2OTI0Njk3ZTYxNWE2NzJhNjQ2YTQ5MzU0NTY0NmM=');
 	$data = array('data'=> parser_datos($datos), 'crc'=> gen_crc(parser_datos($datos)));
-	$response = Requests::post($HOST.$URI, $headers, json_encode($data));
+	$response = Requests::post($host.$uri, $headers, json_encode($data));
 	var_dump($response->body);
 
 }
