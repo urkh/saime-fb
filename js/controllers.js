@@ -127,12 +127,31 @@ angular.module('app.controllers', ['ngCookies'])
         })
     }
 
+    $scope.buscar_padre = function(cedula){
+      $http.post("api/api.php?opc=get_cedula", {letra: 'V', cedula: cedula})
+        .success(function(response) {
+          $scope.padre = [response.cedulado]; 
+        })
+    }
+
+    $scope.buscar_legal = function(cedula){
+      $http.post("api/api.php?opc=get_cedula", {letra: 'V', cedula: cedula})
+        .success(function(response) {
+          $scope.legal = [response.cedulado]; 
+        })
+    }
+
 
     $scope.set_mid = function(item, model) {
-
-      console.log(item.idpersona)
       $scope.formData.motherId = item.idpersona; 
-      
+    }
+
+    $scope.set_pid = function(item, model) {
+      $scope.formData.fatherId = item.idpersona; 
+    }
+
+    $scope.set_lid = function(item, model) {
+      $scope.formData.legalId = item.idpersona; 
     }
 
 
@@ -158,20 +177,7 @@ angular.module('app.controllers', ['ngCookies'])
     }
 
 
-    $scope.buscar_padre = function(){
-      $http.post("api/api.php?opc=get_cedula", $scope.formSearchp)
-        .success(function(response) {
-          $scope.formData.fatherId = response.cedulado.idpersona; 
-        })
-      
-    }
-
-    $scope.buscar_otro = function(){
-      $http.post("api/api.php?opc=get_cedula", $scope.formSearchl)
-        .success(function(response) {
-          $scope.formData.legalId = response.cedulado.idpersona; 
-        })
-    }
+    
 
 
     $scope.continuar = function(){

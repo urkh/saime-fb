@@ -133,7 +133,19 @@
                                             <input ng-model="formSearchp.letra" type="text" class="" placeholder="V">
                                         </div>
                                         <div class="col-sm-6">
-                                            <input ng-model="formSearchp.cedula" type="text" placeholder="Numero de Cedula">
+                                            <ui-select on-select="set_pid($item, $model)" ng-model="formSearch.fatherId" style="width: 100%;" title="Madre">
+                                        
+                                                <ui-select-match placeholder="Escriba el numero de cedula...">
+                                                {{$select.selected.numerocedula}} - {{$select.selected.primernombre}} {{$select.selected.primerapellido}}
+                                                </ui-select-match>
+                                            
+                                                <ui-select-choices repeat="mad in madre" refresh="buscar_padre($select.search)">
+                                                <span ng-bind-html="pad.numerocedula | highlight: $select.search"></span>
+                                                <small ng-bind-html="pad.primernombre | highlight: $select.search"></small>
+                                                <small ng-bind-html="pad.primerapellido | highlight: $select.search"></small>
+                                                    
+                                                </ui-select-choices>
+                                            </ui-select>
                                             <input ng-model="formData.fatherId" type="hidden">
                                         </div>
                                         <div class="col-sm-2">
