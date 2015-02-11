@@ -12,28 +12,7 @@ angular.module('app.controllers', ['ngCookies'])
       // config
       $scope.app = {
         name: 'Saime - AngularJS',
-        version: '1',
-        // for chart colors
-        color: {
-          primary: '#7266ba',
-          info:    '#23b7e5',
-          success: '#27c24c',
-          warning: '#fad733',
-          danger:  '#f05050',
-          light:   '#e8eff0',
-          dark:    '#3a3f51',
-          black:   '#1c2b36'
-        },
-
-        settings: {
-          themeID: 1,
-          navbarHeaderColor: 'bg-black',
-          navbarCollapseColor: 'bg-white-only',
-          asideColor: 'bg-black',
-          headerFixed: false,
-          asideFixed: true,
-          asideFolded: true
-        }
+        version: '1.0',
       }
 
       // save settings to local storage
@@ -127,7 +106,6 @@ angular.module('app.controllers', ['ngCookies'])
 
 
     $scope.buscar_madre = function(cedula) {
-
       $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letram, cedula: cedula})
       .success(function(response) {
           $scope.madre = [response.cedulado]; 
@@ -171,15 +149,15 @@ angular.module('app.controllers', ['ngCookies'])
     }
 
 
-    
-        
-    
-
-
 
     $scope.continuar = function(){
       $scope.step1 = "display:none;";
       $scope.step2 = "display:block;";
+    }
+
+    $scope.atras = function(){
+      $scope.step2 = "display:none;";
+      $scope.step1 = "display:block;";
     }
     
 
@@ -187,7 +165,7 @@ angular.module('app.controllers', ['ngCookies'])
 
         console.log($scope.formData)
 
-        /*$http.post("api/api.php?opc=menorvennc", $scope.formData)
+        $http.post("api/api.php?opc=sol_ven_menor", $scope.formData)
 
         .success(function(response) {
           if(response == 'aceptado'){
@@ -197,7 +175,7 @@ angular.module('app.controllers', ['ngCookies'])
             $scope.authError = response.error_description;
           }
             
-        })*/
+        })
 
     }
 
