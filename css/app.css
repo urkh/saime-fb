@@ -591,7 +591,8 @@ body {
   vertical-align: top;
   height: 100%;
   float: none;
-  background-image:url(../img/fondo2.png);
+  background-color: black;
+  
 }
 .v-middle {
   vertical-align: middle !important;
