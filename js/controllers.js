@@ -112,11 +112,11 @@ angular.module('app.controllers', ['ngCookies'])
 
     $scope.formData = {};
 
-    /*
+    
     $http.get("api/api.php?opc=get_paises")
     .success(function(response) { 
       $scope.paises = response.countryList
-    })*/
+    })
 
 
     $scope.buscar_madre = function(cedula) {
@@ -227,7 +227,7 @@ angular.module('app.controllers', ['ngCookies'])
     $scope.format = 'dd/MM/yyyy';
 
 
-    /*
+
       $scope.inputs_jq = function() {
           $("input[type=text]").after("<div class='border-input'></div>");
           $("input[type=email]").after("<div class='border-input'></div>");
@@ -236,7 +236,6 @@ angular.module('app.controllers', ['ngCookies'])
       $scope.inputs_jq();
 
 
-      */
 
 }])
 
