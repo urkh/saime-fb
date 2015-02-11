@@ -503,7 +503,7 @@ pre {
 html,
 body {
   /*width: 750px;*/
-  width: 950px;
+  width: 750px;
   height: 100%;
 }
 body {
@@ -698,7 +698,7 @@ body {
   }
   .app-content,
   .app-footer {
-    margin-left: 200px;
+    /*margin-left: 200px;*/
   }
   .app-aside-right {
     position: absolute;
