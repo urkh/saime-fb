@@ -110,7 +110,14 @@ angular.module('app.controllers', ['ngCookies'])
 
 .controller('FormMenorVenNcCtrl', ['$scope', '$http', '$state', '$timeout', function($scope, $http, $state, $timeout) {
 
+    $scope.letras = [
+      { id: 'V', letra: 'V'},
+      { id: 'E', letra: 'E'}
+    ];
+
+
     $scope.formData = {};
+    $scope.formSearch = {};
 
     
     $http.get("api/api.php?opc=get_paises")
@@ -121,37 +128,24 @@ angular.module('app.controllers', ['ngCookies'])
 
     $scope.buscar_madre = function(cedula) {
 
-      $http.post("api/api.php?opc=get_cedula", {letra: 'V', cedula: cedula})
+      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letram, cedula: cedula})
       .success(function(response) {
           $scope.madre = [response.cedulado]; 
         })
     }
 
     $scope.buscar_padre = function(cedula){
-      $http.post("api/api.php?opc=get_cedula", {letra: 'V', cedula: cedula})
+      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letrap, cedula: cedula})
         .success(function(response) {
           $scope.padre = [response.cedulado]; 
         })
     }
 
     $scope.buscar_legal = function(cedula){
-      $http.post("api/api.php?opc=get_cedula", {letra: 'V', cedula: cedula})
+      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letral, cedula: cedula})
         .success(function(response) {
           $scope.legal = [response.cedulado]; 
         })
-    }
-
-
-    $scope.set_mid = function(item, model) {
-      $scope.formData.motherId = item.idpersona; 
-    }
-
-    $scope.set_pid = function(item, model) {
-      $scope.formData.fatherId = item.idpersona; 
-    }
-
-    $scope.set_lid = function(item, model) {
-      $scope.formData.legalId = item.idpersona; 
     }
 
 
@@ -178,6 +172,9 @@ angular.module('app.controllers', ['ngCookies'])
 
 
     
+        
+    
+
 
 
     $scope.continuar = function(){
@@ -228,12 +225,7 @@ angular.module('app.controllers', ['ngCookies'])
 
 
 
-      $scope.inputs_jq = function() {
-          $("input[type=text]").after("<div class='border-input'></div>");
-          $("input[type=email]").after("<div class='border-input'></div>");
-      };
-
-      $scope.inputs_jq();
+    
 
 
 

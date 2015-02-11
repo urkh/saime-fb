@@ -14,7 +14,7 @@
   
   <link rel="stylesheet" href="js/modules/select2/select.css">
 
-  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
+  <link rel="stylesheet" href="css/selectize.default.css">
 
   <style>
 
@@ -38,7 +38,7 @@
   <script src="js/jquery/jquery.min.js"></script>
   
   <script src="js/angular/angular.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.js"></script>
+  <script src="js/angular/angular-sanitize.min.js"></script>
   <script src="js/angular/angular-cookies.min.js"></script>
   <script src="js/angular/angular-animate.min.js"></script>
   <script src="js/angular/angular-ui-router.min.js"></script>
@@ -66,6 +66,37 @@
     });
   </script>
   -->
+
+<script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
+<script>
+        window.fbAsyncInit = function() {
+                FB.Canvas.setAutoResize();
+        };
+        (function() {
+                /*var e = document.createElement('script'); e.async = true;
+                e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+                document.getElementById('fb-root').appendChild(e);*/
+FB.Canvas.setAutoGrow(true);
+FB.Canvas.setAutoGrow(false);
+        }());
+        FB.init({
+            appId  : '1540942286154750',
+            frictionlessRequests: true
+        });
+    FB.Canvas.setAutoGrow(true);
+        FB.Array.forEach([300, 600, 1000, 2000], function(delay) {
+        setTimeout(function() {
+            FB.XFBML.parse();
+      
+            FB.Canvas.setSize();
+FB.Canvas.setAutoGrow(91); // Paul's favourite number
+        }, delay)
+        });
+
+
+</script>
+
+
 
 </body>
 </html>
