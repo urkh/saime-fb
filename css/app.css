@@ -8,6 +8,7 @@ body {
   /*background-color: transparent;*/
   -webkit-font-smoothing: antialiased;
   line-height: 1.42857143;
+  background-color: rgb(244,244,244);
 }
 *:focus {
   outline: 0 !important;
@@ -502,8 +503,8 @@ pre {
 html,
 body {
   /*width: 750px;*/
-  width: 750px;
-  /*height: 100%;*/
+  width: 950px;
+  height: 100%;
 }
 body {
   overflow-x: hidden;
