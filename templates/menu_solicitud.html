@@ -13,11 +13,15 @@
         <div class="wrapper-md" ng-controller="FormDemoCtrl">
             <div class="panel hbox hbox-auto-xs no-border">
                 <div class="row">
-                    <div class="col-md-3"></div>
+                    <div class="col-md-3">
+                        <button ui-sref="saime.inicio" type="button" class="btn btn-saime-stand">
+                            <span class="fa fa-chevron-left fa-lg"></span>
+                        </button>
+                    </div>
                     <div class="col-md-6 col-center">
                         <div class="btn-group-vertical saime-menu" role="group" aria-label="Vertical button group">
-                            <button ui-sref="saime.solicitud_ven" type="button" class="btn btn-default saime-btn-yellow">Solicitud de Pasaporte en Venezuela</button>
-                            <button ui-sref="saime.solicitud_ext" type="button" class="btn btn-default saime-btn-blue">Solicitud de Pasaporte en el Extranjero</button>
+                            <button ui-sref="saime.menu_solicitud_ven" type="button" class="btn btn-default saime-btn-yellow">Solicitud de Pasaporte en Venezuela</button>
+                            <button ui-sref="saime.menu_solicitud_ext" type="button" class="btn btn-default saime-btn-blue">Solicitud de Pasaporte en el Extranjero</button>
                         </div>
                     </div>
                     <div class="col-md-3"></div>

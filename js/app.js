@@ -12,9 +12,7 @@ var app = angular.module('app', [
     'ngSanitize',
     'ui.select',
     'ui.validate',
-    'app.filters',
-    'app.services',
-    'app.directives',
+
     'app.controllers'
   ])
 .run(
@@ -31,10 +29,10 @@ var app = angular.module('app', [
         
         // lazy controller, directive and service
         app.controller = $controllerProvider.register;
-        app.directive  = $compileProvider.directive;
-        app.filter     = $filterProvider.register;
-        app.factory    = $provide.factory;
-        app.service    = $provide.service;
+        //app.directive  = $compileProvider.directive;
+        //app.filter     = $filterProvider.register;
+        //app.factory    = $provide.factory;
+        //app.service    = $provide.service;
         app.constant   = $provide.constant;
         app.value      = $provide.value;
 
@@ -51,53 +49,75 @@ var app = angular.module('app', [
                 templateUrl: 'templates/inicio.html'
             })
 
-            .state('saime.solicitud', {
+            .state('saime.menu_solicitud', {
                 url: '/solicitud',
-                templateUrl: 'templates/solicitud.html'
+                templateUrl: 'templates/menu_solicitud.html'
             })
 
-            .state('saime.solicitud_ven', {
+
+
+            /* personas en venezuela */
+            .state('saime.menu_solicitud_ven', {
                 url: '/solicitud/venezolanos',
-                templateUrl: 'templates/solicitud_ven.html'
+                templateUrl: 'templates/menu_solicitud_ven.html'
             })
 
-
-            .state('saime.solicitud_ext', {
-                url: '/solicitud/extranjeros',
-                templateUrl: 'templates/solicitud_ext.html'
-            })
-
-
-            .state('saime.solicitudes_menores', {
+            .state('saime.menu_solicitudes_menores_ven', {
                 url: '/solicitudes/menores',
-                templateUrl: 'templates/solicitudes_menores.html'
+                templateUrl: 'templates/menu_solicitudes_menores_ven.html'
             })
-
 
             .state('saime.buscar_menor_ven', {
                 url: '/buscar/menor/venezolano',
                 templateUrl: 'templates/buscar_menor_ven.html'
             })
 
+            .state('saime.registro_menor_ven_nc', {
+                url: '/registro/menor_nc/venezolano',
+                templateUrl: 'templates/registro_menor_ven_nc.html'
+            })
+
+
+
+
+
+            /* personas en el exterior */
+            .state('saime.menu_solicitud_ext', {
+                url: '/solicitud/extranjeros',
+                templateUrl: 'templates/menu_solicitud_ext.html'
+            })
+
+            .state('saime.menu_solicitudes_menores_ext', {
+                url: '/solicitudes/menores',
+                templateUrl: 'templates/menu_solicitudes_menores_ext.html'
+            })
+
+
             .state('saime.buscar_menor_ext', {
                 url: '/buscar/menor/extranjero',
                 templateUrl: 'templates/buscar_menor_ext.html'
             })
 
-            .state('saime.buscar_menor_ven_nc', {
-                url: '/buscar/menor_nc/venezolano',
-                templateUrl: 'templates/buscar_menor_ven_nc.html'
+
+            .state('saime.registro_menor_ext_nc', {
+                url: '/buscar/menor_nc/extranjero',
+                templateUrl: 'templates/registro_menor_ext_nc.html'
             })
+
+
+
+
+
+            
 
             .state('saime.buscar_menor_ven_ubicacion_nc', {
                 url: '/buscar/menor_nc/venezolano/ubicacion',
                 templateUrl: 'templates/buscar_menor_ven_ubicacion_nc.html'
             })
 
-            .state('saime.buscar_menor_ext_nc', {
-                url: '/buscar/menor_nc/extranjero',
-                templateUrl: 'templates/buscar_menor_ext_nc.html'
-            })
+
+
+            
 
             .state('saime.tramites', {
                 url: '/estado_tramite',
@@ -162,32 +182,30 @@ var app = angular.module('app', [
                 url: '/registro/datos_personales',
                 templateUrl: 'templates/registro_datos_personales.html'
             })
+
             .state('saime.registro_datos_personales_ubicacion', {
                 url: '/registro/datos_personales/ubicacion',
                 templateUrl: 'templates/registro_datos_personales_ubicacion.html'
             })
+
             .state('saime.registro_datos_personales_oficinas', {
                 url: '/registro/datos_personales/oficinas',
                 templateUrl: 'templates/registro_datos_personales_oficinas.html'
             })
+
             .state('saime.registro_datos_personales_exitoso', {
                 url: '/registro/datos_personales/exitoso',
                 templateUrl: 'templates/registro_personales_exitoso.html'
             })
+
             .state('saime.solicitud_ya_existe', {
                 url: '/solicitud/ya_existe',
                 templateUrl: 'templates/solicitud_pasaporte_ya_existe.html'
             })
+
             .state('saime.solicitud_ext_ya_existe', {
                 url: '/solicitud/extranjeros/ya_existe',
                 templateUrl: 'templates/solicitud_ext_pasaporte_ya_existe.html'
-            })
-
-
-
-            .state('saime.prueba', {
-                url: '/prueba',
-                templateUrl: 'templates/prueba.html'
             })
 
     }

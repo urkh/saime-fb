@@ -28,15 +28,17 @@ switch ($_GET['opc']) {
         break;
 
     case "sol_ven_menor":
-        post_bearer_auth($URI="/saime-ws/v1.0/passport/saveDataMinor", $data);
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/passport/saveDataMinor", $data);
         break;
+
 
     case "sol_ext_mayor":
-        post_bearer_auth($URI="/saime-ws/v1.0/passport/saveDataConsularPersonal", $data);
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/passport/saveDataConsularPersonal", $data);
         break;
 
+
     case "sol_ext_menor":
-        post_bearer_auth($URI="/saime-ws/v1.0/passport/saveDataConsularMinor", $data);
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/passport/saveDataConsularMinor", $data);
         break;
 
     case "validar_cita":
