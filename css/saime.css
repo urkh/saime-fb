@@ -19,10 +19,10 @@ input[type=radio] {
   height: 2em;
 }
 
-::-webkit-input-placeholder { font-size: 17pt; text-align: center; }
-::-moz-placeholder { font-size: 17pt; text-align: center; } /* firefox 19+ */
-:-ms-input-placeholder { font-size: 17pt; text-align: center; } /* ie */
-input:-moz-placeholder { font-size: 17pt; text-align: center; }
+::-webkit-input-placeholder { font-size: 17pt; }
+::-moz-placeholder { font-size: 17pt; } /* firefox 19+ */
+:-ms-input-placeholder { font-size: 17pt; } /* ie */
+input:-moz-placeholder { font-size: 17pt; }
 
 a{
   color: blue !important;
