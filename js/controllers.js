@@ -87,7 +87,33 @@ angular.module('app.controllers', ['ngCookies'])
 
 
 
-.controller('FormMenorVenNcCtrl', ['$scope', '$http', '$state', '$timeout', function($scope, $http, $state, $timeout) {
+
+.controller('FormBuscarMenorVenCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+
+      $scope.formData = {};
+      $scope.formSearch = {};
+
+      $scope.letras = [
+        { id: 'V', letra: 'V'},
+        { id: 'E', letra: 'E'}
+      ];
+
+      $scope.buscar_menor_cedulado = function(cedula) {
+      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letram, cedula: cedula})
+      .success(function(response) {
+          $scope.menor = [response.cedulado]; 
+        })
+    }
+
+
+
+}])
+
+
+
+
+
+.controller('FormRegistroMenorVenNcCtrl', ['$scope', '$http', '$state', '$timeout', function($scope, $http, $state, $timeout) {
 
     $scope.letras = [
       { id: 'V', letra: 'V'},

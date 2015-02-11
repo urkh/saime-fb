@@ -17,37 +17,69 @@
             </div>
           </div>
         </div>
-        <div class="wrapper-md" ng-controller="FormDemoCtrl">
+        <div class="wrapper-md" ng-controller="FormBuscarMenorVenCtrl">
+
+            <form action="" class="form-horizontal">
                 <div class="row">
-                    <div class="col-md-2"></div>
+                    
+
+                    <div class="col-md-2">
+                        <button ui-sref="saime.menu_solicitudes_menores_ven" type="button" class="btn btn-saime-stand">
+                            <span class="fa fa-chevron-left fa-lg"></span>
+                        </button>
+                    </div>
+
+
                     <div class="col-md-8">
                         <div class="row">
-                            <form action="" class="form-horizontal">
+                            
                                 <div class="form-group">
                                     <label  class="col-sm-2 control-label-2"></label>
-                                    <div class="col-sm-2 saime-input">
-                                        <input type="text"  placeholder="                    V">
+
+
+                                    <div class="col-sm-2">                                      
+
+                                        <ui-select ng-model="formSearch.letram" ng-disabled="disabled" style="width: 100%;" title="Letra">
+                                            <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
+                                            <ui-select-choices repeat="letra.id as letra in letras">
+                                              <span ng-bind-html="letra.letra"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+
                                     </div>
-                                    <div class="col-sm-6 saime-input">
-                                        <input type="text" placeholder="Numero de Cedulad del Menor">
-                                    </div>
-                                    <div class="col-sm-2">
+
+                                    <div class="col-sm-7">
                                         
+                                        <ui-select ng-model="formData.motherId" style="width: 100%;" >
+                                            <ui-select-match placeholder="Escriba el numero de cedula...">
+                                                {{$select.selected.numerocedula}} - {{$select.selected.primernombre}} {{$select.selected.primerapellido}}
+                                            </ui-select-match>
+                                        
+                                            <ui-select-choices repeat="men.idpersona as men in menor" refresh="buscar_menor_cedulado($select.search)">
+                                                <span ng-bind-html="men.numerocedula | highlight: $select.search"></span>
+                                                <small ng-bind-html="men.primernombre | highlight: $select.search"></small>
+                                                <small ng-bind-html="men.primerapellido | highlight: $select.search"></small>
+                                            </ui-select-choices>
+                                        </ui-select>
+
                                     </div>
+
+
+                                    
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-md-6"></div>
-                                    <div class="col-md-6 col-center">
-                                        <button ui-sref="saime.solicitud" type="button" class="btn saime-btn-search">Buscar</button>
-                                    </div>
+                                <br>
+
+                                <div class="text-center">
+                                     <button ng-click="continuar()" type="button" class="btn saime-btn-search">Continuar</button>
                                 </div>
-                            </form>
+                            
                         </div>
                         <br>
                     </div>
                     <div class="col-md-2"></div>
                     
                 </div>
+            </form>
         </div>
     </div>
 </div>
