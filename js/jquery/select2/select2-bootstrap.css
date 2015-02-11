@@ -6,7 +6,7 @@
 .form-control .select2-choice {
     border: 0;
     border-radius: 2px;
-    height: 32px;
+    height: 100%;
     line-height: 32px;
     background-image: none !important;
     background-color: transparent !important;
@@ -25,7 +25,7 @@
 }
 
 .form-control .select2-choice .select2-arrow b{
-    background-position: 0 3px;
+    background-position: 0 6px;
 }
 
 .form-control.input-sm .select2-choice .select2-arrow b{
@@ -33,7 +33,7 @@
 }
 
 .form-control.select2-container {
-    height: auto !important;
+    height: auto;
     padding: 0;
 }
 
