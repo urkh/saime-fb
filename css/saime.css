@@ -1,12 +1,16 @@
 input {
-  border-top: none;
+  /*border-top: none;
   border-left: none !important;
   border-right: none !important;
-  border-bottom: 2px solid rgb(155,156,155) !important;
+  border-bottom: 2px solid rgb(155,156,155) !important;*/
   height: 40px !important;
   width: 100%;
-  background-color: rgb(244,244,244);
+ /* background-color: rgb(244,244,244);*/
   padding-left: 10px;
+  margin-bottom: 10px;
+
+  font-size: 17px;
+  letter-spacing: 1px;
 }
 
 input[type=radio] {
@@ -15,10 +19,10 @@ input[type=radio] {
   height: 2em;
 }
 
-::-webkit-input-placeholder { font-size: 17pt; }
-::-moz-placeholder { font-size: 17pt; } /* firefox 19+ */
-:-ms-input-placeholder { font-size: 17pt; } /* ie */
-input:-moz-placeholder { font-size: 17pt; }
+::-webkit-input-placeholder { font-size: 17pt; text-align: center; }
+::-moz-placeholder { font-size: 17pt; text-align: center; } /* firefox 19+ */
+:-ms-input-placeholder { font-size: 17pt; text-align: center; } /* ie */
+input:-moz-placeholder { font-size: 17pt; text-align: center; }
 
 a{
   color: blue !important;
@@ -26,13 +30,16 @@ a{
 
 }
 select {
-  border-top: none;
+  height: 40px !important;
+  width: 100%;
+  padding-left: 7px;
+  font-size: 17px;
+  letter-spacing: 2px;
+  /*border-top: none;
   border-left: none !important;
   border-right: none !important;
   border-bottom: 2px solid rgb(155,156,155) !important;
-	height: 40px !important;
-  width: 100%;
-  background-color: rgb(240,243,244);
+  background-color: rgb(240,243,244);*/
   /*background: url('../img/icon_select.png') no-repeat scroll 50% 50% transparent;*/
 }
 
@@ -175,14 +182,14 @@ fieldset[disabled] .btn-saime-stand.active {
 
 }
 
-.border-input{
+/*.border-input{
   height: 10px;
   border-left: 1px solid rgb(155,156,155);
   border-right: 1px solid rgb(155,156,155);
   width: 100%;
   position: relative;
   top: -10px;
-}
+}*/
 
 .btn-group-vertical button .triangulo-y{
   width: 160px;

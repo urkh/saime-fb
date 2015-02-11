@@ -51,7 +51,7 @@
                             <p><h3>Datos De Nacionalidad</h3></p>
 
                             <div ui-module="select2">
-                              <select ng-click="get_estados()" ng-model="formData.countryIni" ui-select2 class="form-control w-md" data-placeholder="Pais">
+                              <select ng-click="get_estados()" ng-model="formData.countryIni" ui-select2 class="form-control w-select-saime" data-placeholder="Pais">
                                 <option></option>
                                 <option  ng-repeat="pais in paises" value="{{pais.idpais}}">{{pais.descripcion}}</option>
                               </select>
@@ -59,7 +59,7 @@
                             <br>
 
                             <div ui-module="select2">
-                              <select ng-click="get_municipios()" ng-model="formData.state" ui-select2 class="form-control w-md" data-placeholder="Estado">
+                              <select ng-click="get_municipios()" ng-model="formData.state" ui-select2 class="form-control w-select-saime" data-placeholder="Estado">
                                 <option></option>
                                 <option ng-repeat="estado in estados" value="{{estado.identidadfederal}}">{{estado.descripcion}}</option>
                               </select>
@@ -67,7 +67,7 @@
                             <br>
 
                             <div ui-module="select2">
-                              <select ng-click="get_parroquias()" ng-model="formData.city" ui-select2 class="form-control w-md" data-placeholder="Municipio">
+                              <select ng-click="get_parroquias()" ng-model="formData.city" ui-select2 class="form-control w-select-saime" data-placeholder="Municipio">
                                 <option></option>
                                 <option ng-repeat="municipio in municipios" value="{{municipio.idmunicipio}}">{{municipio.descripcion}}</option>
                               </select>
@@ -201,7 +201,7 @@
 
 
                             <div ui-module="select2">
-                              <select ng-model="formData.currentState" ui-select2 class="form-control w-md" data-placeholder="Estado">
+                              <select ng-model="formData.currentState" ui-select2 class="form-control w-select-saime" data-placeholder="Estado">
                                 <option></option>
                                 <option ng-repeat="estado in estados" value="{{estado.identidadfederal}}">{{estado.descripcion}}</option>
                               </select>
@@ -209,7 +209,7 @@
                             <br>
 
                             <div ui-module="select2">
-                              <select ng-model="formData.currentCity" ui-select2 class="form-control w-md" data-placeholder="Municipio">
+                              <select ng-model="formData.currentCity" ui-select2 class="form-control w-select-saime" data-placeholder="Municipio">
                                 <option></option>
                                 <option ng-repeat="municipio in municipios" value="{{municipio.idmunicipio}}">{{municipio.descripcion}}</option>
                               </select>
@@ -218,7 +218,7 @@
 
 
                             <div ui-module="select2">
-                              <select ng-model="formData.currentParish" ui-select2 class="form-control w-md" data-placeholder="Parroquia">
+                              <select ng-model="formData.currentParish" ui-select2 class="form-control w-select-saime" data-placeholder="Parroquia">
                                 <option></option>
                                 <option ng-repeat="parroquia in parroquias" value="{{parroquia.idparroquia}}">{{parroquia.descripcion}}</option>
                               </select>
