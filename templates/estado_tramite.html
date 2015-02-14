@@ -15,7 +15,11 @@
 
             <div class="panel hbox hbox-auto-xs no-border">
                 <div class="row">
-                    <div class="col-md-3"></div>
+                    <div class="col-md-3">
+                        <button ui-sref="saime.inicio" type="button" class="btn btn-saime-stand">
+                            <span class="fa fa-chevron-left fa-lg"></span>
+                        </button>
+                    </div>
 
 
                     <div ng-if="estado == 'sin_solicitud'" class="col-md-6">{{mensaje}}</div>

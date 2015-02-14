@@ -117,11 +117,34 @@ var app = angular.module('app', [
                 templateUrl: 'templates/extranjero/registro_menor_c.html'
             })
 
-
             .state('saime.registro_menor_nc_ext', {
                 url: '/extranjero/registro/menor_nc/',
                 templateUrl: 'templates/extranjero/registro_menor_nc.html'
             })
+
+
+            .state('saime.registro_menor_nat_c_ext', {
+                url: '/extranjero/registro/menor_nat_c/',
+                templateUrl: 'templates/extranjero/registro_menor_nat_c.html'
+            })
+
+            .state('saime.registro_menor_nat_nc_ext', {
+                url: '/extranjero/registro/menor_nat_nc/',
+                templateUrl: 'templates/extranjero/registro_menor_nat_nc.html'
+            })
+
+
+            .state('saime.registro_datos_personales_ext', {
+                url: '/extranjero/registro/datos_personales',
+                templateUrl: 'templates/extranjero/registro_datos_personales.html'
+            })
+
+
+
+
+
+
+
 
 
 
@@ -214,7 +237,7 @@ var app = angular.module('app', [
             /*.state('saime.registro_datos_personales_ubicacion', {
                 url: '/registro/datos_personales/ubicacion',
                 templateUrl: 'templates/registro_datos_personales_ubicacion.html'
-            })*/
+            })
 
             .state('saime.registro_datos_personales_oficinas', {
                 url: '/registro/datos_personales/oficinas',
@@ -224,7 +247,7 @@ var app = angular.module('app', [
             .state('saime.registro_datos_personales_exitoso', {
                 url: '/registro/datos_personales/exitoso',
                 templateUrl: 'templates/registro_personales_exitoso.html'
-            })
+            })  
 
             .state('saime.solicitud_ya_existe', {
                 url: '/solicitud/ya_existe',
@@ -234,7 +257,7 @@ var app = angular.module('app', [
             .state('saime.solicitud_ext_ya_existe', {
                 url: '/solicitud/extranjeros/ya_existe',
                 templateUrl: 'templates/solicitud_ext_pasaporte_ya_existe.html'
-            })
+            })*/
 
     }
   ]
