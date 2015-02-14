@@ -88,7 +88,7 @@ angular.module('app.controllers', ['ngCookies'])
 
 
 
-.controller('FormBuscarMenorVenCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+.controller('FormRegistroMenorCCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
 
       $scope.formData = {};
       $scope.formSearch = {};
@@ -171,8 +171,8 @@ angular.module('app.controllers', ['ngCookies'])
 
     $scope.continuar2 = function(form){
       if((form.name1 && form.lastName1 && form.bDate && form.countryIni && form.state && form.town) && (form.motherId || form.fatherId || form.legalId)) {
-        $scope.step3 = "display:none;";
-        $scope.step4 = "display:block;";
+        $scope.step2 = "display:none;";
+        $scope.step3 = "display:block;";
       }else{
         $scope.error2 = "Debe llenar los campos requeridos";
       }  
@@ -195,8 +195,8 @@ angular.module('app.controllers', ['ngCookies'])
     }
 
     $scope.atras2 = function(){
-      $scope.step4 = "display:none;";
-      $scope.step3 = "display:block;";
+      $scope.step3 = "display:none;";
+      $scope.step2 = "display:block;";
     }
 
 
@@ -227,7 +227,7 @@ angular.module('app.controllers', ['ngCookies'])
 
 
 
-.controller('FormRegistroMenorVenNcCtrl', ['$scope', '$http', '$state', '$timeout', function($scope, $http, $state, $timeout) {
+.controller('FormRegistroMenorNcCtrl', ['$scope', '$http', '$state', '$timeout', function($scope, $http, $state, $timeout) {
 
     $scope.letras = [
       { id: 'V', letra: 'V'},
@@ -390,6 +390,27 @@ angular.module('app.controllers', ['ngCookies'])
       $scope.step3 = "display:none;";
       $scope.step2 = "display:block;";
     }
+
+
+
+
+    $scope.date_clear = function () {
+      $scope.dt = null;
+    };
+  
+    $scope.date_open = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+      $scope.opened = true;
+    };
+
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1,
+      class: 'datepicker'
+    };
+
+    $scope.format = 'dd/MM/yyyy';
 
 
 

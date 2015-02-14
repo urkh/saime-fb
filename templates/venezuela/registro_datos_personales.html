@@ -28,7 +28,9 @@
                                 <div class="col-md-6">
                                     <input type="text" placeholder="Primer nombre">        
                                     <input type="text" placeholder="Primer apellido">
-                                    <input type="text" placeholder="Fecha de Nacimiento">
+
+                                    <input placeholder="Fecha de Nacimiento" ng-model="formData.bDate" type="text" datepicker-popup="{{format}}" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" ng-click="date_open($event)" readOnly/>
+
                                     <select type="text">
                                         <option>Sexo</option>
                                         <option>Masculino</option>
@@ -38,7 +40,6 @@
                                 <div class="col-md-6">
                                     <input type="text" placeholder="Segundo nombre">        
                                     <input type="text" placeholder="Segundo apellido">
-                                    <p class="text-aside-input"> Ej: 27/10/2006</p>
                                 </div>    
                             </div>
                             <br>
