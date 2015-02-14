@@ -36,7 +36,7 @@ var app = angular.module('app', [
         app.constant   = $provide.constant;
         app.value      = $provide.value;
 
-        $urlRouterProvider.otherwise('/saime/inicio');
+        $urlRouterProvider.otherwise('/saime/login');
         $stateProvider            
             .state('saime', {
                 abstract: true,
@@ -195,6 +195,8 @@ var app = angular.module('app', [
                 url: '/oficinas',
                 templateUrl: 'templates/oficinas.html'
             })
+
+
 
             .state('saime.login', {
                 url: '/login',

@@ -4,19 +4,26 @@
         <div class="bg-light lter b-b wrapper-md">
           <div class="row">
             <div class="col-md-12 text-center">
-              <h2 class="m-n font-thin  text-black">Datos Personales</h2>
+              <h2 class="m-n font-thin  text-black">Registro de Nuevo Usuario</h2>
             </div>
           </div>
         </div>
         <div class="wrapper-md" ng-controller="FormDemoCtrl">
             <div class="row">
-                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <button ui-sref="saime.login" type="button" class="btn btn-saime-stand">
+                        <span class="fa fa-chevron-left fa-lg"></span>
+                    </button>
+                </div>
+
                 <div class="col-md-6">
+                    <p><h3>Datos Personales</h3></p>
+                    <hr>
                     <div class="row">
                         <form action="" class="form-horizontal">
                             <div class="form-group">
                                 <div class="col-sm-3 saime-input">
-                                    <input type="text"  placeholder="                      V">
+                                    <input type="text"  placeholder="V">
                                 </div>
                                 <div class="col-sm-9     saime-input">
                                     <input type="text" placeholder="Numero de Cedulad">
@@ -40,7 +47,9 @@
                                 </div>
                             </div>
 
-                            <input type="text" placeholder="Codigo de confirmacion que aparece arriba" >                            
+                            <input type="text" placeholder="Codigo de confirmacion que aparece arriba" >
+
+                            <br><br>               
                             
                             <div class="form-group">
                                 <div class="col-md-6 col-center">
@@ -51,6 +60,7 @@
                                 </div>
                             </div>
                         </form>
+                        <br>
                     </div>
                 <br>
                 </div>

@@ -10,6 +10,10 @@
         </div>
         <div class="wrapper-md" ng-controller="SignInCtrl">
 
+            <button ui-sref="saime.login" type="button" class="btn btn-saime-stand">
+                <span class="fa fa-chevron-left fa-lg"></span>
+            </button>
+
             <div class="text-danger wrapper text-center" ng-show="authError">
                   {{authError}}
               </div>
