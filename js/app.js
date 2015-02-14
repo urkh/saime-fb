@@ -58,24 +58,43 @@ var app = angular.module('app', [
 
             /* personas en venezuela */
             .state('saime.menu_solicitud_ven', {
-                url: '/solicitud/venezolanos',
-                templateUrl: 'templates/menu_solicitud_ven.html'
+                url: '/venezuela/solicitud/',
+                templateUrl: 'templates/venezuela/menu_solicitud.html'
             })
 
             .state('saime.menu_solicitudes_menores_ven', {
-                url: '/solicitudes/menores',
-                templateUrl: 'templates/menu_solicitudes_menores_ven.html'
+                url: '/venezuela/solicitudes/menores/',
+                templateUrl: 'templates/venezuela/menu_solicitudes_menores.html'
             })
 
-            .state('saime.buscar_menor_ven', {
-                url: '/buscar/menor/venezolano',
-                templateUrl: 'templates/buscar_menor_ven.html'
+            .state('saime.registro_menor_c_ven', {
+                url: '/venezuela/registro/menor_c/',
+                templateUrl: 'templates/venezuela/registro_menor_c.html'
             })
 
-            .state('saime.registro_menor_ven_nc', {
-                url: '/registro/menor_nc/venezolano',
-                templateUrl: 'templates/registro_menor_ven_nc.html'
+            .state('saime.registro_menor_nc_ven', {
+                url: '/venezuela/registro/menor_nc/',
+                templateUrl: 'templates/venezuela/registro_menor_nc.html'
             })
+
+
+            .state('saime.registro_menor_nat_c_ven', {
+                url: '/venezuela/registro/menor_nat_c/',
+                templateUrl: 'templates/venezuela/registro_menor_nat_c.html'
+            })
+
+            .state('saime.registro_menor_nat_nc_ven', {
+                url: '/venezuela/registro/menor_nat_nc/',
+                templateUrl: 'templates/venezuela/registro_menor_nat_nc.html'
+            })
+
+
+            .state('saime.registro_datos_personales_ven', {
+                url: '/venezuela/registro/datos_personales',
+                templateUrl: 'templates/venezuela/registro_datos_personales.html'
+            })
+
+
 
 
 
@@ -83,25 +102,25 @@ var app = angular.module('app', [
 
             /* personas en el exterior */
             .state('saime.menu_solicitud_ext', {
-                url: '/solicitud/extranjeros',
-                templateUrl: 'templates/menu_solicitud_ext.html'
+                url: '/extranjero/solicitud/',
+                templateUrl: 'templates/extranjero/menu_solicitud.html'
             })
 
             .state('saime.menu_solicitudes_menores_ext', {
-                url: '/solicitudes/menores',
-                templateUrl: 'templates/menu_solicitudes_menores_ext.html'
+                url: '/extranjero/solicitudes/menores/',
+                templateUrl: 'templates/extranjero/menu_solicitudes_menores.html'
             })
 
 
-            .state('saime.buscar_menor_ext', {
-                url: '/buscar/menor/extranjero',
-                templateUrl: 'templates/buscar_menor_ext.html'
+            .state('saime.registro_menor_c_ext', {
+                url: '/extranjero/registro/menor_c/',
+                templateUrl: 'templates/extranjero/registro_menor_c.html'
             })
 
 
-            .state('saime.registro_menor_ext_nc', {
-                url: '/buscar/menor_nc/extranjero',
-                templateUrl: 'templates/registro_menor_ext_nc.html'
+            .state('saime.registro_menor_nc_ext', {
+                url: '/extranjero/registro/menor_nc/',
+                templateUrl: 'templates/extranjero/registro_menor_nc.html'
             })
 
 
@@ -178,15 +197,24 @@ var app = angular.module('app', [
                 url: '/registro',
                 templateUrl: 'templates/registro.html'
             })
-            .state('saime.registro_datos_personales', {
-                url: '/registro/datos_personales',
-                templateUrl: 'templates/registro_datos_personales.html'
-            })
 
-            .state('saime.registro_datos_personales_ubicacion', {
+
+
+
+
+
+
+
+
+
+
+
+            
+
+            /*.state('saime.registro_datos_personales_ubicacion', {
                 url: '/registro/datos_personales/ubicacion',
                 templateUrl: 'templates/registro_datos_personales_ubicacion.html'
-            })
+            })*/
 
             .state('saime.registro_datos_personales_oficinas', {
                 url: '/registro/datos_personales/oficinas',

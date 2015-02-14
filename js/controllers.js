@@ -349,12 +349,53 @@ angular.module('app.controllers', ['ngCookies'])
     $scope.format = 'dd/MM/yyyy';
 
 
+}])
 
+
+
+  
+  .controller('FormMenuCtrl', ['$scope', function($scope) {
     
 
+  }])
 
 
-}])
+  .controller('FormRegistroDatosPersonalesVenCtrl', ['$scope', function($scope) {
+    
+    $scope.continuar1 = function(){
+      //if((form.name1 && form.lastName1 && form.bDate && form.countryIni && form.state && form.town) && (form.motherId || form.fatherId || form.legalId)) {
+        $scope.step1 = "display:none;";
+        $scope.step2 = "display:block;";
+      //}else{
+      //  $scope.error2 = "Debe llenar los campos requeridos";
+      //}  
+    }
+
+
+    $scope.continuar2 = function(){
+      //if((form.name1 && form.lastName1 && form.bDate && form.countryIni && form.state && form.town) && (form.motherId || form.fatherId || form.legalId)) {
+        $scope.step2 = "display:none;";
+        $scope.step3 = "display:block;";
+      //}else{
+      //  $scope.error2 = "Debe llenar los campos requeridos";
+      //}  
+    }
+
+    $scope.atras1 = function(){
+      $scope.step2 = "display:none;";
+      $scope.step1 = "display:block;";
+    }
+
+    $scope.atras2 = function(){
+      $scope.step3 = "display:none;";
+      $scope.step2 = "display:block;";
+    }
+
+
+
+  }])
+
+
 
 
 
