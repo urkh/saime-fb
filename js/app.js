@@ -223,6 +223,11 @@ var app = angular.module('app', [
                 templateUrl: 'templates/registro.html'
             })
 
+            .state('saime.ubicar', {
+                url: '/ubicar',
+                templateUrl: 'templates/ubicar.html'
+            })
+
 
 
 
