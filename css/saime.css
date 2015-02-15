@@ -25,7 +25,7 @@ input[type=radio] {
 input:-moz-placeholder { font-size: 12pt; }
 
 a{
-  color: blue !important;
+  color: blue ;
   border-bottom: 1px solid blue;
 
 }
@@ -315,9 +315,14 @@ ul {
   font-size: 15pt;
 }
 
+.derecha{
+  float: right;
+}
 
-
-
+.saime-ubicar-info{
+  font-size: 13pt !important;
+  line-height: 9px !important;
+}
 
 
 

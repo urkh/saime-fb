@@ -223,11 +223,23 @@ var app = angular.module('app', [
                 templateUrl: 'templates/registro.html'
             })
 
+
+            /* paginas de ubicacion */
+
             .state('saime.ubicar', {
                 url: '/ubicar',
                 templateUrl: 'templates/ubicar.html'
             })
 
+            .state('saime.ubicar_regionales', {
+                url: '/ubicar/regionales',
+                templateUrl: 'templates/ubicar_regionales.html'
+            })
+
+            .state('saime.ubicar_info', {
+                url: '/ubicar/info',
+                templateUrl: 'templates/ubicar_info.html'
+            })
 
 
 
