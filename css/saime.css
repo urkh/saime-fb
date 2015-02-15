@@ -340,3 +340,32 @@ textarea.reclamo-textarea{
 .margen-reclamo-arriba{
   margin-top: 30px;
 }
+
+.saime-fecha-noticias{
+  font-size: 14pt;
+  color: #4C9ED9;
+  letter-spacing: 2pt;
+  margin-bottom: 5px; 
+}
+
+.saime-titulo-noticias{
+  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 22px;
+  font-size: 16pt;
+}
+
+.saime-imagen-noticias{
+  width: 100%;
+  height: 420px;
+  margin-top: 30px;
+
+}
+
+.saime-contenido-noticias{
+  margin-top: 20px;
+  font-size: 17pt;
+  text-align: justify;
+}
+
+  
