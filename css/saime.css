@@ -368,4 +368,51 @@ textarea.reclamo-textarea{
   text-align: justify;
 }
 
+
+input[type="radio"] {
+    display:none;
+}
+
+input[type="radio"] + label {
+    color: blue;
+    font-family:Arial, sans-serif;
+    font-size:14px;
+}
+input[type="radio"] + label span {
+  display:inline-block;
+  width:15px;
+  height:15px;
+  margin:1px 0px 0px 0px ;
+  vertical-align:middle;
+  cursor:pointer;
+  -moz-border-radius:  50%;
+  border-radius:  50%;
+  border: 2px solid gray;
+    
   
+}
+
+input[type="radio"] + label span {
+  background-color:white;
+}
+
+input[type="radio"]:checked + label span{
+  background-color:yellow;
+}
+
+.saime-radio{
+  border: 2px solid gray;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}
+
+.saime-radio-label{
+  margin: -24px 0px 8px -500px;
+  font-size: 16px;
+}
+
+.saime-terminos-texto p{
+  text-align: justify;
+  font-size: 15pt;
+}

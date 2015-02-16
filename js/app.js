@@ -242,6 +242,13 @@ var app = angular.module('app', [
             })
 
 
+            .state('saime.terminos', {
+                url: '/terminos',
+                templateUrl: 'templates/terminos.html'
+            })
+
+
+
         
 
 
