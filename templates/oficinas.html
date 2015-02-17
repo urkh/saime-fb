@@ -1,36 +1,52 @@
 
 <div class="hbox hbox-auto-xs hbox-auto-sm">
   
-  <div class="col">
+    <div class="col">
     
-    <div class="bg-light lter b-b wrapper-md">
-      <div class="row">
-        <div class="col-sm-6 col-xs-12">
-          <h1 class="m-n font-thin h3 text-black">Oficinas</h1>
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 class="m-n font-thin h3 text-black">Oficinas</h1>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
     
-    
-<div class="wrapper-md" ng-controller="MapasCtrl">
-  <button ui-sref="saime.inicio" type="button" class="btn btn-saime-stand">
-      <span class="fa fa-chevron-left fa-lg"></span>
-  </button>
-
-  <br><br>
-
-  <div class="panel b-a">
-    <div class="panel-body">
-      <div class="row m-b-xl">
-        <div class="col-sm-12">       
-          <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map> 
-
-      </div>
+        <div class="wrapper-md" ng-controller="MapasCtrl">
+            <div class="row">
+                <div class="col-md-3">
+                    <button ui-sref="saime.inicio" type="button" class="btn btn-saime-stand">
+                        <span class="fa fa-chevron-left fa-lg"></span>
+                    </button>
+                </div>
+                <div class="col-md-6">
+                    <form action="" class="form-horizontal">
+                        <div class="form-group">
+                            <input type="text" placeholder="Buscar" >                            
+                        </div>
+                        <button  type="button" class="btn btn-saime-stand derecha saime-btn-buscar-oficinas "><b>Buscar</b></button>
+                    </form>
+                </div>
+                <div class="col-md-3"></div>  
+            </div>
+            <div class="panel b-a">
+                <div class="panel-body">
+                    <div class="row m-b-xl">
+                        <div class="col-sm-12">       
+                            <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-6">
+                    <div class="text-center">
+                            <button ui-sref="saime.buscar_menor_ven_ubicacion_nc" type="button" class="btn btn-saime-stand saime-btn-lg saime-btn-ver-oficinas">Ver Dirección</button>
+                        </div> 
+                </div>
+                <div class="col-md-3"></div>  
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-
-
-
-  </div>
 </div>
