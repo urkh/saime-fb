@@ -12,7 +12,7 @@
     </div>
     
     
-<div class="wrapper-md" ng-controller="JVectorMapDemoCtrl">
+<div class="wrapper-md" ng-controller="MapasCtrl">
   <button ui-sref="saime.inicio" type="button" class="btn btn-saime-stand">
       <span class="fa fa-chevron-left fa-lg"></span>
   </button>
@@ -22,46 +22,8 @@
   <div class="panel b-a">
     <div class="panel-body">
       <div class="row m-b-xl">
-        <div class="col-sm-12">                      
-          <div style="height:240px;" ui-jq="vectorMap" ui-options="{
-            map: 'world_en',
-            backgroundColor: '#fff',
-            regionsSelectable: true,
-            markersSelectable: true,
-            showTooltip: true,
-            markerStyle: {
-              initial: {
-                fill: '{{app.color.warning}}'
-              },
-              selected: {
-                fill: '#ffffff'
-              }
-            },
-            regionStyle: {
-              initial: {
-                fill: '{{app.color.info}}'
-              },
-              selected: {
-                fill: '{{app.color.success}}'
-              }
-            },
-            series: {
-              markers: [{
-                attribute: 'r',
-                scale: [5, 15],
-                values: [
-                  187.70,
-                  255.16,
-                  310.69,
-                  605.17,
-                  248.31,
-                  107.35,
-                  217.22
-                ]
-              }]
-            }
-          }" >
-          </div>
+        <div class="col-sm-12">       
+          <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map> 
 
       </div>
     </div>

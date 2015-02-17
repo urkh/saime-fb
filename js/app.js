@@ -13,7 +13,8 @@ var app = angular.module('app', [
     'ui.select',
     'ui.validate',
 
-    'app.controllers'
+    'app.controllers',
+    'uiGmapgoogle-maps'
   ])
 .run(
   [          '$rootScope', '$state', '$stateParams',
