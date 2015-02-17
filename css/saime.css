@@ -412,7 +412,29 @@ input[type="radio"]:checked + label span{
   font-size: 16px;
 }
 
+.saime-radio-label-md8{
+  float: left;
+  margin: -30px 0px -2px 30px;
+  font-size: 17pt;
+}
+
 .saime-terminos-texto p{
   text-align: justify;
   font-size: 15pt;
+}
+
+.saime-texto-recordatorio{
+  float: right;
+  margin: -6px 20px 3px 0px;
+  color: #808080;
+}
+
+.saime-texto-recordatorio-2{
+  float: right;
+  margin: -6px 3px 3px 0px;
+  color: #808080;
+}
+
+.saime-radio-all{
+  margin-bottom: 10px;
 }
