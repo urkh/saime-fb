@@ -425,7 +425,7 @@ input[type="radio"]:checked + label span{
 
 .saime-texto-recordatorio{
   float: right;
-  margin: -6px 20px 3px 0px;
+  margin: -6px 7px 3px 0px;
   color: #808080;
 }
 
@@ -437,4 +437,28 @@ input[type="radio"]:checked + label span{
 
 .saime-radio-all{
   margin-bottom: 10px;
+}
+
+.saime-texto-general{
+  text-align: justify;
+  font-size: 15pt;
+}
+
+.botones-especial{
+  padding-left: 20px;
+}
+
+.link{
+  color:blue;
+}
+
+.saime-autenticacion-texto{
+  margin-top: 15px;
+  font-size: 13pt;
+}
+
+.saime-error-input{
+  margin-top: -5px;
+  margin-bottom: 6px;
+  color: #F00;
 }
