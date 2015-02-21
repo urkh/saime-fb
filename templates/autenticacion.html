@@ -28,17 +28,19 @@
                             <input type="password" placeholder="Contraseña" ng-model="formData.password">     
                         </div>
                         <div class="text-center">
-                            <!--<div   class="text-muted"><h4>Debe indicar al menos uno de los tres, Madre, Padre o Representante Legal</h4></div>-->
                             <button ng-click="login()" type="button" class="btn btn-saime-stand saime-btn-lg"> Ingresar</button>
                         </div> 
                     </form>
                     <br>
+
+                    <p style=" text-align:center;">Estimado (a) usuario (a), si usted no posee usuario SAIME debe registrarse para poder acceder a los servicios que le brindamos. O si ya usted tiene usuario y se le olvido su contrase&ntilde;a, puedes recibirla via email.</p>
+                    <br><br>
                     <div class="text-center">
                         <a ui-sref="saime.registro" >Registrarse en el SAIME</a>
                     </div>
                     <br>
                     <div class="text-center">
-                        <a ui-sref="saime.olvido" >¿Olvido Su Contraseña?</a>
+                        <a ui-sref="saime.olvido_contrasena" >¿Olvido Su Contraseña?</a>
                     </div>
                     <br>
                 </div>

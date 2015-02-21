@@ -144,24 +144,9 @@ var app = angular.module('app', [
 
 
 
+           
 
-
-
-
-
-
-            
-
-            .state('saime.buscar_menor_ven_ubicacion_nc', {
-                url: '/buscar/menor_nc/venezolano/ubicacion',
-                templateUrl: 'templates/buscar_menor_ven_ubicacion_nc.html'
-            })
-
-
-
-            
-
-            .state('saime.tramites', {
+            .state('saime.estado_tramite', {
                 url: '/estado_tramite',
                 templateUrl: 'templates/estado_tramite.html'
             })
@@ -208,8 +193,8 @@ var app = angular.module('app', [
                 templateUrl: 'templates/autenticacion.html'
             })
 
-            .state('saime.olvido', {
-                url: '/resetear_contrasena',
+            .state('saime.olvido_contrasena', {
+                url: '/olvido_contrasena',
                 templateUrl: 'templates/olvido_contrasena.html'
             })
 
