@@ -158,8 +158,9 @@
     clear: both;
     font-weight: 400;
     line-height: 1.42857143;
-    color: #333;
+    color: #333 !important;
     white-space: nowrap;
+    border-bottom: 1px solid #FFF !important;
 }
 
 .ui-select-bootstrap .ui-select-choices-row>a:hover, .ui-select-bootstrap .ui-select-choices-row>a:focus {
@@ -173,6 +174,7 @@
     text-decoration: none;
     outline: 0;
     background-color: #428bca;
+    border-bottom: 1px solid #FFF;
 }
 
 .ui-select-bootstrap .ui-select-choices-row.disabled>a,

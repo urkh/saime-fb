@@ -25,7 +25,7 @@ input[type=radio] {
 input:-moz-placeholder { font-size: 12pt; }
 
 a{
-  color: blue !important;
+  color: blue ;
   border-bottom: 1px solid blue;
 
 }
@@ -315,10 +315,160 @@ ul {
   font-size: 15pt;
 }
 
+.derecha{
+  float: right;
+}
+
+.saime-ubicar-info{
+  font-size: 13pt !important;
+  line-height: 9px !important;
+}
+
+.reclamo-textarea{
+  width: 100%;
+  height: 150px;
+}
 
 
+textarea.reclamo-textarea{
+  letter-spacing: 2px;
+  font-size: 12pt;
+  padding-left: 10px;
+  margin-bottom: 15px;
+}
+
+.margen-reclamo-arriba{
+  margin-top: 30px;
+}
+
+.saime-fecha-noticias{
+  font-size: 14pt;
+  color: #4C9ED9;
+  letter-spacing: 2pt;
+  margin-bottom: 5px; 
+}
+
+.saime-titulo-noticias{
+  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 22px;
+  font-size: 16pt;
+}
+
+.saime-imagen-noticias{
+  width: 100%;
+  height: 420px;
+  margin-top: 30px;
+
+}
+
+.saime-contenido-noticias{
+  margin-top: 20px;
+  font-size: 17pt;
+  text-align: justify;
+}
 
 
+input[type="radio"] {
+    display:none;
+}
 
+input[type="radio"] + label {
+    color: blue;
+    font-family:Arial, sans-serif;
+    font-size:14px;
+}
+input[type="radio"] + label span {
+  display:inline-block;
+  width:15px;
+  height:15px;
+  margin:1px 0px 0px 0px ;
+  vertical-align:middle;
+  cursor:pointer;
+  -moz-border-radius:  50%;
+  border-radius:  50%;
+  border: 2px solid gray;
+    
+  
+}
 
+input[type="radio"] + label span {
+  background-color:white;
+}
 
+input[type="radio"]:checked + label span{
+  background-color:yellow;
+}
+
+.saime-radio{
+  border: 2px solid gray;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}
+
+.saime-radio-label{
+  margin: -24px 0px 8px -500px;
+  font-size: 16px;
+}
+
+.saime-radio-label-md8{
+  float: left;
+  margin: -30px 0px -2px 30px;
+  font-size: 17pt;
+}
+
+.saime-terminos-texto p{
+  text-align: justify;
+  font-size: 15pt;
+}
+
+.saime-texto-recordatorio{
+  float: right;
+  margin: -6px 7px 3px 0px;
+  color: #808080;
+}
+
+.saime-texto-recordatorio-2{
+  float: right;
+  margin: -6px 3px 3px 0px;
+  color: #808080;
+}
+
+.saime-radio-all{
+  margin-bottom: 10px;
+}
+
+.saime-texto-general{
+  text-align: justify;
+  font-size: 15pt;
+}
+
+.botones-especial{
+  padding-left: 20px;
+}
+
+.link{
+  color:blue;
+}
+
+.saime-autenticacion-texto{
+  margin-top: 15px;
+  font-size: 13pt;
+}
+
+.saime-error-input{
+  margin-top: -5px;
+  margin-bottom: 6px;
+  color: #F00;
+}
+
+.saime-btn-buscar-oficinas{
+  margin-bottom: 10px;
+  margin-top: -5px;
+  margin-right: -10px;
+}
+
+.saime-btn-ver-oficinas{
+  margin: -10px 0px 10px 0px;
+}

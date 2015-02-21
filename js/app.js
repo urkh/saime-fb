@@ -13,7 +13,8 @@ var app = angular.module('app', [
     'ui.select',
     'ui.validate',
 
-    'app.controllers'
+    'app.controllers',
+    'uiGmapgoogle-maps'
   ])
 .run(
   [          '$rootScope', '$state', '$stateParams',
@@ -209,9 +210,32 @@ var app = angular.module('app', [
             })
 
 
+            /* paginas de ubicacion */
+
+            .state('saime.ubicar', {
+                url: '/ubicar',
+                templateUrl: 'templates/ubicar.html'
+            })
+
+            .state('saime.ubicar_regionales', {
+                url: '/ubicar/regionales',
+                templateUrl: 'templates/ubicar_regionales.html'
+            })
+
+            .state('saime.ubicar_info', {
+                url: '/ubicar/info',
+                templateUrl: 'templates/ubicar_info.html'
+            })
+
+
+            .state('saime.terminos', {
+                url: '/terminos',
+                templateUrl: 'templates/terminos.html'
+            })
 
 
 
+        
 
 
 

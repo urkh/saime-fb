@@ -60,6 +60,12 @@ angular.module('app.controllers', ['ngCookies'])
 
 }])
 
+.controller('MapasCtrl', ['$scope', function($scope){
+
+  $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+
+}])
+
 
 .controller('EstadoTramiteCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
 

@@ -27,20 +27,28 @@
                         <div class="form-group">
                             <input type="password" placeholder="Contraseña" ng-model="formData.password">     
                         </div>
+                        <div class="saime-error-input">
+                            (!) El correo electronico o la contraseña ingresados no son correctos, por favor verifiquelos
+                        </div>
                         <div class="text-center">
+                            <!--<div   class="text-muted"><h4>Debe indicar al menos uno de los tres, Madre, Padre o Representante Legal</h4></div>-->
                             <button ng-click="login()" type="button" class="btn btn-saime-stand saime-btn-lg"> Ingresar</button>
+                            <p class="saime-autenticacion-texto">
+                                Estimado(a) usuario(a), si usted no posee usuario SAIME debe registrarse para poder acceder 
+                                 a los srvicios que les brindamos. O si ya usted tiene usuario y se le olvido su contraseña puedes recibirla via email
+                            </p>
                         </div> 
                     </form>
                     <br>
 
                     <p style=" text-align:center;">Estimado (a) usuario (a), si usted no posee usuario SAIME debe registrarse para poder acceder a los servicios que le brindamos. O si ya usted tiene usuario y se le olvido su contrase&ntilde;a, puedes recibirla via email.</p>
                     <br><br>
-                    <div class="text-center">
-                        <a ui-sref="saime.registro" >Registrarse en el SAIME</a>
+                    <div class="text-center link">
+                        <a ui-sref="saime.registro" class="link">Registrarse en el SAIME</a>
                     </div>
                     <br>
-                    <div class="text-center">
-                        <a ui-sref="saime.olvido_contrasena" >¿Olvido Su Contraseña?</a>
+                    <div class="text-center link">
+                        <a ui-sref="saime.olvido_contrasena" class="link">¿Olvido Su Contraseña?</a>
                     </div>
                     <br>
                 </div>

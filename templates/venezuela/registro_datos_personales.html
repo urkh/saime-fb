@@ -141,9 +141,11 @@
                                     <div class="col-sm-9     saime-input">
                                         <input type="text" placeholder="Telefono Trabajo">
                                     </div>
+                                    <p class="saime-texto-recordatorio"><i>(Debe ingresar al menos un telefono)</i></p>
                                 </div>
 
-                                <input type="text" placeholder="Codigo de confirmacion que aparece arriba" >         
+                                <input type="text" placeholder="Codigo de confirmacion que aparece arriba" >
+                                <p class="saime-texto-recordatorio-2"><i>(No se hace distincion entre mayusculas y minusculas)</i></p>         
                                 <br><br>
                                 <div class="form-group">
                                     <div class="text-center">
@@ -169,46 +171,60 @@
                             </button>
                         </div>
                         
-                        <div class="col-md-8">
-                            <p><h3>Oficinas a las cuales puede asistir:</h3></p>
-                            <hr>
-                            <div class="row">
-                                
-                                <div class="form-group">
-                                    <div class="col-sm-1">
-                                        <input type="radio">
-                                    </div>
-                                    <div class="col-sm-11">
-                                        <p class="text-aside-input">Urabnizacion Los over</p>
-                                    </div>
+                        <div class="col-md-8 col-center saime-terminos-texto">
+                            <p><b>Oficias a las cuales puedes asistir: </b></p>
+                            <div class="saime-radio-all">
+                                <div class="saime-radio">
+                                    <input type="radio" id="radio01" name="radio" />
+                                    <label for="radio01">
+                                        <span></span> 
+                                    </label>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-1">
-                                        <input type="radio">
-                                    </div>
-                                    <div class="col-sm-11">
-                                        <p class="text-aside-input">Urabnizacion Los over</p>
-                                    </div>
-                                </div> 
-                                <div class="form-group">
-                                    <div class="col-sm-1">
-                                        <input type="radio">
-                                    </div>
-                                    <div class="col-sm-11">
-                                        <p class="text-aside-input">Urabnizacion Los over</p>
-                                    </div>
-                                </div>     
-
-                                <br><br>                                                
-                                <div class="form-group">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-saime-stand saime-btn-lg">Guardar Datos</button>
-                                    </div>
-                                </div>
-                                
+                                <div class="saime-radio-label-md8">Oficina ejemplo</div>
                             </div>
-                            <br>
+                            <div class="saime-radio-all">
+                                <div class="saime-radio">
+                                    <input type="radio" id="radio02" name="radio" />
+                                    <label for="radio02">
+                                        <span></span> 
+                                    </label>
+                                </div>
+                                <div class="saime-radio-label-md8">Oficina ejemplo</div>
+                            </div>
+                            <div class="saime-radio-all">
+                                <div class="saime-radio">
+                                    <input type="radio" id="radio03" name="radio" />
+                                    <label for="radio03">
+                                        <span></span> 
+                                    </label>
+                                </div>
+                                <div class="saime-radio-label-md8">Oficina ejemplo</div>
+                            </div>
+                            <div class="saime-radio-all">
+                                <div class="saime-radio">
+                                    <input type="radio" id="radio04" name="radio" />
+                                    <label for="radio04">
+                                        <span></span> 
+                                    </label>
+                                </div>
+                                <div class="saime-radio-label-md8">Oficina ejemplo</div>
+                            </div>
+
+                            <p>
+                                <i>
+                                    Para ver la dirección de la oficina, debes pasar el cursor por encima del nombre de
+                                    la oficina. Las oficinas que aparecen marcadas son las posibles oficinas donde se les 
+                                    asignara la cita, si usted desea que el sistema no le asigne a una de estas oficinas
+                                    favor de desarcarla. <b>Nota:</b> mientras más oficines seleccione, su cita podra ser
+                                    asignada con mayor rapidez, dependiendo de la saturación de las mismas.
+                                </i>
+                            </p>
+
+                                
+                        <div class="saime-menu" role="group" aria-label="Vertical button group">
+                            <button ui-sref="saime.menu_solicitud_ven" type="button" class="btn btn-default saime-btn-yellow">Guardar datos</button>
                         </div>
+                    </div>
                         <div class="col-md-2"></div>    
                     </div>
 
