@@ -12,8 +12,10 @@ var app = angular.module('app', [
     'ngSanitize',
     'ui.select',
     'ui.validate',
+    'checklist-model',
 
     'app.controllers',
+    'app.services',
     'uiGmapgoogle-maps'
   ])
 .run(
@@ -33,7 +35,7 @@ var app = angular.module('app', [
         //app.directive  = $compileProvider.directive;
         //app.filter     = $filterProvider.register;
         //app.factory    = $provide.factory;
-        //app.service    = $provide.service;
+        app.service    = $provide.service;
         app.constant   = $provide.constant;
         app.value      = $provide.value;
 
@@ -243,23 +245,21 @@ var app = angular.module('app', [
 
 
 
+            /* mensajes */
+
             
 
-            /*.state('saime.registro_datos_personales_ubicacion', {
-                url: '/registro/datos_personales/ubicacion',
-                templateUrl: 'templates/registro_datos_personales_ubicacion.html'
-            })
-
-            .state('saime.registro_datos_personales_oficinas', {
-                url: '/registro/datos_personales/oficinas',
-                templateUrl: 'templates/registro_datos_personales_oficinas.html'
-            })
-
-            .state('saime.registro_datos_personales_exitoso', {
-                url: '/registro/datos_personales/exitoso',
-                templateUrl: 'templates/registro_personales_exitoso.html'
+            .state('saime.solicitud_pasaporte_exitoso_ven', {
+                url: '/registro/solicitud_pasaporte_exitoso_ven',
+                templateUrl: 'templates/mensajes/solicitud_pasaporte_exitoso_ven.html'
             })  
 
+            .state('saime.solicitud_pasaporte_error_ven', {
+                url: '/registro/solicitud_pasaporte_error_ven',
+                templateUrl: 'templates/mensajes/solicitud_pasaporte_error_ven.html'
+            })  
+
+/*
             .state('saime.solicitud_ya_existe', {
                 url: '/solicitud/ya_existe',
                 templateUrl: 'templates/solicitud_pasaporte_ya_existe.html'
@@ -268,7 +268,10 @@ var app = angular.module('app', [
             .state('saime.solicitud_ext_ya_existe', {
                 url: '/solicitud/extranjeros/ya_existe',
                 templateUrl: 'templates/solicitud_ext_pasaporte_ya_existe.html'
-            })*/
+            })
+
+
+*/
 
     }
   ]

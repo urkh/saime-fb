@@ -24,7 +24,7 @@ switch ($_GET['opc']) {
         break;
 
     case "reg_persona":
-    	post_bearer_auth($URI="/saime-ws/v1.0/passport/saveDataPersonal", $data);
+    	post_bearer_auth($host, $uri="/saime-ws/v1.0/passport/saveDataPersonal", $data);
         break;
 
     case "sol_ven_menor":
@@ -51,7 +51,7 @@ switch ($_GET['opc']) {
         break;
 
     case "detalle_tramites":
-        post_bearer_auth($URI="/saime-ws/v1.0/transaction/details", $data);
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/transaction/details", $data);
         break;
 
     case "req_pass":
@@ -61,6 +61,9 @@ switch ($_GET['opc']) {
     case "rechazar_cita":
         post_bearer_auth($URI="/saime-ws/v1.0/transaction/reject", $data);
         break;
+
+    case "lista_solicitudes":
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/passport/listData", $data);
 
 
 
@@ -166,11 +169,12 @@ function get_login($username, $password, $host){
 	$headers = array('Content-Type' => 'application/json', 'Authorization' => 'Basic MzUzYjMwMmM0NDU3NGY1NjUwNDU2ODdlNTM0ZTdkNmE6Mjg2OTI0Njk3ZTYxNWE2NzJhNjQ2YTQ5MzU0NTY0NmM=');
 	$response = Requests::post($host.$uri, $headers);
     $json = json_decode($response->body, true);
+    $status = json_decode($response->status_code, true);
 
-    //echo $response->body;
+    //echo $response->status_code;
     
     
-    if ($json['token_type'] == 'bearer') {
+    if ($status == 200) {
         
         setcookie("access_token", $json['access_token']); 
         $headers = array('Content-Type' => 'application/json', 'Authorization' => 'Bearer '.$json['access_token']);
@@ -180,7 +184,7 @@ function get_login($username, $password, $host){
         echo '{"status":"granted", "msg":"Bienvenido, '.$json['firstName'].' '.$json['lastName'].'"}';
         
     }else{
-        echo '{"status":"denied", "msg":"Usuario o Contrasena incorrecta"}';
+        echo '{"status":"denied", "msg":"(!) El correo electronico o la contraseña ingresados no son correctos, por favor verifiquelos"}';
     }
 
     
@@ -203,6 +207,7 @@ function post_bearer_auth($host, $uri, $datos){
 	$data = array('data' => parser_datos($datos), 'crc'=> gen_crc(parser_datos($datos)));
 	$response = Requests::post($host.$uri, $headers, json_encode($data));
 	echo $response->body;
+    //echo $data;
 
 }
 

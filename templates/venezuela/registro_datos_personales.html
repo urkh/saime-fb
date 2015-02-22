@@ -12,7 +12,7 @@
         </div>
         
         <div class="wrapper-md" ng-controller="FormRegistroDatosPersonalesVenCtrl">
-            <form class="form-horizontal">
+            <form name="formData" class="form-horizontal">
                 <div style="display:block; {{step1}}">
                     <div class="row">
                         <div class="col-md-2">
@@ -21,13 +21,14 @@
                             </button>
                         </div>
                         
+                        <!-- 
 
                         <div class="col-md-8">
                             <p><h3>Datos Personales</h3></p>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="text" placeholder="Primer nombre">        
-                                    <input type="text" placeholder="Primer apellido">
+                                    <input ng-model="formData.name1" readOnly type="text" placeholder="Primer nombre">        
+                                    <input ng-model="formData.lastName1" readOnly type="text" placeholder="Primer apellido">
 
                                     <input placeholder="Fecha de Nacimiento" ng-model="formData.bDate" type="text" datepicker-popup="{{format}}" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" ng-click="date_open($event)" readOnly/>
 
@@ -44,37 +45,64 @@
                             </div>
                             <br>
                         </div>
+                        -->
                         <div class="col-md-2"></div>
                     </div>
-                    <hr>
+                    
                     <div class="row">
                         <div class="col-md-2"></div>
                         <div class="col-md-8">
                             <p><h3>Datos De Nacionalidad</h3></p>
-                            <select type="text">
-                                <option>Pais de Nacimiento</option>
-                                <option>Venezuela</option>
-                            </select>
-                            <select type="text">
-                                <option>Ciudad</option>
-                                <option>San Juan</option>
-                            </select>
+                            <hr>
+
+                                <ui-select required="true"  ng-model="formData.countryIni" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
+                                    <ui-select-match placeholder="Seleccione o busque un pais en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                    <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
+                                      <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
+                                      
+                                    </ui-select-choices>
+                                </ui-select>
+
+                                <br>
+
+                                <input ng-model="formData.city" type="text" placeholder="Ciudad" >
+
                             <div class="row">
                                 <div class="col-md-6">
-                                    <select type="text">
-                                        <option>Estado</option>
-                                        <option>San Juan</option>
-                                    </select>
-                                    <select type="text">
-                                        <option>Municipio</option>
-                                        <option>San Juan</option>
-                                    </select>
+
+                                    
+                                    <ui-select required="true" on-select="get_municipios()" ng-model="formData.state" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Estado">
+                                        <ui-select-match placeholder="Seleccione o busque un estado en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                        <ui-select-choices repeat="estado.identidadfederal as estado in estados | filter: $select.search">
+                                          <span ng-bind-html="estado.descripcion | highlight: $select.search"></span>  
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                    <br>
+
+                                    <ui-select required="true" ng-model="formData.parish" ng-disabled="disabled" style="width: 100%;" title="Seleccione la Parroquia">
+                                        <ui-select-match placeholder="Seleccione o busque una parroquia en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                        <ui-select-choices repeat="parroquia.idparrquia as parroquia in parroquias | filter: $select.search">
+                                          <span ng-bind-html="parroquia.descripcion | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+
+
+                                    <br>
+
                                 </div>
+
                                 <div class="col-md-6">
-                                    <select type="text">
-                                        <option>Parroquia</option>
-                                        <option>San Juan</option>
-                                    </select>
+
+                                    <ui-select required="true" on-select="get_parroquias()" ng-model="formData.town" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Municipio">
+                                        <ui-select-match placeholder="Seleccione o busque un municipio en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                        <ui-select-choices repeat="municipio.idmunicipio as municipio in municipios | filter: $select.search">
+                                          <span ng-bind-html="municipio.descripcion | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+
+
+                                    
                                 </div>
 
                             </div>
@@ -100,49 +128,50 @@
                             <p><h3>Dirección Actual:</h3></p>
                             <hr>
                             <div class="row">
+
+
+                                <ui-select on-select="get_municipios()" required="true" ng-model="formData.currentState" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Estado">
+                                    <ui-select-match placeholder="Seleccione o busque un estado en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                    <ui-select-choices repeat="estado.identidadfederal as estado in estados | filter: $select.search">
+                                      <span ng-bind-html="estado.descripcion | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+
+                                <br>
+
+
+                                <ui-select on-select="get_parroquias()" required="true" ng-model="formData.currentTown" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Municipio">
+                                    <ui-select-match placeholder="Seleccione o busque un municipio en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                    <ui-select-choices repeat="municipio.idmunicipio as municipio in municipios | filter: $select.search">
+                                      <span ng-bind-html="municipio.descripcion | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
                                 
-                                <select>
-                                    <option>Estado</option>
-                                </select>
-                                <select>
-                                    <option>Municipio</option>
-                                </select>
-                                <select>
-                                    <option>Parroquia</option>
-                                </select>
-                                <input type="text" placeholder="Ciudad" >                                                        
-                                <input type="text" placeholder="Urbanizacion" >
-                                <input type="text" placeholder="Nro. Casa / Apto." >
-                                <input type="text" placeholder="Av / Calle" >
-                                <input type="text" placeholder="Codigo Postal" >
+                                <br>
 
-                                <div class="form-group">
-                                    <div class="col-sm-3 saime-input">
-                                        <input type="text"  placeholder="Codigo">
-                                    </div>
-                                    <div class="col-sm-9 saime-input">
-                                        <input type="text" placeholder="Telefono Celular">
-                                    </div>
-                                </div>
+                                <ui-select on-select="get_oficinas()" required="true" ng-model="formData.currentParish" ng-disabled="disabled" style="width: 100%;" title="Seleccione la Parroquia">
+                                    <ui-select-match placeholder="Seleccione o busque una parroquia en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                    <ui-select-choices repeat="parroquia.idparrquia as parroquia in parroquias | filter: $select.search">
+                                      <span ng-bind-html="parroquia.descripcion | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                                
+                                <br>
 
-                                <div class="form-group">
-                                    <div class="col-sm-3 saime-input">
-                                        <input type="text"  placeholder="Codigo">
-                                    </div>
-                                    <div class="col-sm-9     saime-input">
-                                        <input type="text" placeholder="Telefono Residencial">
-                                    </div>
-                                </div>
+                                <input ng-model="formData.currentCity" type="text" placeholder="Ciudad" >                                                        
+                                <input ng-model="formData.urbanization" type="text" placeholder="Urbanizacion" >
+                                <input ng-model="formData.noApto" type="text" placeholder="Nro. Casa / Apto." >
+                                <input ng-model="formData.street" type="text" placeholder="Av / Calle" >
+                                <input ng-model="formData.pCode" type="text" placeholder="Codigo Postal" >
 
-                                <div class="form-group">
-                                    <div class="col-sm-3 saime-input">
-                                        <input type="text"  placeholder="  Codigo">
-                                    </div>
-                                    <div class="col-sm-9     saime-input">
-                                        <input type="text" placeholder="Telefono Trabajo">
-                                    </div>
-                                    <p class="saime-texto-recordatorio"><i>(Debe ingresar al menos un telefono)</i></p>
-                                </div>
+                                
+                                <input ng-model="formData.cellPhone" type="number" placeholder="Telefono Celular">
+                                <input ng-model="formData.homePhone" type="number" placeholder="Telefono Residencial">
+                                <input ng-model="formData.workPhone" type="number" placeholder="Telefono Trabajo">
+                                
+                                <br>
+                                <p class="saime-texto-recordatorio"><i>(Debe ingresar al menos un telefono)</i></p>
+                                
 
                                 <input type="text" placeholder="Codigo de confirmacion que aparece arriba" >
                                 <p class="saime-texto-recordatorio-2"><i>(No se hace distincion entre mayusculas y minusculas)</i></p>         
@@ -173,43 +202,18 @@
                         
                         <div class="col-md-8 col-center saime-terminos-texto">
                             <p><b>Oficias a las cuales puedes asistir: </b></p>
-                            <div class="saime-radio-all">
-                                <div class="saime-radio">
-                                    <input type="radio" id="radio01" name="radio" />
-                                    <label for="radio01">
-                                        <span></span> 
-                                    </label>
-                                </div>
-                                <div class="saime-radio-label-md8">Oficina ejemplo</div>
-                            </div>
-                            <div class="saime-radio-all">
-                                <div class="saime-radio">
-                                    <input type="radio" id="radio02" name="radio" />
-                                    <label for="radio02">
-                                        <span></span> 
-                                    </label>
-                                </div>
-                                <div class="saime-radio-label-md8">Oficina ejemplo</div>
-                            </div>
-                            <div class="saime-radio-all">
-                                <div class="saime-radio">
-                                    <input type="radio" id="radio03" name="radio" />
-                                    <label for="radio03">
-                                        <span></span> 
-                                    </label>
-                                </div>
-                                <div class="saime-radio-label-md8">Oficina ejemplo</div>
-                            </div>
-                            <div class="saime-radio-all">
-                                <div class="saime-radio">
-                                    <input type="radio" id="radio04" name="radio" />
-                                    <label for="radio04">
-                                        <span></span> 
-                                    </label>
-                                </div>
-                                <div class="saime-radio-label-md8">Oficina ejemplo</div>
-                            </div>
+                           
 
+                            <label ng-repeat="oficina in oficinas" >
+                                
+                                    <input type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina"> {{oficina.nombreoficina}}
+                                
+                            </label>
+                           
+                            
+                            <br>
+                            <br>
+                            <br>
                             <p>
                                 <i>
                                     Para ver la dirección de la oficina, debes pasar el cursor por encima del nombre de
@@ -220,10 +224,13 @@
                                 </i>
                             </p>
 
+                            <br>
                                 
                         <div class="saime-menu" role="group" aria-label="Vertical button group">
-                            <button ui-sref="saime.menu_solicitud_ven" type="button" class="btn btn-default saime-btn-yellow">Guardar datos</button>
+                            <button ng-click="guardar(formData)" type="button" class="btn btn-default saime-btn-yellow">Guardar datos</button>
                         </div>
+
+                        <br>
                     </div>
                         <div class="col-md-2"></div>    
                     </div>

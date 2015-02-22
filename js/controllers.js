@@ -71,11 +71,12 @@ angular.module('app.controllers', ['ngCookies'])
 
       $scope.formData = {};
 
-      $http.get("api/api.php?opc=get_estado_tramites")
+      
+      $http.post("api/api.php?opc=detalle_tramites", {idpersona:"FBBC483865226C66E030320A0B0A37BE"})
 
         .success(function(response) {       
 
-          if(response.transaction == ''){
+          if(response.errorCode == '00000'){
 
             $scope.estado = 'en_proceso';
             $scope.procesos = response;
@@ -84,9 +85,22 @@ angular.module('app.controllers', ['ngCookies'])
             $scope.mensaje = response.applicationMessage;
             $scope.estado = 'sin_solicitud';
           }
+
+          //console.log(response)
           
             
         })
+
+/*
+
+    $http.get("api/api.php?opc=get_perfil")
+        .success(function(response) {       
+
+          console.log(response)
+          
+            
+        })
+*/
 
 
 }])
@@ -94,15 +108,20 @@ angular.module('app.controllers', ['ngCookies'])
 
 
 
-.controller('FormRegistroMenorCCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+.controller('FormRegistroMenorCCtrl', ['$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', function($scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory) {
 
-      $scope.formData = {};
-      $scope.formSearch = {};
+    $scope.formData = {};
+    $scope.formSearch = {};
 
-      $scope.letras = [
-        { id: 'V', letra: 'V'},
-        { id: 'E', letra: 'E'}
-      ];
+    $scope.letras = [
+      { id: 'V', letra: 'V'},
+      { id: 'E', letra: 'E'}
+    ];
+
+    $scope.generos = [
+      { id: 'M', genero: 'Masculino'},
+      { id: 'F', genero: 'Femenino'}
+    ];
 
     $scope.buscar_menor_cedulado = function(cedula) {
       $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letrame, cedula: cedula})
@@ -110,13 +129,6 @@ angular.module('app.controllers', ['ngCookies'])
           $scope.menor = [response.cedulado]; 
         })
     }
-
-
-
-    $http.get("api/api.php?opc=get_paises")
-    .success(function(response) { 
-      $scope.paises = response.countryList
-    })
 
 
     $scope.buscar_madre = function(cedula) {
@@ -141,25 +153,37 @@ angular.module('app.controllers', ['ngCookies'])
     }
 
 
-    $scope.get_estados = function(){
-      $http.get("api/api.php?opc=get_estados")
-      .success(function(response) { 
-        $scope.estados = response.stateList
-      })
-    }
+
+    $http.get("api/api.php?opc=get_paises")
+    .success(function(response) { 
+      $scope.paises = response.countryList
+    })
+
+    $http.get("api/api.php?opc=get_estados")
+    .success(function(response) { 
+      $scope.estados = response.stateList
+    })
+
 
     $scope.get_municipios = function(){
-      $http.get("api/api.php?opc=get_municipios")
-      .success(function(response) { 
-        $scope.municipios = response.townList
-      })
+      $scope.municipios = MunicipiosFactory($scope.formData.state);
     }
 
     $scope.get_parroquias = function(){
-      $http.get("api/api.php?opc=get_parroquias")
-      .success(function(response) { 
-        $scope.parroquias = response.parishList
-      })
+      $scope.parroquias = ParroquiasFactory($scope.formData.town);
+    }
+
+
+    $scope.get_cmunicipios = function(){
+      $scope.municipios = MunicipiosFactory($scope.formData.currentState);
+    }
+
+    $scope.get_cparroquias = function(){
+      $scope.parroquias = ParroquiasFactory($scope.formData.currentTown);
+    }
+
+    $scope.get_oficinas = function(){
+      $scope.oficinas = OficinasFactory($scope.formData.currentState);
     }
 
 
@@ -176,9 +200,18 @@ angular.module('app.controllers', ['ngCookies'])
 
 
     $scope.continuar2 = function(form){
-      if((form.name1 && form.lastName1 && form.bDate && form.countryIni && form.state && form.town) && (form.motherId || form.fatherId || form.legalId)) {
-        $scope.step2 = "display:none;";
-        $scope.step3 = "display:block;";
+      if((form.name1 && form.lastName1 && form.bDate && form.gender && form.countryIni && form.state && form.town && form.parish && form.city) && (form.motherId || form.fatherId || form.legalId)) {
+        $scope.step3 = "display:none;";
+        $scope.step4 = "display:block;";
+      }else{
+        $scope.error2 = "Debe llenar los campos requeridos";
+      }  
+    }
+
+     $scope.continuar3 = function(form){
+      if((form.currentState && form.currentTown && form.currentParish && form.urbanization && form.noApto && form.street && form.pCode) && (form.cellPhone || form.workPhone || form.homePhone)) {      
+        $scope.step4 = "display:none;";
+        $scope.step5 = "display:block;";
       }else{
         $scope.error2 = "Debe llenar los campos requeridos";
       }  
@@ -186,7 +219,9 @@ angular.module('app.controllers', ['ngCookies'])
 
 
     $scope.guardar = function(form){
-      if((form.currentState && form.currentTown && form.currentParish && form.urbanization && form.noApto && form.street && form.pCode) && (form.cellPhone || form.workPhone || form.homePhone)) {
+      $scope.formData.offices = $scope.formData.offices.toString();
+      $scope.formData.country = $scope.formData.countryIni;
+      if($scope.formData.offices != ""){
         console.log("fino");
       }else{
         $scope.error2 = "Debe llenar los campos requeridos";
@@ -201,8 +236,13 @@ angular.module('app.controllers', ['ngCookies'])
     }
 
     $scope.atras2 = function(){
-      $scope.step3 = "display:none;";
-      $scope.step2 = "display:block;";
+      $scope.step4 = "display:none;";
+      $scope.step3 = "display:block;";
+    }
+
+    $scope.atras3 = function(){
+      $scope.step5 = "display:none;";
+      $scope.step4 = "display:block;";
     }
 
 
@@ -233,22 +273,20 @@ angular.module('app.controllers', ['ngCookies'])
 
 
 
-.controller('FormRegistroMenorNcCtrl', ['$scope', '$http', '$state', '$timeout', function($scope, $http, $state, $timeout) {
+.controller('FormRegistroMenorNcCtrl', ['$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', function($scope, $http, $state, $timeout, MunicipiosFactory, ParroquiasFactory, OficinasFactory) {
+
+   $scope.formData = {};
+    $scope.formSearch = {};
 
     $scope.letras = [
       { id: 'V', letra: 'V'},
       { id: 'E', letra: 'E'}
     ];
 
-
-    $scope.formData = {};
-    $scope.formSearch = {};
-
-    
-    $http.get("api/api.php?opc=get_paises")
-    .success(function(response) { 
-      $scope.paises = response.countryList
-    })
+    $scope.generos = [
+      { id: 'M', genero: 'Masculino'},
+      { id: 'F', genero: 'Femenino'}
+    ];
 
 
     $scope.buscar_madre = function(cedula) {
@@ -273,31 +311,44 @@ angular.module('app.controllers', ['ngCookies'])
     }
 
 
-    $scope.get_estados = function(){
-      $http.get("api/api.php?opc=get_estados")
-      .success(function(response) { 
-        $scope.estados = response.stateList;
-      })
-    }
+
+    $http.get("api/api.php?opc=get_paises")
+    .success(function(response) { 
+      $scope.paises = response.countryList
+    })
+
+    $http.get("api/api.php?opc=get_estados")
+    .success(function(response) { 
+      $scope.estados = response.stateList
+    })
+
 
     $scope.get_municipios = function(){
-      $http.get("api/api.php?opc=get_municipios")
-      .success(function(response) { 
-        $scope.municipios = response.townList;
-      })
+      $scope.municipios = MunicipiosFactory($scope.formData.state);
     }
 
     $scope.get_parroquias = function(){
-      $http.get("api/api.php?opc=get_parroquias")
-      .success(function(response) { 
-        $scope.parroquias = response.parishList;
-      })
+      $scope.parroquias = ParroquiasFactory($scope.formData.town);
+    }
+
+
+    $scope.get_cmunicipios = function(){
+      $scope.municipios = MunicipiosFactory($scope.formData.currentState);
+    }
+
+    $scope.get_cparroquias = function(){
+      $scope.parroquias = ParroquiasFactory($scope.formData.currentTown);
+    }
+
+    $scope.get_oficinas = function(){
+      $scope.oficinas = OficinasFactory($scope.formData.currentState);
     }
 
 
 
-    $scope.continuar = function(){
-      if((form.name1 && form.lastName1 && form.bDate && form.countryIni && form.state && form.town) && (form.motherId || form.fatherId || form.legalId)) {
+
+    $scope.continuar1 = function(form){
+      if((form.name1 && form.lastName1 && form.bDate && form.gender && form.countryIni && form.state && form.town && form.parish && form.city) && (form.motherId || form.fatherId || form.legalId)) {
         $scope.step1 = "display:none;";
         $scope.step2 = "display:block;";
       }else{
@@ -305,35 +356,38 @@ angular.module('app.controllers', ['ngCookies'])
       }  
     }
 
-    $scope.atras = function(){
-      $scope.step2 = "display:none;";
-      $scope.step1 = "display:block;";
-    }
-    
-
-    $scope.guardar = function(form){
-      if((form.currentState && form.currentTown && form.currentParish && form.urbanization && form.noApto && form.street && form.pCode) && (form.cellPhone || form.workPhone || form.homePhone)) {
-        console.log($scope.formData)
-
-        /*
-        $http.post("api/api.php?opc=sol_ven_menor", $scope.formData)
-          .success(function(response) {
-          if(response == 'aceptado'){
-            //$state.go('saime.inicio');
-            
-          }else{
-            $scope.authError = response.error_description;
-          }
-            
-        })*/
-
+     $scope.continuar2 = function(form){
+      if((form.currentState && form.currentTown && form.currentParish && form.urbanization && form.noApto && form.street && form.pCode) && (form.cellPhone || form.workPhone || form.homePhone)) {      
+        $scope.step3 = "display:none;";
+        $scope.step4 = "display:block;";
       }else{
         $scope.error2 = "Debe llenar los campos requeridos";
       }  
     }
 
 
+    $scope.guardar = function(form){
+      $scope.formData.offices = $scope.formData.offices.toString();
+      $scope.formData.country = $scope.formData.countryIni;
+      if($scope.formData.offices != ""){
+        console.log("fino");
+      }else{
+        $scope.error2 = "Debe llenar los campos requeridos";
+      }  
 
+      console.log(form)
+    }
+
+
+    $scope.atras1 = function(){
+      $scope.step2 = "display:none;";
+      $scope.step1 = "display:block;";
+    }
+
+    $scope.atras2 = function(){
+      $scope.step4 = "display:none;";
+      $scope.step3 = "display:block;";
+    }
 
 
     $scope.date_clear = function () {
@@ -346,6 +400,7 @@ angular.module('app.controllers', ['ngCookies'])
       $scope.opened = true;
     };
 
+
     $scope.dateOptions = {
       formatYear: 'yy',
       startingDay: 1,
@@ -353,7 +408,6 @@ angular.module('app.controllers', ['ngCookies'])
     };
 
     $scope.format = 'dd/MM/yyyy';
-
 
 }])
 
@@ -366,7 +420,54 @@ angular.module('app.controllers', ['ngCookies'])
   }])
 
 
-  .controller('FormRegistroDatosPersonalesVenCtrl', ['$scope', function($scope) {
+  .controller('FormRegistroDatosPersonalesVenCtrl', ['$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', function($scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory) {
+
+
+    $http.get("api/api.php?opc=get_paises")
+    .success(function(response) { 
+      $scope.paises = response.countryList
+    })
+
+
+    $http.get("api/api.php?opc=get_estados")
+      .success(function(response) { 
+        $scope.estados = response.stateList;
+      })
+
+
+    $scope.get_municipios = function(){
+      $scope.municipios = MunicipiosFactory($scope.formData.state);
+    }
+
+    $scope.get_parroquias = function(){
+      $scope.parroquias = ParroquiasFactory($scope.formData.town);
+    }
+
+    $scope.get_cmunicipios = function(){
+      $scope.municipios = MunicipiosFactory($scope.formData.currentState);
+    }
+
+    $scope.get_cparroquias = function(){
+      $scope.parroquias = ParroquiasFactory($scope.formData.currentTown);
+    }
+
+    $scope.get_oficinas = function(){
+      $scope.oficinas = OficinasFactory($scope.formData.currentState);
+    }
+
+    $scope.guardar = function(form){
+      $scope.formData.offices = $scope.formData.offices.toString();
+      $scope.formData.country = $scope.formData.countryIni;
+      $http.post("api/api.php?opc=reg_persona", $scope.formData)
+        .success(function(response) {
+            if(response.errorCode == '00000'){
+              $state.go("saime.solicitud_pasaporte_exitoso_ven");
+            }else{
+              $state.go("saime.solicitud_pasaporte_error_ven");
+            }
+        })
+    }
+    
     
     $scope.continuar1 = function(){
       //if((form.name1 && form.lastName1 && form.bDate && form.countryIni && form.state && form.town) && (form.motherId || form.fatherId || form.legalId)) {
@@ -396,27 +497,6 @@ angular.module('app.controllers', ['ngCookies'])
       $scope.step3 = "display:none;";
       $scope.step2 = "display:block;";
     }
-
-
-
-
-    $scope.date_clear = function () {
-      $scope.dt = null;
-    };
-  
-    $scope.date_open = function($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-      $scope.opened = true;
-    };
-
-    $scope.dateOptions = {
-      formatYear: 'yy',
-      startingDay: 1,
-      class: 'datepicker'
-    };
-
-    $scope.format = 'dd/MM/yyyy';
 
 
 
