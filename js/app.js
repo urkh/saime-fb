@@ -14,7 +14,9 @@ var app = angular.module('app', [
     'ui.validate',
     'checklist-model',
 
-    'app.controllers',
+    'app.controllers_gen',
+    'app.controllers_ven',
+    'app.controllers_ext',
     'app.services',
     'uiGmapgoogle-maps'
   ])
