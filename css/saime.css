@@ -1,16 +1,14 @@
 input {
-  /*border-top: none;
-  border-left: none !important;
-  border-right: none !important;
-  border-bottom: 2px solid rgb(155,156,155) !important;*/
-  height: 40px !important;
+  height: 34px !important;
   width: 100%;
- /* background-color: rgb(244,244,244);*/
   padding-left: 10px;
   margin-bottom: 10px;
-
   font-size: 17px;
   letter-spacing: 1px;
+  border-radius: 0px !important;
+  border: 1px;
+  box-shadow: 2px 1px 5px #DEE5E7;
+
 }
 
 input[type=radio] {
