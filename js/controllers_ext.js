@@ -119,13 +119,21 @@ angular.module('app.controllers_ext', ['ngCookies'])
     $scope.guardar = function(form){
       $scope.formData.offices = $scope.formData.offices.toString();
       $scope.formData.country = $scope.formData.countryIni;
+      
       if($scope.formData.offices != ""){
-        console.log("fino");
-      }else{
-        $scope.error2 = "Debe llenar los campos requeridos";
-      }  
 
-      console.log(form)
+        $http.post("api/api.php?opc=sol_ext_menor", $scope.formData)
+          .success(function(response) {
+              if(response.errorCode == '00000'){
+                $state.go("saime.solicitud_pasaporte_exitoso_ven");
+              }else{
+                $state.go("saime.solicitud_pasaporte_error_ven");
+              }
+          })
+
+      }else{
+        $scope.error2 = "Los campos con asterisco (*) son requeridos";
+      }  
     }
 
     $scope.atras1 = function(){
@@ -270,7 +278,7 @@ angular.module('app.controllers_ext', ['ngCookies'])
       
       if($scope.formData.offices != ""){
 
-        $http.post("api/api.php?opc=sol_ven_menor", $scope.formData)
+        $http.post("api/api.php?opc=sol_ext_menor", $scope.formData)
           .success(function(response) {
               if(response.errorCode == '00000'){
                 $state.go("saime.solicitud_pasaporte_exitoso_ven");
