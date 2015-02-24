@@ -3,7 +3,7 @@ include('Requests-1.6.0/library/Requests.php');
 
 Requests::register_autoloader();
 
-$host = "http://www.predimania.com:8080";
+$host = "http://android.saime.gob.ve";
 
 $data = json_decode(file_get_contents("php://input"));
 $data =  (array) $data;

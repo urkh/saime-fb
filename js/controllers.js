@@ -273,7 +273,7 @@ angular.module('app.controllers', ['ngCookies'])
 
 
 
-.controller('FormRegistroMenorNcCtrl', ['$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', function($scope, $http, $state, $timeout, MunicipiosFactory, ParroquiasFactory, OficinasFactory) {
+.controller('FormRegistroMenorNcCtrl', ['$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', function($scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory) {
 
    $scope.formData = {};
     $scope.formSearch = {};
@@ -352,16 +352,16 @@ angular.module('app.controllers', ['ngCookies'])
         $scope.step1 = "display:none;";
         $scope.step2 = "display:block;";
       }else{
-        $scope.error2 = "Debe llenar los campos requeridos";
+        $scope.error2 = "Los campos con asterisco (*) son requeridos";
       }  
     }
 
      $scope.continuar2 = function(form){
-      if((form.currentState && form.currentTown && form.currentParish && form.urbanization && form.noApto && form.street && form.pCode) && (form.cellPhone || form.workPhone || form.homePhone)) {      
-        $scope.step3 = "display:none;";
-        $scope.step4 = "display:block;";
+      if((form.currentState && form.currentTown && form.currentParish && form.currentCity && form.urbanization && form.noApto && form.street && form.pCode) && (form.cellPhone || form.workPhone || form.homePhone)) {              
+        $scope.step2 = "display:none;";
+        $scope.step3 = "display:block;";
       }else{
-        $scope.error2 = "Debe llenar los campos requeridos";
+        $scope.error2 = "Los campos con asterisco (*) son requeridos";
       }  
     }
 
@@ -369,13 +369,21 @@ angular.module('app.controllers', ['ngCookies'])
     $scope.guardar = function(form){
       $scope.formData.offices = $scope.formData.offices.toString();
       $scope.formData.country = $scope.formData.countryIni;
+      
       if($scope.formData.offices != ""){
-        console.log("fino");
-      }else{
-        $scope.error2 = "Debe llenar los campos requeridos";
-      }  
 
-      console.log(form)
+        $http.post("api/api.php?opc=sol_ven_menor", $scope.formData)
+          .success(function(response) {
+              if(response.errorCode == '00000'){
+                $state.go("saime.solicitud_pasaporte_exitoso_ven");
+              }else{
+                $state.go("saime.solicitud_pasaporte_error_ven");
+              }
+          })
+
+      }else{
+        $scope.error2 = "Los campos con asterisco (*) son requeridos";
+      }  
     }
 
 
@@ -385,8 +393,8 @@ angular.module('app.controllers', ['ngCookies'])
     }
 
     $scope.atras2 = function(){
-      $scope.step4 = "display:none;";
-      $scope.step3 = "display:block;";
+      $scope.step3 = "display:none;";
+      $scope.step2 = "display:block;";
     }
 
 
