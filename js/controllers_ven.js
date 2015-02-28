@@ -9,7 +9,7 @@ angular.module('app.controllers_ven', ['ngCookies'])
 
 
 .controller('FormRegistroMenorCCtrl', ['$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', function($scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory) {
-
+    $("#header_status").hide();
     $scope.formData = {};
     $scope.formSearch = {};
 
@@ -24,32 +24,47 @@ angular.module('app.controllers_ven', ['ngCookies'])
     ];
 
     $scope.buscar_menor_cedulado = function(cedula) {
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letrame, cedula: cedula})
-      .success(function(response) {
+      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letrame, cedula: cedula}).success(function(response) {
+        if(response.errorCode === '00000'){
           $scope.menor = [response.cedulado]; 
-        })
+        }else if(response.errorCode === '90000'){
+          $scope.error2 = response.consumerMessage;
+        }else{
+          $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
+        }
+      })
+    }
+
+
+    $scope.validar_cita_menor = function(){
+      $http.post("api/api.php?opc=validar_cita_menor", {idpersona:$scope.formData.minorId}).success(function(response) { 
+        if(response.errorCode === '00000'){
+          $scope.continuar1();
+        }else if(response.errorCode === '90000'){
+          $scope.error2 = response.consumerMessage;
+        }else{
+          $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+        }
+      })
     }
 
 
     $scope.buscar_madre = function(cedula) {
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letram, cedula: cedula})
-      .success(function(response) {
-          $scope.madre = [response.cedulado]; 
-        })
+      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letram, cedula: cedula}).success(function(response) {
+        $scope.madre = [response.cedulado]; 
+      })
     }
 
     $scope.buscar_padre = function(cedula){
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letrap, cedula: cedula})
-        .success(function(response) {
-          $scope.padre = [response.cedulado]; 
-        })
+      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letrap, cedula: cedula}).success(function(response) {
+        $scope.padre = [response.cedulado]; 
+      })
     }
 
     $scope.buscar_legal = function(cedula){
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letral, cedula: cedula})
-        .success(function(response) {
-          $scope.legal = [response.cedulado]; 
-        })
+      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letral, cedula: cedula}).success(function(response) {
+        $scope.legal = [response.cedulado]; 
+      })
     }
 
 
@@ -86,16 +101,13 @@ angular.module('app.controllers_ven', ['ngCookies'])
       $scope.oficinas = OficinasFactory($scope.formData.currentState);
     }
 
+    
 
 
 
-    $scope.continuar1 = function(form){
-      if(form.$valid) {
+    $scope.continuar1 = function(){
         $scope.step1 = "display:none;";
         $scope.step2 = "display:block;";
-      }else{
-        $scope.error1 = "Debe llenar los campos requeridos";
-      }
     }
 
 
@@ -324,16 +336,18 @@ angular.module('app.controllers_ven', ['ngCookies'])
   .controller('FormRegistroDatosPersonalesVenCtrl', ['$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', function($scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory) {
 
 
-    $http.get("api/api.php?opc=get_paises")
-    .success(function(response) { 
+    
+    
+
+
+    $http.get("api/api.php?opc=get_paises").success(function(response) { 
       $scope.paises = response.countryList
     })
 
 
-    $http.get("api/api.php?opc=get_estados")
-      .success(function(response) { 
+    $http.get("api/api.php?opc=get_estados").success(function(response) { 
         $scope.estados = response.stateList;
-      })
+    })
 
 
     $scope.get_municipios = function(){

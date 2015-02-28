@@ -33,16 +33,18 @@
 
  </head>
 <body ng-controller="AppCtrl">
-  <div class="app" id="app"  ui-view>
-    
-  </div>
-  
+  <div class="app" id="app"  ui-view></div>
+
+
+
+
+ 
   <script src="js/jquery/jquery.min.js"></script>
   
   <script src="js/angular/angular.min.js"></script>
   <script src="js/angular/agular-maps.js"></script>
   <script src="js/angular/lodash.js"></script>
-  <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+  <!--<script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>-->
   <script src="js/angular/angular-sanitize.min.js"></script>
   <script src="js/angular/angular-cookies.min.js"></script>
   <script src="js/angular/angular-animate.min.js"></script>
@@ -54,6 +56,7 @@
   <script src="js/angular/ui-jq.js"></script>
   <script src="js/angular/ui-validate.js"></script>
   <script src="js/angular/ui-bootstrap-tpls.min.js"></script>
+  <script src="js/angular/ngFacebook.js"></script>
     
   <script src="js/app.js"></script>
   <script src="js/controllers_gen.js"></script>
@@ -62,48 +65,8 @@
   <script src="js/services.js"></script>
   <script src="js/angular/checklist-model.js"></script>
   <script src="js/modules/select2/select.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
 <!---->
-<script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
-<script>
-        window.fbAsyncInit = function() {
-          FB.Canvas.setAutoResize();
-        };
-        (function() {
-                /*var e = document.createElement('script'); e.async = true;
-                e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-                document.getElementById('fb-root').appendChild(e);*/
-          FB.Canvas.setAutoGrow(true);
-          FB.Canvas.setAutoGrow(false);
-        }());
-        FB.init({
-            appId  : '1540942286154750',
-            frictionlessRequests: true
-        });
-        FB.Canvas.setAutoGrow(true);
-          FB.Array.forEach([300, 600, 1000, 2000], function(delay) {
-            setTimeout(function() {
-            FB.XFBML.parse();
-            FB.Canvas.setSize();
-            FB.Canvas.setAutoGrow(91); // Paul's favourite number
-          }, delay)
-        });
-
-        var map;
-        function initialize() {
-          var mapOptions = {
-            zoom: 8,
-            center: new google.maps.LatLng(-34.397, 150.644),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-          };
-          map = new google.maps.Map(document.getElementById('map_canvas'),
-              mapOptions);
-        }
-  
-        google.maps.event.addDomListener(window, 'load', initialize);
-</script>
-
-
 
 
 </body>

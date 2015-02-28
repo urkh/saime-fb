@@ -2,8 +2,10 @@
 
 
 
-angular.module('app.controllers_gen', ['ngCookies'])
-  .controller('AppCtrl', ['$scope', '$localStorage', '$window', 
+angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
+
+
+.controller('AppCtrl', ['$scope', '$localStorage', '$window', 
     function(              $scope,   $localStorage,   $window ) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
@@ -27,44 +29,243 @@ angular.module('app.controllers_gen', ['ngCookies'])
   }])
 
 
+.controller('FBCtrl',['$scope','$facebook', function($scope, $facebook){
+
+  $("#header_status").show();
+  $facebook.login().then(function() {
+      $scope.refresh();
+      
+    });
+
+
+  $scope.refresh = function(){
+
+    $facebook.api("/me").then( 
+      function(response) {
+        $scope.bienvenido = response.name;
+      },
+      function(err) {
+        $scope.bienvenido = "Please log in";
+      });
+
+
+    $facebook.api("/me/picture?redirect=false&height=128&type=normal&width=128").then(
+      function(response){
+        $scope.profile_pic = response.data.url;
+        $("#fb_profile").show();
+      });
+
+  }
+
+}])
+
 
 .controller('SignInCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
 
+
+      $("#header_status").hide();
+      window.scrollTo(0, 0);
       $scope.formData = {};
 
-      $scope.login = function() {
+      
 
-          $http.post("api/api.php?opc=signin", $scope.formData)
+      $scope.login = function(form) {
+ 
+        if(form.$valid){
 
-          .success(function(response) {
-            if(response.status == 'granted'){
+          $http.post("api/api.php?opc=signin", $scope.formData).success(function(response) {
+            if(response.status === 'granted'){
               $state.go('saime.inicio');
               
-            }else{
+            }else if(response.status === 'denied'){
               $scope.authError = response.msg;
+            }else{
+              $scope.authError = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
             }
               
           })
+
+        }else{
+
+          $scope.authError = "Debe llenar los campos correctamente"
+        }
 
       }
 
 }])
 
 
+.controller('MainCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+  $("#header_status").hide();   
+
+  $scope.validar_cita_ven = function(){
+    $http.get("api/api.php?opc=validar_cita").success(function(response) { 
+      if(response.errorCode === '00000'){
+        $state.go("saime.registro_datos_personales_ven");
+      }else if(response.errorCode === '90000'){
+        $scope.error2 = response.consumerMessage;
+      }else{
+        $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+      }
+    })
+  }
+
+}])
+
+
+.controller('OlvidoContrasenaCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+  
+  $("#header_status").hide();   
+
+  $scope.enviar = function(form){
+    if(form.$valid){
+      $http.post("api/api.php?opc=req_pass", $scope.formData)
+      .success(function(response) {
+        if(response.errorCode==='00000'){
+          $state.go("saime.enviocontrasena");
+        }else if(response.errorCode==='90000'){
+          $scope.error2 = response.consumerMessage;
+        }else{
+          $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
+        }
+      })
+    }else{
+      $scope.error2 = "Debe llenar el campo correctamente.";  
+    }  
+  }  
+
+}])
+
+
+
+.controller('RegistroCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+  $("#header_status").hide();
+
+  $scope.formData = {};
+  $scope.formNoData = {};
+  var original = $scope.formData;
+
+  
+  $scope.letras = [
+      { id: 'V', letra: 'V'},
+      { id: 'E', letra: 'E'}
+    ];
+
+  $scope.codigos = [
+      {numero: '0412'},
+      {numero: '0414'},
+      {numero: '0416'},
+      {numero: '0424'},
+      {numero: '0426'}
+    ];
+
+
+    $scope.guardar = function(form){
+      $scope.formData.phone = $scope.formNoData.phone_code + $scope.formNoData.phone;
+      if(form.$valid){
+        $http.post("api/api.php?opc=reg_usuario", $scope.formData)
+        .success(function(response) {
+          if(response.errorCode==='00000'){
+            $state.go("saime.registro_usuario_exitoso");
+          }else if(response.errorCode==='90000'){
+            $scope.error2 = response.consumerMessage;
+          }else{
+            $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
+          }
+        })
+      }else{
+        $scope.error2 = "Debe llenar los campos correctamente";  
+      }  
+    }
+
+
+    $scope.reset = function(){
+      $scope.formData = angular.copy({});
+      $scope.formNoData = angular.copy({});
+    }
+      
+
+}])
+
+
+.controller('ReclamosCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+  $("#header_status").hide();
+
+  $scope.formData = {};
+  $scope.formNoData = {};
+  var original = $scope.formData;
+
+  
+  $scope.codigos = [
+      {numero: '0412'},
+      {numero: '0414'},
+      {numero: '0416'},
+      {numero: '0424'},
+      {numero: '0426'}
+    ];
+
+
+    $scope.guardar = function(enviar){
+      
+    }
+
+
+    $scope.reset = function(){
+      $scope.formData = angular.copy({});
+      $scope.formNoData = angular.copy({});
+    }
+      
+
+}])
+
 
 
 .controller('InicioCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+  $("#header_status").hide();
+  $scope.formData = {};
 
-      $scope.formData = {};
+}])
 
+
+
+.controller('NoticiasWebCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+  $("#header_status").hide();
+
+  $http.post("api/api.php?opc=get_noticias_web", {pageNo:"1", pageSize:"10"}).success(function(response) { 
+    if(response.errorCode==='00000'){
+      $scope.noticias = response.noticiaWebList;
+    }else{
+      $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
+    }
+    
+  })
 
 }])
 
-.controller('MapasCtrl', ['$scope', function($scope){
 
-  $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
 
+
+.controller('MapasCtrl', ['$scope', '$facebook', '$http', function($scope, $facebook, $http){
+
+  $("#header_status").hide();
+  $facebook.api("/me").then( 
+      function(response) {
+        $scope.url = 'https://graph.facebook.com/'+response.location.id;
+
+        $http.get($scope.url).success(function(res) { 
+          $scope.map = { center: { latitude: res.location.latitude, longitude: res.location.longitude }, zoom: 14 };
+        })
+
+      });
+
+  /*
+  $http.get('api/api.php?opc=get_oficinas_web').success(function(response) { 
+      console.log(response)
+    })
+*/
+  
 }])
+
 
 
 .controller('EstadoTramiteCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {

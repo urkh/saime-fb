@@ -2,6 +2,7 @@
 
 // Declare app level module which depends on filters, and services
 var app = angular.module('app', [
+    'ngFacebook',
     'ngAnimate',
     'ngCookies',
     'ngStorage',
@@ -18,19 +19,13 @@ var app = angular.module('app', [
     'app.controllers_ven',
     'app.controllers_ext',
     'app.services',
+    
     'uiGmapgoogle-maps'
   ])
-.run(
-  [          '$rootScope', '$state', '$stateParams',
-    function ($rootScope,   $state,   $stateParams) {
-        $rootScope.$state = $state;
-        $rootScope.$stateParams = $stateParams;        
-    }
-  ]
-)
+
 .config(
-  [          '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
-    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide) {
+  [          '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', '$facebookProvider',
+    function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide,   $facebookProvider) {
         
         // lazy controller, directive and service
         app.controller = $controllerProvider.register;
@@ -40,6 +35,12 @@ var app = angular.module('app', [
         app.service    = $provide.service;
         app.constant   = $provide.constant;
         app.value      = $provide.value;
+
+        
+
+        $facebookProvider.setAppId('1540942286154750');
+        $facebookProvider.setVersion("v2.1");
+        $facebookProvider.setPermissions("user_about_me,user_location,user_activities");
 
         $urlRouterProvider.otherwise('/saime/login');
         $stateProvider            
@@ -203,10 +204,7 @@ var app = angular.module('app', [
                 templateUrl: 'templates/olvido_contrasena.html'
             })
 
-            .state('saime.enviocontrasena', {
-                url: '/resetear_contrasena/contrasena_enviada',
-                templateUrl: 'templates/envio_contrasena.html'
-            })
+            
             
             .state('saime.registro', {
                 url: '/registro',
@@ -261,6 +259,18 @@ var app = angular.module('app', [
                 templateUrl: 'templates/mensajes/solicitud_pasaporte_error_ven.html'
             })  
 
+            .state('saime.registro_usuario_exitoso', {
+                url: '/registro_usuario_exitoso',
+                templateUrl: 'templates/mensajes/registro_exitoso.html'
+            })  
+
+            .state('saime.enviocontrasena', {
+                url: '/resetear_contrasena/contrasena_enviada',
+                templateUrl: 'templates/mensajes/envio_contrasena.html'
+            })
+
+
+
 /*
             .state('saime.solicitud_ya_existe', {
                 url: '/solicitud/ya_existe',
@@ -274,6 +284,28 @@ var app = angular.module('app', [
 
 
 */
+
+    }
+  ]
+)
+
+
+
+.run(
+  [          '$rootScope', '$state', '$stateParams',
+    function ($rootScope,   $state,   $stateParams) {
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;      
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk')); 
+
+
 
     }
   ]

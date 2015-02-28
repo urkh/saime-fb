@@ -1,5 +1,13 @@
 var services = angular.module('app.services', ['ngResource']);
 
+services.factory("HeaderFactory", function(){
+
+  return {header_status: null }
+
+});
+
+
+
 services.factory('MunicipiosFactory', ['$http', function($http) {
 	
     return function(state){

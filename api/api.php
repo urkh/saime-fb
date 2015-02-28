@@ -4,6 +4,8 @@ include('Requests-1.6.0/library/Requests.php');
 Requests::register_autoloader();
 
 $host = "http://android.saime.gob.ve";
+//$host = "http://www.predimania.com:8080";
+
 
 $data = json_decode(file_get_contents("php://input"));
 $data =  (array) $data;
@@ -15,12 +17,17 @@ switch ($_GET['opc']) {
         get_login($username, $password, $host);
         break;
 
+
+    case "reg_fb_perfil":
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/common/saveFacebookProfile");
+        break;
+
     case "get_perfil":
         get_bearer_auth($host, $uri="/saime-ws/v1.0/me");
         break;
 
     case "reg_usuario":
-        post_basic_auth($URI="/saime-ws/v1.0/register/insert", $data);
+        post_basic_auth($host, $uri="/saime-ws/v1.0/register/insert", $data);
         break;
 
     case "reg_persona":
@@ -42,7 +49,11 @@ switch ($_GET['opc']) {
         break;
 
     case "validar_cita":
-        get_bearer_auth($URI="/saime-ws/v1.0/passport/isValidProcessPersonal");
+        get_bearer_auth($host, $uri="/saime-ws/v1.0/passport/isValidProcessPersonal");
+        break;
+
+    case "validar_cita_menor":
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/passport/isValidProcessPersonalMinor", $data);
         break;
 
 
@@ -55,7 +66,7 @@ switch ($_GET['opc']) {
         break;
 
     case "req_pass":
-        post_basic_auth($URI="/saime-ws/v1.0/recover", $data);
+        post_basic_auth($host, $uri="/saime-ws/v1.0/recover", $data);
         break;
 
     case "rechazar_cita":
@@ -119,12 +130,12 @@ switch ($_GET['opc']) {
 
 
     case "get_oficinas_web":
-        get_bearer_auth($URI="/saime-ws/v1.0/portal/oficinas");
+        get_bearer_auth($host, $uri="/saime-ws/v1.0/portal/oficinas");
         break;
 
 
     case "get_noticias_web":
-        get_bearer_auth($URI="/saime-ws/v1.0/portal/noticias");
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/portal/noticias", $data);
         break;
 
 
@@ -192,6 +203,7 @@ function get_login($username, $password, $host){
 }
 
 
+
 function get_bearer_auth($host, $uri){
 
 	$headers = array('Content-Type' => 'application/json', 'Authorization' => 'Bearer '.$_COOKIE['access_token']);
@@ -228,7 +240,7 @@ function post_basic_auth($host, $uri, $datos){
 	$headers = array('Content-Type' => 'application/json', 'Authorization' => 'Basic MzUzYjMwMmM0NDU3NGY1NjUwNDU2ODdlNTM0ZTdkNmE6Mjg2OTI0Njk3ZTYxNWE2NzJhNjQ2YTQ5MzU0NTY0NmM=');
 	$data = array('data'=> parser_datos($datos), 'crc'=> gen_crc(parser_datos($datos)));
 	$response = Requests::post($host.$uri, $headers, json_encode($data));
-	var_dump($response->body);
+	echo $response->body;
 
 }
 

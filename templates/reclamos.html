@@ -11,8 +11,8 @@
           </div>
         </div>
         
-        <div class="wrapper-md" ng-controller="FormDemoCtrl">
-            <form class="form-horizontal">
+        <div class="wrapper-md" ng-controller="ReclamosCtrl">
+            <form name="formData" class="form-horizontal">
                 <div class="row">
                     <div class="col-md-2">
                       <button ui-sref="saime.inicio" type="button" class="btn btn-saime-stand">
@@ -20,22 +20,35 @@
                       </button>
                     </div>
                     <div class="col-md-8">
-                      <input type="text" placeholder="Nombre y Apellido">
-                      <input type="text" placeholder="Correo Electronico">
-                      <textarea name="" class="reclamo-textarea" placeholder="Mensaje"></textarea>
+                      <input ng-model="formData.nombreApellido" type="text" placeholder="Nombre y Apellido">
+                      <input ng-model="formData.email" type="text" placeholder="Correo Electronico">
+                      <textarea ng-model="formData.mensaje" class="reclamo-textarea" placeholder="Mensaje"></textarea>
                       <div class="form-group">
                         <div class="col-sm-3 saime-input">
-                          <input type="text"  placeholder="Codigo">
+                            <ui-select required="true" ng-model="formNoData.phone_code" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
+                                <ui-select-choices repeat="codigo.numero as codigo in codigos">
+                                  <span ng-bind-html="codigo.numero"></span>
+                                </ui-select-choices>
+                            </ui-select>
+
                         </div>
                         <div class="col-sm-9 saime-input">
-                          <input type="text" placeholder="Telefono Celular">
+                            <input required="true" ng-model="formNoData.phone" type="number" placeholder="Tel&eacute;fono Celular">
                         </div>
                       </div>
+                      <br>
+                          <div align="center" class="saime-error-input">
+                              {{error2}}
+                          </div>
+                      <br>  
+                      <!--
                       <input type="text" placeholder="Codigo de confirmacion que aparece arriba">
                       <p class="derecha"><i>(No se hace distincion entre mayusula y minusculas)</i></p>
+                      -->
                       <div class="form-group margen-reclamo-arriba">
                         <div class="text-center">
-                          <button type="button" class="btn btn-saime-stand saime-btn-lg">Enviar</button>
+                          <button ng-click="enviar(form)" type="button" class="btn btn-saime-stand saime-btn-lg">Enviar</button>
                         </div>
                       </div>
                     </div>

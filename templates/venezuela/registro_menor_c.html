@@ -20,7 +20,7 @@
         <div class="wrapper-md" ng-controller="FormRegistroMenorCCtrl">
 
             <div style="display:block; {{step1}}">
-                <form name="formSearch" class="form-horizontal">
+                
                     <div class="row">
                         
 
@@ -51,15 +51,13 @@
 
                                         <div class="col-sm-7">
                                             
-                                            <ui-select required="true" ng-model="formData.minorId" style="width: 100%;" >
+                                            <ui-select on-select="validar_cita_menor()" required="true" ng-model="formData.minorId" style="width: 80%;" >
                                                 <ui-select-match placeholder="Escriba el numero de cedula...">
                                                     {{$select.selected.numerocedula}} - {{$select.selected.primernombre}} {{$select.selected.primerapellido}}
                                                 </ui-select-match>
                                             
-                                                <ui-select-choices repeat="men.idpersona as men in menor" refresh="buscar_menor_cedulado($select.search)">
-                                                    <span ng-bind-html="men.numerocedula | highlight: $select.search"></span>
-                                                    <small ng-bind-html="men.primernombre | highlight: $select.search"></small>
-                                                    <small ng-bind-html="men.primerapellido | highlight: $select.search"></small>
+                                                <ui-select-choices repeat="men.idpersona as men in menor" refresh="buscar_menor_cedulado($select.search)" refresh-delay="3">
+                                                    <div>{{men.numerocedula}} - {{men.primernombre}} {{men.primerapellido}}</div>
                                                 </ui-select-choices>
                                             </ui-select>
 
@@ -79,13 +77,15 @@
                         
                     </div>
 
-                    <div class="text-center">
-                        
-                        <button ng-click="continuar1(formSearch)" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
-                                    
-                    </div>
+                    <br>
+                        <div align="center" class="saime-error-input">
+                            {{error2}}
+                        </div>
+                    <br>   
+
+                   
                     <br><br>
-                </form>
+                
             </div>
 
 

@@ -8,7 +8,7 @@
             </div>
           </div>
         </div>
-        <div class="wrapper-md" ng-controller="FormDemoCtrl">
+        <div class="wrapper-md" ng-controller="RegistroCtrl">
             <div class="row">
                 <div class="col-md-3">
                     <button ui-sref="saime.login" type="button" class="btn btn-saime-stand">
@@ -20,43 +20,67 @@
                     <p><h3>Datos Personales</h3></p>
                     <hr>
                     <div class="row">
-                        <form action="" class="form-horizontal">
+                        <form name="formData" class="form-horizontal">
                             <div class="form-group">
                                 <div class="col-sm-3 saime-input">
-                                    <input type="text"  placeholder="V">
+                                    
+                                    <ui-select required="true" ng-model="formData.letra" ng-disabled="disabled" style="width: 100%;" title="Letra">
+                                        <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
+                                        <ui-select-choices repeat="letra.id as letra in letras">
+                                          <span ng-bind-html="letra.letra"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
                                 </div>
-                                <div class="col-sm-9     saime-input">
-                                    <input type="text" placeholder="Numero de Cedulad">
+                                <div class="col-sm-9 saime-input">
+                                    <input required="true" ng-model="formData.cedula" type="number" placeholder="N&uacute;mero de C&eacute;dula">
                                 </div>
                             </div>
                             
-                            <input type="text" placeholder="Primer Nombre" >                            
+                            <input required="true" ng-model="formData.firstName" type="text" placeholder="Primer Nombre" >                            
 
-                            <input type="text" placeholder="Primer Apellido" >                            
+                            <input required="true" ng-model="formData.lastName" type="text" placeholder="Primer Apellido" >                            
 
-                            <input type="email" placeholder="Correo Electronico" >                            
+                            <input required="true" ng-model="formData.email" type="email" placeholder="Correo Electr&oacute;nico" >                            
 
-                            <input type="email" placeholder="Correo Alternativo" >
+                            <input required="true" ng-model="formData.altEmail" type="email" placeholder="Correo Alternativo" >
 
                             <div class="form-group">
                                 <div class="col-sm-3 saime-input">
-                                    <input type="text"  placeholder="  Codigo">
+                                    <ui-select required="true" ng-model="formNoData.phone_code" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                        <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
+                                        <ui-select-choices repeat="codigo.numero as codigo in codigos">
+                                          <span ng-bind-html="codigo.numero"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+
                                 </div>
-                                <div class="col-sm-9     saime-input">
-                                    <input type="text" placeholder="Telefono habitacion y/o Celular">
+                                <div class="col-sm-9 saime-input">
+                                    <input required="true" ng-model="formNoData.phone" type="number" placeholder="Tel&eacute;fono Celular">
                                 </div>
                             </div>
 
-                            <input type="text" placeholder="Codigo de confirmacion que aparece arriba" >
+                            <!-- <input type="text" placeholder="Codigo de confirmacion que aparece arriba" >-->
 
-                            <br><br>               
+                             <!-- USERNAME 
+        <div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$dirty }">
+            <label>Description</label>
+            <input type="text" name="username" class="item-input-wrapper form-control" ng-model="user.username"  ng-minlength="5" ng-maxlength="60" required>
+            <font color="white"><p ng-show="userForm.username.$error.minlength" class="help-block"><font color="#009ACD">Description is too short.</font></p>
+            <p ng-show="userForm.username.$error.maxlength" class="help-block"><font color="#009ACD">Description is too long.</font></p>
+        </div>-->
+
+                            <br>
+                                <div align="center" class="saime-error-input">
+                                    {{error2}}
+                                </div>
+                            <br>               
                             
                             <div class="form-group">
                                 <div class="col-md-6 col-center">
-                                    <button ui-sref="saime.registro_exitoso" type="button" class="btn saime-btn-yellow full-width">Aceptar</button>
+                                    <button ng-click="guardar(formData)" type="button" class="btn saime-btn-yellow full-width">Aceptar</button>
                                 </div>
                                 <div class="col-md-6 col-center">
-                                    <button ui-sref="saime.inicio" type="button" class="btn saime-btn-blue full-width">Restablecer</button>
+                                    <button ng-click="reset()" type="button" class="btn saime-btn-blue full-width">Restablecer</button>
                                 </div>
                             </div>
                         </form>

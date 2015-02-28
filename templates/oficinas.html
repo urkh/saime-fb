@@ -13,21 +13,24 @@
     
         <div class="wrapper-md" ng-controller="MapasCtrl">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-1">
                     <button ui-sref="saime.inicio" type="button" class="btn btn-saime-stand">
                         <span class="fa fa-chevron-left fa-lg"></span>
                     </button>
                 </div>
-                <div class="col-md-6">
-                    <form action="" class="form-horizontal">
-                        <div class="form-group">
-                            <input type="text" placeholder="Buscar" >                            
-                        </div>
-                        <button  type="button" class="btn btn-saime-stand derecha saime-btn-buscar-oficinas "><b>Buscar</b></button>
-                    </form>
-                </div>
-                <div class="col-md-3"></div>  
+                <div class="col-md-11">                   
+                        <!--
+                        <form action="" class="form-horizontal">
+                            <div class="form-group">
+                                <input type="text" placeholder="Buscar" >                            
+                            </div>
+                            <button  type="button" class="btn btn-saime-stand derecha saime-btn-buscar-oficinas "><b>Buscar</b></button>
+                        </form>
+                        -->
+                    <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map> 
+                </div> 
             </div>
+            <!--
             <div class="panel b-a">
                 <div class="panel-body">
                     <div class="row m-b-xl">
@@ -37,13 +40,15 @@
                     </div>
                 </div>
             </div>
+            -->
+            <br><br>
             <div class="row">
                 <div class="col-md-3">
                 </div>
                 <div class="col-md-6">
                     <div class="text-center">
-                            <button ui-sref="saime.buscar_menor_ven_ubicacion_nc" type="button" class="btn btn-saime-stand saime-btn-lg saime-btn-ver-oficinas">Ver Dirección</button>
-                        </div> 
+                        <button ui-sref="saime.buscar_menor_ven_ubicacion_nc" type="button" class="btn btn-saime-stand saime-btn-lg saime-btn-ver-oficinas">Ver Direcciones</button>
+                    </div> 
                 </div>
                 <div class="col-md-3"></div>  
             </div>
