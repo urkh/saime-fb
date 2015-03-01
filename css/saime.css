@@ -476,3 +476,10 @@ input[type="radio"]:checked + label span{
   top: -12%;
   left: -2%;
 }
+
+
+.saime-label-checkboxes{
+  position: relative;
+  left: -8%;
+  margin-top: 2%;
+}
