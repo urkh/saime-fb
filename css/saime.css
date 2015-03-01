@@ -267,13 +267,13 @@ ul {
 .img-saime{
   border-radius: 92px;
   margin-top: -485px;
-  margin-left: 555px;
+  margin-left: 420px;
   border-radius: 80px;
   border: 17px solid rgb(47,59,117);
 }
 
 .saime-saludo{
-  margin-left: 700px;
+  margin-left: 569px;
   width: 100px;
   background-color: rgb(47,59,117);
   margin-top: -300px;
@@ -286,7 +286,7 @@ ul {
 }
   
 .saime-saludo + div{
-  margin-left: 716px;
+  margin-left: 584;
   width: auto;
   background-color: #D3DAD3;
   margin-top: -243px;
