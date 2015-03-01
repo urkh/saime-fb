@@ -41,7 +41,8 @@ angular.module('app.controllers_ven', ['ngCookies'])
         if(response.errorCode === '00000'){
           $scope.continuar1();
         }else if(response.errorCode === '90000'){
-          $scope.error2 = response.consumerMessage;
+          //$scope.error2 = response.consumerMessage;
+          $scope.continuar1()
         }else{
           $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
         }
@@ -69,13 +70,11 @@ angular.module('app.controllers_ven', ['ngCookies'])
 
 
 
-    $http.get("api/api.php?opc=get_paises")
-    .success(function(response) { 
-      $scope.paises = response.countryList
-    })
+    //$http.get("api/api.php?opc=get_paises").success(function(response) { 
+    //  $scope.paises = response.countryList
+   // })
 
-    $http.get("api/api.php?opc=get_estados")
-    .success(function(response) { 
+    $http.get("api/api.php?opc=get_estados").success(function(response) { 
       $scope.estados = response.stateList
     })
 
@@ -97,9 +96,10 @@ angular.module('app.controllers_ven', ['ngCookies'])
       $scope.parroquias = ParroquiasFactory($scope.formData.currentTown);
     }
 
-    $scope.get_oficinas = function(){
-      $scope.oficinas = OficinasFactory($scope.formData.currentState);
-    }
+    //$scope.get_oficinas = function(){
+      //$scope.oficinas = OficinasFactory($scope.formData.currentState);
+      $scope.oficinas = OficinasFactory("126");
+   // }
 
     
 
@@ -116,7 +116,7 @@ angular.module('app.controllers_ven', ['ngCookies'])
         $scope.step3 = "display:none;";
         $scope.step4 = "display:block;";
       }else{
-        $scope.error2 = "Debe llenar los campos requeridos";
+        $scope.error2 = "Debe llenar los campos correctamente."
       }  
     }
 
@@ -125,7 +125,7 @@ angular.module('app.controllers_ven', ['ngCookies'])
         $scope.step4 = "display:none;";
         $scope.step5 = "display:block;";
       }else{
-        $scope.error2 = "Debe llenar los campos requeridos";
+        $scope.error2 = "Debe llenar los campos correctamente."
       }  
     }
 
@@ -136,7 +136,7 @@ angular.module('app.controllers_ven', ['ngCookies'])
       if($scope.formData.offices != ""){
         console.log("fino");
       }else{
-        $scope.error2 = "Debe llenar los campos requeridos";
+        $scope.error2 = "Debe llenar los campos correctamente."
       }  
 
       console.log(form)

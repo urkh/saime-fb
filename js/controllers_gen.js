@@ -87,7 +87,7 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
 
         }else{
 
-          $scope.authError = "Debe llenar los campos correctamente"
+          $scope.authError = "Debe llenar los campos correctamente."
         }
 
       }
