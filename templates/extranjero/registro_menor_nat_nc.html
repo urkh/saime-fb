@@ -6,7 +6,7 @@
         <div class="bg-light lter b-b wrapper-md">
           <div class="row">
             <div class="col-md-12 text-center">
-              <h2 class="m-n font-thin  text-black">Solicitud de Pasaporte en el extranjero - </h2>
+              <h2 class="m-n font-thin  text-black">Solicitud de Pasaporte en el Extranjero - </h2>
               <h2 class="m-n font-thin  text-black">Ni&ntilde;o, ni&ntilde;a o adolescente</h2>
             </div>
           </div>
@@ -14,7 +14,7 @@
         <div class="bg-light lter b-b wrapper-md saime-bg">
           <div class="row">
             <div class="col-md-12 text-center">
-              <h2 class="m-n font-thin  text-black">Venezolanos por nacimiento - </h2>
+              <h2 class="m-n font-thin  text-black">Venezolanos por Naturalizaci&oacute;n - </h2>
               <h2 class="m-n font-thin  text-black">menores de 9 a&ntilde;os no cedulados</h2>
             </div>
           </div>
@@ -25,7 +25,7 @@
                 <div style="display:block; {{step1}}">
                     <div class="row">
                         <div class="col-md-2">
-                            <button ui-sref="saime.menu_solicitudes_menores_ext" type="button" class="btn btn-saime-stand">
+                            <button ui-sref="saime.menu_solicitudes_menores_ven" type="button" class="btn btn-saime-stand">
                                 <span class="fa fa-chevron-left fa-lg"></span>
                             </button>
 
@@ -34,6 +34,7 @@
                             <p><h3>Datos Personales</h3></p>
                             <div class="row">
                                 <div class="col-md-6">
+                                    <input ng-model="formData.minorId" type="hidden">
                                     <input type="hidden" ng-model="formData.minorType"  ng-init="formData.minorType='4'">
                                     <input type="text" placeholder="Primer nombre" ng-model="formData.name1">
                                     <input type="text" placeholder="Primer apellido" ng-model="formData.lastName1">
@@ -226,6 +227,13 @@
                         <div class="text-muted">
                             <h4>Debe indicar al menos uno de los tres, Madre, Padre o Representante Legal</h4>
                         </div>
+                        <br>
+                        <br>
+                            <div align="center" class="saime-error-input">
+                                {{error2}}
+                            </div>
+                        <br>
+                        <br>   
                         
                         <button ng-click="continuar1(formData)" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
                     </div>
@@ -280,20 +288,71 @@
                                 <input ng-model="formData.street" type="text" placeholder="Av / Calle" >
                                 <input ng-model="formData.pCode" type="text" placeholder="Codigo Postal" >
 
+                                <div class="form-group">
+                                    <div class="col-sm-3 saime-input">
+                                        <ui-select required="true" ng-model="formNoData.phone_code_cell" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                            <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
+                                            <ui-select-choices repeat="codigo.numero as codigo in codigos">
+                                              <span ng-bind-html="codigo.numero"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                    </div>
+                                    <div class="col-sm-9 saime-input">
+                                        <input required="true" ng-model="formNoData.cellPhone" type="number" placeholder="Tel&eacute;fono Celular">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-3 saime-input">
+                                        <ui-select required="true" ng-model="formNoData.phone_code_home" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                            <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
+                                            <ui-select-choices repeat="codigo.numero as codigo in codigos">
+                                              <span ng-bind-html="codigo.numero"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                    </div>
+                                    <div class="col-sm-9 saime-input">
+                                        <input required="true" ng-model="formNoData.homePhone" type="number" placeholder="Tel&eacute;fono Residencial">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-3 saime-input">
+                                        <ui-select required="true" ng-model="formNoData.phone_code_work" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                            <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
+                                            <ui-select-choices repeat="codigo.numero as codigo in codigos">
+                                              <span ng-bind-html="codigo.numero"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                    </div>
+                                    <div class="col-sm-9 saime-input">
+                                        <input required="true" ng-model="formNoData.workPhone" type="number" placeholder="Tel&eacute;fono Trabajo">
+                                    </div>
+                                </div>
                                 
-                                <input ng-model="formData.cellPhone" type="number" placeholder="Telefono Celular">
-                                <input ng-model="formData.homePhone" type="number" placeholder="Telefono Residencial">
-                                <input ng-model="formData.workPhone" type="number" placeholder="Telefono Trabajo">
+                                
                                 
                                 <br>
                                 <p class="saime-texto-recordatorio">
                                     <i>(Debe ingresar al menos un telefono)</i>
                                 </p>
 
-
+                                <!--
                                 <input type="text" placeholder="Codigo de confirmacion que aparece arriba" >
-                                <p class="saime-texto-recordatorio-2"><i>(No se hace distincion entre mayusculas y minusculas)</i></p>         
-                                <br><br>
+                                <p class="saime-texto-recordatorio-2">
+                                    <i>(No se hace distincion entre mayusculas y minusculas)</i>
+                                </p>   
+                                -->      
+                                <br>
+                                <br>
+                                    <div align="center" class="saime-error-input">
+                                        {{error2}}
+                                    </div>
+                                <br>
+                                <br>
                                 <div class="form-group">
                                     <div class="text-center">
                                         <button ng-click="continuar2(formData)" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
@@ -347,6 +406,12 @@
                                 </i>
                             </p>
 
+                            <br>
+                            <br>
+                                <div align="center" class="saime-error-input">
+                                    {{error2}}
+                                </div>
+                            <br>
                             <br>
                                 
                         <div class="saime-menu" role="group" aria-label="Vertical button group">

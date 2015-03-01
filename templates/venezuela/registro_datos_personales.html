@@ -21,31 +21,27 @@
                             </button>
                         </div>
                         
-                        <!-- 
+                         
 
                         <div class="col-md-8">
                             <p><h3>Datos Personales</h3></p>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input ng-model="formData.name1" readOnly type="text" placeholder="Primer nombre">        
-                                    <input ng-model="formData.lastName1" readOnly type="text" placeholder="Primer apellido">
+                                    <input ng-model="formNoData.name1" readOnly type="text" placeholder="Primer nombre">        
+                                    <input ng-model="formNoData.lastName1" readOnly type="text" placeholder="Primer apellido">
 
-                                    <input placeholder="Fecha de Nacimiento" ng-model="formData.bDate" type="text" datepicker-popup="{{format}}" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" ng-click="date_open($event)" readOnly/>
+                                    <input placeholder="Fecha de Nacimiento" ng-model="formNoData.bDate" type="text" readOnly/>
 
-                                    <select type="text">
-                                        <option>Sexo</option>
-                                        <option>Masculino</option>
-                                        <option>Femenino</option>
-                                    </select>
+                                    
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" placeholder="Segundo nombre">        
-                                    <input type="text" placeholder="Segundo apellido">
+                                    <input ng-model="formNoData.name2" readOnly type="text" placeholder="Segundo nombre">        
+                                    <input ng-model="formNoData.lastName2" readOnly type="text" placeholder="Segundo apellido">
                                 </div>    
                             </div>
                             <br>
                         </div>
-                        -->
+                        
                         <div class="col-md-2"></div>
                     </div>
                     
@@ -165,16 +161,58 @@
                                 <input ng-model="formData.pCode" type="text" placeholder="Codigo Postal" >
 
                                 
-                                <input ng-model="formData.cellPhone" type="number" placeholder="Telefono Celular">
-                                <input ng-model="formData.homePhone" type="number" placeholder="Telefono Residencial">
-                                <input ng-model="formData.workPhone" type="number" placeholder="Telefono Trabajo">
+                                <div class="form-group">
+                                    <div class="col-sm-3 saime-input">
+                                        <ui-select required="true" ng-model="formNoData.phone_code_cell" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                            <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
+                                            <ui-select-choices repeat="codigo.numero as codigo in codigos">
+                                              <span ng-bind-html="codigo.numero"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                    </div>
+                                    <div class="col-sm-9 saime-input">
+                                        <input required="true" ng-model="formNoData.cellPhone" type="number" placeholder="Tel&eacute;fono Celular">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-3 saime-input">
+                                        <ui-select required="true" ng-model="formNoData.phone_code_home" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                            <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
+                                            <ui-select-choices repeat="codigo.numero as codigo in codigos">
+                                              <span ng-bind-html="codigo.numero"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                    </div>
+                                    <div class="col-sm-9 saime-input">
+                                        <input required="true" ng-model="formNoData.homePhone" type="number" placeholder="Tel&eacute;fono Residencial">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-3 saime-input">
+                                        <ui-select required="true" ng-model="formNoData.phone_code_work" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                            <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
+                                            <ui-select-choices repeat="codigo.numero as codigo in codigos">
+                                              <span ng-bind-html="codigo.numero"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                    </div>
+                                    <div class="col-sm-9 saime-input">
+                                        <input required="true" ng-model="formNoData.workPhone" type="number" placeholder="Tel&eacute;fono Trabajo">
+                                    </div>
+                                </div>
                                 
                                 <br>
                                 <p class="saime-texto-recordatorio"><i>(Debe ingresar al menos un telefono)</i></p>
                                 
-
+                                <!--
                                 <input type="text" placeholder="Codigo de confirmacion que aparece arriba" >
-                                <p class="saime-texto-recordatorio-2"><i>(No se hace distincion entre mayusculas y minusculas)</i></p>         
+                                <p class="saime-texto-recordatorio-2"><i>(No se hace distincion entre mayusculas y minusculas)</i></p>
+                                -->         
                                 <br><br>
                                 <div class="form-group">
                                     <div class="text-center">

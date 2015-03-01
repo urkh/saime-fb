@@ -11,79 +11,79 @@
           </div>
         </div>
         
-        <div class="wrapper-md" ng-controller="FormRegistroDatosPersonalesVenCtrl">
-            <form class="form-horizontal">
+        <div class="wrapper-md" ng-controller="FormRegistroDatosPersonalesExtCtrl">
+            <form name="formData" class="form-horizontal">
                 <div style="display:block; {{step1}}">
                     <div class="row">
                         <div class="col-md-2">
-                            <button ui-sref="saime.menu_solicitud_ven" type="button" class="btn btn-saime-stand">
+                            <button ui-sref="saime.menu_solicitud_ext" type="button" class="btn btn-saime-stand">
                                 <span class="fa fa-chevron-left fa-lg"></span>
                             </button>
                         </div>
                         
+                         
 
                         <div class="col-md-8">
                             <p><h3>Datos Personales</h3></p>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="text" placeholder="Primer nombre">        
-                                    <input type="text" placeholder="Primer apellido">
+                                    <input ng-model="formNoData.name1" readOnly type="text" placeholder="Primer nombre">        
+                                    <input ng-model="formNoData.lastName1" readOnly type="text" placeholder="Primer apellido">
 
-                                    <input placeholder="Fecha de Nacimiento" ng-model="formData.bDate" type="text" datepicker-popup="{{format}}" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" ng-click="date_open($event)" readOnly/>
+                                    <input placeholder="Fecha de Nacimiento" ng-model="formNoData.bDate" type="text" readOnly/>
 
-                                    <select type="text">
-                                        <option>Sexo</option>
-                                        <option>Masculino</option>
-                                        <option>Femenino</option>
-                                    </select>
+                                    
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" placeholder="Segundo nombre">        
-                                    <input type="text" placeholder="Segundo apellido">
+                                    <input ng-model="formNoData.name2" readOnly type="text" placeholder="Segundo nombre">        
+                                    <input ng-model="formNoData.lastName2" readOnly type="text" placeholder="Segundo apellido">
                                 </div>    
                             </div>
                             <br>
                         </div>
+                        
                         <div class="col-md-2"></div>
                     </div>
-                    <hr>
+                    
                     <div class="row">
                         <div class="col-md-2"></div>
                         <div class="col-md-8">
                             <p><h3>Datos De Nacionalidad</h3></p>
-                            <select type="text">
-                                <option>Pais de Nacimiento</option>
-                                <option>Venezuela</option>
-                            </select>
-                            <select type="text">
-                                <option>Ciudad</option>
-                                <option>San Juan</option>
-                            </select>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <select type="text">
-                                        <option>Estado</option>
-                                        <option>San Juan</option>
-                                    </select>
-                                    <select type="text">
-                                        <option>Municipio</option>
-                                        <option>San Juan</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <select type="text">
-                                        <option>Parroquia</option>
-                                        <option>San Juan</option>
-                                    </select>
-                                </div>
+                            <hr>
 
-                            </div>
+                                <ui-select required="true"  ng-model="formData.country" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
+                                    <ui-select-match placeholder="Seleccione o busque un pais en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                    <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
+                                      <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
+                                      
+                                    </ui-select-choices>
+                                </ui-select><br>
+
+                                <input ng-model="formData.city" type="text" placeholder="Ciudad" >
+                                <input ng-model="formData.currentCity" type="text" placeholder="Ciudad actual" >
+                                <input ng-model="formData.pCode" type="text" placeholder="Codigo Postal" >
+
+                                <ui-select on-select="get_consulados()" required="true"  ng-model="formData.countrySede" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
+                                    <ui-select-match placeholder="Seleccione o busque un pais sede...">{{$select.selected.descripcion}}</ui-select-match>
+                                    <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
+                                      <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
+                                      
+                                    </ui-select-choices>
+                                </ui-select>
+
+                           
                         </div>
                         <div class="col-md-2"></div>
                     </div>
                     <br><br>
                     <div class="text-center">
-                        <button ng-click="continuar1()" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
+
+                        <br>
+                            <div align="center" class="saime-error-input">
+                                {{error2}}
+                            </div>
+                        <br> 
+                        <button ng-click="continuar1(formData)" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
                     </div>
                 </div>
 
@@ -97,57 +97,49 @@
                         
 
                         <div class="col-md-8">
-                            <p><h3>Dirección Actual:</h3></p>
+                            <p><h3>Consulados:</h3></p>
                             <hr>
                             <div class="row">
-                                
-                                <select>
-                                    <option>Estado</option>
-                                </select>
-                                <select>
-                                    <option>Municipio</option>
-                                </select>
-                                <select>
-                                    <option>Parroquia</option>
-                                </select>
-                                <input type="text" placeholder="Ciudad" >                                                        
-                                <input type="text" placeholder="Urbanizacion" >
-                                <input type="text" placeholder="Nro. Casa / Apto." >
-                                <input type="text" placeholder="Av / Calle" >
-                                <input type="text" placeholder="Codigo Postal" >
 
-                                <div class="form-group">
-                                    <div class="col-sm-3 saime-input">
-                                        <input type="text"  placeholder="Codigo">
+                                <div ng-repeat="consulado in consulados" class="saime-radio-all">
+                                    <div class="saime-radio">
+                                        <input ng-model="formData.sedeConsular" type="radio" id="{{consulado.idsedeconsular}}" value="{{consulado.idsedeconsular}}" />
+                                        <label for="{{consulado.idsedeconsular}}">
+                                            <span></span>
+                                        </label>
                                     </div>
-                                    <div class="col-sm-9 saime-input">
-                                        <input type="text" placeholder="Telefono Celular">
-                                    </div>
+                                    <div class="saime-radio-label-md8">{{consulado.sedeconsular}}</div>
                                 </div>
 
-                                <div class="form-group">
-                                    <div class="col-sm-3 saime-input">
-                                        <input type="text"  placeholder="Codigo">
+                                <br>
+                                <br>
+                                <p>
+                                    <i>
+                                        Para ver la dirección de la oficina, debes pasar el cursor por encima del nombre de
+                                        la oficina. Las oficinas que aparecen marcadas son las posibles oficinas donde se les 
+                                        asignara la cita, si usted desea que el sistema no le asigne a una de estas oficinas
+                                        favor de desarcarla. <b>Nota:</b> mientras más oficines seleccione, su cita podra ser
+                                        asignada con mayor rapidez, dependiendo de la saturación de las mismas.
+                                    </i>
+                                </p>
+                                <br>
+                                <br>
+                                    <div align="center" class="saime-error-input">
+                                        {{error2}}
                                     </div>
-                                    <div class="col-sm-9     saime-input">
-                                        <input type="text" placeholder="Telefono Residencial">
-                                    </div>
-                                </div>
+                                <br> 
 
-                                <div class="form-group">
-                                    <div class="col-sm-3 saime-input">
-                                        <input type="text"  placeholder="  Codigo">
-                                    </div>
-                                    <div class="col-sm-9     saime-input">
-                                        <input type="text" placeholder="Telefono Trabajo">
-                                    </div>
-                                </div>
+                               
 
-                                <input type="text" placeholder="Codigo de confirmacion que aparece arriba" >         
-                                <br><br>
+
+                                <!--
+                                <input type="text" placeholder="Codigo de confirmacion que aparece arriba" >
+                                <p class="saime-texto-recordatorio-2"><i>(No se hace distincion entre mayusculas y minusculas)</i></p>
+                                -->         
+                                <br>
                                 <div class="form-group">
                                     <div class="text-center">
-                                        <button ng-click="continuar2()" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
+                                        <button ng-click="guardar(formData)" type="button" class="btn btn-saime-stand saime-btn-lg">Guardar</button>
                                     </div>
                                 </div>
                             </div>
@@ -155,66 +147,7 @@
                         </div>
                         <div class="col-md-2"></div>    
                     </div>
-
-
-
                 </div>
-
-
-                <div style="display:none; {{step3}}">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <button ng-click="atras2()" type="button" class="btn btn-saime-stand">
-                                <span class="fa fa-chevron-left fa-lg"></span>
-                            </button>
-                        </div>
-                        
-                        <div class="col-md-8">
-                            <p><h3>Oficinas a las cuales puede asistir:</h3></p>
-                            <hr>
-                            <div class="row">
-                                
-                                <div class="form-group">
-                                    <div class="col-sm-1">
-                                        <input type="radio">
-                                    </div>
-                                    <div class="col-sm-11">
-                                        <p class="text-aside-input">Urabnizacion Los over</p>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-1">
-                                        <input type="radio">
-                                    </div>
-                                    <div class="col-sm-11">
-                                        <p class="text-aside-input">Urabnizacion Los over</p>
-                                    </div>
-                                </div> 
-                                <div class="form-group">
-                                    <div class="col-sm-1">
-                                        <input type="radio">
-                                    </div>
-                                    <div class="col-sm-11">
-                                        <p class="text-aside-input">Urabnizacion Los over</p>
-                                    </div>
-                                </div>     
-
-                                <br><br>                                                
-                                <div class="form-group">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-saime-stand saime-btn-lg">Guardar Datos</button>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <br>
-                        </div>
-                        <div class="col-md-2"></div>    
-                    </div>
-
-                </div>
-
-
 
             </form>
         </div>

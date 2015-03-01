@@ -25,7 +25,7 @@
                                 <h2>Venezolanos por Nacimiento </h2>
                                 <h5>Mayores de 9 a&ntilde;os cedulados</h5>
                             </button>
-                            <button ui-sref="saime.registro_menor_nc_ven" type="button" class="btn btn-default saime-btn-blue">
+                            <button ng-click="validar_cita_menor_ven(1)" type="button" class="btn btn-default saime-btn-blue">
                                 <h2>Venezolanos por Nacimiento </h2>
                                 <h5>Menores de 9 a&ntilde;os no cedulados</h5>
                             </button>
@@ -33,11 +33,17 @@
                                 <h2>Venezolanos por Naturalizaci&oacute;n </h2>
                                 <h5>Mayores de 9 a&ntilde;os cedulados</h5>
                             </button>
-                            <button ui-sref="saime.registro_menor_nat_nc_ven" type="button" class="btn btn-default saime-btn-blue">
+                            <button ng-click="validar_cita_menor_ven(2)"  type="button" class="btn btn-default saime-btn-blue">
                                 <h2>Venezolanos por Naturalizaci&oacute;n </h2>
                                 <h5>Menores de 9 a&ntilde;os no cedulados</h5>
                             </button> 
                         </div>
+
+                        <br><br>
+                        <div align="center" class="saime-error-input">
+                            {{error2}}
+                        </div>
+                        <br><br>
                     </div>
                     <div class="col-md-3"></div>
                 </div>

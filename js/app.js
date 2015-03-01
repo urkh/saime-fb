@@ -147,11 +147,6 @@ var app = angular.module('app', [
 
 
 
-
-
-
-           
-
             .state('saime.estado_tramite', {
                 url: '/estado_tramite',
                 templateUrl: 'templates/estado_tramite.html'
@@ -258,6 +253,20 @@ var app = angular.module('app', [
                 url: '/registro/solicitud_pasaporte_error_ven',
                 templateUrl: 'templates/mensajes/solicitud_pasaporte_error_ven.html'
             })  
+
+
+
+
+            .state('saime.solicitud_pasaporte_exitoso_ext', {
+                url: '/registro/solicitud_pasaporte_exitoso_ext',
+                templateUrl: 'templates/mensajes/solicitud_pasaporte_exitoso_ext.html'
+            })  
+
+            .state('saime.solicitud_pasaporte_error_ext', {
+                url: '/registro/solicitud_pasaporte_error_ext',
+                templateUrl: 'templates/mensajes/solicitud_pasaporte_error_ext.html'
+            })  
+            
 
             .state('saime.registro_usuario_exitoso', {
                 url: '/registro_usuario_exitoso',

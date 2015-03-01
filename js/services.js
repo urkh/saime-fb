@@ -73,3 +73,37 @@ services.factory('OficinasFactory', ['$http', function($http) {
     }
 
 }]);
+
+
+services.factory('ConsuladosFactory', ['$http', function($http) {
+	
+    return function(country){
+
+    	consulados = [];
+
+		$http.get("api/api.php?opc=get_consulados").success(function(response) { 
+		    for(var i=0; i < response.consularList.length; i++){        
+	          	if(response.consularList[i].idpais == country ){
+	            	consulados.push(response.consularList[i]);
+	          	}
+	        }
+    	})
+
+	    return consulados;
+    }
+
+}]);
+
+
+
+services.factory("CodigoTelfFactory", function(){
+
+  return [
+  	{numero: '0412'},
+    {numero: '0414'},
+    {numero: '0416'},
+    {numero: '0424'},
+    {numero: '0426'}
+  ]
+
+});

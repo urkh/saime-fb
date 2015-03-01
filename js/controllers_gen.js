@@ -110,6 +110,55 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
     })
   }
 
+
+  $scope.validar_cita_ext = function(){
+    $http.get("api/api.php?opc=validar_cita").success(function(response) { 
+      if(response.errorCode === '00000'){
+        $state.go("saime.registro_datos_personales_ext");
+      }else if(response.errorCode === '90000'){
+        $scope.error2 = response.consumerMessage;
+      }else{
+        $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+      }
+    })
+  }
+
+
+
+  $scope.validar_cita_menor_ven = function(minorType){
+      $http.post("api/api.php?opc=validar_cita_menor", {idpersona:""}).success(function(response) { 
+        if(response.errorCode === '00000'){
+          if(minorType==1){
+            $state.go("saime.registro_menor_nc_ext")
+          }else{
+            $state.go("saime.registro_menor_nat_nc_ext")
+          }
+          
+        }else if(response.errorCode === '90000'){
+          $scope.error2 = response.consumerMessage;
+        }else{
+          $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+        }
+      })
+    }
+
+  $scope.validar_cita_menor_ext = function(minorType){
+      $http.post("api/api.php?opc=validar_cita_menor", {idpersona:""}).success(function(response) { 
+        if(response.errorCode === '00000'){
+          if(minorType==1){
+            $state.go("saime.registro_menor_nc_ext")
+          }else{
+            $state.go("saime.registro_menor_nat_nc_ext")
+          }
+          
+        }else if(response.errorCode === '90000'){
+          $scope.error2 = response.consumerMessage;
+        }else{
+          $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+        }
+      })
+    }
+
 }])
 
 

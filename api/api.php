@@ -3,8 +3,8 @@ include('Requests-1.6.0/library/Requests.php');
 
 Requests::register_autoloader();
 
-//$host = "http://android.saime.gob.ve";
-$host = "http://www.predimania.com:8080";
+$host = "http://android.saime.gob.ve";
+//$host = "http://www.predimania.com:8080";
 
 
 $data = json_decode(file_get_contents("php://input"));
@@ -120,7 +120,7 @@ switch ($_GET['opc']) {
 
 
     case "get_consulados":
-        get_bearer_auth($URI="/saime-ws/v1.0/common/consularList");
+        get_bearer_auth($host, $uri="/saime-ws/v1.0/common/consularList");
         break;
 
 

@@ -12,7 +12,7 @@
         <div class="bg-light lter b-b wrapper-md saime-bg">
           <div class="row">
             <div class="col-md-12 text-center">
-              <h2 class="m-n font-thin  text-black">Venezolanos por nacimiento - </h2>
+              <h2 class="m-n font-thin  text-black">Venezolanos por Nacimiento - </h2>
               <h2 class="m-n font-thin  text-black">mayores de 9 a&ntilde;os y cedulados</h2>
             </div>
           </div>
@@ -49,9 +49,9 @@
 
                                         </div>
 
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-6">
                                             
-                                            <ui-select on-select="validar_cita_menor()" required="true" ng-model="formData.minorId" style="width: 80%;" >
+                                            <ui-select on-select="validar_cita_menor()" required="true" ng-model="formData.minorId" style="width: 100%;" >
                                                 <ui-select-match placeholder="Escriba el numero de cedula...">
                                                     {{$select.selected.numerocedula}} - {{$select.selected.primernombre}} {{$select.selected.primerapellido}}
                                                 </ui-select-match>
@@ -62,9 +62,11 @@
                                             </ui-select>
 
                                         </div>
-
-
-                                        
+                                        <!--
+                                        <div class="col-md-2">
+                                            <button class="btn btn-saime-stand">aaa</button>
+                                        </div>
+                                        -->
                                     </div>
                                     <br>
 
@@ -73,7 +75,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="col-md-2"></div>
+                        
                         
                     </div>
 
@@ -92,7 +94,7 @@
             <div style="display:block; {{step2}}">
 
                 <form name="formData" class="form-horizontal">
-                    <div style="display:block; {{step3}}">
+                    <div style="display:none; {{step3}}">
                         <div class="row">
                             <div class="col-md-2">
                                 <button ng-click="atras1()" type="button" class="btn btn-saime-stand">
@@ -352,9 +354,50 @@
                                     <input required="true" ng-model="formData.street" type="text" placeholder="Av / Calle ">
                                     <input required="true" ng-model="formData.pCode" type="text" placeholder="Codigo Postal">
                                     
-                                    <input ng-model="formData.cellPhone" type="number" placeholder="Telefono Celular">
-                                    <input ng-model="formData.homePhone" type="number" placeholder="Telefono Residencial">
-                                    <input ng-model="formData.workPhone" type="number" placeholder="Telefono Trabajo">
+                                    <div class="form-group">
+                                        <div class="col-sm-3 saime-input">
+                                            <ui-select required="true" ng-model="formNoData.phone_code_cell" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                                <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
+                                                <ui-select-choices repeat="codigo.numero as codigo in codigos">
+                                                  <span ng-bind-html="codigo.numero"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+
+                                        </div>
+                                        <div class="col-sm-9 saime-input">
+                                            <input required="true" ng-model="formNoData.cellPhone" type="number" placeholder="Tel&eacute;fono Celular">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-3 saime-input">
+                                            <ui-select required="true" ng-model="formNoData.phone_code_home" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                                <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
+                                                <ui-select-choices repeat="codigo.numero as codigo in codigos">
+                                                  <span ng-bind-html="codigo.numero"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+
+                                        </div>
+                                        <div class="col-sm-9 saime-input">
+                                            <input required="true" ng-model="formNoData.homePhone" type="number" placeholder="Tel&eacute;fono Residencial">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-3 saime-input">
+                                            <ui-select required="true" ng-model="formNoData.phone_code_work" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                                <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
+                                                <ui-select-choices repeat="codigo.numero as codigo in codigos">
+                                                  <span ng-bind-html="codigo.numero"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+
+                                        </div>
+                                        <div class="col-sm-9 saime-input">
+                                            <input required="true" ng-model="formNoData.workPhone" type="number" placeholder="Tel&eacute;fono Trabajo">
+                                        </div>
+                                    </div>
                                     
 
                                 </div>
@@ -392,105 +435,109 @@
 
 
                     <div style="display:block; {{step5}}">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <button ng-click="atras3()" type="button" class="btn btn-saime-stand">
-                                <span class="fa fa-chevron-left fa-lg"></span>
-                            </button>
-                        </div>
-                        
-                        <div class="col-md-8 col-center saime-terminos-texto">
-                            <p><b>Oficias a las cuales puedes asistir: </b></p>
-                           
-
-                        <div class="form-horizontal">
-
-                            <div class="form-group">
-                                <div class="col-sm-offset-4 col-sm-4">
-                                  <div class="checkbox">
-                                    <label>
-                                        <input  type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina"> aaaaaaa1
-                                    </label>
-                                  </div>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <button ng-click="atras3()" type="button" class="btn btn-saime-stand">
+                                    <span class="fa fa-chevron-left fa-lg"></span>
+                                </button>
                             </div>
-
-                            <div class="form-group">
-                                <div class="col-sm-offset-4 col-sm-4">
-                                  <div class="checkbox">
-                                    <label>
-                                        <input  type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina"> aaaaaa2
-                                    </label>
-                                  </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-sm-offset-4 col-sm-4">
-                                  <div class="checkbox">
-                                    <label>
-                                        <input  type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina"> aaaaaa2
-                                    </label>
-                                  </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-sm-offset-4 col-sm-4">
-                                  <div class="checkbox">
-                                    <label>
-                                        <input  type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina"> aaaaaa3
-                                    </label>
-                                  </div>
-                                </div>
-                            </div>
-                            <!--
-                            <div ng-repeat="oficina in oficinas" class="form-group">
-                                <div class="col-sm-offset-4 col-sm-4">
-                                  <div class="checkbox">
-                                    <label>
-                                        <input  type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina"> {{oficina.nombreoficina}}
-                                    </label>
-                                  </div>
-                                </div>
-                            </div>
-                        -->
-                        </div>
-
                             
-                            <!--
-                            <div class="row"  >
-                                
-                                <input type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina"> {{oficina.nombreoficina}}
-                            </div>
-                        -->
-                           
-                            
-                            <br>
-                            <br>
-                            <br>
-                            <p>
-                                <i>
-                                    Para ver la dirección de la oficina, debes pasar el cursor por encima del nombre de
-                                    la oficina. Las oficinas que aparecen marcadas son las posibles oficinas donde se les 
-                                    asignara la cita, si usted desea que el sistema no le asigne a una de estas oficinas
-                                    favor de desarcarla. <b>Nota:</b> mientras más oficines seleccione, su cita podra ser
-                                    asignada con mayor rapidez, dependiendo de la saturación de las mismas.
-                                </i>
-                            </p>
+                            <div class="col-md-8">
+                                <p><h3>Oficias a las cuales puedes asistir: </h3></p>
+                               
+                                <br>
+                                <div class="row">
 
-                            <br>
+
+                                    <div class="form-group">
+                                        <div class="col-md-1">
+                                            <input  type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina">
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <label>aaaa</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-1">
+                                            <input  type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina">
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <label>aaaa</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-1">
+                                            <input  type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina">
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <label>aaaa</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-1">
+                                            <input  type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina">
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <label>aaaa</label>
+                                        </div>
+                                    </div>
+
+                                    <!--
+                                    <div ng-repeat="oficina in oficinas" class="form-group">
+                                        <div class="col-sm-offset-4 col-sm-4">
+                                          <div class="checkbox">
+                                            <label>
+                                                <input  type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina"> {{oficina.nombreoficina}}
+                                            </label>
+                                          </div>
+                                        </div>
+                                    </div>
+                                -->
+                                </div>
+
                                 
-                        <div class="saime-menu" role="group" aria-label="Vertical button group">
-                            <button ng-click="guardar(formData)" type="button" class="btn btn-default saime-btn-yellow">Guardar datos</button>
+                                <!--
+                                <div class="row"  >
+                                    
+                                    <input type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina"> {{oficina.nombreoficina}}
+                                </div>
+                                -->
+                               
+                                
+                                <br>
+                                <br>
+                                <br>
+                                <p>
+                                    <i>
+                                        Para ver la dirección de la oficina, debes pasar el cursor por encima del nombre de
+                                        la oficina. Las oficinas que aparecen marcadas son las posibles oficinas donde se les 
+                                        asignara la cita, si usted desea que el sistema no le asigne a una de estas oficinas
+                                        favor de desarcarla. <b>Nota:</b> mientras más oficines seleccione, su cita podra ser
+                                        asignada con mayor rapidez, dependiendo de la saturación de las mismas.
+                                    </i>
+                                </p>
+                                <br>
+                                <br>
+                                    <div align="center" class="saime-error-input">
+                                        {{error2}}
+                                    </div>
+                                <br> 
+
+                                <br>
+                                    
+                                <div align="center" class="saime-menu" role="group" aria-label="Vertical button group">
+                                    <button ng-click="guardar(formData)" type="button" class="btn btn-default saime-btn-yellow">Guardar datos</button>
+                                </div>
+
+                                <br>
+                            </div>
+                            <div class="col-md-2"></div>    
                         </div>
 
-                        <br>
                     </div>
-                        <div class="col-md-2"></div>    
-                    </div>
-
-                </div>
                     <!-- Fin Parte 2 formulario -->
 
 
@@ -499,20 +546,7 @@
                 </form>
 
 
-
-
-
-
             </div>
-
-
-
-
-
-
-
-
-
 
         </div>
     </div>
