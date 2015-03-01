@@ -14,7 +14,7 @@
         <div class="bg-light lter b-b wrapper-md saime-bg">
           <div class="row">
             <div class="col-md-12 text-center">
-              <h2 class="m-n font-thin  text-black">Venezolanos por Nacimiento- </h2>
+              <h2 class="m-n font-thin  text-black">Venezolanos por Nacimiento - </h2>
               <h2 class="m-n font-thin  text-black">menores de 9 a&ntilde;os no cedulados</h2>
             </div>
           </div>
@@ -73,36 +73,6 @@
                                 <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
                                   <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
                                   
-                                </ui-select-choices>
-                            </ui-select>
-
-                            <br>
-
-                            
-                            <ui-select required="true" on-select="get_municipios()" ng-model="formData.state" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Estado">
-                                <ui-select-match placeholder="Seleccione o busque un estado en la lista...">{{$select.selected.descripcion}}</ui-select-match>
-                                <ui-select-choices repeat="estado.identidadfederal as estado in estados | filter: $select.search">
-                                  <span ng-bind-html="estado.descripcion | highlight: $select.search"></span>  
-                                </ui-select-choices>
-                            </ui-select>
-
-                            <br>
-
-                            <ui-select required="true" on-select="get_parroquias()" ng-model="formData.town" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Municipio">
-                                <ui-select-match placeholder="Seleccione o busque un municipio en la lista...">
-                                    {{$select.selected.descripcion}}
-                                </ui-select-match>
-                                <ui-select-choices repeat="municipio.idmunicipio as municipio in municipios | filter: $select.search">
-                                  <span ng-bind-html="municipio.descripcion | highlight: $select.search"></span>
-                                </ui-select-choices>
-                            </ui-select>
-
-                            <br>
-
-                            <ui-select required="true" ng-model="formData.parish" ng-disabled="disabled" style="width: 100%;" title="Seleccione la Parroquia">
-                                <ui-select-match placeholder="Seleccione o busque una parroquia en la lista...">{{$select.selected.descripcion}}</ui-select-match>
-                                <ui-select-choices repeat="parroquia.idparrquia as parroquia in parroquias | filter: $select.search">
-                                  <span ng-bind-html="parroquia.descripcion | highlight: $select.search"></span>
                                 </ui-select-choices>
                             </ui-select>
 
@@ -254,92 +224,17 @@
                             <p><h3>Dirección Actual</h3></p>
                             <div class="row">
 
-                                <ui-select on-select="get_cmunicipios()"  required="true" ng-model="formData.currentState" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Estado">
-                                    <ui-select-match placeholder="Seleccione o busque un estado en la lista...">{{$select.selected.descripcion}}</ui-select-match>
-                                    <ui-select-choices repeat="estado.identidadfederal as estado in estados | filter: $select.search">
-                                      <span ng-bind-html="estado.descripcion | highlight: $select.search"></span>
-                                    </ui-select-choices>
-                                </ui-select>
+                                <input ng-model="formData.currentCity" type="text" placeholder="Ciudad" required>
+                                <input ng-model="formData.pCode" type="number" placeholder="Codigo Postal" >
 
-                                <br>
-
-
-                                <ui-select on-select="get_cparroquias()" required="true" ng-model="formData.currentTown" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Municipio">
-                                    <ui-select-match placeholder="Seleccione o busque un municipio en la lista...">{{$select.selected.descripcion}}</ui-select-match>
-                                    <ui-select-choices repeat="municipio.idmunicipio as municipio in municipios | filter: $select.search">
-                                      <span ng-bind-html="municipio.descripcion | highlight: $select.search"></span>
-                                    </ui-select-choices>
-                                </ui-select>
-                               
-                                <br>
-
-                                <ui-select on-select="get_oficinas()" required="true" ng-model="formData.currentParish" ng-disabled="disabled" style="width: 100%;" title="Seleccione la Parroquia">
-                                    <ui-select-match placeholder="Seleccione o busque una parroquia en la lista...">{{$select.selected.descripcion}}</ui-select-match>
-                                    <ui-select-choices repeat="parroquia.idparrquia as parroquia in parroquias | filter: $select.search">
-                                      <span ng-bind-html="parroquia.descripcion | highlight: $select.search"></span>
+                                <ui-select on-select="get_consulados()" required="true"  ng-model="formData.countrySede" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
+                                    <ui-select-match placeholder="Seleccione o busque un pais sede...">{{$select.selected.descripcion}}</ui-select-match>
+                                    <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
+                                      <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
+                                      
                                     </ui-select-choices>
                                 </ui-select>
                                 
-                                <br>
-
-                                <input ng-model="formData.currentCity" type="text" placeholder="Ciudad" required>                                                        
-                                <input ng-model="formData.urbanization" type="text" placeholder="Urbanizacion" >
-                                <input ng-model="formData.noApto" type="text" placeholder="Nro. Casa / Apto." >
-                                <input ng-model="formData.street" type="text" placeholder="Av / Calle" >
-                                <input ng-model="formData.pCode" type="text" placeholder="Codigo Postal" >
-
-                                <div class="form-group">
-                                    <div class="col-sm-3 saime-input">
-                                        <ui-select required="true" ng-model="formNoData.phone_code_cell" ng-disabled="disabled" style="width: 100%;" title="Codigo">
-                                            <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
-                                            <ui-select-choices repeat="codigo.numero as codigo in codigos">
-                                              <span ng-bind-html="codigo.numero"></span>
-                                            </ui-select-choices>
-                                        </ui-select>
-
-                                    </div>
-                                    <div class="col-sm-9 saime-input">
-                                        <input required="true" ng-model="formNoData.cellPhone" type="number" placeholder="Tel&eacute;fono Celular">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-sm-3 saime-input">
-                                        <ui-select required="true" ng-model="formNoData.phone_code_home" ng-disabled="disabled" style="width: 100%;" title="Codigo">
-                                            <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
-                                            <ui-select-choices repeat="codigo.numero as codigo in codigos">
-                                              <span ng-bind-html="codigo.numero"></span>
-                                            </ui-select-choices>
-                                        </ui-select>
-
-                                    </div>
-                                    <div class="col-sm-9 saime-input">
-                                        <input required="true" ng-model="formNoData.homePhone" type="number" placeholder="Tel&eacute;fono Residencial">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-sm-3 saime-input">
-                                        <ui-select required="true" ng-model="formNoData.phone_code_work" ng-disabled="disabled" style="width: 100%;" title="Codigo">
-                                            <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
-                                            <ui-select-choices repeat="codigo.numero as codigo in codigos">
-                                              <span ng-bind-html="codigo.numero"></span>
-                                            </ui-select-choices>
-                                        </ui-select>
-
-                                    </div>
-                                    <div class="col-sm-9 saime-input">
-                                        <input required="true" ng-model="formNoData.workPhone" type="number" placeholder="Tel&eacute;fono Trabajo">
-                                    </div>
-                                </div>
-                                
-                                
-                                
-                                <br>
-                                <p class="saime-texto-recordatorio">
-                                    <i>(Debe ingresar al menos un telefono)</i>
-                                </p>
-
                                 <!--
                                 <input type="text" placeholder="Codigo de confirmacion que aparece arriba" >
                                 <p class="saime-texto-recordatorio-2">
@@ -383,15 +278,19 @@
                         </div>
                         
                         <div class="col-md-8 col-center saime-terminos-texto">
-                            <p><b>Oficias a las cuales puedes asistir: </b></p>
+                            <p><h3>Consulados: </h3></p>
                            
-
-                            <label ng-repeat="oficina in oficinas" >
-                                
-                                    <input type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina"> {{oficina.nombreoficina}}
-                                
-                            </label>
-                           
+                            <div class="row">
+                                <div ng-repeat="consulado in consulados" class="saime-radio-all">
+                                    <div class="saime-radio">
+                                        <input ng-model="formData.sedeConsular" type="radio" id="{{consulado.idsedeconsular}}" value="{{consulado.idsedeconsular}}" />
+                                        <label for="{{consulado.idsedeconsular}}">
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                    <div class="saime-radio-label-md8">{{consulado.sedeconsular}}</div>
+                                </div>
+                            </div>
                             
                             <br>
                             <br>

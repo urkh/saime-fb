@@ -382,15 +382,20 @@
                             </button>
                         </div>
                         
-                        <div class="col-md-8 col-center saime-terminos-texto">
-                            <p><b>Oficias a las cuales puedes asistir: </b></p>
+                        <div class="col-md-8">
+                            <p><h3>Oficias a las cuales puedes asistir: </h3></p>
                            
 
-                            <label ng-repeat="oficina in oficinas" >
-                                
-                                    <input type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina"> {{oficina.nombreoficina}}
-                                
-                            </label>
+                            <div class="row">
+                                <div ng-repeat="oficina in oficinas"  class="form-group">
+                                    <div class="col-md-1">
+                                        <input type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina">
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <label class="saime-label-checkboxes">{{oficina.nombreoficina}}</label>
+                                    </div>
+                                </div>
+                            </div>
                            
                             
                             <br>

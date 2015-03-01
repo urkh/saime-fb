@@ -75,31 +75,10 @@ angular.module('app.controllers_ext', ['ngCookies'])
       $scope.paises = response.countryList
     })
 
-    $http.get("api/api.php?opc=get_estados").success(function(response) { 
-      $scope.estados = response.stateList
-    })
 
 
-    $scope.get_municipios = function(){
-      $scope.municipios = MunicipiosFactory($scope.formData.state);
-    }
-
-    $scope.get_parroquias = function(){
-      $scope.parroquias = ParroquiasFactory($scope.formData.town);
-    }
-
-
-    $scope.get_cmunicipios = function(){
-      $scope.municipios = MunicipiosFactory($scope.formData.currentState);
-    }
-
-    $scope.get_cparroquias = function(){
-      $scope.parroquias = ParroquiasFactory($scope.formData.currentTown);
-    }
-
-    $scope.get_oficinas = function(){
-      $scope.oficinas = OficinasFactory($scope.formData.currentState);
-      //$scope.oficinas = OficinasFactory("126");
+    $scope.get_consulados = function(){
+      $scope.consulados = ConsuladosFactory($scope.formData.countrySede);
     }
 
     
@@ -113,7 +92,7 @@ angular.module('app.controllers_ext', ['ngCookies'])
 
 
     $scope.continuar2 = function(form){
-      if((form.name1 && form.lastName1 && form.bDate && form.gender && form.countryIni && form.state && form.town && form.parish && form.city) && (form.motherId || form.fatherId || form.legalId)) {
+      if((form.name1 && form.lastName1 && form.bDate && form.gender && form.countryIni && form.city) && (form.motherId || form.fatherId || form.legalId)) {
         $scope.step3 = "display:none;";
         $scope.step4 = "display:block;";
       }else{
@@ -122,7 +101,7 @@ angular.module('app.controllers_ext', ['ngCookies'])
     }
 
      $scope.continuar3 = function(form){
-      if((form.currentState && form.currentTown && form.currentParish && form.urbanization && form.noApto && form.street && form.pCode) && (form.cellPhone || form.workPhone || form.homePhone)) {      
+      if(form.currentCity && form.countrySede && form.pCode) {      
         $scope.step4 = "display:none;";
         $scope.step5 = "display:block;";
       }else{
@@ -133,20 +112,15 @@ angular.module('app.controllers_ext', ['ngCookies'])
 
 
     $scope.guardar = function(form){
-      $scope.formData.offices = $scope.formData.offices.toString();
       $scope.formData.country = $scope.formData.countryIni;
-
-      $scope.formData.cellPhone = $scope.formNoData.phone_code_cell + $scope.formNoData.cellPhone;
-      $scope.formData.homePhone = $scope.formNoData.phone_code_home + $scope.formNoData.homePhone;
-      $scope.formData.workPhone = $scope.formNoData.phone_code_work + $scope.formNoData.workPhone;
       
-      if($scope.formData.offices != ""){
+      if($scope.formData.sedeConsular){
 
-        $http.post("api/api.php?opc=sol_ven_menor", $scope.formData).success(function(response) {
+        $http.post("api/api.php?opc=sol_ext_menor", $scope.formData).success(function(response) {
           if(response.errorCode === '00000'){
-            $state.go("saime.solicitud_pasaporte_exitoso_ven");
+            $state.go("saime.solicitud_pasaporte_exitoso_ext");
           }else if(response.errorCode === '90000'){
-            $state.go("saime.solicitud_pasaporte_error_ven");
+            $state.go("saime.solicitud_pasaporte_error_ext");
           }else{
             $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
           }
@@ -246,37 +220,14 @@ angular.module('app.controllers_ext', ['ngCookies'])
       $scope.paises = response.countryList
     })
 
-    $http.get("api/api.php?opc=get_estados").success(function(response) { 
-      $scope.estados = response.stateList
-    })
-
-
-    $scope.get_municipios = function(){
-      $scope.municipios = MunicipiosFactory($scope.formData.state);
-    }
-
-    $scope.get_parroquias = function(){
-      $scope.parroquias = ParroquiasFactory($scope.formData.town);
-    }
-
-
-    $scope.get_cmunicipios = function(){
-      $scope.municipios = MunicipiosFactory($scope.formData.currentState);
-    }
-
-    $scope.get_cparroquias = function(){
-      $scope.parroquias = ParroquiasFactory($scope.formData.currentTown);
-    }
 
     $scope.get_consulados = function(){
       $scope.consulados = ConsuladosFactory($scope.formData.countrySede);
     }
 
 
-
-
     $scope.continuar1 = function(form){
-      if((form.name1 && form.lastName1 && form.bDate && form.gender && form.countryIni && form.state && form.town && form.parish && form.city) && (form.motherId || form.fatherId || form.legalId)) {
+      if((form.name1 && form.lastName1 && form.bDate && form.gender && form.countryIni && form.city) && (form.motherId || form.fatherId || form.legalId)) {
         $scope.step1 = "display:none;";
         $scope.step2 = "display:block;";
       }else{
@@ -285,7 +236,7 @@ angular.module('app.controllers_ext', ['ngCookies'])
     }
 
      $scope.continuar2 = function(form){
-      if((form.currentState && form.currentTown && form.currentParish && form.currentCity && form.urbanization && form.noApto && form.street && form.pCode) && (form.cellPhone || form.workPhone || form.homePhone)) {              
+      if(form.currentCity && form.countrySede && form.pCode) {     
         $scope.step2 = "display:none;";
         $scope.step3 = "display:block;";
       }else{
@@ -295,20 +246,16 @@ angular.module('app.controllers_ext', ['ngCookies'])
 
 
     $scope.guardar = function(form){
-      $scope.formData.offices = $scope.formData.offices.toString();
       $scope.formData.country = $scope.formData.countryIni;
 
-      $scope.formData.cellPhone = $scope.formNoData.phone_code_cell + $scope.formNoData.cellPhone;
-      $scope.formData.homePhone = $scope.formNoData.phone_code_home + $scope.formNoData.homePhone;
-      $scope.formData.workPhone = $scope.formNoData.phone_code_work + $scope.formNoData.workPhone;
-      
-      if($scope.formData.offices != ""){
+     
+      if($scope.formData.sedeConsular){
 
-        $http.post("api/api.php?opc=sol_ven_menor", $scope.formData).success(function(response) {
+        $http.post("api/api.php?opc=sol_ext_menor", $scope.formData).success(function(response) {
           if(response.errorCode === '00000'){
-            $state.go("saime.solicitud_pasaporte_exitoso_ven");
+            $state.go("saime.solicitud_pasaporte_exitoso_ext");
           }else if(response.errorCode === '90000'){
-            $state.go("saime.solicitud_pasaporte_error_ven");
+            $state.go("saime.solicitud_pasaporte_error_ext");
           }else{
             $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
           }

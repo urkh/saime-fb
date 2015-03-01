@@ -19,7 +19,7 @@
         </div>
         <div class="wrapper-md" ng-controller="FormRegistroMenorCCtrl">
 
-            <div style="display:none; {{step1}}">
+            <div style="display:block; {{step1}}">
                 
                     <div class="row">
                         
@@ -91,10 +91,10 @@
             </div>
 
 
-            <div style="display:block; {{step2}}">
+            <div style="display:none; {{step2}}">
 
                 <form name="formData" class="form-horizontal">
-                    <div style="display:none; {{step3}}">
+                    <div style="display:block; {{step3}}">
                         <div class="row">
                             <div class="col-md-2">
                                 <button ng-click="atras1()" type="button" class="btn btn-saime-stand">
@@ -434,7 +434,7 @@
 
 
 
-                    <div style="display:block; {{step5}}">
+                    <div style="display:none; {{step5}}">
                         <div class="row">
                             <div class="col-md-2">
                                 <button ng-click="atras3()" type="button" class="btn btn-saime-stand">
@@ -449,63 +449,17 @@
                                 <div class="row">
 
 
-                                    <div class="form-group">
+                                    <div ng-repeat="oficina in oficinas"  class="form-group">
                                         <div class="col-md-1">
-                                            <input  type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina">
+                                            <input type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina">
                                         </div>
                                         <div class="col-md-6 ">
-                                            <label class="saime-label-checkboxes">aaaa</label>
+                                            <label class="saime-label-checkboxes">{{oficina.nombreoficina}}</label>
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <div class="col-md-1">
-                                            <input  type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina">
-                                        </div>
-                                        <div class="col-md-6 ">
-                                            <label class="saime-label-checkboxes">aaaa</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-1">
-                                            <input  type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina">
-                                        </div>
-                                        <div class="col-md-6 ">
-                                            <label class="saime-label-checkboxes">aaaa</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-1">
-                                            <input  type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina">
-                                        </div>
-                                        <div class="col-md-6 ">
-                                            <label class="saime-label-checkboxes">aaaa</label>
-                                        </div>
-                                    </div>
-
-                                    <!--
-                                    <div ng-repeat="oficina in oficinas" class="form-group">
-                                        <div class="col-sm-offset-4 col-sm-4">
-                                          <div class="checkbox">
-                                            <label>
-                                                <input  type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina"> {{oficina.nombreoficina}}
-                                            </label>
-                                          </div>
-                                        </div>
-                                    </div>
-                                -->
                                 </div>
 
-                                
-                                <!--
-                                <div class="row"  >
-                                    
-                                    <input type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina"> {{oficina.nombreoficina}}
-                                </div>
-                                -->
-                               
                                 
                                 <br>
                                 <br>
