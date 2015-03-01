@@ -470,3 +470,9 @@ input[type="radio"]:checked + label span{
 .saime-btn-ver-oficinas{
   margin: -10px 0px 10px 0px;
 }
+
+.saime-icon{
+  position: absolute;
+  top: -12%;
+  left: -2%;
+}
