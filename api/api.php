@@ -130,7 +130,7 @@ switch ($_GET['opc']) {
 
 
     case "get_oficinas_web":
-        get_bearer_auth($host, $uri="/saime-ws/v1.0/portal/oficinas");
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/portal/oficinas");
         break;
 
 
@@ -140,7 +140,7 @@ switch ($_GET['opc']) {
 
 
     case "get_tramites_web":
-        get_bearer_auth($URI="/saime-ws/v1.0/portal/tramites");
+        get_bearer_auth($host, $uri="/saime-ws/v1.0/portal/tramites");
         break;
 
 

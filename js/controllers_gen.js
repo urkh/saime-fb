@@ -319,6 +319,15 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
 .controller('MapasCtrl', ['$scope', '$facebook', '$http', function($scope, $facebook, $http){
 
   $("#header_status").hide();
+
+
+  
+
+  $http.post('api/api.php?opc=get_oficinas_web').success(function(res) { 
+          console.log(res)
+  })
+
+
   $facebook.api("/me").then( 
       function(response) {
         $scope.url = 'https://graph.facebook.com/'+response.location.id;
@@ -329,11 +338,6 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
 
       });
 
-  /*
-  $http.get('api/api.php?opc=get_oficinas_web').success(function(response) { 
-      console.log(response)
-    })
-*/
   
 }])
 
