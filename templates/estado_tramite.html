@@ -5,8 +5,8 @@
     
         <div class="bg-light lter b-b wrapper-md">
             <div class="row">
-                <div class="col-md-12">
-                    <h1 class="text-center">Estado Tramite del Pasaporte</h1>
+                <div class="col-md-12 text-center">
+                    <h1 class="m-n font-thin h3 text-black">Estado Tramite del Pasaporte</h1>
                 </div>
             </div>
         </div>
@@ -16,58 +16,243 @@
             <div class="panel hbox hbox-auto-xs no-border">
                 <div class="row">
                     <div class="col-md-3">
-                        <button ui-sref="saime.inicio" type="button" class="btn btn-saime-stand">
+                        <button ui-sref="saime.lista_tramites" type="button" class="btn btn-saime-stand">
                             <span class="fa fa-chevron-left fa-lg"></span>
                         </button>
-                    </div>
+                    </div>                  
 
 
-                    <div ng-if="estado == 'sin_solicitud'" class="col-md-6">
-                        <div class="text-center">
-                            <p class="saime-texto-general">{{mensaje}}</p>
+                    <div class="col-md-6">
+                    
+                        <div>
+                            <div class="text-center">
+                                <h4 class="m-n font-thin h3 text-black"><b>Datos Personales</b></h4>
+                            </div><br>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>Nombre Completo: </b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{nombre}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>C&eacute;dula:</b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{cedulal}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>Fecha de Nacimiento:</b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{fecha}}
+                                </div>
+                            </div>
+
+                            <hr>
+                        </div>
+                        <br>
+
+                        <div>
+                            <div class="text-center">
+                                <h4 class="m-n font-thin h3 text-black"><b>Datos de la Solicitud</b></h4>
+                            </div><br>
+                            
+                            <div class="text-left">
+                                <b>{{tramite.requestInfoList[0]}} </b>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b> Serial: </b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{tramite.tramite.serial}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>Oficina: </b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{tramite.tramite.oficinasolicitud}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>Fecha de asignaci&oacute;n: </b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{tramite.tramite.fechasolicitud}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>Fecha de la Cita: </b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{tramite.tramite.fechaconsulta}}
+                                </div>
+                            </div><br>
+
+                            <div align="center" class="row">
+                                
+                                <button ng-click="enviar_correo(tramite.tramite.idpersona)" type="button" class="btn btn-saime-stand">
+                                    Enviar planilla al correo
+                                </button>
+                    
+                            </div>
+
+                           
+                            <hr>
+                        </div><br>
+
+
+                        <div>
+                            <div class="row">
+                                <div class="text-center">
+                                    <h4 class="m-n font-thin h3 text-black"><b>Datos del Tr&aacute;mite</b></h4>
+                                </div><br>
+                            </div>
+
+                            
+                            <div class="text-left">
+                                <b>{{tramite.transactInfoList[0]}}</b>
+                            </div>
+                            
+
+                            <div class="row">
+                                 <div class="col-md-3 text-right" >
+                                    <b>Tipo de Tramite: </b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{tramite.tramite.tipotramite}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>Oficina: </b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{tramite.tramite.oficinasolicitud}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                 <div class="col-md-3 text-right" >
+                                    <b>Fecha de Inicio: </b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{tramite.tramite.fechatramite}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>Fecha Fin: </b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{tramite.tramite.fechacierre}}
+                                </div>
+                            </div>
+                            <hr>
+
+                        </div><br>
+
+                        
+                        
+                        <div>
+                            <div class="text-center">
+                                <h4 class="m-n font-thin h3 text-black"><b>Estados del Tr&aacute;mite</b></h4>
+                            </div><br>
+
+                            <div class="row">
+                                <div class="col-md-2 text-center" >
+                                    <b>Estado</b>
+                                </div>
+                                <div class="col-md-5">
+                                    <b>Nombre del Paso</b>
+                                </div>
+                                <div class="col-md-3 text-center">
+                                    <b>Fecha</b>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-repeat="estado in tramite.estadoTramiteList">
+                                <div class="col-md-2 text-center" >
+                                    <span  ng-if="estado.efectividad == '0'"><span class="fa fa-times-circle fa-lg"></span></span>
+                                    <span  ng-if="estado.efectividad == '1'"><span class="fa fa-check-circle fa-lg"></span></span>
+                                    <span  ng-if="estado.efectividad == '2'"><span class="fa fa-circle-thin fa-lg"></span></span>
+                                    <span  ng-if="estado.efectividad == '4'"><span class="fa fa-play-circle fa-lg"></span></span>
+                                </div>
+                                <div class="col-md-5">
+                                    {{estado.descripcion}}
+                                </div>
+                                <div class="col-md-3">
+                                    {{estado.fechaFin}}
+                                </div>
+                                 
+                            </div>
+                            <br><hr>
+                        </div> <br>
+
+                        <div>
+                            <div class="text-center">
+                                <h4 class="m-n font-thin h3 text-black"><b>Leyenda</b></h4>
+                            </div><br>
+
+                            <div class="row">
+                                <div class="col-md-2 text-center" >
+                                    <span class="fa fa-circle-thin fa-lg"></span>
+                                </div>
+                                <div class="col-md-5">
+                                    <b>No Efectuado</b>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 text-center" >
+                                    <span class="fa fa-play-circle fa-lg"></span>
+                                </div>
+                                <div class="col-md-5">
+                                    <b>Efectuandose</b>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 text-center" >
+                                    <span class="fa fa-check-circle fa-lg"></span>
+                                </div>
+                                <div class="col-md-5">
+                                    <b>Efectuado Satisfactoriamente</b>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 text-center" >
+                                    <span class="fa fa-times-circle fa-lg"></span>
+                                </div>
+                                <div class="col-md-5">
+                                    <b>Defectuoso (debe ir a la oficina)</b>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
-                    
-
-
-                    <div ng-if="estado == 'en_proceso'" class="col-md-6">
-                        <ul>
-                            <li>
-                                <div class="tramite-circulo">a</div>
-                                <div class="tramite-nombre">Enviar Pronto</div>
-                            </li>
-                            
-                            <div class="tramite-list"></div>
-                            <li>
-                                <div class="tramite-circulo">a</div>
-                                <div class="tramite-nombre">Enviado</div>
-                            </li>
-
-                            <div class="tramite-list"></div>
-                            <li>
-                                <div class="tramite-circulo">a</div>
-                                <div class="tramite-nombre">En transito</div>
-                            </li>
-
-                            <div class="tramite-list"></div>
-                            <li>
-                                <div class="tramite-circulo">a</div>
-                                <div class="tramite-nombre">Listo Para Entrega</div>
-                            </li>
-
-                            <div class="tramite-list">a</div>
-                            <li>
-                                <div class="tramite-circulo">a</div>
-                                <div class="tramite-nombre">Entregado</div>
-                            </li>
-
-                        </ul>
-                    </div>
-
-
 
                     <div class="col-md-3"></div>
+                    <modal error="" visible="showModal"></modal>
                 </div>
             </div>
         </div>

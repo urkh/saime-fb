@@ -17,6 +17,7 @@
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
+                
                     <form name="formData" class="form-horizontal">
                         <div class="form-group">
                             <input type="text" placeholder="Usuario" ng-model="formData.username">                            
@@ -25,9 +26,11 @@
                             <input type="password" placeholder="Contraseña" ng-model="formData.password">     
                         </div>
                         <div class="saime-error-input">
-                            {{authError}}
+                            
                         </div><br>
+
                         <div class="text-center">
+
                             <button ng-click="login(formData)" type="button" class="btn btn-saime-stand saime-btn-lg"> Ingresar</button>
                             <p class="saime-autenticacion-texto">
                                 Estimado(a) usuario(a), si usted no posee usuario SAIME debe registrarse para poder acceder 
@@ -35,6 +38,7 @@
                             </p>
                         </div> 
                     </form>
+                    <modal error="" visible="showModal"></modal>
                     
                     <br><br>
                     <div class="text-center link">

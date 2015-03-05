@@ -14,11 +14,11 @@ var app = angular.module('app', [
     'ui.select',
     'ui.validate',
     'checklist-model',
-
     'app.controllers_gen',
     'app.controllers_ven',
     'app.controllers_ext',
     'app.services',
+    'app.directives',
     
     'uiGmapgoogle-maps'
   ])
@@ -146,10 +146,15 @@ var app = angular.module('app', [
             })
 
 
-
+            
             .state('saime.estado_tramite', {
-                url: '/estado_tramite',
+                url: '/estado_tramite/person/:personId',
                 templateUrl: 'templates/estado_tramite.html'
+            })
+
+            .state('saime.lista_tramites', {
+                url: '/tramites',
+                templateUrl: 'templates/lista_tramites.html'
             })
 
             .state('saime.pasaporte_domicilio', {

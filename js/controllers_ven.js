@@ -8,7 +8,7 @@ angular.module('app.controllers_ven', ['ngCookies'])
 
 
 
-.controller('FormRegistroMenorCCtrl', ['$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', function($scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory) {
+.controller('FormRegistroMenorCCtrl', ['$timeout', '$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', function($timeout, $scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory) {
     $("#header_status").hide();
     $scope.formData = {};
     $scope.formSearch = {};
@@ -26,47 +26,104 @@ angular.module('app.controllers_ven', ['ngCookies'])
 
     $scope.codigos = CodigoTelfFactory;
 
-    $scope.buscar_menor_cedulado = function(cedula) {
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letrame, cedula: cedula}).success(function(response) {
+    $scope.buscar_menor_cedulado = function() {
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+      $scope.showModal = true;
+      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letrame, cedula: $scope.formSearch.cedula}).success(function(response) {
         if(response.errorCode === '00000'){
-          $scope.menor = [response.cedulado]; 
+
+          $http.post("api/api.php?opc=validar_cita_menor", {idpersona:response.cedulado.idpersona}).success(function(response) { 
+            if(response.errorCode === '00000'){
+              $scope.formData.minorId = response.cedulado.idpersona; 
+              $scope.formSearch.cedula = response.cedulado.numerocedula +" "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+              $scope.error = "<b>Resultado:</b> " + response.cedulado.numerocedula +" "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+              $timeout(function(){
+                $scope.showModal = false;
+                $scope.continuar1();
+              }, 1500);
+            }else if(response.errorCode === '90000'){
+              $scope.error = response.consumerMessage;
+            }else{
+              $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+            }
+          })
+
         }else if(response.errorCode === '90000'){
-          $scope.error2 = response.consumerMessage;
+          $scope.error = response.consumerMessage;
         }else{
-          $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
+          $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
         }
       })
     }
 
 
-    $scope.validar_cita_menor = function(){
-      $http.post("api/api.php?opc=validar_cita_menor", {idpersona:$scope.formData.minorId}).success(function(response) { 
+
+    $scope.buscar_madre = function() {
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+      $scope.showModal = true;
+      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letram, cedula: $scope.formSearch.cedulam}).success(function(response) {
         if(response.errorCode === '00000'){
-          $scope.continuar1();
-        }else if(response.errorCode === '90000'){
-          $scope.error2 = response.consumerMessage;
-        }else{
-          $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
-        }
+            $scope.formData.motherId = response.cedulado.idpersona; 
+            $scope.formSearch.cedulam = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+            
+            $scope.error = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+            $timeout(function(){
+              $scope.showModal = false;
+            }, 1500);
+
+          }else if(response.errorCode === '90000'){
+            $scope.error = response.consumerMessage;
+          }else{
+            $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+          }     
+        
       })
     }
 
+    $scope.buscar_padre = function(){
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+      $scope.showModal = true;
 
-    $scope.buscar_madre = function(cedula) {
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letram, cedula: cedula}).success(function(response) {
-        $scope.madre = [response.cedulado]; 
+      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letrap, cedula: $scope.formSearch.cedulap}).success(function(response) {
+        if(response.errorCode === '00000'){
+            $scope.formData.fatherId = response.cedulado.idpersona; 
+            $scope.formSearch.cedulap = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+            
+            $scope.error = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+            $timeout(function(){
+              $scope.showModal = false;
+            }, 1500);
+            
+          }else if(response.errorCode === '90000'){
+            $scope.error = response.consumerMessage;
+          }else{
+            $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+          }     
+        
       })
+
+
     }
 
-    $scope.buscar_padre = function(cedula){
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letrap, cedula: cedula}).success(function(response) {
-        $scope.padre = [response.cedulado]; 
-      })
-    }
-
-    $scope.buscar_legal = function(cedula){
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letral, cedula: cedula}).success(function(response) {
-        $scope.legal = [response.cedulado]; 
+    $scope.buscar_legal = function(){
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+      $scope.showModal = true;
+      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letral, cedula: $scope.formSearch.cedulal}).success(function(response) {
+        if(response.errorCode === '00000'){
+            $scope.formData.legalId = response.cedulado.idpersona; 
+            $scope.formSearch.cedulal = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+            
+            $scope.error = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+            $timeout(function(){
+              $scope.showModal = false;
+            }, 1500);
+            
+          }else if(response.errorCode === '90000'){
+            $scope.error = response.consumerMessage;
+          }else{
+            $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+          }     
+        
       })
     }
 
@@ -82,25 +139,50 @@ angular.module('app.controllers_ven', ['ngCookies'])
 
 
     $scope.get_municipios = function(){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
       $scope.municipios = MunicipiosFactory($scope.formData.state);
+      $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
+
     }
 
     $scope.get_parroquias = function(){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
       $scope.parroquias = ParroquiasFactory($scope.formData.town);
+      $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
     }
 
 
     $scope.get_cmunicipios = function(){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
       $scope.municipios = MunicipiosFactory($scope.formData.currentState);
+       $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
     }
 
     $scope.get_cparroquias = function(){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
       $scope.parroquias = ParroquiasFactory($scope.formData.currentTown);
+       $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
     }
 
     $scope.get_oficinas = function(){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
       $scope.oficinas = OficinasFactory($scope.formData.currentState);
-      //$scope.oficinas = OficinasFactory("126");
+       $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
     }
 
     
@@ -118,16 +200,22 @@ angular.module('app.controllers_ven', ['ngCookies'])
         $scope.step3 = "display:none;";
         $scope.step4 = "display:block;";
       }else{
-        $scope.error2 = "Debe llenar los campos correctamente."
+        $scope.showModal = true;
+        $scope.error = "Debe llenar los campos correctamente."
       }  
     }
 
      $scope.continuar3 = function(form){
-      if((form.currentState && form.currentTown && form.currentParish && form.urbanization && form.noApto && form.street && form.pCode) && (form.cellPhone || form.workPhone || form.homePhone)) {      
+            $scope.formData.cellPhone = $scope.formNoData.phone_code_cell + $scope.formNoData.cellPhone;
+      $scope.formData.homePhone = $scope.formNoData.phone_code_home + $scope.formNoData.homePhone;
+      $scope.formData.workPhone = $scope.formNoData.phone_code_work + $scope.formNoData.workPhone;
+
+      if((form.currentState && form.currentTown && form.currentParish && form.currentCity && form.urbanization && form.noApto && form.street && form.pCode) && ($scope.formData.cellPhone || $scope.formData.workPhone || $scope.formData.homePhone)) {                
         $scope.step4 = "display:none;";
         $scope.step5 = "display:block;";
       }else{
-        $scope.error2 = "Debe llenar los campos correctamente."
+        $scope.showModal = true;
+        $scope.error = "Debe llenar los campos correctamente."
       }  
     }
 
@@ -136,10 +224,6 @@ angular.module('app.controllers_ven', ['ngCookies'])
     $scope.guardar = function(form){
       $scope.formData.offices = $scope.formData.offices.toString();
       $scope.formData.country = $scope.formData.countryIni;
-
-      $scope.formData.cellPhone = $scope.formNoData.phone_code_cell + $scope.formNoData.cellPhone;
-      $scope.formData.homePhone = $scope.formNoData.phone_code_home + $scope.formNoData.homePhone;
-      $scope.formData.workPhone = $scope.formNoData.phone_code_work + $scope.formNoData.workPhone;
       
       if($scope.formData.offices != ""){
 
@@ -149,12 +233,14 @@ angular.module('app.controllers_ven', ['ngCookies'])
           }else if(response.errorCode === '90000'){
             $state.go("saime.solicitud_pasaporte_error_ven");
           }else{
-            $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+            $scope.showModal = true;
+            $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
           }
         })
 
       }else{
-        $scope.error2 = "Debe llenar los campos correctamente."
+        $scope.showModal = true;
+        $scope.error = "Debe llenar los campos correctamente."
       }  
     }
 
@@ -203,7 +289,7 @@ angular.module('app.controllers_ven', ['ngCookies'])
 
 
 
-.controller('FormRegistroMenorNcCtrl', ['$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', function($scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory) {
+.controller('FormRegistroMenorNcCtrl', ['$timeout', '$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', function($timeout, $scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory) {
     $("#header_status").hide();
     $scope.formData = {};
     $scope.formSearch = {};
@@ -223,21 +309,72 @@ angular.module('app.controllers_ven', ['ngCookies'])
     $scope.codigos = CodigoTelfFactory;
 
 
-    $scope.buscar_madre = function(cedula) {
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letram, cedula: cedula}).success(function(response) {
-        $scope.madre = [response.cedulado]; 
+    $scope.buscar_madre = function() {
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+      $scope.showModal = true;
+      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letram, cedula: $scope.formSearch.cedulam}).success(function(response) {
+        if(response.errorCode === '00000'){
+            $scope.formData.motherId = response.cedulado.idpersona; 
+            $scope.formSearch.cedulam = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+            
+            $scope.error = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+            $timeout(function(){
+              $scope.showModal = false;
+            }, 1500);
+
+          }else if(response.errorCode === '90000'){
+            $scope.error = response.consumerMessage;
+          }else{
+            $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+          }     
+        
       })
     }
 
-    $scope.buscar_padre = function(cedula){
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letrap, cedula: cedula}).success(function(response) {
-        $scope.padre = [response.cedulado]; 
+    $scope.buscar_padre = function(){
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+      $scope.showModal = true;
+
+      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letrap, cedula: $scope.formSearch.cedulap}).success(function(response) {
+        if(response.errorCode === '00000'){
+            $scope.formData.fatherId = response.cedulado.idpersona; 
+            $scope.formSearch.cedulap = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+            
+            $scope.error = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+            $timeout(function(){
+              $scope.showModal = false;
+            }, 1500);
+            
+          }else if(response.errorCode === '90000'){
+            $scope.error = response.consumerMessage;
+          }else{
+            $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+          }     
+        
       })
+
+
     }
 
-    $scope.buscar_legal = function(cedula){
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letral, cedula: cedula}).success(function(response) {
-        $scope.legal = [response.cedulado]; 
+    $scope.buscar_legal = function(){
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+      $scope.showModal = true;
+      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letral, cedula: $scope.formSearch.cedulal}).success(function(response) {
+        if(response.errorCode === '00000'){
+            $scope.formData.legalId = response.cedulado.idpersona; 
+            $scope.formSearch.cedulal = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+            
+            $scope.error = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+            $timeout(function(){
+              $scope.showModal = false;
+            }, 1500);
+            
+          }else if(response.errorCode === '90000'){
+            $scope.error = response.consumerMessage;
+          }else{
+            $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+          }     
+        
       })
     }
 
@@ -253,24 +390,50 @@ angular.module('app.controllers_ven', ['ngCookies'])
 
 
     $scope.get_municipios = function(){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
       $scope.municipios = MunicipiosFactory($scope.formData.state);
+      $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
+
     }
 
     $scope.get_parroquias = function(){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
       $scope.parroquias = ParroquiasFactory($scope.formData.town);
+      $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
     }
 
 
     $scope.get_cmunicipios = function(){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
       $scope.municipios = MunicipiosFactory($scope.formData.currentState);
+       $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
     }
 
     $scope.get_cparroquias = function(){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
       $scope.parroquias = ParroquiasFactory($scope.formData.currentTown);
+       $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
     }
 
     $scope.get_oficinas = function(){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
       $scope.oficinas = OficinasFactory($scope.formData.currentState);
+       $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
     }
 
 
@@ -281,16 +444,22 @@ angular.module('app.controllers_ven', ['ngCookies'])
         $scope.step1 = "display:none;";
         $scope.step2 = "display:block;";
       }else{
-        $scope.error2 = "Debe llenar los campos correctamente."
+        $scope.showModal = true;
+        $scope.error = "Debe llenar los campos correctamente."
       }  
     }
 
      $scope.continuar2 = function(form){
-      if((form.currentState && form.currentTown && form.currentParish && form.currentCity && form.urbanization && form.noApto && form.street && form.pCode) && (form.cellPhone || form.workPhone || form.homePhone)) {              
+      $scope.formData.cellPhone = $scope.formNoData.phone_code_cell + $scope.formNoData.cellPhone;
+      $scope.formData.homePhone = $scope.formNoData.phone_code_home + $scope.formNoData.homePhone;
+      $scope.formData.workPhone = $scope.formNoData.phone_code_work + $scope.formNoData.workPhone;
+
+      if((form.currentState && form.currentTown && form.currentParish && form.currentCity && form.urbanization && form.noApto && form.street && form.pCode) && ($scope.formData.cellPhone || $scope.formData.workPhone || $scope.formData.homePhone)) {              
         $scope.step2 = "display:none;";
         $scope.step3 = "display:block;";
       }else{
-        $scope.error2 = "Debe llenar los campos correctamente."
+        $scope.showModal = true;
+        $scope.error = "Debe llenar los campos correctamente."
       }  
     }
 
@@ -298,10 +467,6 @@ angular.module('app.controllers_ven', ['ngCookies'])
     $scope.guardar = function(form){
       $scope.formData.offices = $scope.formData.offices.toString();
       $scope.formData.country = $scope.formData.countryIni;
-
-      $scope.formData.cellPhone = $scope.formNoData.phone_code_cell + $scope.formNoData.cellPhone;
-      $scope.formData.homePhone = $scope.formNoData.phone_code_home + $scope.formNoData.homePhone;
-      $scope.formData.workPhone = $scope.formNoData.phone_code_work + $scope.formNoData.workPhone;
       
       if($scope.formData.offices != ""){
 
@@ -311,12 +476,14 @@ angular.module('app.controllers_ven', ['ngCookies'])
           }else if(response.errorCode === '90000'){
             $state.go("saime.solicitud_pasaporte_error_ven");
           }else{
-            $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+            $scope.showModal = true;
+            $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
           }
         })
 
       }else{
-        $scope.error2 = "Debe llenar los campos correctamente."
+        $scope.showModal = true;
+        $scope.error = "Debe llenar los campos correctamente."
       }  
     }
 
@@ -374,25 +541,51 @@ angular.module('app.controllers_ven', ['ngCookies'])
 
 
 
-
     $scope.get_municipios = function(){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
       $scope.municipios = MunicipiosFactory($scope.formData.state);
+      $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
+
     }
 
     $scope.get_parroquias = function(){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
       $scope.parroquias = ParroquiasFactory($scope.formData.town);
+      $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
     }
 
+
     $scope.get_cmunicipios = function(){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
       $scope.municipios = MunicipiosFactory($scope.formData.currentState);
+       $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
     }
 
     $scope.get_cparroquias = function(){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
       $scope.parroquias = ParroquiasFactory($scope.formData.currentTown);
+       $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
     }
 
     $scope.get_oficinas = function(){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
       $scope.oficinas = OficinasFactory($scope.formData.currentState);
+       $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
     }
 
 
@@ -400,9 +593,7 @@ angular.module('app.controllers_ven', ['ngCookies'])
       $scope.formData.offices = $scope.formData.offices.toString();
       $scope.formData.country = $scope.formData.countryIni;
 
-      $scope.formData.cellPhone = $scope.formNoData.phone_code_cell + $scope.formNoData.cellPhone;
-      $scope.formData.homePhone = $scope.formNoData.phone_code_home + $scope.formNoData.homePhone;
-      $scope.formData.workPhone = $scope.formNoData.phone_code_work + $scope.formNoData.workPhone;
+      
       
       if($scope.formData.offices != ""){
 
@@ -412,32 +603,40 @@ angular.module('app.controllers_ven', ['ngCookies'])
           }else if(response.errorCode === '90000'){
             $state.go("saime.solicitud_pasaporte_error_ven");
           }else{
-            $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+            $scope.showModal = true;
+            $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
           }
         })
 
       }else{
-        $scope.error2 = "Debe llenar los campos correctamente."
+        $scope.showModal = true;
+        $scope.error = "Debe llenar los campos correctamente."
       }  
     }
     
     
     $scope.continuar1 = function(form){
-      if((form.name1 && form.lastName1 && form.bDate && form.countryIni && form.state && form.town) && (form.motherId || form.fatherId || form.legalId)) {
+      if(form.countryIni && form.state && form.parish && form.town && form.city) {
         $scope.step1 = "display:none;";
         $scope.step2 = "display:block;";
       }else{
-        $scope.error2 = "Debe llenar los campos correctamente."
+        $scope.showModal = true;
+        $scope.error = "Debe llenar los campos correctamente."
       }  
     }
 
 
     $scope.continuar2 = function(form){
-      if((form.name1 && form.lastName1 && form.bDate && form.countryIni && form.state && form.town) && (form.motherId || form.fatherId || form.legalId)) {
+      $scope.formData.cellPhone = $scope.formNoData.phone_code_cell + $scope.formNoData.cellPhone;
+      $scope.formData.homePhone = $scope.formNoData.phone_code_home + $scope.formNoData.homePhone;
+      $scope.formData.workPhone = $scope.formNoData.phone_code_work + $scope.formNoData.workPhone;
+
+      if((form.currentState && form.currentTown && form.currentParish && form.currentCity && form.noApto && form.urbanization && form.street && form.pCode) && ($scope.formData.cellPhone || $scope.formData.workPhone || $scope.formData.homePhone)) {
         $scope.step2 = "display:none;";
         $scope.step3 = "display:block;";
       }else{
-        $scope.error2 = "Debe llenar los campos correctamente."
+        $scope.showModal = true;
+        $scope.error = "Debe llenar los campos correctamente."
       }  
     }
 

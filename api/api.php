@@ -148,6 +148,10 @@ switch ($_GET['opc']) {
         get_basic_auth($URI="/saime-ws/v1.0/healthcheck");
         break;
 
+    case "enviar_planilla":
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/transaction/sendPDF", $data);
+        break;
+
     
     default:
         echo "ninguno";

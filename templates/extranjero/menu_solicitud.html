@@ -11,6 +11,7 @@
             </div>
         </div>
         <div class="wrapper-md" ng-controller="MainCtrl">
+            <modal error="" visible="showModal"></modal>
             <div class="panel hbox hbox-auto-xs no-border">
                 <div class="row">
                     <div class="col-md-3">
@@ -29,15 +30,12 @@
                                <!-- 
                                <button ui-sref="saime.registro_datos_personales_ext" type="button" class="btn btn-default saime-btn-yellow">Solicitud de Pasaporte para Mayor de Edad</button>
                                 -->
-                                <button ng-click="validar_cita_ext()" type="button" class="btn btn-default saime-btn-yellow">Solicitud de pasaporte para mayor de edad</button>
+                                <button ng-click="validar_cita_ext()" type="button" class="btn btn-default saime-btn-yellow"><h2>Solicitud de pasaporte para mayor de edad</h2></button>
                                 
-                                <button ui-sref="saime.menu_solicitudes_menores_ext" type="button" class="btn btn-default saime-btn-blue">Registro de datos de ni&ntilde;o, ni&ntilde;a o adolescente</button>
+                                <button ui-sref="saime.menu_solicitudes_menores_ext" type="button" class="btn btn-default saime-btn-blue"><h2>Registro de datos de ni&ntilde;o, ni&ntilde;a o adolescente</h2></button>
                             </div>
                         </div>
-                        <br><br>
-                        <div align="center" class="saime-error-input">
-                            {{error2}}
-                        </div>
+                        
                         <br><br>
                     </div>
                     <div class="col-md-3"></div>

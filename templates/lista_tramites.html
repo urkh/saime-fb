@@ -1,0 +1,76 @@
+
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+  
+    <div class="col">
+    
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 class="m-n font-thin h3 text-black">Estado de Tr&aacute;mites de Pasaporte</h1>
+                </div>
+            </div>
+        </div>
+    
+        <div class="wrapper-md" ng-controller="ListaTramitesCtrl">
+            <modal error="" visible="showModal"></modal>
+            <div class="panel hbox hbox-auto-xs no-border">
+                <div class="row">
+                    <div class="col-md-2">
+                        <button ui-sref="saime.inicio" type="button" class="btn btn-saime-stand">
+                            <span class="fa fa-chevron-left fa-lg"></span>
+                        </button>
+                    </div>
+
+
+                    <div class="col-md-8">
+                        <div ng-repeat="tramite in tramites">
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b >Nombre Completo: </b>
+                                </div>
+
+                                <div class="col-md-3">
+                                      {{tramite.primernombre}} {{tramite.segundonombre}} {{tramite.primerapellido}} {{tramite.segundoapellido}}
+                                </div>
+
+                                <div class="col-md-2"></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right"><b>C&eacute;dula: </b></div>
+                                <div class="col-md-3">
+                                    <span  ng-if="tramite.numerocedula == ''">No Posee</span>{{tramite.numerocedula}}    
+                                </div>
+                                <div class="col-md-2">
+                                     
+                                </div> 
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right"><b>Fecha de Nacimiento: </b></div>
+                                <div class="col-md-3">{{tramite.fechanacimiento}}</div>
+                                <div class="col-md-2"></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right"><b>Sexo: </b></div>
+                                <div class="col-md-3">{{tramite.sexo}} </div>
+                                <div class="col-md-2">
+                                    <a class="btn btn-saime-stand" ui-sref="saime.estado_tramite({personId:tramite.idpersona})">Ver Tr&aacute;mite</a>
+                                </div>
+                            </div>
+
+
+                        <hr>
+                        </div>
+
+                    </div>
+                    
+                    <div class="col-md-1"></div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

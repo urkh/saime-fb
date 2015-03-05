@@ -70,24 +70,27 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
       
 
       $scope.login = function(form) {
- 
-        if(form.$valid){
+
+        $scope.showModal = true;
+        
+        if(form.username && form.password){
+          $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'
 
           $http.post("api/api.php?opc=signin", $scope.formData).success(function(response) {
             if(response.status === 'granted'){
+              $scope.showModal = false;
               $state.go('saime.inicio');
               
             }else if(response.status === 'denied'){
-              $scope.authError = response.msg;
+              $scope.error = response.msg;
             }else{
-              $scope.authError = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
+              $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
             }
               
           })
 
         }else{
-
-          $scope.authError = "Debe llenar los campos correctamente."
+          $scope.error= "Debe llenar los campos correctamente."
         }
 
       }
@@ -99,26 +102,33 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
   $("#header_status").hide();   
 
   $scope.validar_cita_ven = function(){
+    $scope.showModal = true;
+    $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
     $http.get("api/api.php?opc=validar_cita").success(function(response) { 
       if(response.errorCode === '00000'){
+        $scope.showModal = false;
         $state.go("saime.registro_datos_personales_ven");
       }else if(response.errorCode === '90000'){
-        $scope.error2 = response.consumerMessage;
+        //$scope.error2 = response.consumerMessage;
+        $scope.error = response.consumerMessage;
       }else{
-        $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+        $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
       }
     })
   }
 
 
   $scope.validar_cita_ext = function(){
+    $scope.showModal = true;
+    $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
     $http.get("api/api.php?opc=validar_cita").success(function(response) { 
       if(response.errorCode === '00000'){
+        $scope.showModal = false;
         $state.go("saime.registro_datos_personales_ext");
       }else if(response.errorCode === '90000'){
-        $scope.error2 = response.consumerMessage;
+        $scope.error = response.consumerMessage;
       }else{
-        $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+        $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
       }
     })
   }
@@ -126,8 +136,12 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
 
 
   $scope.validar_cita_menor_ven = function(minorType){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
+
       $http.post("api/api.php?opc=validar_cita_menor", {idpersona:""}).success(function(response) { 
         if(response.errorCode === '00000'){
+          $scope.showModal = false;
           if(minorType==1){
             $state.go("saime.registro_menor_nc_ext")
           }else{
@@ -135,16 +149,20 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
           }
           
         }else if(response.errorCode === '90000'){
-          $scope.error2 = response.consumerMessage;
+          $scope.error = response.consumerMessage;
         }else{
-          $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+          $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
         }
       })
     }
 
   $scope.validar_cita_menor_ext = function(minorType){
+      $scope.showModal = true;
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
+      
       $http.post("api/api.php?opc=validar_cita_menor", {idpersona:""}).success(function(response) { 
         if(response.errorCode === '00000'){
+          $scope.showModal = false;
           if(minorType==1){
             $state.go("saime.registro_menor_nc_ext")
           }else{
@@ -152,9 +170,9 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
           }
           
         }else if(response.errorCode === '90000'){
-          $scope.error2 = response.consumerMessage;
+          $scope.error = response.consumerMessage;
         }else{
-          $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+          $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
         }
       })
     }
@@ -167,19 +185,20 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
   $("#header_status").hide();   
 
   $scope.enviar = function(form){
+    $scope.showModal = true;
     if(form.$valid){
-      $http.post("api/api.php?opc=req_pass", $scope.formData)
-      .success(function(response) {
+      $http.post("api/api.php?opc=req_pass", $scope.formData).success(function(response) {
         if(response.errorCode==='00000'){
+          $scope.showModal = false;
           $state.go("saime.enviocontrasena");
         }else if(response.errorCode==='90000'){
-          $scope.error2 = response.consumerMessage;
+          $scope.error = response.consumerMessage;
         }else{
-          $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
+          $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
         }
       })
     }else{
-      $scope.error2 = "Debe llenar el campo correctamente.";  
+      $scope.error = "Debe llenar el campo correctamente.";  
     }  
   }  
 
@@ -212,18 +231,20 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
     $scope.guardar = function(form){
       $scope.formData.phone = $scope.formNoData.phone_code + $scope.formNoData.phone;
       if(form.$valid){
-        $http.post("api/api.php?opc=reg_usuario", $scope.formData)
-        .success(function(response) {
+        $http.post("api/api.php?opc=reg_usuario", $scope.formData).success(function(response) {
           if(response.errorCode==='00000'){
             $state.go("saime.registro_usuario_exitoso");
           }else if(response.errorCode==='90000'){
-            $scope.error2 = response.consumerMessage;
+            $scope.showModal = true;
+            $scope.error = response.consumerMessage;
           }else{
-            $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
+            $scope.showModal = true;
+            $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
           }
         })
       }else{
-        $scope.error2 = "Debe llenar los campos correctamente";  
+        $scope.showModal = true;
+        $scope.error = "Debe llenar los campos correctamente";  
       }  
     }
 
@@ -284,7 +305,8 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
     if(response.errorCode==='00000'){
       $scope.noticias = response.noticiaWebList;
     }else{
-      $scope.error2 = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
+      $scope.showModal = true;
+      $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
     }
     
   })
@@ -317,45 +339,80 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
 
 
 
-.controller('EstadoTramiteCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+.controller('ListaTramitesCtrl', ['$scope', '$http', '$state', '$timeout', function($scope, $http, $state, $timeout) {
 
-      $scope.formData = {};
-
-      
-      $http.post("api/api.php?opc=detalle_tramites", {idpersona:"FBBC483865226C66E030320A0B0A37BE"})
-
-        .success(function(response) {       
-
-          if(response.errorCode == '00000'){
-
-            $scope.estado = 'en_proceso';
-            $scope.procesos = response;
-            
-          }else{
-            $scope.mensaje = response.applicationMessage;
-            $scope.estado = 'sin_solicitud';
-          }
-
-          //console.log(response)
+    $("#header_status").hide();
+    $scope.formData = {};
+    $scope.showModal = true;
+    $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
           
-            
-        })
-
-/*
-
-    $http.get("api/api.php?opc=get_perfil")
-        .success(function(response) {       
-
-          console.log(response)
+    $http.post("api/api.php?opc=get_estado_tramites").success(function(response) {       
           
-            
-        })
-*/
+        if(response.errorCode === '00000'){
+          $scope.tramites = response.CeduladoloadList;
+          $timeout(function(){
+            $scope.showModal = false;
+          }, 1500);
+        }else if(response.errorCode === '90000'){
+          $scope.error = response.consumerMessage;
+        }else{
+          $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+        }
+    
+    })
 
 
 }])
 
+.controller('EstadoTramiteCtrl', ['$scope', '$http', '$state', '$stateParams', '$timeout', function($scope, $http, $state, $stateParams, $timeout) {
+      $("#header_status").hide();
+      $scope.formData = {};
+      
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+      $scope.showModal = true;
+      $http.post("api/api.php?opc=detalle_tramites", {idpersona: $stateParams.personId}).success(function(response) {    
+            
+          if(response.errorCode === '00000'){
+            
+            $scope.estado = 'en_proceso';
+            $scope.tramite = response;
+            $scope.cedula = $stateParams.cedula;
+            $scope.nombre = $stateParams.nombre;
+            $scope.fecha = $stateParams.fecha;
 
+            $timeout(function(){
+              $scope.showModal = false;
+            }, 1500);
+
+            
+          }else if(response.errorCode === '90000'){
+            $scope.error = response.consumerMessage;
+            $scope.estado = 'sin_solicitud';
+          }else{
+            $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+          }         
+            
+      })
+
+
+      $scope.enviar_correo = function(idpersona){
+        $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+        $scope.showModal = true;
+        
+        $http.post("api/api.php?opc=enviar_planilla", {idpersona: idpersona}).success(function(response) {   
+
+          if(response.errorCode === '00000'){
+            $scope.error = response.consumerMessage;
+          }else if(response.errorCode === '90000'){
+            $scope.error = response.consumerMessage;
+          }else{
+            $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+          }   
+        });
+
+      }
+
+}])
 
 
   

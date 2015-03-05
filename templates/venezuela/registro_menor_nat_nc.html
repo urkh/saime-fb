@@ -21,7 +21,8 @@
         </div>
         
         <div class="wrapper-md" ng-controller="FormRegistroMenorNcCtrl">
-            <form action="" class="form-horizontal">
+            <modal error="" visible="showModal"></modal>
+            <form name="formData" class="form-horizontal">
                 <div style="display:block; {{step1}}">
                     <div class="row">
                         <div class="col-md-2">
@@ -124,97 +125,75 @@
                                            
                                 <div class="form-group">
 
+                                        <div class="col-sm-2">                                      
 
-                                    <label  class="col-sm-2 control-label-2">Madre:</label>
+                                            <ui-select ng-model="formSearch.letram" ng-disabled="disabled" style="width: 100%;" title="Letra">
+                                                <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
+                                                <ui-select-choices repeat="letra.id as letra in letras">
+                                                  <span ng-bind-html="letra.letra"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
 
-                                    <div class="col-sm-2">                                      
+                                        </div>
 
-                                        <ui-select ng-model="formSearch.letram" ng-disabled="disabled" style="width: 100%;" title="Letra">
-                                            <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
-                                            <ui-select-choices repeat="letra.id as letra in letras">
-                                              <span ng-bind-html="letra.letra"></span>
-                                            </ui-select-choices>
-                                        </ui-select>
+                                        <div class="col-sm-8">
 
-                                    </div>
+                                            <input type="text" placeholder="N&uacute;mero de c&eacute;dula de la madre..." ng-model="formSearch.cedulam">
+                                            <input type="hidden" ng-model="formData.motherId">
 
-                                    <div class="col-sm-8">
+                                        </div>
+
+                                         <div class="col-sm-2">
+                                            <button ng-click="buscar_madre()" class="btn btn-saime-stand">Buscar</button>
+                                        </div>
                                         
-                                        <ui-select ng-model="formData.motherId" style="width: 100%;" title="Madre">
-                                            <ui-select-match placeholder="Escriba el numero de cedula...">
-                                                {{$select.selected.numerocedula}} - {{$select.selected.primernombre}} {{$select.selected.primerapellido}}
-                                            </ui-select-match>
+                                       
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <div class="col-sm-2">
+                                            <ui-select ng-model="formSearch.letrap" ng-disabled="disabled" style="width: 100%;" title="Letra">
+                                                <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
+                                                <ui-select-choices repeat="letra.id as letra in letras">
+                                                  <span ng-bind-html="letra.letra"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+
+                                        <div class="col-sm-8">
+                                             <input type="text" placeholder="N&uacute;mero de c&eacute;dula del padre..." ng-model="formSearch.cedulap">
+                                            <input type="hidden" ng-model="formData.fatherId">
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <button ng-click="buscar_padre()" class="btn btn-saime-stand">Buscar</button>
+                                        </div>
                                         
-                                            <ui-select-choices repeat="mad.idpersona as mad in madre" refresh="buscar_madre($select.search)">
-                                                <span ng-bind-html="mad.numerocedula | highlight: $select.search"></span>
-                                                <small ng-bind-html="mad.primernombre | highlight: $select.search"></small>
-                                                <small ng-bind-html="mad.primerapellido | highlight: $select.search"></small>
-                                            </ui-select-choices>
-                                        </ui-select>
-
-                                    </div>
-                                    
-                                   
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label  class="col-sm-2 control-label-2">Padre:</label>
-                                    <div class="col-sm-2">
-                                        <ui-select ng-model="formSearch.letrap" ng-disabled="disabled" style="width: 100%;" title="Letra">
-                                            <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
-                                            <ui-select-choices repeat="letra.id as letra in letras">
-                                              <span ng-bind-html="letra.letra"></span>
-                                            </ui-select-choices>
-                                        </ui-select>
                                     </div>
 
-                                    <div class="col-sm-8">
-                                        <ui-select ng-model="formData.fatherId" style="width: 100%;" title="Padre">
-                                    
-                                            <ui-select-match placeholder="Escriba el numero de cedula...">
-                                            {{$select.selected.numerocedula}} - {{$select.selected.primernombre}} {{$select.selected.primerapellido}}
-                                            </ui-select-match>
-                                        
-                                            <ui-select-choices repeat="pad.idpersona as pad in padre" refresh="buscar_padre($select.search)">
-                                                <span ng-bind-html="pad.numerocedula | highlight: $select.search"></span>
-                                                <small ng-bind-html="pad.primernombre | highlight: $select.search"></small>
-                                                <small ng-bind-html="pad.primerapellido | highlight: $select.search"></small>
-                                                
-                                            </ui-select-choices>
-                                        </ui-select>
-                                    </div>
-                                    
-                                </div>
 
+                                    <div class="form-group">
 
-                                <div class="form-group">
-                                    <label  class="col-sm-2 control-label-2 m-top-19">Representante Legal:</label>
-                                    <div class="col-sm-2">
-                                        <ui-select ng-model="formSearch.letral" ng-disabled="disabled" style="width: 100%;" title="Letra">
-                                            <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
-                                            <ui-select-choices repeat="letra.id as letra in letras">
-                                              <span ng-bind-html="letra.letra"></span>
-                                            </ui-select-choices>
-                                        </ui-select>
-                                    </div>
+                                        <div class="col-sm-2">
+                                            <ui-select  ng-model="formSearch.letral" ng-disabled="disabled" style="width: 100%;" title="Letra">
+                                                <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
+                                                <ui-select-choices repeat="letra.id as letra in letras">
+                                                  <span ng-bind-html="letra.letra"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
 
-                                    <div class="col-sm-8">
-                                        <ui-select ng-model="formData.legalId" style="width: 100%;" title="Representante legal">
-                                    
-                                            <ui-select-match placeholder="Escriba el numero de cedula...">
-                                            {{$select.selected.numerocedula}} - {{$select.selected.primernombre}} {{$select.selected.primerapellido}}
-                                            </ui-select-match>
-                                        
-                                            <ui-select-choices repeat="leg.idpersona as leg in legal" refresh="buscar_legal($select.search)">
-                                            <span ng-bind-html="leg.numerocedula | highlight: $select.search"></span>
-                                            <small ng-bind-html="leg.primernombre | highlight: $select.search"></small>
-                                            <small ng-bind-html="leg.primerapellido | highlight: $select.search"></small>
-                                                
-                                            </ui-select-choices>
-                                        </ui-select>
+                                        <div class="col-sm-8">
+                                             <input type="text" placeholder="N&uacute;mero de c&eacute;dula representante legal..." ng-model="formSearch.cedulal" >
+                                            <input type="hidden" ng-model="formData.legalId">
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <button ng-click="buscar_legal()" class="btn btn-saime-stand">Buscar</button>
+                                        </div>
                                     </div>
-                                </div>
 
 
                             <br>
