@@ -1,3 +1,9 @@
+.angular-google-map,
+.angular-google-map-container {
+  width: 100%;
+}
+
+
 input {
   height: 34px !important;
   width: 100%;

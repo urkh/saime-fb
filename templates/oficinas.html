@@ -18,40 +18,27 @@
                         <span class="fa fa-chevron-left fa-lg"></span>
                     </button>
                 </div>
-                <div class="col-md-11">                   
-                        <!--
-                        <form action="" class="form-horizontal">
-                            <div class="form-group">
-                                <input type="text" placeholder="Buscar" >                            
-                            </div>
-                            <button  type="button" class="btn btn-saime-stand derecha saime-btn-buscar-oficinas "><b>Buscar</b></button>
-                        </form>
-                        -->
-                    <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map> 
-                </div> 
+
+                <div class="col-md-12"></div>
             </div>
-            <!--
-            <div class="panel b-a">
-                <div class="panel-body">
-                    <div class="row m-b-xl">
-                        <div class="col-sm-12">       
-                            <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map> 
-                        </div>
-                    </div>
-                </div>
-            </div>
-            -->
-            <br><br>
+            
+            <br>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3"></div>
+                <div class="col-md-12">
+                    <ui-gmap-google-map center='map.center' zoom='map.zoom' draggable="true" options="options">
+                        <ui-gmap-marker ng-repeat="marker in markers" coords="marker.coords" idkey="marker.id" options="marker.options" >
+                            <ui-gmap-window coords="marker.coords">
+                                <div>
+                                    <b>Oficina: </b>{{marker.oficina}}<br>
+                                    <b>Direcci&oacute;n: </b>{{marker.direccion}}<br>
+                                    <b>Tel&eacute;fono: </b>{{marker.telefono}}
+                                </div>
+                            </ui-gmap-window>
+                        </ui-gmap-marker>
+                    </ui-gmap-google-map>
                 </div>
-                <div class="col-md-6">
-                    <!--
-                    <div class="text-center">
-                        <button ui-sref="saime.buscar_menor_ven_ubicacion_nc" type="button" class="btn btn-saime-stand saime-btn-lg saime-btn-ver-oficinas">Ver Direcciones</button>
-                    </div> 
-                    -->
-                </div>
+
                 <div class="col-md-3"></div>  
             </div>
         </div>

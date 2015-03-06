@@ -298,18 +298,52 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
 
 
 
-.controller('NoticiasWebCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+.controller('NoticiasWebCtrl', ['$scope', '$http', '$state', '$timeout', function($scope, $http, $state, $timeout) {
   $("#header_status").hide();
+  $scope.showModal = true;
+  $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
 
   $http.post("api/api.php?opc=get_noticias_web", {pageNo:"1", pageSize:"10"}).success(function(response) { 
     if(response.errorCode==='00000'){
       $scope.noticias = response.noticiaWebList;
+      $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
     }else{
-      $scope.showModal = true;
       $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
     }
     
   })
+
+}])
+
+
+
+.controller('OTramitesCtrl', ['$scope', '$http', '$state', '$timeout', function($scope, $http, $state, $timeout) {
+  $("#header_status").hide();
+  $scope.oneAtATime = true;
+  $scope.status = {
+    isFirstOpen: true,
+    isFirstDisabled: false
+  };
+  
+  $scope.showModal = true;
+  $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
+
+
+  $http.post("api/api.php?opc=get_tramites_web", {pageNo:"1", pageSize:"10"}).success(function(response) { 
+    if(response.errorCode==='00000'){
+      $scope.tramites = response.tramiteWebList;
+      console.log(response)
+      $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
+    }else{
+      $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
+    }
+    
+  })
+  
 
 }])
 
@@ -320,25 +354,55 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
 
   $("#header_status").hide();
 
-
-  
-
-  $http.post('api/api.php?opc=get_oficinas_web').success(function(res) { 
-          console.log(res)
-  })
-
-
   $facebook.api("/me").then( 
       function(response) {
         $scope.url = 'https://graph.facebook.com/'+response.location.id;
 
         $http.get($scope.url).success(function(res) { 
-          $scope.map = { center: { latitude: res.location.latitude, longitude: res.location.longitude }, zoom: 14 };
-        })
 
+          $scope.map = { 
+            center: { 
+              latitude: res.location.latitude,
+              //latitude: 5.1632956,
+              longitude: res.location.longitude
+              //longitude: -69.4146705
+            }, 
+            zoom: 14
+          };
+
+          $scope.options = {
+            scrollwheel: true
+          };
+
+          $http.post('api/api.php?opc=get_oficinas_web').success(function(res) { 
+            var oficinas = res.oficinaWebList;
+            var noficinas = []
+
+            for(var i in oficinas){
+              var oficina = oficinas[i];
+              if(oficina['coordenadas'] === null){
+                var coordenadas = ["0","0"];
+              }else{
+                var coordenadas = oficina['coordenadas'].split(',');
+              }
+              noficinas.push(
+                {
+                  'id': oficina['id'], 
+                  'oficina': oficina['titulo'],
+                  'direccion': oficina['direccion'],
+                  'telefono': oficina['telefonos'],
+                  'coords': {
+                    'latitude': coordenadas[0], 
+                    'longitude': coordenadas[1]
+                  }
+                }
+              )
+            }
+            $scope.markers = noficinas;
+          })
+        })
       });
 
-  
 }])
 
 
@@ -428,45 +492,6 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
 
 
 
-
-  .controller('DatepickerDemoCtrl', ['$scope', function($scope) {
-    $scope.today = function() {
-      $scope.dt = new Date();
-    };
-    $scope.today();
-
-    $scope.clear = function () {
-      $scope.dt = null;
-    };
-
-    // Disable weekend selection
-    $scope.disabled = function(date, mode) {
-      return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-    };
-
-    $scope.toggleMin = function() {
-      $scope.minDate = $scope.minDate ? null : new Date();
-    };
-    $scope.toggleMin();
-
-    $scope.open = function($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-
-      $scope.opened = true;
-    };
-
-    $scope.dateOptions = {
-      formatYear: 'yy',
-      startingDay: 1,
-      class: 'datepicker'
-    };
-
-    $scope.initDate = new Date('2016-15-20');
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[0];
-  }])
-
   // Form controller
   .controller('FormDemoCtrl', ['$scope', function($scope) {
     $scope.notBlackListed = function(value) {
@@ -514,39 +539,4 @@ $scope.inputs_jq();
   }])
 
 
-  // jVectorMap controller
-  .controller('JVectorMapDemoCtrl', ['$scope', function($scope) {
-
-    $scope.usa_markers = [
-      {latLng: [40.71, -74.00], name: 'New York'},
-      {latLng: [34.05, -118.24], name: 'Los Angeles'},
-      {latLng: [41.87, -87.62], name: 'Chicago'},
-      {latLng: [29.76, -95.36], name: 'Houston'},
-      {latLng: [39.95, -75.16], name: 'Philadelphia'},
-      {latLng: [38.90, -77.03], name: 'Washington'},
-      {latLng: [37.36, -122.03], name: 'Silicon Valley'}
-    ];
-  }])
-
-
-
-  // signup controller
-  .controller('SignupFormController', ['$scope', '$http', '$state', function($scope, $http, $state) {
-    $scope.user = {};
-    $scope.authError = null;
-    $scope.signup = function() {
-      $scope.authError = null;
-      // Try to create
-      $http.post('api/signup', {name: $scope.user.name, email: $scope.user.email, password: $scope.user.password})
-      .then(function(response) {
-        if ( !response.data.user ) {
-          $scope.authError = response;
-        }else{
-          $state.go('saime.inicio');
-        }
-      }, function(x) {
-        $scope.authError = 'Server Error';
-      });
-    };
-  }])
   ;
