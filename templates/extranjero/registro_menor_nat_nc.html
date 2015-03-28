@@ -6,7 +6,7 @@
         <div class="bg-light lter b-b wrapper-md">
           <div class="row">
             <div class="col-md-12 text-center">
-              <h2 class="m-n font-thin  text-black">Solicitud de Pasaporte en el Extranjero - </h2>
+              <h2 class="m-n font-thin  text-black">Solicitud de Pasaporte en el Extranjero</h2>
               <h2 class="m-n font-thin  text-black">Ni&ntilde;o, ni&ntilde;a o adolescente</h2>
             </div>
           </div>
@@ -14,7 +14,7 @@
         <div class="bg-light lter b-b wrapper-md saime-bg">
           <div class="row">
             <div class="col-md-12 text-center">
-              <h2 class="m-n font-thin  text-black">Venezolanos por Naturalizaci&oacute;n - </h2>
+              <h2 class="m-n font-thin  text-black">Venezolanos por Naturalizaci&oacute;n</h2>
               <h2 class="m-n font-thin  text-black">menores de 9 a&ntilde;os no cedulados</h2>
             </div>
           </div>
@@ -37,17 +37,17 @@
                                 <div class="col-md-6">
                                     <input ng-model="formData.minorId" type="hidden">
                                     <input type="hidden" ng-model="formData.minorType"  ng-init="formData.minorType='4'">
-                                    <input type="text" placeholder="Primer nombre" ng-model="formData.name1">
-                                    <input type="text" placeholder="Primer apellido" ng-model="formData.lastName1">
+                                    <input vld-texto type="text" placeholder="Primer nombre" ng-model="formData.name1">
+                                    <input vld-texto type="text" placeholder="Primer apellido" ng-model="formData.lastName1">
 
-                                    <input placeholder="Fecha de Nacimiento" ng-model="formData.bDate" type="text" datepicker-popup="{{format}}" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Cerrar" ng-click="date_open($event)" readOnly/>
+                                    <input placeholder="Fecha de Nacimiento" ng-model="formData.bDate" type="text" datepicker-popup="{{format}}" is-open="opened" datepicker-options="dateOptions" close-text="Cerrar" ng-click="date_open($event)" readOnly/>
                                       
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" placeholder="Segundo nombre" ng-model="formData.name2">        
-                                    <input type="text" placeholder="Segundo apellido" ng-model="formData.lastName2">
+                                    <input vld-texto type="text" placeholder="Segundo nombre" ng-model="formData.name2">        
+                                    <input vld-texto type="text" placeholder="Segundo apellido" ng-model="formData.lastName2">
 
-                                    <ui-select required="true" ng-model="formData.gender" ng-disabled="disabled" style="width: 100%;" title="Genero">
+                                    <ui-select ng-model="formData.gender" ng-disabled="disabled" style="width: 100%;" title="Genero">
                                         <ui-select-match placeholder="Genero...">{{$select.selected.genero}}</ui-select-match>
                                         <ui-select-choices repeat="genero.id as genero in generos">
                                           <span ng-bind-html="genero.genero"></span>
@@ -70,7 +70,7 @@
 
 
                             <ui-select ng-model="formData.countryIni" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
-                                <ui-select-match placeholder="Seleccione o busque un pais en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                <ui-select-match placeholder="Seleccione o busque un PAIS en la lista...">{{$select.selected.descripcion}}</ui-select-match>
                                 <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
                                   <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
                                   
@@ -79,7 +79,7 @@
 
                             <br>
 
-                            <input ng-model="formData.city" type="text" placeholder="Ciudad" required >
+                            <input vld-texto ng-model="formData.city" type="text" placeholder="Ciudad" >
                             
                         </div>
                         <div class="col-md-2"></div>
@@ -108,7 +108,7 @@
 
                                         <div class="col-sm-8">
 
-                                            <input type="text" placeholder="N&uacute;mero de c&eacute;dula de la madre..." ng-model="formSearch.cedulam">
+                                            <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula de la madre..." ng-model="formSearch.cedulam">
                                             <input type="hidden" ng-model="formData.motherId">
 
                                         </div>
@@ -133,7 +133,7 @@
                                         </div>
 
                                         <div class="col-sm-8">
-                                             <input type="text" placeholder="N&uacute;mero de c&eacute;dula del padre..." ng-model="formSearch.cedulap">
+                                             <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula del padre..." ng-model="formSearch.cedulap">
                                             <input type="hidden" ng-model="formData.fatherId">
                                         </div>
 
@@ -156,7 +156,7 @@
                                         </div>
 
                                         <div class="col-sm-8">
-                                             <input type="text" placeholder="N&uacute;mero de c&eacute;dula representante legal..." ng-model="formSearch.cedulal" >
+                                             <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula representante legal..." ng-model="formSearch.cedulal" >
                                             <input type="hidden" ng-model="formData.legalId">
                                         </div>
 
@@ -203,11 +203,11 @@
                             <p><h3>Dirección Actual</h3></p>
                             <div class="row">
 
-                                <input ng-model="formData.currentCity" type="text" placeholder="Ciudad" required>
-                                <input ng-model="formData.pCode" type="number" placeholder="Codigo Postal" >
+                                <input vld-texto ng-model="formData.currentCity" type="text" placeholder="Ciudad">
+                                <input vld-pcode ng-model="formData.pCode" type="number" placeholder="Codigo Postal" >
 
-                                <ui-select on-select="get_consulados()" required="true"  ng-model="formData.countrySede" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
-                                    <ui-select-match placeholder="Seleccione o busque un pais sede...">{{$select.selected.descripcion}}</ui-select-match>
+                                <ui-select on-select="get_consulados()" ng-model="formData.countrySede" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
+                                    <ui-select-match placeholder="Seleccione o busque un PAIS sede...">{{$select.selected.descripcion}}</ui-select-match>
                                     <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
                                       <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
                                       
@@ -276,11 +276,10 @@
                             <br>
                             <p>
                                 <i>
-                                    Para ver la dirección de la oficina, debes pasar el cursor por encima del nombre de
-                                    la oficina. Las oficinas que aparecen marcadas son las posibles oficinas donde se les 
-                                    asignara la cita, si usted desea que el sistema no le asigne a una de estas oficinas
-                                    favor de desarcarla. <b>Nota:</b> mientras más oficines seleccione, su cita podra ser
-                                    asignada con mayor rapidez, dependiendo de la saturación de las mismas.
+                                    Las oficinas que aparecen marcadas son las posibles oficinas d&oacute;nde se les 
+                                    asignar&aacute; la cita, si usted desea que el sistema no le asigne a una de estas oficinas
+                                    favor de descartarla. <b>Nota:</b> mientras m&aacute;s oficinas seleccione, su cita podr&aacute; ser
+                                    asignada con mayor rapidez, dependiendo de la saturaci&oacute;n de las mismas.
                                 </i>
                             </p>
 

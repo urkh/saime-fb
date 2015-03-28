@@ -1,7 +1,7 @@
-angular.module('app.directives', [])
+var dir = angular.module('app.directives', []);
 
 
-.directive('modal', function () {
+dir.directive('modal', function () {
     return {
       template: '<div class="modal fade">' + 
           '<div class="modal-dialog">' + 
@@ -43,4 +43,70 @@ angular.module('app.directives', [])
         });
       }
     };
-  })
+  });
+
+
+
+
+dir.directive('vldTexto', function () {
+    return function (scope, element, attr) {
+        element.bind('keydown keypress', function (event) {
+            if(event.which >= 48 && event.which <= 57){
+                event.preventDefault();
+            }else{
+                if(event.target.value.length >= 30) {
+                    event.preventDefault();
+                }
+            }
+        });
+    };
+});
+
+
+
+dir.directive('vldCedula', function () {
+    return function (scope, element, attr) {
+        element.bind('keydown keypress', function (event) {
+
+            if((event.which >= 48 && event.which <= 57) || (event.which == 8)){
+                if(event.target.value.length >= 10) {
+                    event.preventDefault();
+                }
+            }else{
+                event.preventDefault();
+            }
+        });
+    };
+});
+
+
+
+dir.directive('vldTelefono', function () {
+    return function (scope, element, attr) {
+        element.bind('keydown keypress', function (event) {
+
+            if((event.which >= 48 && event.which <= 57) || (event.which == 8)){
+                if(event.target.value.length >= 8) {
+                    event.preventDefault();
+                }
+            }else{
+                event.preventDefault();
+            }
+        });
+    };
+});
+
+dir.directive('vldPcode', function () {
+    return function (scope, element, attr) {
+        element.bind('keydown keypress', function (event) {
+
+            if((event.which >= 48 && event.which <= 57) || (event.which == 8)){
+                if(event.target.value.length >= 5) {
+                    event.preventDefault();
+                }
+            }else{
+                event.preventDefault();
+            }
+        });
+    };
+});

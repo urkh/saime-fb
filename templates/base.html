@@ -1,48 +1,4 @@
-  <!-- 
-  <div class="app-header navbar">
-      
-      <div class="collapse navbar-collapse box-shadow {{app.settings.navbarCollapseColor}}">
-      
-        <div class="nav navbar-nav m-l-sm hidden-xs">
-        </div>
 
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href class="dropdown-toggle clear" data-toggle="dropdown">
-              <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-                <img src="img/a0.jpg" alt="...">
-                <i class="on md b-white bottom"></i>
-              </span>
-              <span class="hidden-sm hidden-md">Juan Alberto Zambrano</span> <b class="caret"></b>
-            </a>
-      
-            <ul class="dropdown-menu animated fadeInRight w">
-              <li>
-                <a href="#">Cambiar Contrasena</a>
-              </li>
-              <li>
-                <a href="#">
-                  Ayuda
-                </a>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <a ui-sref="saime.login">Salir</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-  </div> -->
-   <!-- HEADER CON ROW
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            
-        </div>
-        <div class="col-md-2"></div>
-    </div>
--->
     <div ng-controller="FBCtrl" > 
       <div id="header_status" style="display: none;">
         <img src="img/header.png" alt="" class="header-saime ">
@@ -61,17 +17,48 @@
         <div class="app-content-body fade-in-up" ui-view></div>
     </div>
   <!-- /content -->
-
+  <br><br>
 
   <!-- footer -->
-    <div class="app-footer wrapper b-t bg-light" align="center">
-        <span class="pull-right">
+    <div ng-controller="MainCtrl" class="app-footer wrapper b-t bg-light" align="center">
+
+      <div class="row">
+        <br>
+        <div class="col-md-3 pull-left">
+          <modal error="" visible="showModal"></modal>
+          <button class="btn btn-info btn-xs" ng-click="fb_share()"><span class="fa fa-share-alt"></span>  Publicar en tu muro</button><br>
+          <button class="btn btn-warning btn-xs" ng-click="fb_invitable_friends()"><span class="fa fa-facebook"></span>  Invitar a tus amigos  </button>
+
+        </div>
+        <div class="col-md-6">
+          
+        
+          Desarrollado por la Direcci&oacute;n de Inform&aacute;tica del SAIME
+          <br>
+          &copy; 2015 Todos los Derechos Reservados
+
+
+        </div>
+        <div class="col-md-3">
+          <span class="fa fa-twitter fa-lg"></span>
+            <a href="http://twitter.com/PrensaSaime" class="twitter-button">@PrensaSaime</a><br>
+          
+          <span class="fa fa-twitter fa-lg"></span>
+            <a href="http://twitter.com/RedsocialSAIME" class="twitter-button">@RedsocialSAIME</a><br>
+
+          <span class="pull-right">
             <a href ui-scroll="app" class="m-l-sm text-muted">
                 <i class="fa fa-long-arrow-up"></i>
             </a>
-        </span>
-        Desarrollado por la Direccion de Informatica del SAIME
-        <br>
-        &copy; 2015 Todos los Derechos Reservados
+          </span>
+
+
+        </div>
+        
+
+      </div>
+        
+
+        
     </div>
   <!-- / footer -->

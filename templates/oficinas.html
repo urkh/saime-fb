@@ -25,8 +25,9 @@
             <br>
             <div class="row">
                 <div class="col-md-3"></div>
-                <div class="col-md-12">
+                <div class="col-md-12">{{test}}
                     <ui-gmap-google-map center='map.center' zoom='map.zoom' draggable="true" options="options">
+                    
                         <ui-gmap-marker ng-repeat="marker in markers" coords="marker.coords" idkey="marker.id" options="marker.options" >
                             <ui-gmap-window coords="marker.coords">
                                 <div>
@@ -36,6 +37,7 @@
                                 </div>
                             </ui-gmap-window>
                         </ui-gmap-marker>
+
                     </ui-gmap-google-map>
                 </div>
 

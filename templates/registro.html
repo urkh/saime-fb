@@ -9,6 +9,7 @@
           </div>
         </div>
         <div class="wrapper-md" ng-controller="RegistroCtrl">
+            <modal error="" visible="showModal"></modal>
             <div class="row">
                 <div class="col-md-3">
                     <button ui-sref="saime.login" type="button" class="btn btn-saime-stand">
@@ -24,7 +25,7 @@
                             <div class="form-group">
                                 <div class="col-sm-3 saime-input">
                                     
-                                    <ui-select required="true" ng-model="formData.letra" ng-disabled="disabled" style="width: 100%;" title="Letra">
+                                    <ui-select ng-model="formData.letra" ng-disabled="disabled" style="width: 100%;" title="Letra">
                                         <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
                                         <ui-select-choices repeat="letra.id as letra in letras">
                                           <span ng-bind-html="letra.letra"></span>
@@ -32,21 +33,21 @@
                                     </ui-select>
                                 </div>
                                 <div class="col-sm-9 saime-input">
-                                    <input required="true" ng-model="formData.cedula" type="number" placeholder="N&uacute;mero de C&eacute;dula">
+                                    <input vld-cedula ng-model="formData.cedula" type="number" placeholder="N&uacute;mero de C&eacute;dula">
                                 </div>
                             </div>
                             
-                            <input required="true" ng-model="formData.firstName" type="text" placeholder="Primer Nombre" >                            
+                            <input vld-texto ng-model="formData.firstName" type="text" placeholder="Primer Nombre" >                            
 
-                            <input required="true" ng-model="formData.lastName" type="text" placeholder="Primer Apellido" >                            
+                            <input vld-texto ng-model="formData.lastName" type="text" placeholder="Primer Apellido" >                            
 
-                            <input required="true" ng-model="formData.email" type="email" placeholder="Correo Electr&oacute;nico" >                            
+                            <input ng-model="formData.email" type="email" placeholder="Correo Electr&oacute;nico" >                            
 
-                            <input required="true" ng-model="formData.altEmail" type="email" placeholder="Correo Alternativo" >
+                            <input ng-model="formData.altEmail" type="email" placeholder="Correo Alternativo" >
 
                             <div class="form-group">
                                 <div class="col-sm-3 saime-input">
-                                    <ui-select required="true" ng-model="formNoData.phone_code" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                    <ui-select ng-model="formNoData.phone_code" ng-disabled="disabled" style="width: 100%;" title="Codigo">
                                         <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
                                         <ui-select-choices repeat="codigo.numero as codigo in codigos">
                                           <span ng-bind-html="codigo.numero"></span>
@@ -55,19 +56,9 @@
 
                                 </div>
                                 <div class="col-sm-9 saime-input">
-                                    <input required="true" ng-model="formNoData.phone" type="number" placeholder="Tel&eacute;fono Celular">
+                                    <input vld-telefono ng-model="formNoData.phone" type="number" placeholder="Tel&eacute;fono Celular">
                                 </div>
                             </div>
-
-                            <!-- <input type="text" placeholder="Codigo de confirmacion que aparece arriba" >-->
-
-                             <!-- USERNAME 
-        <div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$dirty }">
-            <label>Description</label>
-            <input type="text" name="username" class="item-input-wrapper form-control" ng-model="user.username"  ng-minlength="5" ng-maxlength="60" required>
-            <font color="white"><p ng-show="userForm.username.$error.minlength" class="help-block"><font color="#009ACD">Description is too short.</font></p>
-            <p ng-show="userForm.username.$error.maxlength" class="help-block"><font color="#009ACD">Description is too long.</font></p>
-        </div>-->
 
                             <br>
                                 <div align="center" class="saime-error-input">

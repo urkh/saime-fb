@@ -2,16 +2,20 @@
 
 
 
-angular.module('app.controllers_ext', ['ngCookies'])
+angular.module('app.controllers_ext', [])
 
 
 
-.controller('FormRegistroMenorCExtCtrl', ['$timeout', '$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', function($timeout, $scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory) {
+.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout', '$scope', '$http', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', function($rootScope, $state, $timeout, $scope, $http, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory) {
 
-   $("#header_status").hide();
-    $scope.formData = {};
-    $scope.formSearch = {};
-    $scope.formNoData = {};
+  if(!$rootScope.authenticated){
+    $state.go('saime.autenticacion');
+  }
+
+  $("#header_status").hide();
+  $scope.formData = {};
+  $scope.formSearch = {};
+  $scope.formNoData = {};
 
     $scope.letras = [
       { id: 'V', letra: 'V'},
@@ -28,11 +32,11 @@ angular.module('app.controllers_ext', ['ngCookies'])
     $scope.buscar_menor_cedulado = function() {
       $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
       $scope.showModal = true;
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letrame, cedula: $scope.formSearch.cedula}).success(function(response) {
+      $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letrame, cedula: $scope.formSearch.cedula}).success(function(response) {
         if(response.errorCode === '00000'){
 
-          $http.post("api/api.php?opc=validar_cita_menor", {idpersona:response.cedulado.idpersona}).success(function(response) { 
-            if(response.errorCode === '00000'){
+          $http.post("api/api.php?opc=validar_cita_menor&bcode="+$rootScope.bcode, {idpersona:response.cedulado.idpersona, minorType:$scope.formData.minorType}).success(function(res) { 
+            if(res.errorCode === '00000'){
               $scope.formData.minorId = response.cedulado.idpersona; 
               $scope.formSearch.cedula = response.cedulado.numerocedula +" "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
               $scope.error = "<b>Resultado:</b> " + response.cedulado.numerocedula +" "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
@@ -40,8 +44,8 @@ angular.module('app.controllers_ext', ['ngCookies'])
                 $scope.showModal = false;
                 $scope.continuar1();
               }, 1500);
-            }else if(response.errorCode === '90000'){
-              $scope.error = response.consumerMessage;
+            }else if(res.errorCode === '90000'){
+              $scope.error = res.consumerMessage;
             }else{
               $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
             }
@@ -59,7 +63,7 @@ angular.module('app.controllers_ext', ['ngCookies'])
     $scope.buscar_madre = function() {
       $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
       $scope.showModal = true;
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letram, cedula: $scope.formSearch.cedulam}).success(function(response) {
+      $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letram, cedula: $scope.formSearch.cedulam}).success(function(response) {
         if(response.errorCode === '00000'){
             $scope.formData.motherId = response.cedulado.idpersona; 
             $scope.formSearch.cedulam = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
@@ -82,7 +86,7 @@ angular.module('app.controllers_ext', ['ngCookies'])
       $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
       $scope.showModal = true;
 
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letrap, cedula: $scope.formSearch.cedulap}).success(function(response) {
+      $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letrap, cedula: $scope.formSearch.cedulap}).success(function(response) {
         if(response.errorCode === '00000'){
             $scope.formData.fatherId = response.cedulado.idpersona; 
             $scope.formSearch.cedulap = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
@@ -106,7 +110,7 @@ angular.module('app.controllers_ext', ['ngCookies'])
     $scope.buscar_legal = function(){
       $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
       $scope.showModal = true;
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letral, cedula: $scope.formSearch.cedulal}).success(function(response) {
+      $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letral, cedula: $scope.formSearch.cedulal}).success(function(response) {
         if(response.errorCode === '00000'){
             $scope.formData.legalId = response.cedulado.idpersona; 
             $scope.formSearch.cedulal = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
@@ -127,7 +131,7 @@ angular.module('app.controllers_ext', ['ngCookies'])
 
 
 
-    $http.get("api/api.php?opc=get_paises").success(function(response) { 
+    $http.get("api/api.php?opc=get_paises&bcode="+$rootScope.bcode).success(function(response) { 
       $scope.paises = response.countryList
     })
 
@@ -143,9 +147,6 @@ angular.module('app.controllers_ext', ['ngCookies'])
     }
 
     
-
-
-
     $scope.continuar1 = function(){
         $scope.step1 = "display:none;";
         $scope.step2 = "display:block;";
@@ -176,14 +177,17 @@ angular.module('app.controllers_ext', ['ngCookies'])
 
     $scope.guardar = function(form){
       $scope.formData.country = $scope.formData.countryIni;
+      $scope.formData.bDate = $scope.formData.bDate.format("dd/mm/yyyy");
       
       if($scope.formData.sedeConsular){
 
-        $http.post("api/api.php?opc=sol_ext_menor", $scope.formData).success(function(response) {
+        $http.post("api/api.php?opc=sol_ext_menor&bcode="+$rootScope.bcode, $scope.formData).success(function(response) {
           if(response.errorCode === '00000'){
             $state.go("saime.solicitud_pasaporte_exitoso_ext");
           }else if(response.errorCode === '90000'){
-            $state.go("saime.solicitud_pasaporte_error_ext");
+            //$state.go("saime.solicitud_pasaporte_error_ext");
+            $scope.showModal = true;
+            $scope.error = response.consumerMessage;
           }else{
             $scope.showModal = true;
             $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
@@ -240,9 +244,13 @@ angular.module('app.controllers_ext', ['ngCookies'])
 
 
 
-.controller('FormRegistroMenorNcExtCtrl', ['$timeout', '$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', function($timeout, $scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory) {
+.controller('FormRegistroMenorNcExtCtrl', ['$rootScope', '$state', '$timeout', '$scope', '$http', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', function($rootScope, $state, $timeout, $scope, $http, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory) {
 
-     $("#header_status").hide();
+    if(!$rootScope.authenticated){
+      $state.go('saime.autenticacion');
+    }
+
+    $("#header_status").hide();
     $scope.formData = {};
     $scope.formSearch = {};
     $scope.formNoData = {};
@@ -264,7 +272,7 @@ angular.module('app.controllers_ext', ['ngCookies'])
     $scope.buscar_madre = function() {
       $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
       $scope.showModal = true;
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letram, cedula: $scope.formSearch.cedulam}).success(function(response) {
+      $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letram, cedula: $scope.formSearch.cedulam}).success(function(response) {
         if(response.errorCode === '00000'){
             $scope.formData.motherId = response.cedulado.idpersona; 
             $scope.formSearch.cedulam = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
@@ -287,7 +295,7 @@ angular.module('app.controllers_ext', ['ngCookies'])
       $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
       $scope.showModal = true;
 
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letrap, cedula: $scope.formSearch.cedulap}).success(function(response) {
+      $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letrap, cedula: $scope.formSearch.cedulap}).success(function(response) {
         if(response.errorCode === '00000'){
             $scope.formData.fatherId = response.cedulado.idpersona; 
             $scope.formSearch.cedulap = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
@@ -311,7 +319,7 @@ angular.module('app.controllers_ext', ['ngCookies'])
     $scope.buscar_legal = function(){
       $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
       $scope.showModal = true;
-      $http.post("api/api.php?opc=get_cedula", {letra: $scope.formSearch.letral, cedula: $scope.formSearch.cedulal}).success(function(response) {
+      $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letral, cedula: $scope.formSearch.cedulal}).success(function(response) {
         if(response.errorCode === '00000'){
             $scope.formData.legalId = response.cedulado.idpersona; 
             $scope.formSearch.cedulal = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
@@ -332,7 +340,7 @@ angular.module('app.controllers_ext', ['ngCookies'])
 
 
 
-    $http.get("api/api.php?opc=get_paises").success(function(response) { 
+    $http.get("api/api.php?opc=get_paises&bcode="+$rootScope.bcode).success(function(response) { 
       $scope.paises = response.countryList
     })
 
@@ -370,15 +378,18 @@ angular.module('app.controllers_ext', ['ngCookies'])
 
     $scope.guardar = function(form){
       $scope.formData.country = $scope.formData.countryIni;
+      $scope.formData.bDate = $scope.formData.bDate.format("dd/mm/yyyy");
 
      
       if($scope.formData.sedeConsular){
 
-        $http.post("api/api.php?opc=sol_ext_menor", $scope.formData).success(function(response) {
+        $http.post("api/api.php?opc=sol_ext_menor&bcode="+$rootScope.bcode, $scope.formData).success(function(response) {
           if(response.errorCode === '00000'){
             $state.go("saime.solicitud_pasaporte_exitoso_ext");
           }else if(response.errorCode === '90000'){
-            $state.go("saime.solicitud_pasaporte_error_ext");
+            //$state.go("saime.solicitud_pasaporte_error_ext");
+            $scope.showModal = true;
+            $scope.error = response.consumerMessage;
           }else{
             $scope.showModal = true;
             $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
@@ -427,14 +438,18 @@ angular.module('app.controllers_ext', ['ngCookies'])
 
 
 
-.controller('FormRegistroDatosPersonalesExtCtrl', ['$timeout', '$scope', '$http', '$state', 'ConsuladosFactory',  function($timeout, $scope, $http, $state, ConsuladosFactory) {
+.controller('FormRegistroDatosPersonalesExtCtrl', ['$rootScope', '$state', '$timeout', '$scope', '$http', 'ConsuladosFactory',  function($rootScope, $state, $timeout, $scope, $http, ConsuladosFactory) {
 
-    $("#header_status").hide();
-    $scope.formData = {};
-    $scope.formNoData = {};
+  if(!$rootScope.authenticated){
+    $state.go('saime.autenticacion');
+  }
+
+  $("#header_status").hide();
+  $scope.formData = {};
+  $scope.formNoData = {};
 
 
-    $http.get("api/api.php?opc=get_paises").success(function(response) { 
+    $http.get("api/api.php?opc=get_paises&bcode="+$rootScope.bcode).success(function(response) { 
       $scope.paises = response.countryList
     })
 
@@ -453,11 +468,13 @@ angular.module('app.controllers_ext', ['ngCookies'])
       
       if($scope.formData.sedeConsular) {
 
-        $http.post("api/api.php?opc=sol_ext_mayor", $scope.formData).success(function(response) {
+        $http.post("api/api.php?opc=sol_ext_mayor&bcode="+$rootScope.bcode, $scope.formData).success(function(response) {
           if(response.errorCode === '00000'){
             $state.go("saime.solicitud_pasaporte_exitoso_ext");
           }else if(response.errorCode === '90000'){
-            $state.go("saime.solicitud_pasaporte_error_ext");
+            //$state.go("saime.solicitud_pasaporte_error_ext");
+            $scope.showModal = true;
+            $scope.error = response.consumerMessage;
           }else{
             $scope.showModal = true;
             $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";

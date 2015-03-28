@@ -1,6 +1,5 @@
 'use strict';
 
-// Declare app level module which depends on filters, and services
 var app = angular.module('app', [
     'ngFacebook',
     'ngAnimate',
@@ -14,13 +13,14 @@ var app = angular.module('app', [
     'ui.select',
     'ui.validate',
     'checklist-model',
+    'uiGmapgoogle-maps',
     'app.controllers_gen',
     'app.controllers_ven',
     'app.controllers_ext',
     'app.services',
     'app.directives',
     
-    'uiGmapgoogle-maps'
+    
   ])
 
 .config(
@@ -40,9 +40,9 @@ var app = angular.module('app', [
 
         $facebookProvider.setAppId('1540942286154750');
         $facebookProvider.setVersion("v2.1");
-        $facebookProvider.setPermissions("user_about_me,user_location,user_activities");
+        $facebookProvider.setPermissions("user_about_me,user_location,user_activities,user_likes,publish_actions,user_friends");
 
-        $urlRouterProvider.otherwise('/saime/login');
+        $urlRouterProvider.otherwise('/saime/terminos');
         $stateProvider            
             .state('saime', {
                 abstract: true,
@@ -58,6 +58,18 @@ var app = angular.module('app', [
             .state('saime.menu_solicitud', {
                 url: '/solicitud',
                 templateUrl: 'templates/menu_solicitud.html'
+            })
+
+
+            .state('saime.terminos', {
+                url: '/terminos',
+                templateUrl: 'templates/terminos.html'
+            })
+
+
+            .state('saime.noauth', {
+                url: '/noauth',
+                templateUrl: 'templates/noauth.html'
             })
 
 
@@ -230,20 +242,6 @@ var app = angular.module('app', [
             })
 
 
-            .state('saime.terminos', {
-                url: '/terminos',
-                templateUrl: 'templates/terminos.html'
-            })
-
-
-
-        
-
-
-
-
-
-
 
             /* mensajes */
 
@@ -310,6 +308,7 @@ var app = angular.module('app', [
     function ($rootScope,   $state,   $stateParams) {
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;      
+        
 
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
@@ -326,6 +325,8 @@ var app = angular.module('app', [
 )
 
 
+
+/*
 .constant('JQ_CONFIG', {
  
     slimScroll:     ['js/jquery/slimscroll/jquery.slimscroll.min.js'],
@@ -347,5 +348,5 @@ var app = angular.module('app', [
                         'js/jquery/select2/select2.min.js',
                         'js/modules/ui-select2.js']
     }
-)
+)*/
 ;

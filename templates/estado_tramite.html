@@ -6,7 +6,7 @@
         <div class="bg-light lter b-b wrapper-md">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h1 class="m-n font-thin h3 text-black">Estado Tramite del Pasaporte</h1>
+                    <h1 class="m-n font-thin h3 text-black">Estado Tr&aacute;mite del Pasaporte</h1>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                                     <b>Nombre Completo: </b>
                                 </div>
                                 <div class="col-md-3">
-                                    {{nombre}}
+                                    {{formData.nombre}}
                                 </div>
                             </div>
 
@@ -43,16 +43,16 @@
                                     <b>C&eacute;dula:</b>
                                 </div>
                                 <div class="col-md-3">
-                                    {{cedulal}}
+                                    <span  ng-if="formData.cedula == ''">No Posee</span>{{formData.cedula}}    
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-3 text-right" >
-                                    <b>Fecha de Nacimiento:</b>
+                                    <b>Fecha Nacimiento:</b>
                                 </div>
                                 <div class="col-md-3">
-                                    {{fecha}}
+                                    {{formData.fecha}}
                                 </div>
                             </div>
 
@@ -133,7 +133,7 @@
 
                             <div class="row">
                                  <div class="col-md-3 text-right" >
-                                    <b>Tipo de Tramite: </b>
+                                    <b>Tipo de Tr&aacute;mite: </b>
                                 </div>
                                 <div class="col-md-3">
                                     {{tramite.tramite.tipotramite}}

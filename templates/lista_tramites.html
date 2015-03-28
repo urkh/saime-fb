@@ -56,7 +56,7 @@
                                 <div class="col-md-3 text-right"><b>Sexo: </b></div>
                                 <div class="col-md-3">{{tramite.sexo}} </div>
                                 <div class="col-md-2">
-                                    <a class="btn btn-saime-stand" ui-sref="saime.estado_tramite({personId:tramite.idpersona})">Ver Tr&aacute;mite</a>
+                                    <a class="btn btn-saime-stand" ng-click="datos(tramite.numerocedula, tramite.primernombre, tramite.segundonombre, tramite.primerapellido, tramite.segundoapellido, tramite.fechanacimiento)" ui-sref="saime.estado_tramite({personId:tramite.idpersona})">Ver Tr&aacute;mite</a>
                                 </div>
                             </div>
 

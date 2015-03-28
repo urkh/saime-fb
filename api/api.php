@@ -1,4 +1,5 @@
 <?php
+session_start(); 
 include('Requests-1.6.0/library/Requests.php');
 
 Requests::register_autoloader();
@@ -152,6 +153,11 @@ switch ($_GET['opc']) {
         post_bearer_auth($host, $uri="/saime-ws/v1.0/transaction/sendPDF", $data);
         break;
 
+
+    case "cerrar_sesion":
+        logout();
+        break;
+
     
     default:
         echo "ninguno";
@@ -191,12 +197,12 @@ function get_login($username, $password, $host){
     
     if ($status == 200) {
         
-        setcookie("access_token", $json['access_token']); 
+        $bcode = $json['access_token'];
         $headers = array('Content-Type' => 'application/json', 'Authorization' => 'Bearer '.$json['access_token']);
         $response = Requests::get($host."/saime-ws/v1.0/me", $headers);
         $json = json_decode($response->body, true);
-
-        echo '{"status":"granted", "msg":"Bienvenido, '.$json['firstName'].' '.$json['lastName'].'"}';
+        
+        echo '{"status":"granted", "msg":"Bienvenido, '.$json['firstName'].' '.$json['lastName'].'", "bcode":"'.$bcode.'"}';
         
     }else{
         echo '{"status":"denied", "msg":"(!) El correo electronico o la contraseña ingresados no son correctos, por favor verifiquelos"}';
@@ -210,7 +216,7 @@ function get_login($username, $password, $host){
 
 function get_bearer_auth($host, $uri){
 
-	$headers = array('Content-Type' => 'application/json', 'Authorization' => 'Bearer '.$_COOKIE['access_token']);
+	$headers = array('Content-Type' => 'application/json', 'Authorization' => 'Bearer '.$_GET['bcode']);
 	$response = Requests::get($host.$uri, $headers);
 	echo $response->body;
 
@@ -219,11 +225,10 @@ function get_bearer_auth($host, $uri){
 
 function post_bearer_auth($host, $uri, $datos){
 	
-	$headers = array('Content-Type' => 'application/json', 'Authorization' => 'Bearer '.$_COOKIE['access_token']);
+	$headers = array('Content-Type' => 'application/json', 'Authorization' => 'Bearer '.$_GET['bcode']);
 	$data = array('data' => parser_datos($datos), 'crc'=> gen_crc(parser_datos($datos)));
 	$response = Requests::post($host.$uri, $headers, json_encode($data));
 	echo $response->body;
-    //echo $data;
 
 }
 
@@ -234,6 +239,7 @@ function get_basic_auth($host, $uri, $datos){
 	$headers = array('Content-Type' => 'application/json', 'Authorization' => 'Basic MzUzYjMwMmM0NDU3NGY1NjUwNDU2ODdlNTM0ZTdkNmE6Mjg2OTI0Njk3ZTYxNWE2NzJhNjQ2YTQ5MzU0NTY0NmM=');
 	$response = Requests::get($host.$uri, $headers);
 	echo $response->body;
+    //echo $_SESSION['access_token'];
 
 }
 
@@ -245,7 +251,15 @@ function post_basic_auth($host, $uri, $datos){
 	$data = array('data'=> parser_datos($datos), 'crc'=> gen_crc(parser_datos($datos)));
 	$response = Requests::post($host.$uri, $headers, json_encode($data));
 	echo $response->body;
+    //echo $_SESSION['access_token'];
 
+}
+
+
+
+function logout(){
+    session_destroy();
+    echo '{"errorCode":"00000", "msg":"Sesion Finalizada"}';
 }
 
 

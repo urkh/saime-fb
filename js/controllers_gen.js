@@ -2,34 +2,19 @@
 
 
 
-angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
+var ctrl = angular.module('app.controllers_gen', ['ngFacebook'])
 
 
-.controller('AppCtrl', ['$scope', '$localStorage', '$window', 
-    function(              $scope,   $localStorage,   $window ) {
-      // add 'ie' classes to html
-      var isIE = !!navigator.userAgent.match(/MSIE/i);
-      isIE && angular.element($window.document.body).addClass('ie');
+ctrl.controller('AppCtrl', ['$scope', function($scope) {
+    $scope.app = {
+      name: 'Saime - AngularJS',
+      version: '1.0',
+    }
 
-      // config
-      $scope.app = {
-        name: 'Saime - AngularJS',
-        version: '1.0',
-      }
-
-      // save settings to local storage
-      if ( angular.isDefined($localStorage.settings) ) {
-        $scope.app.settings = $localStorage.settings;
-      } else {
-        $localStorage.settings = $scope.app.settings;
-      }
-      $scope.$watch('app.settings', function(){ $localStorage.settings = $scope.app.settings; }, true);
+}]);
 
 
-  }])
-
-
-.controller('FBCtrl',['$scope','$facebook', function($scope, $facebook){
+ctrl.controller('FBCtrl',['$scope', '$facebook', function($scope, $facebook){
 
   $("#header_status").show();
   $facebook.login().then(function() {
@@ -46,65 +31,133 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
       },
       function(err) {
         $scope.bienvenido = "Please log in";
-      });
+    });
 
 
-    $facebook.api("/me/picture?redirect=false&height=128&type=normal&width=128").then(
-      function(response){
+    $facebook.api("/me/picture?redirect=false&height=128&type=normal&width=128").then(function(response){
         $scope.profile_pic = response.data.url;
         $("#fb_profile").show();
-      });
+    });
+
+
+    $facebook.api("/me/likes/120779134607103").then(function(response){
+      if(response.data.length === 0){
+        $scope.saime_like = false
+      }else{
+        $scope.saime_like = true
+      }
+
+    });
 
   }
 
-}])
+
+/*
+
+ var response = {
+  "data": [
+  ]
+}
+
+*/
+
+  
+
+  
 
 
-.controller('SignInCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
 
 
-      $("#header_status").hide();
-      window.scrollTo(0, 0);
-      $scope.formData = {};
+}]);
 
-      
 
-      $scope.login = function(form) {
+ctrl.controller('SignInCtrl', ['$scope', '$http', '$state', '$rootScope', '$timeout', function($scope, $http, $state, $rootScope, $timeout) {
+     
+  $("#header_status").hide();
+  window.scrollTo(0, 0);
+  $scope.formData = {};
 
-        $scope.showModal = true;
-        
-        if(form.username && form.password){
-          $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'
 
-          $http.post("api/api.php?opc=signin", $scope.formData).success(function(response) {
-            if(response.status === 'granted'){
-              $scope.showModal = false;
-              $state.go('saime.inicio');
-              
-            }else if(response.status === 'denied'){
-              $scope.error = response.msg;
-            }else{
-              $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
-            }
-              
-          })
 
+
+
+  $scope.login = function(form) {
+
+    $scope.showModal = true;
+    
+    if(form.username && form.password){
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'
+
+      $http.post("api/api.php?opc=signin", $scope.formData).success(function(response) {
+        if(response.status === 'granted'){
+          $rootScope.authenticated = true;
+          $rootScope.bcode = response.bcode;
+
+          $timeout(function(){
+            $scope.showModal = false;
+          }, 1500);  
+          
+          $timeout(function(){            
+            $state.go('saime.inicio');
+          }, 1500);  
+
+          
+        }else if(response.status === 'denied'){
+          $scope.error = response.msg;
         }else{
-          $scope.error= "Debe llenar los campos correctamente."
+          $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
         }
+          
+      })
 
-      }
+    }else{
+      $scope.error= "Debe llenar los campos correctamente."
+    }
 
-}])
+  }
 
 
-.controller('MainCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+}]);
+
+
+ctrl.controller('MainCtrl', ['$rootScope', '$scope', '$http', '$state', '$facebook', function($rootScope, $scope, $http, $state, $facebook) {
+  
+  /*
+  if(!$rootScope.authenticated){
+    $state.go('saime.autenticacion');
+  }
+
+  */
+
+
   $("#header_status").hide();   
 
-  $scope.validar_cita_ven = function(){
+  $scope.fb_share = function(){
+    $scope.error = 'Se publicó en tu muro: "Estoy usando la nueva aplicación de SAIME en Facebook"';
     $scope.showModal = true;
+
+      
+    $facebook.api("/me/feed", 'post', {message: 'Estoy usando la nueva aplicación de SAIME en Facebook'}).then(function(response){
+      console.log(response);
+    });
+
+  }
+
+  $scope.fb_invitable_friends = function(){
+    $facebook.ui({method: 'apprequests',
+      message: 'Por la aplicación de facebook es mas rápido y ágil tramitar los pasaportes',
+      //to: '10205953481778797, 10205953481778797',
+      action_type:'turn'
+    }).then(function(response){
+      console.log(response);
+    });
+  }
+
+  $scope.validar_cita_ven = function(){
     $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
-    $http.get("api/api.php?opc=validar_cita").success(function(response) { 
+    $scope.showModal = true;
+
+    $http.get("api/api.php?opc=validar_cita&bcode="+$rootScope.bcode).success(function(response) { 
       if(response.errorCode === '00000'){
         $scope.showModal = false;
         $state.go("saime.registro_datos_personales_ven");
@@ -119,9 +172,10 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
 
 
   $scope.validar_cita_ext = function(){
-    $scope.showModal = true;
     $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
-    $http.get("api/api.php?opc=validar_cita").success(function(response) { 
+    $scope.showModal = true;
+
+    $http.get("api/api.php?opc=validar_cita&bcode="+$rootScope.bcode).success(function(response) { 
       if(response.errorCode === '00000'){
         $scope.showModal = false;
         $state.go("saime.registro_datos_personales_ext");
@@ -136,10 +190,10 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
 
 
   $scope.validar_cita_menor_ven = function(minorType){
-      $scope.showModal = true;
       $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
+      $scope.showModal = true;
 
-      $http.post("api/api.php?opc=validar_cita_menor", {idpersona:""}).success(function(response) { 
+      $http.post("api/api.php?opc=validar_cita_menor&bcode="+$rootScope.bcode, {idpersona:""}).success(function(response) { 
         if(response.errorCode === '00000'){
           $scope.showModal = false;
           if(minorType==1){
@@ -157,10 +211,11 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
     }
 
   $scope.validar_cita_menor_ext = function(minorType){
-      $scope.showModal = true;
-      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
       
-      $http.post("api/api.php?opc=validar_cita_menor", {idpersona:""}).success(function(response) { 
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
+      $scope.showModal = true;
+      
+      $http.post("api/api.php?opc=validar_cita_menor&bcode="+$rootScope.bcode, {idpersona:""}).success(function(response) { 
         if(response.errorCode === '00000'){
           $scope.showModal = false;
           if(minorType==1){
@@ -177,10 +232,24 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
       })
     }
 
-}])
 
 
-.controller('OlvidoContrasenaCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+    $scope.logout = function(){
+      
+      $http.get("api/api.php?opc=cerrar_sesion").success(function(response) { 
+        if(response.errorCode === '00000'){
+          $rootScope.authenticated = false;
+          $state.go("saime.autenticacion")          
+        }else{
+          $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+        }
+      })
+    }
+
+}]);
+
+
+ctrl.controller('OlvidoContrasenaCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
   
   $("#header_status").hide();   
 
@@ -202,11 +271,11 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
     }  
   }  
 
-}])
+}]);
 
 
 
-.controller('RegistroCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
+ctrl.controller('RegistroCtrl', ['$scope', '$http', '$state', 'CodigoTelfFactory', function($scope, $http, $state, CodigoTelfFactory) {
   $("#header_status").hide();
 
   $scope.formData = {};
@@ -219,28 +288,26 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
       { id: 'E', letra: 'E'}
     ];
 
-  $scope.codigos = [
-      {numero: '0412'},
-      {numero: '0414'},
-      {numero: '0416'},
-      {numero: '0424'},
-      {numero: '0426'}
-    ];
+  $scope.codigos = CodigoTelfFactory;
 
 
-    $scope.guardar = function(form){
+  $scope.guardar = function(form){
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
+      $scope.showModal = true;
       $scope.formData.phone = $scope.formNoData.phone_code + $scope.formNoData.phone;
-      if(form.$valid){
+
+      if(form.cedula && form.firstName && form.lastName && form.email && form.altEmail && $scope.formData.phone){
         $http.post("api/api.php?opc=reg_usuario", $scope.formData).success(function(response) {
           if(response.errorCode==='00000'){
             $state.go("saime.registro_usuario_exitoso");
-          }else if(response.errorCode==='90000'){
-            $scope.showModal = true;
-            $scope.error = response.consumerMessage;
           }else{
             $scope.showModal = true;
-            $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
+            $scope.error = response.consumerMessage;
           }
+        }).error(function(response){
+            console.log("asdas")
+            $scope.showModal = true;
+            $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
         })
       }else{
         $scope.showModal = true;
@@ -255,55 +322,26 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
     }
       
 
-}])
-
-
-.controller('ReclamosCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
-  $("#header_status").hide();
-
-  $scope.formData = {};
-  $scope.formNoData = {};
-  var original = $scope.formData;
-
-  
-  $scope.codigos = [
-      {numero: '0412'},
-      {numero: '0414'},
-      {numero: '0416'},
-      {numero: '0424'},
-      {numero: '0426'}
-    ];
-
-
-    $scope.guardar = function(enviar){
-      
-    }
-
-
-    $scope.reset = function(){
-      $scope.formData = angular.copy({});
-      $scope.formNoData = angular.copy({});
-    }
-      
-
-}])
+}]);
 
 
 
-.controller('InicioCtrl', ['$scope', '$http', '$state', function($scope, $http, $state) {
-  $("#header_status").hide();
-  $scope.formData = {};
 
-}])
+ctrl.controller('NoticiasWebCtrl', ['$rootScope', '$scope', '$http', '$state', '$timeout', function($rootScope, $scope, $http, $state, $timeout) {
 
 
+  /*
+  if(!$rootScope.authenticated){
+    $state.go('saime.autenticacion');
+  }
+  */
 
-.controller('NoticiasWebCtrl', ['$scope', '$http', '$state', '$timeout', function($scope, $http, $state, $timeout) {
+
   $("#header_status").hide();
   $scope.showModal = true;
   $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
 
-  $http.post("api/api.php?opc=get_noticias_web", {pageNo:"1", pageSize:"10"}).success(function(response) { 
+  $http.post("api/api.php?opc=get_noticias_web&bcode="+$rootScope.bcode, {pageNo:"1", pageSize:"10"}).success(function(response) { 
     if(response.errorCode==='00000'){
       $scope.noticias = response.noticiaWebList;
       $timeout(function(){
@@ -315,11 +353,18 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
     
   })
 
-}])
+}]);
 
 
 
-.controller('OTramitesCtrl', ['$scope', '$http', '$state', '$timeout', function($scope, $http, $state, $timeout) {
+ctrl.controller('OTramitesCtrl', ['$rootScope', '$scope', '$http', '$state', '$timeout', function($rootScope, $scope, $http, $state, $timeout) {
+  
+  /*
+  if(!$rootScope.authenticated){
+    $state.go('saime.autenticacion');
+  }
+  */
+
   $("#header_status").hide();
   $scope.oneAtATime = true;
   $scope.status = {
@@ -331,10 +376,9 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
   $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
 
 
-  $http.post("api/api.php?opc=get_tramites_web", {pageNo:"1", pageSize:"10"}).success(function(response) { 
+  $http.post("api/api.php?opc=get_tramites_web&bcode="+$rootScope.bcode, {pageNo:"1", pageSize:"10"}).success(function(response) { 
     if(response.errorCode==='00000'){
       $scope.tramites = response.tramiteWebList;
-      console.log(response)
       $timeout(function(){
         $scope.showModal = false;
       }, 1500);
@@ -345,21 +389,29 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
   })
   
 
-}])
+}]);
 
 
 
 
-.controller('MapasCtrl', ['$scope', '$facebook', '$http', function($scope, $facebook, $http){
+ctrl.controller('MapasCtrl', ['$rootScope', '$scope', '$facebook', '$http', '$state', function($rootScope, $scope, $facebook, $http, $state){
+
+/*
+  if(!$rootScope.authenticated){
+    $state.go('saime.autenticacion');
+  }
+
+*/
 
   $("#header_status").hide();
 
+  
   $facebook.api("/me").then( 
       function(response) {
         $scope.url = 'https://graph.facebook.com/'+response.location.id;
 
         $http.get($scope.url).success(function(res) { 
-
+     
           $scope.map = { 
             center: { 
               latitude: res.location.latitude,
@@ -369,12 +421,12 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
             }, 
             zoom: 14
           };
-
+         
           $scope.options = {
             scrollwheel: true
           };
-
-          $http.post('api/api.php?opc=get_oficinas_web').success(function(res) { 
+ 
+          $http.post("api/api.php?opc=get_oficinas_web&bcode="+$rootScope.bcode).success(function(res) { 
             var oficinas = res.oficinaWebList;
             var noficinas = []
 
@@ -400,21 +452,29 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
             }
             $scope.markers = noficinas;
           })
+
         })
       });
 
-}])
+}]);
 
 
 
-.controller('ListaTramitesCtrl', ['$scope', '$http', '$state', '$timeout', function($scope, $http, $state, $timeout) {
+ctrl.controller('ListaTramitesCtrl', ['$rootScope', '$scope', '$http', '$state', '$timeout', function($rootScope, $scope, $http, $state, $timeout) {
+
+/*
+    if(!$rootScope.authenticated){
+      $state.go('saime.autenticacion');
+    }
+
+*/
 
     $("#header_status").hide();
     $scope.formData = {};
     $scope.showModal = true;
     $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
           
-    $http.post("api/api.php?opc=get_estado_tramites").success(function(response) {       
+    $http.post("api/api.php?opc=get_estado_tramites&bcode="+$rootScope.bcode).success(function(response) {       
           
         if(response.errorCode === '00000'){
           $scope.tramites = response.CeduladoloadList;
@@ -429,114 +489,73 @@ angular.module('app.controllers_gen', ['ngCookies', 'ngFacebook'])
     
     })
 
+    $scope.datos = function(cedula, nombre1, nombre2, apellido1, apellido2, fecha){
 
-}])
+      $rootScope.dcedula = cedula;
+      $rootScope.nombre = nombre1+" "+nombre2+" "+apellido1+" "+apellido2;
+      $rootScope.fecha = fecha;
 
-.controller('EstadoTramiteCtrl', ['$scope', '$http', '$state', '$stateParams', '$timeout', function($scope, $http, $state, $stateParams, $timeout) {
-      $("#header_status").hide();
-      $scope.formData = {};
-      
-      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
-      $scope.showModal = true;
-      $http.post("api/api.php?opc=detalle_tramites", {idpersona: $stateParams.personId}).success(function(response) {    
-            
-          if(response.errorCode === '00000'){
-            
-            $scope.estado = 'en_proceso';
-            $scope.tramite = response;
-            $scope.cedula = $stateParams.cedula;
-            $scope.nombre = $stateParams.nombre;
-            $scope.fecha = $stateParams.fecha;
-
-            $timeout(function(){
-              $scope.showModal = false;
-            }, 1500);
-
-            
-          }else if(response.errorCode === '90000'){
-            $scope.error = response.consumerMessage;
-            $scope.estado = 'sin_solicitud';
-          }else{
-            $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
-          }         
-            
-      })
-
-
-      $scope.enviar_correo = function(idpersona){
-        $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
-        $scope.showModal = true;
-        
-        $http.post("api/api.php?opc=enviar_planilla", {idpersona: idpersona}).success(function(response) {   
-
-          if(response.errorCode === '00000'){
-            $scope.error = response.consumerMessage;
-          }else if(response.errorCode === '90000'){
-            $scope.error = response.consumerMessage;
-          }else{
-            $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
-          }   
-        });
-
-      }
-
-}])
-
-
-  
-  .controller('FormMenuCtrl', ['$scope', function($scope) {
-    
-
-  }])
-
-
-
-
-  // Form controller
-  .controller('FormDemoCtrl', ['$scope', function($scope) {
-    $scope.notBlackListed = function(value) {
-      var blacklist = ['bad@domain.com','verybad@domain.com'];
-      return blacklist.indexOf(value) === -1;
     }
 
-    $scope.val = 15;
-    var updateModel = function(val){
-      $scope.$apply(function(){
-        $scope.val = val;
-      });
-    };
-    angular.element("#slider").on('slideStop', function(data){
-      updateModel(data.value);
+
+}]);
+
+ctrl.controller('EstadoTramiteCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$timeout', function($rootScope, $scope, $http, $state, $stateParams, $timeout) {
+
+/*
+  if(!$rootScope.authenticated){
+    $state.go('saime.autenticacion');
+  }
+*/
+  
+
+  $("#header_status").hide();
+  $scope.formData = {};
+
+  
+  $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+  $scope.showModal = true;
+  $http.post("api/api.php?opc=detalle_tramites&bcode="+$rootScope.bcode, {idpersona: $stateParams.personId}).success(function(response) {    
+        
+    if(response.errorCode === '00000'){
+      
+      $scope.estado = 'en_proceso';
+      $scope.tramite = response;
+      $scope.formData.cedula = $rootScope.dcedula;
+      $scope.formData.nombre = $rootScope.nombre;
+      $scope.formData.fecha = $rootScope.fecha;
+
+
+      $timeout(function(){
+        $scope.showModal = false;
+      }, 1500);
+
+      
+    }else if(response.errorCode === '90000'){
+      $scope.error = response.consumerMessage;
+      $scope.estado = 'sin_solicitud';
+    }else{
+      $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+    }         
+        
+  })
+
+
+  $scope.enviar_correo = function(idpersona){
+    $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+    $scope.showModal = true;
+    
+    $http.post("api/api.php?opc=enviar_planilla&bcode="+$rootScope.bcode, {idpersona: idpersona}).success(function(response) {   
+
+      if(response.errorCode === '00000'){
+        $scope.error = response.consumerMessage;
+      }else if(response.errorCode === '90000'){
+        $scope.error = response.consumerMessage;
+      }else{
+        $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+      }   
     });
 
-    $scope.select2Number = [
-      {text:'First',  value:'One'},
-      {text:'Second', value:'Two'},
-      {text:'Third',  value:'Three'}
-    ];
+  }
 
-    $scope.list_of_string = ['tag1', 'tag2']
-    $scope.select2Options = {
-        'multiple': true,
-        'simple_tags': true,
-        'tags': ['tag1', 'tag2', 'tag3', 'tag4']  // Can be empty list.
-    };
-
-
-
-/* Controllers */
-$scope.inputs_jq = function() {
-    $("input[type=text]").after("<div class='border-input'></div>");
-    $("input[type=email]").after("<div class='border-input'></div>");
-};
-
-$scope.inputs_jq();
-
-
-
-
-
-  }])
-
-
-  ;
+}]);
