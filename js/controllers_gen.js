@@ -161,12 +161,12 @@ ctrl.controller('MainCtrl', ['$rootScope', '$scope', '$http', '$state', '$facebo
       if(response.errorCode === '00000'){
         $scope.showModal = false;
         $state.go("saime.registro_datos_personales_ven");
-      }else if(response.errorCode === '90000'){
+      }else{
         //$scope.error2 = response.consumerMessage;
         $scope.error = response.consumerMessage;
-      }else{
-        $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
       }
+    }).error(function(){
+      $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
     })
   }
 
@@ -179,11 +179,11 @@ ctrl.controller('MainCtrl', ['$rootScope', '$scope', '$http', '$state', '$facebo
       if(response.errorCode === '00000'){
         $scope.showModal = false;
         $state.go("saime.registro_datos_personales_ext");
-      }else if(response.errorCode === '90000'){
-        $scope.error = response.consumerMessage;
       }else{
-        $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+        $scope.error = response.consumerMessage;
       }
+    }).error(function(){
+      $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
     })
   }
 
@@ -202,11 +202,11 @@ ctrl.controller('MainCtrl', ['$rootScope', '$scope', '$http', '$state', '$facebo
             $state.go("saime.registro_menor_nat_nc_ext")
           }
           
-        }else if(response.errorCode === '90000'){
-          $scope.error = response.consumerMessage;
         }else{
-          $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+          $scope.error = response.consumerMessage;
         }
+      }).error(function(){
+        $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
       })
     }
 
@@ -224,11 +224,11 @@ ctrl.controller('MainCtrl', ['$rootScope', '$scope', '$http', '$state', '$facebo
             $state.go("saime.registro_menor_nat_nc_ext")
           }
           
-        }else if(response.errorCode === '90000'){
-          $scope.error = response.consumerMessage;
         }else{
-          $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+          $scope.error = response.consumerMessage;
         }
+      }).error(function(){
+        $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
       })
     }
 
@@ -260,11 +260,11 @@ ctrl.controller('OlvidoContrasenaCtrl', ['$scope', '$http', '$state', function($
         if(response.errorCode==='00000'){
           $scope.showModal = false;
           $state.go("saime.enviocontrasena");
-        }else if(response.errorCode==='90000'){
-          $scope.error = response.consumerMessage;
         }else{
-          $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
+          $scope.error = response.consumerMessage;
         }
+      }).error(function(){
+        $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
       })
     }else{
       $scope.error = "Debe llenar el campo correctamente.";  
@@ -481,12 +481,12 @@ ctrl.controller('ListaTramitesCtrl', ['$rootScope', '$scope', '$http', '$state',
           $timeout(function(){
             $scope.showModal = false;
           }, 1500);
-        }else if(response.errorCode === '90000'){
-          $scope.error = response.consumerMessage;
         }else{
-          $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+          $scope.error = response.consumerMessage;
         }
     
+    }).error(function(){
+      $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
     })
 
     $scope.datos = function(cedula, nombre1, nombre2, apellido1, apellido2, fecha){
@@ -531,13 +531,13 @@ ctrl.controller('EstadoTramiteCtrl', ['$rootScope', '$scope', '$http', '$state',
       }, 1500);
 
       
-    }else if(response.errorCode === '90000'){
+    }else{
       $scope.error = response.consumerMessage;
       $scope.estado = 'sin_solicitud';
-    }else{
-      $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
     }         
         
+  }).error(function(){
+    $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
   })
 
 
@@ -549,12 +549,12 @@ ctrl.controller('EstadoTramiteCtrl', ['$rootScope', '$scope', '$http', '$state',
 
       if(response.errorCode === '00000'){
         $scope.error = response.consumerMessage;
-      }else if(response.errorCode === '90000'){
-        $scope.error = response.consumerMessage;
       }else{
-        $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+        $scope.error = response.consumerMessage;
       }   
-    });
+    }).error(function(){
+      $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+    })
 
   }
 

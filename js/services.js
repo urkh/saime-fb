@@ -1,6 +1,6 @@
-var services = angular.module('app.services', ['ngResource']);
+var service = angular.module('app.services', ['ngResource']);
 
-services.factory("HeaderFactory", function(){
+service.factory("HeaderFactory", function(){
 
   return {header_status: null }
 
@@ -8,7 +8,7 @@ services.factory("HeaderFactory", function(){
 
 
 
-services.factory('MunicipiosFactory', ['$rootScope', '$http', function($rootScope, $http) {
+service.factory('MunicipiosFactory', ['$rootScope', '$http', function($rootScope, $http) {
 	
     return function(state){
 
@@ -29,7 +29,7 @@ services.factory('MunicipiosFactory', ['$rootScope', '$http', function($rootScop
 
 
 
-services.factory('ParroquiasFactory', ['$rootScope', '$http', function($rootScope, $http) {
+service.factory('ParroquiasFactory', ['$rootScope', '$http', function($rootScope, $http) {
 	
     return function(town){
 
@@ -52,7 +52,7 @@ services.factory('ParroquiasFactory', ['$rootScope', '$http', function($rootScop
 
 
 
-services.factory('OficinasFactory', ['$rootScope', '$http', function($rootScope, $http) {
+service.factory('OficinasFactory', ['$rootScope', '$http', function($rootScope, $http) {
 	
     return function(state){
 
@@ -72,7 +72,7 @@ services.factory('OficinasFactory', ['$rootScope', '$http', function($rootScope,
 }]);
 
 
-services.factory('ConsuladosFactory', ['$rootScope', '$http', function($rootScope, $http) {
+service.factory('ConsuladosFactory', ['$rootScope', '$http', function($rootScope, $http) {
 	
     return function(country){
 
@@ -92,8 +92,7 @@ services.factory('ConsuladosFactory', ['$rootScope', '$http', function($rootScop
 }]);
 
 
-
-services.factory("CodigoTelfFactory", function(){
+service.factory("CodigoTelfFactory", function(){
 
   return [
   	{numero: '0412'},

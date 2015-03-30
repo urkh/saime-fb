@@ -32,6 +32,7 @@ angular.module('app.controllers_ext', [])
     $scope.buscar_menor_cedulado = function() {
       $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
       $scope.showModal = true;
+
       $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letrame, cedula: $scope.formSearch.cedula}).success(function(response) {
         if(response.errorCode === '00000'){
 
@@ -44,18 +45,18 @@ angular.module('app.controllers_ext', [])
                 $scope.showModal = false;
                 $scope.continuar1();
               }, 1500);
-            }else if(res.errorCode === '90000'){
-              $scope.error = res.consumerMessage;
             }else{
-              $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+              $scope.error = res.consumerMessage;
             }
+          }).error(function(){
+            $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
           })
 
-        }else if(response.errorCode === '90000'){
-          $scope.error = response.consumerMessage;
         }else{
-          $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
+          $scope.error = response.consumerMessage;
         }
+      }).error(function(){
+        $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
       })
     }
 
@@ -65,6 +66,7 @@ angular.module('app.controllers_ext', [])
       $scope.showModal = true;
       $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letram, cedula: $scope.formSearch.cedulam}).success(function(response) {
         if(response.errorCode === '00000'){
+          if(response.cedulado.sexo === 'F'){
             $scope.formData.motherId = response.cedulado.idpersona; 
             $scope.formSearch.cedulam = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
             
@@ -72,13 +74,16 @@ angular.module('app.controllers_ext', [])
             $timeout(function(){
               $scope.showModal = false;
             }, 1500);
-
-          }else if(response.errorCode === '90000'){
-            $scope.error = response.consumerMessage;
           }else{
-            $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
-          }     
+            $scope.error = "No se encontraron resultados";
+          }
+
+        }else{
+          $scope.error = response.consumerMessage;
+        }     
         
+      }).error(function(){
+        $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
       })
     }
 
@@ -88,6 +93,7 @@ angular.module('app.controllers_ext', [])
 
       $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letrap, cedula: $scope.formSearch.cedulap}).success(function(response) {
         if(response.errorCode === '00000'){
+          if(response.cedulado.sexo === 'M'){
             $scope.formData.fatherId = response.cedulado.idpersona; 
             $scope.formSearch.cedulap = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
             
@@ -95,13 +101,17 @@ angular.module('app.controllers_ext', [])
             $timeout(function(){
               $scope.showModal = false;
             }, 1500);
-            
-          }else if(response.errorCode === '90000'){
-            $scope.error = response.consumerMessage;
           }else{
-            $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
-          }     
+            $scope.error = "No se encontraron resultados";
+          }
+            
+        }else{
+          $scope.error = response.consumerMessage;
+          
+        }     
         
+      }).error(function(){
+        $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
       })
 
 
@@ -120,12 +130,12 @@ angular.module('app.controllers_ext', [])
               $scope.showModal = false;
             }, 1500);
             
-          }else if(response.errorCode === '90000'){
-            $scope.error = response.consumerMessage;
-          }else{
-            $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
-          }     
+        }else{
+          $scope.error = response.consumerMessage;
+        }     
         
+      }).error(function(){
+        $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
       })
     }
 
@@ -184,14 +194,14 @@ angular.module('app.controllers_ext', [])
         $http.post("api/api.php?opc=sol_ext_menor&bcode="+$rootScope.bcode, $scope.formData).success(function(response) {
           if(response.errorCode === '00000'){
             $state.go("saime.solicitud_pasaporte_exitoso_ext");
-          }else if(response.errorCode === '90000'){
+          }else{
             //$state.go("saime.solicitud_pasaporte_error_ext");
             $scope.showModal = true;
-            $scope.error = response.consumerMessage;
-          }else{
+            $scope.error = response.consumerMessage; 
+          }
+        }).error(function(){
             $scope.showModal = true;
             $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
-          }
         })
 
       }else{
@@ -274,6 +284,8 @@ angular.module('app.controllers_ext', [])
       $scope.showModal = true;
       $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letram, cedula: $scope.formSearch.cedulam}).success(function(response) {
         if(response.errorCode === '00000'){
+
+          if(response.cedulado.sexo === 'F'){
             $scope.formData.motherId = response.cedulado.idpersona; 
             $scope.formSearch.cedulam = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
             
@@ -281,13 +293,16 @@ angular.module('app.controllers_ext', [])
             $timeout(function(){
               $scope.showModal = false;
             }, 1500);
-
-          }else if(response.errorCode === '90000'){
-            $scope.error = response.consumerMessage;
           }else{
-            $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
-          }     
+            $scope.error = "No se encontraron resultados";
+          }
+
+        }else{
+          $scope.error = response.consumerMessage;
+        }     
         
+      }).error(function(){
+        $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
       })
     }
 
@@ -297,6 +312,7 @@ angular.module('app.controllers_ext', [])
 
       $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letrap, cedula: $scope.formSearch.cedulap}).success(function(response) {
         if(response.errorCode === '00000'){
+          if(response.cedulado.sexo === 'M'){
             $scope.formData.fatherId = response.cedulado.idpersona; 
             $scope.formSearch.cedulap = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
             
@@ -304,13 +320,15 @@ angular.module('app.controllers_ext', [])
             $timeout(function(){
               $scope.showModal = false;
             }, 1500);
-            
-          }else if(response.errorCode === '90000'){
-            $scope.error = response.consumerMessage;
           }else{
-            $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
-          }     
+            $scope.error = "No se encontraron resultados";
+          }
+        }else{
+          $scope.error = response.consumerMessage;
+        }     
         
+      }).error(function(){
+        $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
       })
 
 
@@ -329,12 +347,12 @@ angular.module('app.controllers_ext', [])
               $scope.showModal = false;
             }, 1500);
             
-          }else if(response.errorCode === '90000'){
-            $scope.error = response.consumerMessage;
-          }else{
-            $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
-          }     
+        }else{
+          $scope.error = response.consumerMessage;
+        }     
         
+      }).error(function(){
+        $scope.error = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
       })
     }
 
@@ -386,14 +404,14 @@ angular.module('app.controllers_ext', [])
         $http.post("api/api.php?opc=sol_ext_menor&bcode="+$rootScope.bcode, $scope.formData).success(function(response) {
           if(response.errorCode === '00000'){
             $state.go("saime.solicitud_pasaporte_exitoso_ext");
-          }else if(response.errorCode === '90000'){
-            //$state.go("saime.solicitud_pasaporte_error_ext");
+          }else{
+            $state.go("saime.solicitud_pasaporte_error_ext");
             $scope.showModal = true;
             $scope.error = response.consumerMessage;
-          }else{
-            $scope.showModal = true;
-            $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
           }
+        }).error(function(){
+          $scope.showModal = true;
+          $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
         })
 
       }else{
@@ -471,14 +489,14 @@ angular.module('app.controllers_ext', [])
         $http.post("api/api.php?opc=sol_ext_mayor&bcode="+$rootScope.bcode, $scope.formData).success(function(response) {
           if(response.errorCode === '00000'){
             $state.go("saime.solicitud_pasaporte_exitoso_ext");
-          }else if(response.errorCode === '90000'){
+          }else{
             //$state.go("saime.solicitud_pasaporte_error_ext");
             $scope.showModal = true;
             $scope.error = response.consumerMessage;
-          }else{
-            $scope.showModal = true;
-            $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
           }
+        }).error(function(){
+          $scope.showModal = true;
+          $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
         })
 
       }else{
