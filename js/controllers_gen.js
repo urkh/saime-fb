@@ -18,9 +18,8 @@ ctrl.controller('FBCtrl',['$scope', '$facebook', function($scope, $facebook){
 
   $("#header_status").show();
   $facebook.login().then(function() {
-      $scope.refresh();
-      
-    });
+    $scope.refresh();    
+  });
 
 
   $scope.refresh = function(){
@@ -51,23 +50,6 @@ ctrl.controller('FBCtrl',['$scope', '$facebook', function($scope, $facebook){
 
   }
 
-
-/*
-
- var response = {
-  "data": [
-  ]
-}
-
-*/
-
-  
-
-  
-
-
-
-
 }]);
 
 
@@ -76,10 +58,6 @@ ctrl.controller('SignInCtrl', ['$scope', '$http', '$state', '$rootScope', '$time
   $("#header_status").hide();
   window.scrollTo(0, 0);
   $scope.formData = {};
-
-
-
-
 
   $scope.login = function(form) {
 
@@ -120,25 +98,18 @@ ctrl.controller('SignInCtrl', ['$scope', '$http', '$state', '$rootScope', '$time
 }]);
 
 
-ctrl.controller('MainCtrl', ['$rootScope', '$scope', '$http', '$state', '$facebook', function($rootScope, $scope, $http, $state, $facebook) {
+ctrl.controller('OtherCtrl', ['$scope', '$facebook', function($scope, $facebook){
+
+  $("#header_status").hide();
+
+  $scope.icon = 'fa fa-share-alt';
+  $scope.msg = 'Compartir en tu muro ';
   
-  /*
-  if(!$rootScope.authenticated){
-    $state.go('saime.autenticacion');
-  }
-
-  */
-
-
-  $("#header_status").hide();   
-
   $scope.fb_share = function(){
-    $scope.error = 'Se publicó en tu muro: "Estoy usando la nueva aplicación de SAIME en Facebook"';
-    $scope.showModal = true;
-
-      
+    
     $facebook.api("/me/feed", 'post', {message: 'Estoy usando la nueva aplicación de SAIME en Facebook'}).then(function(response){
-      console.log(response);
+      $scope.msg = 'Compartido';
+      $scope.icon = 'fa fa-thumbs-o-up';
     });
 
   }
@@ -153,6 +124,18 @@ ctrl.controller('MainCtrl', ['$rootScope', '$scope', '$http', '$state', '$facebo
     });
   }
 
+}]);
+
+
+ctrl.controller('MainCtrl', ['$rootScope', '$scope', '$http', '$state', '$facebook', function($rootScope, $scope, $http, $state, $facebook) {
+  
+  
+  if(!$rootScope.authenticated){
+    $state.go('saime.autenticacion');
+  }
+
+  $("#header_status").hide();  
+  
   $scope.validar_cita_ven = function(){
     $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
     $scope.showModal = true;
@@ -162,7 +145,6 @@ ctrl.controller('MainCtrl', ['$rootScope', '$scope', '$http', '$state', '$facebo
         $scope.showModal = false;
         $state.go("saime.registro_datos_personales_ven");
       }else{
-        //$scope.error2 = response.consumerMessage;
         $scope.error = response.consumerMessage;
       }
     }).error(function(){
@@ -255,7 +237,7 @@ ctrl.controller('OlvidoContrasenaCtrl', ['$scope', '$http', '$state', function($
 
   $scope.enviar = function(form){
     $scope.showModal = true;
-    if(form.$valid){
+    if(form.email){
       $http.post("api/api.php?opc=req_pass", $scope.formData).success(function(response) {
         if(response.errorCode==='00000'){
           $scope.showModal = false;
@@ -330,11 +312,9 @@ ctrl.controller('RegistroCtrl', ['$scope', '$http', '$state', 'CodigoTelfFactory
 ctrl.controller('NoticiasWebCtrl', ['$rootScope', '$scope', '$http', '$state', '$timeout', function($rootScope, $scope, $http, $state, $timeout) {
 
 
-  /*
   if(!$rootScope.authenticated){
     $state.go('saime.autenticacion');
   }
-  */
 
 
   $("#header_status").hide();
@@ -359,11 +339,11 @@ ctrl.controller('NoticiasWebCtrl', ['$rootScope', '$scope', '$http', '$state', '
 
 ctrl.controller('OTramitesCtrl', ['$rootScope', '$scope', '$http', '$state', '$timeout', function($rootScope, $scope, $http, $state, $timeout) {
   
-  /*
+  
   if(!$rootScope.authenticated){
     $state.go('saime.autenticacion');
   }
-  */
+  
 
   $("#header_status").hide();
   $scope.oneAtATime = true;
@@ -396,15 +376,11 @@ ctrl.controller('OTramitesCtrl', ['$rootScope', '$scope', '$http', '$state', '$t
 
 ctrl.controller('MapasCtrl', ['$rootScope', '$scope', '$facebook', '$http', '$state', function($rootScope, $scope, $facebook, $http, $state){
 
-/*
   if(!$rootScope.authenticated){
     $state.go('saime.autenticacion');
   }
 
-*/
-
   $("#header_status").hide();
-
   
   $facebook.api("/me").then( 
       function(response) {
@@ -462,12 +438,9 @@ ctrl.controller('MapasCtrl', ['$rootScope', '$scope', '$facebook', '$http', '$st
 
 ctrl.controller('ListaTramitesCtrl', ['$rootScope', '$scope', '$http', '$state', '$timeout', function($rootScope, $scope, $http, $state, $timeout) {
 
-/*
     if(!$rootScope.authenticated){
       $state.go('saime.autenticacion');
     }
-
-*/
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -502,12 +475,9 @@ ctrl.controller('ListaTramitesCtrl', ['$rootScope', '$scope', '$http', '$state',
 
 ctrl.controller('EstadoTramiteCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$timeout', function($rootScope, $scope, $http, $state, $stateParams, $timeout) {
 
-/*
   if(!$rootScope.authenticated){
     $state.go('saime.autenticacion');
   }
-*/
-  
 
   $("#header_status").hide();
   $scope.formData = {};

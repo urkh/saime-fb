@@ -6,14 +6,9 @@ angular.module('app.controllers_ven', [])
 
 .controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', function($rootScope, $timeout, $scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory) {
     
-
-  /*
-    
     if(!$rootScope.authenticated){
       $state.go('saime.autenticacion');
     }
-
-    */
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -324,12 +319,9 @@ angular.module('app.controllers_ven', [])
 
 .controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', function($rootScope, $timeout, $scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory) {
     
-    /*
     if(!$rootScope.authenticated){
       $state.go('saime.autenticacion');
     }
-
-    */
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -597,12 +589,9 @@ angular.module('app.controllers_ven', [])
 
   .controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '$scope', '$http', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', function($rootScope, $state, $scope, $http, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory) {
 
-    /*
     if(!$rootScope.authenticated){
       $state.go('saime.autenticacion');
     }
-    */
-
 
     $("#header_status").hide();
     $scope.formData = {};

@@ -51,7 +51,7 @@
                             <p><h3>Datos De Nacionalidad</h3></p>
                             <hr>
 
-                                <ui-select required="true"  ng-model="formData.country" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
+                                <ui-select ng-model="formData.country" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
                                     <ui-select-match placeholder="Seleccione o busque un PAIS en la lista...">{{$select.selected.descripcion}}</ui-select-match>
                                     <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
                                       <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
@@ -63,7 +63,7 @@
                                 <input vld-texto ng-model="formData.currentCity" type="text" placeholder="Ciudad actual" >
                                 <input vld-pcode ng-model="formData.pCode" type="text" placeholder="Codigo Postal" >
 
-                                <ui-select on-select="get_consulados()" required="true"  ng-model="formData.countrySede" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
+                                <ui-select on-select="get_consulados()"  ng-model="formData.countrySede" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
                                     <ui-select-match placeholder="Seleccione o busque un PAIS sede...">{{$select.selected.descripcion}}</ui-select-match>
                                     <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
                                       <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>

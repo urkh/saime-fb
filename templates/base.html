@@ -20,14 +20,14 @@
   <br><br>
 
   <!-- footer -->
-    <div ng-controller="MainCtrl" class="app-footer wrapper b-t bg-light" align="center">
+    <div ng-controller="OtherCtrl" class="app-footer wrapper b-t bg-light" align="center">
 
       <div class="row">
         <br>
         <div class="col-md-3 pull-left">
-          <modal error="" visible="showModal"></modal>
-          <button class="btn btn-info btn-xs" ng-click="fb_share()"><span class="fa fa-share-alt"></span>  Publicar en tu muro</button><br>
-          <button class="btn btn-warning btn-xs" ng-click="fb_invitable_friends()"><span class="fa fa-facebook"></span>  Invitar a tus amigos  </button>
+          
+          <button class="btn btn-info btn-xs" ng-click="fb_share()"><span class="{{icon}}"></span> {{msg}}</button><br>
+          <button class="btn btn-warning btn-xs" ng-click="fb_invitable_friends()"><span class="fa fa-facebook-square"></span>  Invitar a tus amigos  </button>
 
         </div>
         <div class="col-md-6">

@@ -3,17 +3,22 @@
 var app = angular.module('app', [
     'ngFacebook',
     'ngAnimate',
-    'ngCookies',
-    'ngStorage',
     'ui.router',
     'ui.bootstrap',
-    'ui.load',
-    'ui.jq',
-    'ngSanitize',
-    'ui.select',
-    'ui.validate',
     'checklist-model',
     'uiGmapgoogle-maps',
+
+    //'ngCookies',
+    //'ngStorage',
+    
+
+    //'ui.load',
+    //'ui.jq',
+    //'ngSanitize',
+    //'ui.select',
+    //'ui.validate',
+    
+    
     'app.controllers_gen',
     'app.controllers_ven',
     'app.controllers_ext',
