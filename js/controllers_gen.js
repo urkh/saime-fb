@@ -64,7 +64,7 @@ ctrl.controller('SignInCtrl', ['$scope', '$http', '$state', '$rootScope', '$time
     $scope.showModal = true;
     
     if(form.username && form.password){
-      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'
+      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
 
       $http.post("api/api.php?opc=signin", $scope.formData).success(function(response) {
         if(response.status === 'granted'){
@@ -83,7 +83,7 @@ ctrl.controller('SignInCtrl', ['$scope', '$http', '$state', '$rootScope', '$time
         }else if(response.status === 'denied'){
           $scope.error = response.msg;
         }else{
-          $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
+          $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
         }
           
       })
