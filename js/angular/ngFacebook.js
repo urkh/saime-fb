@@ -53,7 +53,7 @@ angular.module('ngFacebook', [])
       return config.customInit;
     };
 
-    this.$get = ['$q', '$rootScope', '$window', function($q, $rootScope, $window) {
+    this.$get = ['$q', '$rootScope', '$window', '$timeout', function($q, $rootScope, $window, $timeout) {
       var $facebook=$q.defer();
       $facebook.config = function(property) {
         return config[property];
@@ -67,7 +67,25 @@ angular.module('ngFacebook', [])
         $window.FB.init(
           angular.extend({ appId: $facebook.config('appId'), version: $facebook.config('version') }, $facebook.config("customInit"))
         );
+
+
+
+        
+        //FB.Canvas.setAutoResize();
+         FB.Canvas.setAutoGrow();
+
+/*        
+
+        $window.FB.Canvas.setAutoGrow(true);
+        $window.FB.Canvas.setSize();
+        $window.FB.Canvas.setAutoGrow(91); // Paul's favourite number
+
+*/
         $rootScope.$broadcast("fb.load", $window.FB);
+
+        
+
+
       };
 
       $rootScope.$on("fb.load", function(e, FB) {
