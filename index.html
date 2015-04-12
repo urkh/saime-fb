@@ -12,43 +12,22 @@
   <link rel="stylesheet" href="css/font.css" type="text/css" />
   <link rel="stylesheet" href="css/app.css" type="text/css" />
   
+  
   <link rel="stylesheet" href="js/modules/select2/select.css">
-
-  <link rel="stylesheet" href="css/select.css">
-
-  <!--
-  <style>
-
-    .select2 > .select2-choice.ui-select-match {
-      /* Because of the inclusion of Bootstrap */
-      height: 40px !important;
-    }
-
-    .selectize-control > .selectize-dropdown {
-      top: 36px;
-    }
-
-    .angular-google-map-container { height: 400px; }
-  </style>
-  -->
 
 
  </head>
-<body ng-controller="AppCtrl">
+  <body ng-controller="AppCtrl">
   <div class="app" id="app"  ui-view></div>
+  <div id="fb-root"></div>
 
 
-
-
- 
   <script src="js/jquery/jquery.min.js"></script>
   <script src="js/jquery/prototype.js"></script>
-  
   <script src="js/angular/angular.min.js"></script>
   <script src="js/angular/agular-maps.js"></script>
   <script src="js/angular/lodash.js"></script>
   <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
-
   <script src="js/angular/angular-locale_es.js"></script>
 
   <script src="js/angular/angular-resource.min.js"></script>
@@ -58,10 +37,13 @@
   <script src="js/bootstrap/js/bootstrap.min.js"></script>
   <script src="js/angular/checklist-model.js"></script>
   <script src="js/angular/angular-animate.min.js"></script>
+  
+
+
+
   <script src="js/angular/angular-sanitize.min.js"></script>
 
   <script src="js/angular/angular-cookies.min.js"></script>
-  
   <script src="js/angular/ngStorage.min.js"></script>
   <script src="js/modules/select2/select.js"></script>
   <script src="js/angular/ui-load.js"></script>
@@ -77,41 +59,6 @@
   <script src="js/services.js"></script>
   <script src="js/directives.js"></script>
   
-
-<!--
-
-
-<script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
-<script>
-        window.fbAsyncInit = function() {
-          FB.Canvas.setAutoResize();
-        };
-        (function() {
-                /*var e = document.createElement('script'); e.async = true;
-                e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-                document.getElementById('fb-root').appendChild(e);*/
-          FB.Canvas.setAutoGrow(true);
-          FB.Canvas.setAutoGrow(false);
-        }());
-        FB.init({
-            appId  : '1540942286154750',
-            frictionlessRequests: true
-        });
-        FB.Canvas.setAutoGrow(true);
-          FB.Array.forEach([300, 600, 1000, 2000], function(delay) {
-            setTimeout(function() {
-            FB.XFBML.parse();
-            FB.Canvas.setSize();
-            FB.Canvas.setAutoGrow(91);
-          }, delay)
-        });
-
-
-</script>
-
--->
-
-
 
 
 </body>

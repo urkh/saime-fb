@@ -3,7 +3,7 @@ var dir = angular.module('app.directives', []);
 
 dir.directive('modal', function () {
     return {
-      template: '<div class="modal fade">' + 
+      template: '<div class="modal">' + 
           '<div class="modal-dialog">' + 
             '<div class="modal-content">' + 
               //'<div class="modal-header">' + 
@@ -53,9 +53,11 @@ dir.directive('vldTexto', function () {
         element.bind('keydown keypress', function (event) {
             if(event.which >= 48 && event.which <= 57){
                 event.preventDefault();
+
             }else{
-                if(event.target.value.length >= 30) {
-                    event.preventDefault();
+                if(event.target.value.length > 31) {
+                   var input = element.context.value;
+                   element.context.value = input.substring(0, input.length-1);
                 }
             }
         });
@@ -68,12 +70,15 @@ dir.directive('vldCedula', function () {
     return function (scope, element, attr) {
         element.bind('keydown keypress', function (event) {
 
-            if((event.which >= 48 && event.which <= 57) || (event.which == 8)){
+            if((event.which >= 48 && event.which <= 57) || (event.which == 8) || (event.which >= 96 && event.which <= 105)){
                 if(event.target.value.length >= 10) {
-                    event.preventDefault();
+                    //event.preventDefault();
+                    var input = element.context.value;
+                    element.context.value = input.substring(0, input.length-1);
                 }
             }else{
                 event.preventDefault();
+
             }
         });
     };
@@ -85,9 +90,11 @@ dir.directive('vldTelefono', function () {
     return function (scope, element, attr) {
         element.bind('keydown keypress', function (event) {
 
-            if((event.which >= 48 && event.which <= 57) || (event.which == 8)){
+            if((event.which >= 48 && event.which <= 57) || (event.which == 8) || (event.which >= 96 && event.which <= 105)){
                 if(event.target.value.length >= 8) {
-                    event.preventDefault();
+                    //event.preventDefault();
+                    var input = element.context.value;
+                    element.context.value = input.substring(0, input.length-1);
                 }
             }else{
                 event.preventDefault();
@@ -102,7 +109,9 @@ dir.directive('vldPcode', function () {
 
             if((event.which >= 48 && event.which <= 57) || (event.which == 8)){
                 if(event.target.value.length >= 5) {
-                    event.preventDefault();
+                    //event.preventDefault();
+                    var input = element.context.value;
+                    element.context.value = input.substring(0, input.length-1);
                 }
             }else{
                 event.preventDefault();

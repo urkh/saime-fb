@@ -19,8 +19,13 @@ switch ($_GET['opc']) {
         break;
 
 
+    case "get_fb_perfil":
+        post_basic_auth($host, $uri="/saime-ws/v1.0/facebook/user/".$_GET['fbid'], $data);
+        break;
+
+
     case "reg_fb_perfil":
-        post_bearer_auth($host, $uri="/saime-ws/v1.0/common/saveFacebookProfile");
+        post_bearer_auth_fb($host, $uri="/saime-ws/v1.0/facebook/update", $data);
         break;
 
     case "get_perfil":
@@ -198,11 +203,16 @@ function get_login($username, $password, $host){
     if ($status == 200) {
         
         $bcode = $json['access_token'];
+        $token_type = $json['token_type'];
+        $refresh_token = $json['refresh_token'];
+        $expires_in = $json['expires_in'];
+        $scope = $json['scope'];
+
         $headers = array('Content-Type' => 'application/json', 'Authorization' => 'Bearer '.$json['access_token']);
         $response = Requests::get($host."/saime-ws/v1.0/me", $headers);
         $json = json_decode($response->body, true);
         
-        echo '{"status":"granted", "msg":"Bienvenido, '.$json['firstName'].' '.$json['lastName'].'", "bcode":"'.$bcode.'"}';
+        echo '{"status":"granted", "msg":"Bienvenido, '.$json['firstName'].' '.$json['lastName'].'", "bcode":"'.$bcode.'", "token_type":"'.$token_type.'", "refresh_token":"'.$refresh_token.'", "expires_in":"'.$expires_in.'", "scope":"'.$scope.'"}';
         
     }else{
         echo '{"status":"denied", "msg":"(!) El correo electronico o la contraseña ingresados no son correctos, por favor verifiquelos"}';
@@ -229,6 +239,16 @@ function post_bearer_auth($host, $uri, $datos){
 	$data = array('data' => parser_datos($datos), 'crc'=> gen_crc(parser_datos($datos)));
 	$response = Requests::post($host.$uri, $headers, json_encode($data));
 	echo $response->body;
+
+}
+
+
+function post_bearer_auth_fb($host, $uri, $datos){
+
+    $headers = array('Content-Type' => 'application/json', 'Authorization' => 'Bearer '.$_GET['bcode']);
+    //$data = array('data' => parser_datos($datos), 'crc'=> gen_crc(parser_datos($datos)));
+    $response = Requests::post($host.$uri, $headers, json_encode($datos));
+    echo $response->body;
 
 }
 

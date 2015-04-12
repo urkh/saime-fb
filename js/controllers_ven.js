@@ -6,9 +6,12 @@ angular.module('app.controllers_ven', [])
 
 .controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', function($rootScope, $timeout, $scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory) {
     
+
+    /*
     if(!$rootScope.authenticated){
       $state.go('saime.autenticacion');
     }
+    */
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -319,9 +322,10 @@ angular.module('app.controllers_ven', [])
 
 .controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', function($rootScope, $timeout, $scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory) {
     
+    /*
     if(!$rootScope.authenticated){
       $state.go('saime.autenticacion');
-    }
+    }*/
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -484,8 +488,6 @@ angular.module('app.controllers_ven', [])
 
     $scope.continuar1 = function(form){
 
-
-
       if(form.minorType=='4'){
 
         if((form.name1 && form.lastName1 && form.bDate && form.gender && form.countryIni && form.city) && (form.motherId || form.fatherId || form.legalId)) {
@@ -506,10 +508,8 @@ angular.module('app.controllers_ven', [])
 
       }
 
-
-
-
     }
+    
 
      $scope.continuar2 = function(form){
       $scope.formData.cellPhone = $scope.formNoData.phone_code_cell + $scope.formNoData.cellPhone;
@@ -589,9 +589,11 @@ angular.module('app.controllers_ven', [])
 
   .controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '$scope', '$http', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', function($rootScope, $state, $scope, $http, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory) {
 
+/*
     if(!$rootScope.authenticated){
       $state.go('saime.autenticacion');
     }
+    */
 
     $("#header_status").hide();
     $scope.formData = {};

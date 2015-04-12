@@ -12,7 +12,7 @@
         <div class="bg-light lter b-b wrapper-md saime-bg">
           <div class="row">
             <div class="col-md-12 text-center">
-              <h2 class="m-n font-thin  text-black">Venezolanos por Nacimiento - </h2>
+              <h2 class="m-n font-thin  text-black">Venezolanos por Nacimiento</h2>
               <h2 class="m-n font-thin  text-black">mayores de 9 a&ntilde;os y cedulados</h2>
             </div>
           </div>
@@ -36,22 +36,6 @@
                                 
                                     <div class="form-group">
                                         <label  class="col-sm-2 control-label-2"></label>
-
-                                         <!--
-                                        <div class="col-sm-2">                                      
-
-                                           <ui-select  ng-model="formSearch.letrame" ng-disabled="disabled" style="width: 100%;" title="Letra">
-                                                <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
-                                                <ui-select-choices repeat="letra.id as letra in letras">
-                                                  <span ng-bind-html="letra.letra"></span>
-                                                </ui-select-choices>
-                                            </ui-select>
-                                            
-
-
-
-                                        </div>
-                                        -->
 
                                         <div class="col-sm-6">
                                             <input type="hidden" ng-model="formData.minorId" ng-init="formSearch.letrame='V'">
@@ -94,14 +78,15 @@
 
                             </div>
                             <div class="col-md-8">
+                                <h5 align="center">Los campos con asterisco (*) son requeridos</h5><br>
                                 <p><h3>Datos Personales</h3></p>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <input type="hidden" ng-model="formData.minorType"  ng-init="formData.minorType='1'">
-                                        <input vld-texto type="text" placeholder="Primer nombre" ng-model="formData.name1" >
-                                        <input vld-texto type="text" placeholder="Primer apellido" ng-model="formData.lastName1" >
+                                        <input vld-texto type="text" placeholder="*  Primer nombre" ng-model="formData.name1" >*
+                                        <input vld-texto type="text" placeholder="*  Primer apellido" ng-model="formData.lastName1" >*
 
-                                        <input placeholder="Fecha de Nacimiento" ng-model="formData.bDate" type="text" datepicker-popup="{{format}}" is-open="opened" datepicker-options="dateOptions" close-text="Cerrar" ng-click="date_open($event)" readOnly/>
+                                        <input placeholder="*  Fecha de Nacimiento" ng-model="formData.bDate" type="text" datepicker-popup="{{format}}" is-open="opened" datepicker-options="dateOptions" close-text="Cerrar" ng-click="date_open($event)" readOnly/>
                                           
                                     </div>
                                     <div class="col-md-6">
@@ -109,7 +94,7 @@
                                         <input vld-texto type="text" placeholder="Segundo apellido" ng-model="formData.lastName2">
 
                                         <ui-select ng-model="formData.gender" ng-disabled="disabled" style="width: 100%;" title="Genero">
-                                            <ui-select-match placeholder="Genero...">{{$select.selected.genero}}</ui-select-match>
+                                            <ui-select-match placeholder="*  Genero...">{{$select.selected.genero}}</ui-select-match>
                                             <ui-select-choices repeat="genero.id as genero in generos">
                                               <span ng-bind-html="genero.genero"></span>
                                             </ui-select-choices>
@@ -130,7 +115,7 @@
 
 
                                 <ui-select ng-model="formData.countryIni" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
-                                    <ui-select-match placeholder="Seleccione o busque un PAIS en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                    <ui-select-match placeholder="*  Pa&iacute;s...">{{$select.selected.descripcion}}</ui-select-match>
                                     <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
                                       <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
                                       
@@ -140,7 +125,7 @@
                                 <br>
 
                                 <ui-select on-select="get_municipios()" ng-model="formData.state" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Estado">
-                                    <ui-select-match placeholder="Seleccione o busque un ESTADO en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                    <ui-select-match placeholder="*  Estado...">{{$select.selected.descripcion}}</ui-select-match>
                                     <ui-select-choices repeat="estado.identidadfederal as estado in estados | filter: $select.search">
                                       <span ng-bind-html="estado.descripcion | highlight: $select.search"></span>
                                       
@@ -150,7 +135,7 @@
                                 <br>
 
                                 <ui-select on-select="get_parroquias()" ng-model="formData.town" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Municipio">
-                                    <ui-select-match placeholder="Seleccione o busque un MUNICIPIO en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                    <ui-select-match placeholder="*  Municipio..">{{$select.selected.descripcion}}</ui-select-match>
                                     <ui-select-choices repeat="municipio.idmunicipio as municipio in municipios | filter: $select.search">
                                       <span ng-bind-html="municipio.descripcion | highlight: $select.search"></span>
                                     </ui-select-choices>
@@ -159,7 +144,7 @@
                                 <br>
 
                                 <ui-select ng-model="formData.parish" ng-disabled="disabled" style="width: 100%;" title="Seleccione la Parroquia">
-                                    <ui-select-match placeholder="Seleccione o busque una PARROQUIA en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                    <ui-select-match placeholder="*  Parroquia...">{{$select.selected.descripcion}}</ui-select-match>
                                     <ui-select-choices repeat="parroquia.idparrquia as parroquia in parroquias | filter: $select.search">
                                       <span ng-bind-html="parroquia.descripcion | highlight: $select.search"></span>
                                     </ui-select-choices>
@@ -167,7 +152,7 @@
 
                                 <br>
 
-                                <input vld-texto ng-model="formData.city" type="text" placeholder="Ciudad" >
+                                <input vld-texto ng-model="formData.city" type="text" placeholder="*  Ciudad" >
                                 
                             </div>
                             <div class="col-md-2"></div>
@@ -265,6 +250,7 @@
 
                         <div class="text-center">
                             <div class="text-muted">
+                                
                                 <h4>Debe indicar al menos uno de los tres, Madre, Padre o Representante Legal</h4>
                             </div><br><br>
                             
@@ -286,11 +272,11 @@
                             </div>
                             
                             <div class="col-md-8">
-                                <p><h3>Dirección Actual</h3></p>
+                                <p><h3>Direcci&oacute;n Actual</h3></p>
                                 <div class="row">
 
                                     <ui-select on-select="get_cmunicipios()"  ng-model="formData.currentState" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Estado">
-                                        <ui-select-match placeholder="Seleccione o busque un ESTADO en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                        <ui-select-match placeholder="*  Estado...">{{$select.selected.descripcion}}</ui-select-match>
                                         <ui-select-choices repeat="estado.identidadfederal as estado in estados | filter: $select.search">
                                           <span ng-bind-html="estado.descripcion | highlight: $select.search"></span>
                                         </ui-select-choices>
@@ -300,7 +286,7 @@
 
 
                                     <ui-select on-select="get_cparroquias()" ng-model="formData.currentTown" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Municipio">
-                                        <ui-select-match placeholder="Seleccione o busque un MUNICIPIO en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                        <ui-select-match placeholder="*  Municipio...">{{$select.selected.descripcion}}</ui-select-match>
                                         <ui-select-choices repeat="municipio.idmunicipio as municipio in municipios | filter: $select.search">
                                           <span ng-bind-html="municipio.descripcion | highlight: $select.search"></span>
                                         </ui-select-choices>
@@ -309,7 +295,7 @@
                                     <br>
 
                                     <ui-select on-select="get_oficinas()"  ng-model="formData.currentParish" ng-disabled="disabled" style="width: 100%;" title="Seleccione la Parroquia">
-                                        <ui-select-match placeholder="Seleccione o busque una PARROQUIA en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                        <ui-select-match placeholder="*  Parroquia...">{{$select.selected.descripcion}}</ui-select-match>
                                         <ui-select-choices repeat="parroquia.idparrquia as parroquia in parroquias | filter: $select.search">
                                           <span ng-bind-html="parroquia.descripcion | highlight: $select.search"></span>
                                         </ui-select-choices>
@@ -317,12 +303,12 @@
                                     
                                     <br>
 
-                                    <input vld-texto ng-model="formData.currentCity" type="text" placeholder="Ciudad">
+                                    <input vld-texto ng-model="formData.currentCity" type="text" placeholder="*  Ciudad">
 
-                                    <input ng-model="formData.urbanization" type="text" placeholder="Urbanizacion">
-                                    <input ng-model="formData.noApto" type="text" placeholder="Nro Casa / Apto">        
-                                    <input ng-model="formData.street" type="text" placeholder="Av / Calle ">
-                                    <input vld-pcode ng-model="formData.pCode" type="number" placeholder="Codigo Postal">
+                                    <input ng-model="formData.urbanization" type="text" placeholder="*  Urbanizaci&oacute;n">
+                                    <input ng-model="formData.noApto" type="text" placeholder="*  Nro Casa / Apto">        
+                                    <input ng-model="formData.street" type="text" placeholder="*  Av / Calle ">
+                                    <input vld-pcode ng-model="formData.pCode" type="number" placeholder="*  C&oacute;digo Postal">
                                     
                                     <div class="form-group">
                                         <div class="col-sm-3 saime-input">
@@ -368,6 +354,12 @@
                                             <input vld-telefono ng-model="formNoData.workPhone" type="number" placeholder="Tel&eacute;fono Trabajo">
                                         </div>
                                     </div>
+
+
+                                    <br>
+                                    <p class="saime-texto-recordatorio">
+                                        <i>(Debe ingresar al menos un tel&eacute;fono)</i>
+                                    </p>
                                     
 
                                 </div>
@@ -378,28 +370,12 @@
                             <div class="col-md-2"></div>
                         </div>
 
-                        
-
-
                         <div class="text-center">
-                            <!--
-                            <div class="text-muted">
-                                <h4>Codigo de confirmacion que aparece arriba</h4>
-                            </div>
-                            -->
-                            <br>
-                                <div align="center" class="saime-error-input">
-                                    {{error2}}
-                                </div>
                             <br> 
-
                             <button ng-click="continuar3(formData)" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
                         </div>
 
                         <br>
-
-                        
-
                     </div>
 
 
@@ -439,7 +415,7 @@
                                         Las oficinas que aparecen marcadas son las posibles oficinas d&oacute;nde se les 
                                         asignar&aacute; la cita, si usted desea que el sistema no le asigne a una de estas oficinas
                                         favor de descartarla. <b>Nota:</b> mientras m&aacute;s oficinas seleccione, su cita podr&aacute; ser
-                                        asignada con mayor rapidez, dependiendo de la saturación de las mismas.
+                                        asignada con mayor rapidez, dependiendo de la saturaci&oacute;n de las mismas.
                                     </i>
                                 </p>
                                 <br>

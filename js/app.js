@@ -40,7 +40,7 @@ var app = angular.module('app', [
 
         $facebookProvider.setAppId('1540942286154750');
         $facebookProvider.setVersion("v2.1");
-        $facebookProvider.setPermissions("user_about_me,user_location,user_activities,user_likes,publish_actions,user_friends");
+        $facebookProvider.setPermissions("public_profile,user_location,user_activities,user_likes,publish_actions,user_friends");
 
         $urlRouterProvider.otherwise('/saime/terminos');
         $stateProvider            

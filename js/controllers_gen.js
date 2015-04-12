@@ -14,85 +14,189 @@ ctrl.controller('AppCtrl', ['$scope', function($scope) {
 }]);
 
 
-ctrl.controller('FBCtrl',['$scope', '$facebook', function($scope, $facebook){
+ctrl.controller('FBCtrl',['$scope', '$rootScope', '$facebook', '$http', '$state', '$window', function($scope, $rootScope, $facebook, $http, $state, $window){
 
-  $("#header_status").show();
-  $facebook.login().then(function() {
-    $scope.refresh();    
-  });
+    $window.scrollTo(0, 0);
+    $("#header_status").show();
 
-
-  $scope.refresh = function(){
-
-    $facebook.api("/me").then( 
-      function(response) {
-        $scope.bienvenido = response.name;
-      },
-      function(err) {
-        $scope.bienvenido = "Please log in";
-    });
-
-
-    $facebook.api("/me/picture?redirect=false&height=128&type=normal&width=128").then(function(response){
-        $scope.profile_pic = response.data.url;
-        $("#fb_profile").show();
-    });
 
 
     $facebook.api("/me/likes/120779134607103").then(function(response){
-      if(response.data.length === 0){
-        $scope.saime_like = false
-      }else{
-        $scope.saime_like = true
-      }
-
+        if(response.data.length === 0){
+            $scope.saime_like = false
+        }else{
+            $scope.saime_like = true
+        }
     });
 
-  }
+
+
+    $scope.login = function() {
+        $facebook.login().then(function() {
+            $scope.refresh();    
+        });
+    }
+
+
+    $scope.refresh = function(){
+        
+        $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
+        $scope.showModal = true;
+
+        $facebook.api("/me").then(function(fbresponse) {
+
+            $facebook.api("/me/picture?redirect=false&height=128&type=normal&width=128").then(function(fbresponse2){
+                $scope.profile_pic = fbresponse2.data.url;
+                //$("#fb_profile").show();
+            });
+
+
+            $scope.bienvenido = fbresponse.name;
+            $rootScope.fbid = fbresponse.id;
+
+            //fbresponse.id
+
+            $http.get("api/api.php?opc=get_fb_perfil&fbid="+fbresponse.id).success(function(response) {
+
+                if(response.errorCode === '00000'){
+                    $rootScope.authenticated = true;
+                    $rootScope.bcode = response.facebookProfile.accessToken;
+
+                    $scope.fb_public_profile = {
+                        'facebookId':fbresponse.id, 
+                        //'email':fbresponse.email, 
+                        'name':fbresponse.name,
+                        'firstName':fbresponse.first_name, 
+                        'lastName':fbresponse.last_name,
+                        'gender':fbresponse.gender,
+                        'link':fbresponse.link,
+                        'locale':fbresponse.locale,
+                        'timezone':fbresponse.timezone,
+                        'username':fbresponse.username,
+                        'verified':fbresponse.verified,
+                        'updatedTime':fbresponse.updated_time,
+                        'picSquare':$scope.profile_pic,
+                        'ipAddress': response.facebookProfile.ipAddress,
+                        'accessToken': response.facebookProfile.accessToken,
+                        'tokenType': response.facebookProfile.tokenType,
+                        'refreshToken': response.facebookProfile.refreshToken,
+                        'expiresIn': response.facebookProfile.expiresIn, 
+                        'scope': response.facebookProfile.scope
+                    }
+
+                    $http.post("api/api.php?opc=reg_fb_perfil&bcode="+$rootScope.bcode, $scope.fb_public_profile).success(function(response2) { 
+                        //if(response.errorCode === '00000'){
+                            $scope.showModal = false;
+                            $state.go("saime.inicio");
+                        //}else{
+                        //    $scope.error = response2.consumerMessage;
+                        //}
+                    }).error(function(){
+                        $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+                    });
+                    
+                }else{
+                    $state.go("saime.terminos")
+                }
+
+            }).error(function(){
+                $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+            });
+
+        });
+    }
+
+
+    $scope.login()
 
 }]);
 
 
-ctrl.controller('SignInCtrl', ['$scope', '$http', '$state', '$rootScope', '$timeout', function($scope, $http, $state, $rootScope, $timeout) {
+ctrl.controller('SignInCtrl', ['$scope', '$http', '$state', '$rootScope', '$timeout', '$facebook', '$window', function($scope, $http, $state, $rootScope, $timeout, $facebook, $window) {
      
-  $("#header_status").hide();
-  window.scrollTo(0, 0);
-  $scope.formData = {};
+    $("#header_status").hide();
+    $window.scrollTo(0, 0);
 
-  $scope.login = function(form) {
+    $scope.formData = {};
 
-    $scope.showModal = true;
+    $scope.login = function(form) {
+
+        $scope.showModal = true;
     
-    if(form.username && form.password){
-      $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
+        if(form.username && form.password){
+            $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
 
-      $http.post("api/api.php?opc=signin", $scope.formData).success(function(response) {
-        if(response.status === 'granted'){
-          $rootScope.authenticated = true;
-          $rootScope.bcode = response.bcode;
+            $http.post("api/api.php?opc=signin", $scope.formData).success(function(response) {
+                if(response.status === 'granted'){
+                    $rootScope.authenticated = true;
+                    $rootScope.bcode = response.bcode;
 
-          $timeout(function(){
-            $scope.showModal = false;
-          }, 1500);  
+                    $facebook.api("/me").then(function(fbresponse) {
+
+                        $facebook.api("/me/picture?redirect=false&height=128&type=normal&width=128").then(function(fbresponse2){
+                            $scope.profile_pic = fbresponse2.data.url;
+                        });
+
+                        
+                        $scope.fb_public_profile = {
+                            'facebookId':fbresponse.id, 
+                            //'email':fbresponse.email, 
+                            'name':fbresponse.name,
+                            'firstName':fbresponse.first_name, 
+                            'lastName':fbresponse.last_name,
+                            'gender':fbresponse.gender,
+                            'link':fbresponse.link,
+                            'locale':fbresponse.locale,
+                            'timezone':fbresponse.timezone,
+                            'username':fbresponse.username,
+                            'verified':fbresponse.verified,
+                            'updatedTime':fbresponse.updated_time,
+                            'picSquare':$scope.profile_pic,
+
+                            //'ipAddress': response.facebookProfile.ipAddress,
+                            'accessToken': response.bcode,
+                            'tokenType': response.token_type,
+                            'refreshToken': response.refresh_token,
+                            'expiresIn': response.expires_in, 
+                            'scope': response.scope
+                        }
+                        /* {'facebookId':fbresponse.id, 'name':fbresponse.name,'firstName':fbresponse.first_name, 'lastName':fbresponse.last_name, 'gender':fbresponse.gender, 'link':fbresponse.link, 'locale':fbresponse.locale, 'timezone':fbresponse.timezone, 'username':fbresponse.username, 'verified':fbresponse.verified , 'updatedTime':fbresponse.updated_time, 'picSquare':$scope.profile_pic, 'ipAddress': '200,44.20.32', 'accessToken': response.bcode, 'tokenType': response.token_type, 'refreshToken': response.refresh_token, 'expiresIn': response.expires_in,  'scope': response.scope} */
+
+                        $http.post("api/api.php?opc=reg_fb_perfil&bcode="+$rootScope.bcode, $scope.fb_public_profile).success(function(response2) { 
+                            $scope.showModal = false;
+                            $state.go("saime.inicio");
+                        }).error(function(){
+                            $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+                        });   
+                                         
+
+                    });
+
+                    /*
+                
+                    $timeout(function(){
+                        $scope.showModal = false;
+                    }, 1500);  
+                    
+                    $timeout(function(){            
+                        $state.go('saime.inicio');
+                    }, 1500);  
+
+                    */
           
-          $timeout(function(){            
-            $state.go('saime.inicio');
-          }, 1500);  
-
+                }else if(response.status === 'denied'){
+                    $scope.error = response.msg;
+                }else{
+                    $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+                }
           
-        }else if(response.status === 'denied'){
-          $scope.error = response.msg;
+            })
+
         }else{
-          $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+            $scope.error= "Debe llenar los campos correctamente."
         }
-          
-      })
 
-    }else{
-      $scope.error= "Debe llenar los campos correctamente."
     }
-
-  }
 
 
 }]);
@@ -102,6 +206,10 @@ ctrl.controller('OtherCtrl', ['$scope', '$facebook', function($scope, $facebook)
 
   $("#header_status").hide();
 
+
+
+
+/*
   $scope.icon = 'fa fa-share-alt';
   $scope.msg = 'Compartir en tu muro ';
   
@@ -124,15 +232,22 @@ ctrl.controller('OtherCtrl', ['$scope', '$facebook', function($scope, $facebook)
     });
   }
 
+*/
+
 }]);
 
 
-ctrl.controller('MainCtrl', ['$rootScope', '$scope', '$http', '$state', '$facebook', function($rootScope, $scope, $http, $state, $facebook) {
+ctrl.controller('MainCtrl', ['$rootScope', '$scope', '$http', '$state', '$facebook', '$window', function($rootScope, $scope, $http, $state, $facebook, $window) {
   
-  
+  $window.scrollTo(0, 0);
+
+
+  /*
   if(!$rootScope.authenticated){
     $state.go('saime.autenticacion');
   }
+
+  */
 
   $("#header_status").hide();  
   
@@ -456,6 +571,7 @@ ctrl.controller('ListaTramitesCtrl', ['$rootScope', '$scope', '$http', '$state',
           }, 1500);
         }else{
           $scope.error = response.consumerMessage;
+          $state.go("saime.inicio");
         }
     
     }).error(function(){
