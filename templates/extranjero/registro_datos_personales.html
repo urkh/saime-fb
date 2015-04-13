@@ -21,16 +21,15 @@
                             </button>
                         </div>
                         
-                         
-
                         <div class="col-md-8">
+                            <h5 align="center">Los campos con asterisco (*) son requeridos</h5><br>
                             <p><h3>Datos Personales</h3></p>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input vld-texto ng-model="formNoData.name1" readOnly type="text" placeholder="Primer nombre">        
-                                    <input vld-texto ng-model="formNoData.lastName1" readOnly type="text" placeholder="Primer apellido">
+                                    <input vld-texto ng-model="formNoData.name1" readOnly type="text" placeholder="*  Primer nombre">        
+                                    <input vld-texto ng-model="formNoData.lastName1" readOnly type="text" placeholder="*  Primer apellido">
 
-                                    <input placeholder="Fecha de Nacimiento" ng-model="formNoData.bDate" type="text" readOnly/>
+                                    <input placeholder="*  Fecha de Nacimiento" ng-model="formNoData.bDate" type="text" readOnly/>
 
                                     
                                 </div>
@@ -52,19 +51,19 @@
                             <hr>
 
                                 <ui-select ng-model="formData.country" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
-                                    <ui-select-match placeholder="Seleccione o busque un PAIS en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                    <ui-select-match placeholder="*  Pa&iacute;s...">{{$select.selected.descripcion}}</ui-select-match>
                                     <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
                                       <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
                                       
                                     </ui-select-choices>
                                 </ui-select><br>
 
-                                <input vld-texto ng-model="formData.city" type="text" placeholder="Ciudad" >
-                                <input vld-texto ng-model="formData.currentCity" type="text" placeholder="Ciudad actual" >
-                                <input vld-pcode ng-model="formData.pCode" type="text" placeholder="Codigo Postal" >
+                                <input vld-texto ng-model="formData.city" type="text" placeholder="*  Ciudad" >
+                                <input vld-texto ng-model="formData.currentCity" type="text" placeholder="*  Ciudad actual" >
+                                <input vld-pcode ng-model="formData.pCode" type="text" placeholder="*  C&oacute;digo Postal" >
 
                                 <ui-select on-select="get_consulados()"  ng-model="formData.countrySede" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
-                                    <ui-select-match placeholder="Seleccione o busque un PAIS sede...">{{$select.selected.descripcion}}</ui-select-match>
+                                    <ui-select-match placeholder="*  Pa&iacute;s sede...">{{$select.selected.descripcion}}</ui-select-match>
                                     <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
                                       <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
                                       
@@ -77,11 +76,6 @@
                     </div>
                     <br><br>
                     <div class="text-center">
-
-                        <br>
-                            <div align="center" class="saime-error-input">
-                                {{error2}}
-                            </div>
                         <br> 
                         <button ng-click="continuar1(formData)" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
                     </div>
@@ -122,19 +116,7 @@
                                     </i>
                                 </p>
                                 <br>
-                                <br>
-                                    <div align="center" class="saime-error-input">
-                                        {{error2}}
-                                    </div>
-                                <br> 
-
-                               
-
-
-                                <!--
-                                <input type="text" placeholder="Codigo de confirmacion que aparece arriba" >
-                                <p class="saime-texto-recordatorio-2"><i>(No se hace distincion entre mayusculas y minusculas)</i></p>
-                                -->         
+                                 
                                 <br>
                                 <div class="form-group">
                                     <div class="text-center">

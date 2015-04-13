@@ -396,18 +396,18 @@ ctrl.controller('RegistroCtrl', ['$scope', '$http', '$state', 'CodigoTelfFactory
       if(form.cedula && form.firstName && form.lastName && form.email && form.altEmail && $scope.formData.phone){
         $http.post("api/api.php?opc=reg_usuario", $scope.formData).success(function(response) {
           if(response.errorCode==='00000'){
+            $scope.showModal = false;
             $state.go("saime.registro_usuario_exitoso");
           }else{
-            $scope.showModal = true;
+            //$scope.showModal = true;
             $scope.error = response.consumerMessage;
           }
         }).error(function(response){
-            console.log("asdas")
-            $scope.showModal = true;
+            //$scope.showModal = true;
             $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
         })
       }else{
-        $scope.showModal = true;
+        //$scope.showModal = true;
         $scope.error = "Debe llenar los campos correctamente";  
       }  
     }

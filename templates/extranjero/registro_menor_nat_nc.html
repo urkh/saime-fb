@@ -32,15 +32,16 @@
 
                         </div>
                         <div class="col-md-8">
+                            <h5 align="center">Los campos con asterisco (*) son requeridos</h5><br>
                             <p><h3>Datos Personales</h3></p>
                             <div class="row">
                                 <div class="col-md-6">
                                     <input ng-model="formData.minorId" type="hidden">
                                     <input type="hidden" ng-model="formData.minorType"  ng-init="formData.minorType='4'">
-                                    <input vld-texto type="text" placeholder="Primer nombre" ng-model="formData.name1">
-                                    <input vld-texto type="text" placeholder="Primer apellido" ng-model="formData.lastName1">
+                                    <input vld-texto type="text" placeholder="*  Primer nombre" ng-model="formData.name1">
+                                    <input vld-texto type="text" placeholder="*  Primer apellido" ng-model="formData.lastName1">
 
-                                    <input placeholder="Fecha de Nacimiento" ng-model="formData.bDate" type="text" datepicker-popup="{{format}}" is-open="opened" datepicker-options="dateOptions" close-text="Cerrar" ng-click="date_open($event)" readOnly/>
+                                    <input placeholder="*  Fecha de Nacimiento" ng-model="formData.bDate" type="text" datepicker-popup="{{format}}" is-open="opened" datepicker-options="dateOptions" close-text="Cerrar" ng-click="date_open($event)" readOnly/>
                                       
                                 </div>
                                 <div class="col-md-6">
@@ -48,7 +49,7 @@
                                     <input vld-texto type="text" placeholder="Segundo apellido" ng-model="formData.lastName2">
 
                                     <ui-select ng-model="formData.gender" ng-disabled="disabled" style="width: 100%;" title="Genero">
-                                        <ui-select-match placeholder="Genero...">{{$select.selected.genero}}</ui-select-match>
+                                        <ui-select-match placeholder="*  Genero...">{{$select.selected.genero}}</ui-select-match>
                                         <ui-select-choices repeat="genero.id as genero in generos">
                                           <span ng-bind-html="genero.genero"></span>
                                         </ui-select-choices>
@@ -70,7 +71,7 @@
 
 
                             <ui-select ng-model="formData.countryIni" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
-                                <ui-select-match placeholder="Seleccione o busque un PAIS en la lista...">{{$select.selected.descripcion}}</ui-select-match>
+                                <ui-select-match placeholder="*  Pa&iacute;s...">{{$select.selected.descripcion}}</ui-select-match>
                                 <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
                                   <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
                                   
@@ -79,7 +80,7 @@
 
                             <br>
 
-                            <input vld-texto ng-model="formData.city" type="text" placeholder="Ciudad" >
+                            <input vld-texto ng-model="formData.city" type="text" placeholder="*  Ciudad" >
                             
                         </div>
                         <div class="col-md-2"></div>
@@ -164,8 +165,6 @@
                                             <button ng-click="buscar_legal()" class="btn btn-saime-stand">Buscar</button>
                                         </div>
                                     </div>
-
-
                             <br>
                         </div>
                         <div class="col-md-2"></div>
@@ -175,15 +174,7 @@
                     <div class="text-center">
                         <div class="text-muted">
                             <h4>Debe indicar al menos uno de los tres, Madre, Padre o Representante Legal</h4>
-                        </div>
-                        <br>
-                        <br>
-                            <div align="center" class="saime-error-input">
-                                {{error2}}
-                            </div>
-                        <br>
-                        <br>   
-                        
+                        </div>                       
                         <button ng-click="continuar1(formData)" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
                     </div>
 
@@ -200,31 +191,20 @@
                         </div>
                         
                         <div class="col-md-8">
-                            <p><h3>Dirección Actual</h3></p>
+                            <p><h3>Direcci&oacute;n Actual</h3></p>
                             <div class="row">
 
-                                <input vld-texto ng-model="formData.currentCity" type="text" placeholder="Ciudad">
-                                <input vld-pcode ng-model="formData.pCode" type="number" placeholder="Codigo Postal" >
+                                <input vld-texto ng-model="formData.currentCity" type="text" placeholder="*  Ciudad">
+                                <input vld-pcode ng-model="formData.pCode" type="number" placeholder="*  C&oacute;digo Postal" >
 
                                 <ui-select on-select="get_consulados()" ng-model="formData.countrySede" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
-                                    <ui-select-match placeholder="Seleccione o busque un PAIS sede...">{{$select.selected.descripcion}}</ui-select-match>
+                                    <ui-select-match placeholder="*  Pa&iacute;s sede...">{{$select.selected.descripcion}}</ui-select-match>
                                     <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
                                       <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
                                       
                                     </ui-select-choices>
                                 </ui-select>
-                                
-                                <!--
-                                <input type="text" placeholder="Codigo de confirmacion que aparece arriba" >
-                                <p class="saime-texto-recordatorio-2">
-                                    <i>(No se hace distincion entre mayusculas y minusculas)</i>
-                                </p>   
-                                -->      
-                                <br>
-                                <br>
-                                    <div align="center" class="saime-error-input">
-                                        {{error2}}
-                                    </div>
+ 
                                 <br>
                                 <br>
                                 <div class="form-group">
@@ -282,12 +262,6 @@
                                     asignada con mayor rapidez, dependiendo de la saturaci&oacute;n de las mismas.
                                 </i>
                             </p>
-
-                            <br>
-                            <br>
-                                <div align="center" class="saime-error-input">
-                                    {{error2}}
-                                </div>
                             <br>
                             <br>
                                 
