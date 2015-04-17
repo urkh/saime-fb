@@ -278,7 +278,7 @@ function post_basic_auth($host, $uri, $datos){
 
 
 function logout(){
-    session_destroy();
+    //session_destroy();
     echo '{"errorCode":"00000", "msg":"Sesion Finalizada"}';
 }
 

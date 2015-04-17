@@ -14,34 +14,32 @@ ctrl.controller('AppCtrl', ['$scope', function($scope) {
 }]);
 
 
-ctrl.controller('FBCtrl',['$scope', '$rootScope', '$facebook', '$http', '$state', '$window', function($scope, $rootScope, $facebook, $http, $state, $window){
+ctrl.controller('AuthCtrl',['$scope', '$rootScope', '$facebook', '$http', '$state', '$window', function($scope, $rootScope, $facebook, $http, $state, $window){
 
     $window.scrollTo(0, 0);
-    $("#header_status").show();
+    //$("#header_status").hidden();
 
 
-
-    $facebook.api("/me/likes/120779134607103").then(function(response){
-        if(response.data.length === 0){
-            $scope.saime_like = false
-        }else{
-            $scope.saime_like = true
-        }
-    });
-
-
-
-    $scope.login = function() {
+    //$scope.login = function() {
         $facebook.login().then(function() {
-            $scope.refresh();    
+
+            $facebook.api("/me/likes/120779134607103").then(function(response){
+                if(response.data.length === 0){
+                    $state.go("saime.like_page");
+                }else{
+                    $scope.refresh();
+                }
+            });
+            
+                
         });
-    }
+    //}
 
 
     $scope.refresh = function(){
         
-        $scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
-        $scope.showModal = true;
+        //$scope.error = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
+        //$scope.showModal = true;
 
         $facebook.api("/me").then(function(fbresponse) {
 
@@ -86,7 +84,7 @@ ctrl.controller('FBCtrl',['$scope', '$rootScope', '$facebook', '$http', '$state'
 
                     $http.post("api/api.php?opc=reg_fb_perfil&bcode="+$rootScope.bcode, $scope.fb_public_profile).success(function(response2) { 
                         //if(response.errorCode === '00000'){
-                            $scope.showModal = false;
+                            //$scope.showModal = false;
                             $state.go("saime.inicio");
                         //}else{
                         //    $scope.error = response2.consumerMessage;
@@ -96,7 +94,7 @@ ctrl.controller('FBCtrl',['$scope', '$rootScope', '$facebook', '$http', '$state'
                     });
                     
                 }else{
-                    $state.go("saime.terminos")
+                    $state.go("saime.login");
                 }
 
             }).error(function(){
@@ -107,7 +105,7 @@ ctrl.controller('FBCtrl',['$scope', '$rootScope', '$facebook', '$http', '$state'
     }
 
 
-    $scope.login()
+    //$scope.login()
 
 }]);
 
@@ -160,29 +158,16 @@ ctrl.controller('SignInCtrl', ['$scope', '$http', '$state', '$rootScope', '$time
                             'expiresIn': response.expires_in, 
                             'scope': response.scope
                         }
-                        /* {'facebookId':fbresponse.id, 'name':fbresponse.name,'firstName':fbresponse.first_name, 'lastName':fbresponse.last_name, 'gender':fbresponse.gender, 'link':fbresponse.link, 'locale':fbresponse.locale, 'timezone':fbresponse.timezone, 'username':fbresponse.username, 'verified':fbresponse.verified , 'updatedTime':fbresponse.updated_time, 'picSquare':$scope.profile_pic, 'ipAddress': '200,44.20.32', 'accessToken': response.bcode, 'tokenType': response.token_type, 'refreshToken': response.refresh_token, 'expiresIn': response.expires_in,  'scope': response.scope} */
-
+                        
                         $http.post("api/api.php?opc=reg_fb_perfil&bcode="+$rootScope.bcode, $scope.fb_public_profile).success(function(response2) { 
                             $scope.showModal = false;
                             $state.go("saime.inicio");
                         }).error(function(){
                             $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
-                        });   
-                                         
+                        });               
 
                     });
 
-                    /*
-                
-                    $timeout(function(){
-                        $scope.showModal = false;
-                    }, 1500);  
-                    
-                    $timeout(function(){            
-                        $state.go('saime.inicio');
-                    }, 1500);  
-
-                    */
           
                 }else if(response.status === 'denied'){
                     $scope.error = response.msg;
@@ -202,14 +187,17 @@ ctrl.controller('SignInCtrl', ['$scope', '$http', '$state', '$rootScope', '$time
 }]);
 
 
-ctrl.controller('OtherCtrl', ['$scope', '$facebook', function($scope, $facebook){
+ctrl.controller('LikeFBCtrl', ['$scope', '$state', '$facebook', function($scope, $state, $facebook){
 
   $("#header_status").hide();
 
 
+  $scope.like = function(){
+      console.log("ssss")
+      $state.go("saime.auth");
+  }
 
 
-/*
   $scope.icon = 'fa fa-share-alt';
   $scope.msg = 'Compartir en tu muro ';
   
@@ -219,7 +207,6 @@ ctrl.controller('OtherCtrl', ['$scope', '$facebook', function($scope, $facebook)
       $scope.msg = 'Compartido';
       $scope.icon = 'fa fa-thumbs-o-up';
     });
-
   }
 
   $scope.fb_invitable_friends = function(){
@@ -232,7 +219,7 @@ ctrl.controller('OtherCtrl', ['$scope', '$facebook', function($scope, $facebook)
     });
   }
 
-*/
+
 
 }]);
 
@@ -329,18 +316,8 @@ ctrl.controller('MainCtrl', ['$rootScope', '$scope', '$http', '$state', '$facebo
       })
     }
 
-
-
     $scope.logout = function(){
-      
-      $http.get("api/api.php?opc=cerrar_sesion").success(function(response) { 
-        if(response.errorCode === '00000'){
-          $rootScope.authenticated = false;
-          $state.go("saime.autenticacion")          
-        }else{
-          $scope.error = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
-        }
-      })
+      $state.go("saime.autenticacion")
     }
 
 }]);

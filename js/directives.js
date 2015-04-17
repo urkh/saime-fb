@@ -16,7 +16,7 @@ dir.directive('modal', function () {
         '</div>',
       restrict: 'E',
       //transclude: true,
-      //backdrop: 'static',
+      backdrop: 'static',
       replace:true,
       scope:true,
       //scope: { obj: '=' },

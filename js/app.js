@@ -21,9 +21,9 @@ var app = angular.module('app', [
     'app.directives',
     
     
-  ])
+  ]);
 
-.config(
+app.config(
   [          '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', '$facebookProvider',
     function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide,   $facebookProvider) {
         
@@ -42,7 +42,7 @@ var app = angular.module('app', [
         $facebookProvider.setVersion("v2.1");
         $facebookProvider.setPermissions("public_profile,user_location,user_activities,user_likes,publish_actions,user_friends");
 
-        $urlRouterProvider.otherwise('/saime/terminos');
+        $urlRouterProvider.otherwise('/saime/auth');
         $stateProvider            
             .state('saime', {
                 abstract: true,
@@ -64,6 +64,17 @@ var app = angular.module('app', [
             .state('saime.terminos', {
                 url: '/terminos',
                 templateUrl: 'templates/terminos.html'
+            })
+
+            .state('saime.like_page', {
+                url: '/like_page',
+                templateUrl: 'templates/like_page.html'
+            })
+
+            .state('saime.auth', {
+                template: '<br><br><br><br><div align="center"><img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...</div>',
+                url: '/auth',
+                controller: 'AuthCtrl'
             })
 
 
@@ -280,30 +291,13 @@ var app = angular.module('app', [
                 url: '/resetear_contrasena/contrasena_enviada',
                 templateUrl: 'templates/mensajes/envio_contrasena.html'
             })
-
-
-
-/*
-            .state('saime.solicitud_ya_existe', {
-                url: '/solicitud/ya_existe',
-                templateUrl: 'templates/solicitud_pasaporte_ya_existe.html'
-            })
-
-            .state('saime.solicitud_ext_ya_existe', {
-                url: '/solicitud/extranjeros/ya_existe',
-                templateUrl: 'templates/solicitud_ext_pasaporte_ya_existe.html'
-            })
-
-
-*/
-
     }
   ]
-)
+);
 
 
 
-.run(
+app.run(
   [          '$rootScope', '$state', '$stateParams',
     function ($rootScope,   $state,   $stateParams) {
         $rootScope.$state = $state;
@@ -322,31 +316,4 @@ var app = angular.module('app', [
 
     }
   ]
-)
-
-
-
-/*
-.constant('JQ_CONFIG', {
- 
-    slimScroll:     ['js/jquery/slimscroll/jquery.slimscroll.min.js'],
-
-    vectorMap:      ['js/jquery/jvectormap/jquery.vmap.min.js', 
-                    'js/jquery/jvectormap/maps/jquery.vmap.world.js',
-                   // 'js/jquery/jvectormap/jquery-jvectormap-us-aea-en.js',
-                    'js/jquery/jvectormap/jqvmap.css'],
-
-    footable:       ['js/jquery/footable/footable.all.min.js',
-                        'js/jquery/footable/footable.core.css']
-
-    }
-)
-
-.constant('MODULE_CONFIG', {
-    select2:        ['js/jquery/select2/select2.css',
-                        'js/jquery/select2/select2-bootstrap.css',
-                        'js/jquery/select2/select2.min.js',
-                        'js/modules/ui-select2.js']
-    }
-)*/
-;
+);
