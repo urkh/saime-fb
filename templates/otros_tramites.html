@@ -12,7 +12,6 @@
     </div>
     
     <div class="wrapper-md" ng-controller="OTramitesCtrl">
-      <modal error="" visible="showModal"></modal>
         <div class="row">
           <div class="col-md-3">
             <button ui-sref="saime.inicio" type="button" class="btn btn-saime-stand">
@@ -20,14 +19,14 @@
             </button>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-6" ng-if="!error">
             
                 <accordion close-others="oneAtATime">
                 
                   
 
                   <accordion-group ng-repeat="tramite in tramites"  >
-                      <accordion-heading heading="">{{tramite.titulo}}
+                      <accordion-heading heading="">{{tramite.titulo}} 
                         <div align="right">
                           <span class="badge">{{tramite.etiquetas}}</span>
                         </div>
@@ -39,6 +38,10 @@
 
 
           </div>
+
+          <div class="col-md-6" ng-if="error">
+                <div align="center" ng-bind-html="error_msg">{{error_msg}}</div>
+            </div>
 
           <div class="col-md-3"></div>
 

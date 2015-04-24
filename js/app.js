@@ -3,15 +3,10 @@
 var app = angular.module('app', [
     'ngFacebook',
     'ngAnimate',
-    'ngCookies',
-    'ngStorage',
+    'ngSanitize',
     'ui.router',
     'ui.bootstrap',
-    'ui.load',
-    'ui.jq',
-    'ngSanitize',
     'ui.select',
-    'ui.validate',
     'checklist-model',
     'uiGmapgoogle-maps',
     'app.controllers_gen',
@@ -19,6 +14,7 @@ var app = angular.module('app', [
     'app.controllers_ext',
     'app.services',
     'app.directives',
+
     
     
   ]);
@@ -175,9 +171,34 @@ app.config(
                 templateUrl: 'templates/estado_tramite.html'
             })
 
+
+
+            .state('saime.estado_cita_ven', {
+                url: '/estado_cita_ven/planilla/:idPlanillaPasaporte',
+                templateUrl: 'templates/venezuela/estado_cita.html'
+            })
+
+            .state('saime.estado_cita_ext', {
+                url: '/estado_cita_ext/planilla/:idPlanillaPasaporte',
+                templateUrl: 'templates/extranjero/estado_cita.html'
+            })
+
+
+
             .state('saime.lista_tramites', {
                 url: '/tramites',
                 templateUrl: 'templates/lista_tramites.html'
+            })
+
+
+            .state('saime.mis_solicitudes_ven', {
+                url: '/mis_solicitudes_ven',
+                templateUrl: 'templates/venezuela/mis_solicitudes.html'
+            })
+
+            .state('saime.mis_solicitudes_ext', {
+                url: '/mis_solicitudes_ext',
+                templateUrl: 'templates/extranjero/mis_solicitudes.html'
             })
 
             .state('saime.pasaporte_domicilio', {

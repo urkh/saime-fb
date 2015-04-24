@@ -22,7 +22,7 @@
                     </div>                  
 
 
-                    <div class="col-md-6">
+                    <div class="col-md-6" ng-if="!error">
                     
                         <div>
                             <div class="text-center">
@@ -251,8 +251,12 @@
 
                     </div>
 
+                    <div class="col-md-6" ng-if="error">
+                        <div align="center" ng-bind-html="error_msg">{{error_msg}}</div>
+                    </div>
+
                     <div class="col-md-3"></div>
-                    <modal error="" visible="showModal"></modal>
+                    
                 </div>
             </div>
         </div>

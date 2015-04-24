@@ -11,7 +11,6 @@
             </div>
         </div>
         <div class="wrapper-md" ng-controller="MainCtrl">
-            <modal error="" visible="showModal"></modal>
             <div class="panel hbox hbox-auto-xs no-border">
                 <div class="row">
                     <div class="col-md-3">
@@ -21,29 +20,29 @@
                     </div>
 
 
-                    <div class="col-md-6 col-center">
+                    <div class="col-md-6 col-center" ng-if="!error">
 
                         <p class="saime-texto-general">Las siguientes opciones le permitir&aacute;n realizar solicitudes de pasaporte en el extranjero a mayores y menores de edad. Con la solicitud podr&aacute; obtener cita para la correspondiente tramitaci&oacute;n en la Sede Consular seleccionada por usted.</p>
                         <div class="botones-especial">
                             <div class="btn-group-vertical saime-menu" role="group" aria-label="Vertical button group">
                                 
-                               <!-- 
-                               <button ui-sref="saime.registro_datos_personales_ext" type="button" class="btn btn-default saime-btn-yellow">Solicitud de Pasaporte para Mayor de Edad</button>
-                                -->
                                 <button ng-click="validar_cita_ext()" type="button" class="btn btn-default saime-btn-yellow">
-                                    <h3>Solicitud de pasaporte para mayor de edad</h3>
+                                    <h3>Solicitud de Pasaporte para mayor de edad</h3>
                                 </button>
                                 
                                 <button ui-sref="saime.menu_solicitudes_menores_ext" type="button" class="btn btn-default saime-btn-blue">
                                     <h3>Registro de datos de ni&ntilde;o, ni&ntilde;a o adolescente</h3>
                                 </button>
-                                <button ui-sref="saime.lista_tramites" type="button" class="btn btn-default saime-btn-yellow">
+                                <button ui-sref="saime.mis_solicitudes_ext" type="button" class="btn btn-default saime-btn-yellow">
                                     <h3>Mis Solicitudes de Citas<h3>
                                 </button>
                             </div>
                         </div>
                         
                         <br><br>
+                    </div>
+                    <div class="col-md-6" ng-if="error">
+                        <div align="center" ng-bind-html="error_msg">{{error_msg}}</div>
                     </div>
                     <div class="col-md-3"></div>
                 </div>

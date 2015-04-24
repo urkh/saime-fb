@@ -9,13 +9,8 @@
             </div>
         </div>
 
-
-
-        
-
-        
+             
         <div class="wrapper-md" ng-controller="NoticiasWebCtrl">
-            <modal error="" visible="showModal"></modal>
             <div  class="row">
                 <div class="col-md-2"><button ui-sref="saime.inicio" type="button" class="btn btn-saime-stand">
                         <span class="fa fa-chevron-left fa-lg"></span>
@@ -24,7 +19,7 @@
                 <div class="col-md-2"></div>
             </div>
 
-            <div ng-repeat="noticia in noticias"  class="row">
+            <div ng-repeat="noticia in noticias"  class="row" ng-if="!error">
 
                 <div class="col-md-2"></div>
                 
@@ -41,6 +36,10 @@
 
                 <div class="col-md-2"></div>
 
+            </div>
+
+            <div class="row" ng-if="error">
+                <div align="center" ng-bind-html="error_msg">{{error_msg}}</div>
             </div>
 
             

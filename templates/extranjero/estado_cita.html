@@ -1,0 +1,171 @@
+
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+  
+    <div class="col">
+    
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 class="m-n font-thin h3 text-black">Estado de la Cita</h1>
+                </div>
+            </div>
+        </div>
+    
+        <div class="wrapper-md" ng-controller="EstadoCitaExtCtrl">
+
+            <div class="panel hbox hbox-auto-xs no-border">
+                <div class="row">
+                    <div class="col-md-2">
+                        <button ui-sref="saime.mis_solicitudes_ext" type="button" class="btn btn-saime-stand">
+                            <span class="fa fa-chevron-left fa-lg"></span>
+                        </button>
+                    </div>                  
+
+
+                    <div class="col-md-8" ng-if="!error">
+
+
+                        <div>
+                            <div class="text-center">
+                                <h4 class="m-n font-thin h3 text-black"><b>Datos Personales</b></h4>
+                            </div><br>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>Nombre Completo: </b>
+                                </div>
+                                <div class="col-md-4">
+                                    {{formData.nombre}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>C&eacute;dula:</b>
+                                </div>
+                                <div class="col-md-3">
+                                    <span  ng-if="formData.cedula == ''">No Posee</span>{{formData.cedula}}    
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>Fecha Nacimiento:</b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{formData.fecha}}
+                                </div>
+                            </div>
+
+                            <hr>
+                        </div>
+
+                    
+                        <div ng-repeat="vp in vinculosperfil">
+                            <div class="text-center">
+                                <h4 class="m-n font-thin h3 text-black"><b>Vinculo</b></h4>
+                            </div><br>
+
+                            
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>Nombre Completo: </b>
+                                </div>
+                                <div class="col-md-4">
+                                    {{vp.nombre}}
+                                </div>
+                            </div>
+                            
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>C&eacute;dula:</b>
+                                </div>
+                                <div class="col-md-3">
+                                    <span  ng-if="vp.cedula == ''">No Posee</span>{{vp.letra}} - {{vp.cedula}}    
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>Vinculo:</b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{vp.vinculo}}
+                                </div>
+                            </div>
+
+                            <hr>
+                        </div>
+                        <br>
+
+                        <div >
+                            <div class="text-center">
+                                <h4 class="m-n font-thin h3 text-black"><b>Datos de la Planilla</b></h4>
+                            </div><br>
+                            
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b> Fecha Planilla: </b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{pp.fechaplanilla}}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b> Nacionalidad Original: </b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{pp.nacionalidadoriginal}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>Pa&iacute;s Nacimiento: </b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{pp.paislugnac}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>Oficina: </b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{pp.nombreoficina}}
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-3 text-right" >
+                                    <b>Ciudad Actual: </b>
+                                </div>
+                                <div class="col-md-3">
+                                    {{pp.ciudaddiract}}
+                                </div>
+                            </div>
+
+                            <br>
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="col-md-8" ng-if="error">
+                        <div align="center" ng-bind-html="error_msg">{{error_msg}}</div>
+                    </div>
+
+                    <div class="col-md-2"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

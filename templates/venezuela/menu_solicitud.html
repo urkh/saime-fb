@@ -18,7 +18,7 @@
                         </button>
                     </div>
                     
-                    <div class="col-md-6 col-center">
+                    <div class="col-md-6 col-center"  ng-if="!error">
                         <p class="saime-texto-general">Las siguientes opciones le permitir&aacute;n realizar el llenado de datos correspondientes a la posterior solicitud de pasaporte. Usted podr&aacute; efectuar esta operaci&oacute;n en cualquier momento del d&iacute;a. Los datos quedar&aacute;n guardados en nuestro sistema para el momento en que usted desee realizar la solicitud de cita dentro del horario establecido</p><br>
                         <div class="botones-especial">
                             <div class="btn-group-vertical saime-menu" role="group" aria-label="Vertical button group">
@@ -28,14 +28,16 @@
                                 <button ui-sref="saime.menu_solicitudes_menores_ven" type="button" class="btn btn-default saime-btn-blue">
                                     <h3>Registro de datos de Ni&ntilde;o, Ni&ntilde;a o Adolescente<h3>
                                 </button>
-                                <button ui-sref="saime.lista_tramites" type="button" class="btn btn-default saime-btn-yellow">
+                                <button ui-sref="saime.mis_solicitudes_ven" type="button" class="btn btn-default saime-btn-yellow">
                                     <h3>Mis Solicitudes de Citas<h3>
                                 </button>
                             </div>
                         </div>
                         <br><br>
-                        <modal error="" visible="showModal"></modal>
                         <br><br>
+                    </div>
+                    <div class="col-md-6" ng-if="error">
+                        <div align="center" ng-bind-html="error_msg">{{error_msg}}</div>
                     </div>
                     <div class="col-md-3"></div>
                 </div>

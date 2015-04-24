@@ -9,7 +9,6 @@
           </div>
         </div>
         <div class="wrapper-md" ng-controller="RegistroCtrl">
-            <modal error="" visible="showModal"></modal>
             <div class="row">
                 <div class="col-md-3">
                     <button ui-sref="saime.login" type="button" class="btn btn-saime-stand">
@@ -17,34 +16,62 @@
                     </button>
                 </div>
 
-                <div class="col-md-6">
+                <form name="formData" class="form-horizontal" novalidate>
+                <div class="col-md-6" ng-if="!error">
                     <p><h3>Datos Personales</h3></p>
                     <hr>
                     <div class="row">
-                        <form name="formData" class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-sm-3 saime-input">
-                                    
-                                    <ui-select ng-model="formData.letra" ng-disabled="disabled" style="width: 100%;" title="Letra">
-                                        <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
+                        
+                            <div class="form-group" >
+                                <div class="col-sm-3 saime-input" ng-class="{ 'has-error': formData.letravad.$invalid }">
+                                    <label class="control-label">Letra</label>
+                                    <ui-select name="letravad" ng-required="true" ng-model="formData.letra" style="width: 100%;">
+                                        <ui-select-match placeholder="Letra...">{{$select.selected.letra}}</ui-select-match>
                                         <ui-select-choices repeat="letra.id as letra in letras">
                                           <span ng-bind-html="letra.letra"></span>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
-                                <div class="col-sm-9 saime-input">
-                                    <input vld-cedula ng-model="formData.cedula" type="number" placeholder="N&uacute;mero de C&eacute;dula">
+                                <div class="col-sm-9 saime-input" show-errors>
+                                    <label class="control-label">N&uacute;mero de C&eacute;dula</label>
+                                    <input type="text" class="form-control" vld-cedula name="cedulav" ng-model="formData.cedula" required placeholder="" />
                                 </div>
+
                             </div>
-                            
-                            <input vld-texto ng-model="formData.firstName" type="text" placeholder="Primer Nombre" >
-                            <input vld-texto ng-model="formData.lastName" type="text" placeholder="Primer Apellido" >
-                            <input ng-model="formData.email" type="email" placeholder="Correo Electr&oacute;nico" >                            
-                            <input ng-model="formData.altEmail" type="email" placeholder="Correo Alternativo" >
+
 
                             <div class="form-group">
-                                <div class="col-sm-3 saime-input">
-                                    <ui-select ng-model="formNoData.phone_code" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                <div class="col-sm-12 saime-input" show-errors>
+                                    <label class="control-label">Primer Nombre</label>
+                                    <input class="form-control" vld-texto ng-model="formData.firstName" name="firstnamev" type="text" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-12 saime-input" show-errors>
+                                    <label class="control-label">Primer Apellido</label>
+                                    <input class="form-control" vld-texto ng-model="formData.lastName" name="lastnamev" type="text" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-12 saime-input" show-errors>
+                                    <label class="control-label">Correo Electr&oacute;nico</label>
+                                    <input class="form-control" ng-model="formData.email" name="emailv" type="email" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-12 saime-input" show-errors>
+                                    <label class="control-label">Correo Alternativo</label>
+                                    <input class="form-control" ng-model="formData.altEmail" name="altemailv" type="email" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-3 saime-input" ng-class="{ 'has-error': formData.phonecodevad.$invalid }">
+                                    <label class="control-label">C&oacute;digo</label>
+                                    <ui-select name="phonecodevad" ng-required="true" ng-model="formNoData.phone_code"  style="width: 100%;">
                                         <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
                                         <ui-select-choices repeat="codigo.numero as codigo in codigos">
                                           <span ng-bind-html="codigo.numero"></span>
@@ -52,15 +79,12 @@
                                     </ui-select>
 
                                 </div>
-                                <div class="col-sm-9 saime-input">
-                                    <input vld-telefono ng-model="formNoData.phone" type="number" placeholder="Tel&eacute;fono Celular">
+                                <div show-errors class="col-sm-9 saime-input">
+                                    <label class="control-label">Tel&eacute;fono</label>
+                                    <input class="form-control" vld-telefono ng-model="formNoData.phone" name="phonev" type="text" required />
                                 </div>
                             </div>
 
-                            <br>
-                                <div align="center" class="text-muted">
-                                    <h5>Todos los campos son requeridos</h5><br>
-                                </div>
                             <br>               
                             
                             <div class="form-group">
@@ -71,11 +95,19 @@
                                     <button ng-click="reset()" type="button" class="btn saime-btn-blue full-width">Restablecer</button>
                                 </div>
                             </div>
-                        </form>
+                        
                         <br>
                     </div>
                 <br>
                 </div>
+
+
+                <div class="col-md-6" ng-if="error">
+                    <div align="center" ng-bind-html="error_msg">{{error_msg}}</div>
+                </div>
+                </form>
+
+
                 <div class="col-md-3"></div>    
                 </div>
         </div>

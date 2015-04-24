@@ -17,23 +17,29 @@
                 </div>
                 
 
-                <div class="col-md-6">
-                    <form name="formData" class="form-horizontal">
+                <form name="formData" class="form-horizontal" novalidate>
+                <div class="col-md-6" ng-if="!error">
+                    
                         <p>La confirmaci&oacute;n de la nueva contrase&ntilde;a que se le asignar&aacute; ser&aacute; enviada a su direcci&oacute;n de correo electr&oacute;nico</p><br>
-                        <div class="form-group">
-                            <input ng-model="formData.email" type="email" placeholder="Correo Electronico">                            
+                        <div class="form-group" show-errors>
+                            <input required name="emailv" class="form-control" ng-model="formData.email" type="email" placeholder="Correo Electronico" ng-keyup="$event.keyCode == 13 && enviar(formData)">                            
                         </div>
                         <br>
                         <br>
-                            <modal error="" visible="showModal"></modal>
                         <br>  
                         <div class="text-center">
-                            <!--<div   class="text-muted"><h4>Debe indicar al menos uno de los tres, Madre, Padre o Representante Legal</h4></div>-->
                             <button ng-click="enviar(formData)" type="button" class="btn btn-saime-stand saime-btn-lg"> Enviar Contrase&ntilde;a</button>
                         </div> <br><br><br>
-                    </form>
+                    
                 <br>
                 </div>
+
+                <div class="col-md-6" ng-if="error">
+                    <div align="center" ng-bind-html="error_msg">{{error_msg}}</div>
+                </div>
+                </form>
+
+
                 <div class="col-md-3"></div> 
                   
             </div>

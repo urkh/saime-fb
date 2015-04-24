@@ -19,29 +19,26 @@
 
 
                 
-                <div class="col-md-6">
+                <div class="col-md-6" ng-if="!error">
                 
-                    <form name="formData" class="form-horizontal">
-                        <div class="form-group">
-                            <input type="text" placeholder="Usuario" ng-model="formData.username">                            
+                    <form name="formData" class="form-horizontal" novalidate>
+                        <div class="form-group" show-errors>
+                            <input class="form-control" required type="text" placeholder="Usuario" ng-model="formData.username" name="usernamev">                            
                         </div>
                         <div class="form-group">
-                            <input type="password" placeholder="Contraseña" ng-model="formData.password">     
+                            <input class="form-control" required type="password" placeholder="Contraseña" ng-model="formData.password" name="passwordv">     
                         </div>
-                        <div class="saime-error-input">
-                            
-                        </div><br>
+                        <br>
 
                         <div class="text-center">
 
                             <button ng-click="login(formData)" type="button" class="btn btn-saime-stand saime-btn-lg"> Ingresar</button>
                             <p class="saime-autenticacion-texto">
                                 Estimado(a) usuario(a), si usted no posee cuenta SAIME, debe registrarse para poder acceder 
-                                 a los servicios que les brindamos. O si ya usted tiene usuario y se le olvido su contrase&ntilde;a puedes recibirla via email
+                                 a los servicios que les brindamos. Si ya usted tiene usuario y olvid&oacute; su contrase&ntilde;a, puede recibirla via email.
                             </p>
                         </div> 
                     </form>
-                    <modal error="" visible="showModal"></modal>
                     
                     <br><br>
                     <div class="text-center link">
@@ -49,10 +46,16 @@
                     </div>
                     <br>
                     <div class="text-center link">
-                        <a ui-sref="saime.olvido_contrasena" class="link">¿Olvido Su Contraseña?</a>
+                        <a ui-sref="saime.olvido_contrasena" class="link">¿Olvid&oacute; Su Contraseña?</a>
                     </div>
                     <br>
                 </div>
+
+                <div class="col-md-6" ng-if="error">
+                    <div align="center" ng-bind-html="error_msg">{{error_msg}}</div>
+                </div>
+
+
                 <div class="col-md-3"></div> 
                   
             </div>

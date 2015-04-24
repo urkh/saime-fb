@@ -6,31 +6,32 @@
         <div class="bg-light lter b-b wrapper-md">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h1 class="m-n font-thin h3 text-black">Estado de Tr&aacute;mites de Pasaporte</h1>
+                    <h1 class="m-n font-thin h3 text-black">Mis Solicitudes de Cita</h1>
                 </div>
             </div>
         </div>
     
-        <div class="wrapper-md" ng-controller="ListaTramitesCtrl">
+        <div class="wrapper-md" ng-controller="MisSolicitudesVenCtrl">
            
             <div class="panel hbox hbox-auto-xs no-border">
                 <div class="row">
                     <div class="col-md-2">
-                        <button ui-sref="saime.inicio" type="button" class="btn btn-saime-stand">
+                        <button ui-sref="saime.menu_solicitud_ven" type="button" class="btn btn-saime-stand">
                             <span class="fa fa-chevron-left fa-lg"></span>
                         </button>
                     </div>
 
 
                     <div class="col-md-8" ng-if="!error">
-                        <div ng-repeat="tramite in tramites">
+                        <div ng-repeat="misc in misc">
+                            
                             <div class="row">
                                 <div class="col-md-3 text-right" >
                                     <b >Nombre Completo: </b>
                                 </div>
 
                                 <div class="col-md-3">
-                                      {{tramite.primernombre}} {{tramite.segundonombre}} {{tramite.primerapellido}} {{tramite.segundoapellido}}
+                                      {{misc.nombre}} 
                                 </div>
 
                                 <div class="col-md-2"></div>
@@ -39,7 +40,7 @@
                             <div class="row">
                                 <div class="col-md-3 text-right"><b>C&eacute;dula: </b></div>
                                 <div class="col-md-3">
-                                    <span  ng-if="tramite.numerocedula == ''">No Posee</span>{{tramite.numerocedula}}    
+                                    <span ng-if="misc.cedula == ''">No Posee</span>{{misc.cedula}}    
                                 </div>
                                 <div class="col-md-2">
                                      
@@ -48,21 +49,21 @@
 
                             <div class="row">
                                 <div class="col-md-3 text-right"><b>Fecha de Nacimiento: </b></div>
-                                <div class="col-md-3">{{tramite.fechanacimiento}}</div>
+                                <div class="col-md-3">{{misc.fechanacimiento}}</div>
                                 <div class="col-md-2"></div>
                             </div>
 
                             <div class="row">
-                                <div class="col-md-3 text-right"><b>Sexo: </b></div>
-                                <div class="col-md-3">{{tramite.sexo}} </div>
+                                <div class="col-md-3 text-right"><b>Fecha Planilla: </b></div>
+                                <div class="col-md-3">{{misc.fechaplanilla}} </div>
                                 <div class="col-md-2">
-                                    <a class="btn btn-saime-stand" ng-click="datos(tramite.numerocedula, tramite.primernombre, tramite.segundonombre, tramite.primerapellido, tramite.segundoapellido, tramite.fechanacimiento)" ui-sref="saime.estado_tramite({personId:tramite.idpersona})">Ver Tr&aacute;mite</a>
+                                    <a class="btn btn-saime-stand" ng-click="datos(misc.nombre, misc.cedula, misc.fechanacimiento)" ui-sref="saime.estado_cita_ven({idPlanillaPasaporte:misc.idplanillapasaporte})">Ver Cita</a>
                                 </div>
                             </div>
 
-
                         <hr>
                         </div>
+                        <div align="center" ng-hide="misc.length">No ha realizado ninguna solicitud!</div>
 
                     </div>
 

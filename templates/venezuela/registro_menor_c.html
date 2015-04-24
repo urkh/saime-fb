@@ -5,7 +5,7 @@
           <div class="row">
             <div class="col-md-12 text-center">
               <h2 class="m-n font-thin  text-black">Solicitud de Pasaporte en Venezuela</h2>
-              <h2 class="m-n font-thin  text-black">Ni&ntilde;o, ni&ntilde;a o adolescente</h2>
+              <h2 class="m-n font-thin  text-black">Ni&ntilde;o, Ni&ntilde;a o Adolescente</h2>
             </div>
           </div>
         </div>
@@ -18,434 +18,480 @@
           </div>
         </div>
         <div class="wrapper-md" ng-controller="FormRegistroMenorCCtrl">
-            <modal error="" visible="showModal"></modal>
-            <div style="display:block; {{step1}}">
-                
-                    <div class="row">
-                        
 
-                        <div class="col-md-2">
-                            <button ui-sref="saime.menu_solicitudes_menores_ven" type="button" class="btn btn-saime-stand">
-                                <span class="fa fa-chevron-left fa-lg"></span>
-                            </button>
-                        </div>
+            <form name="formData" class="form-horizontal" novalidate>
+                    <div ng-if="!error">
 
-
-                        <div class="col-md-8">
+                        <div style="display:block; {{step1}}">        
                             <div class="row">
                                 
-                                    <div class="form-group">
-                                        <label  class="col-sm-2 control-label-2"></label>
+                                <div class="col-md-2">
+                                    <button ui-sref="saime.menu_solicitudes_menores_ven" type="button" class="btn btn-saime-stand">
+                                        <span class="fa fa-chevron-left fa-lg"></span>
+                                    </button>
+                                </div>
 
-                                        <div class="col-sm-6">
-                                            <input type="hidden" ng-model="formData.minorId" ng-init="formSearch.letrame='V'">
-                                            <input vld-cedula type="number" placeholder="N&uacute;mero de c&eacute;dula" ng-model="formSearch.cedula">
-                                            <input type="hidden" ng-model="formData.minorId">
 
+                                <div class="col-md-8">
+                                    
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+
+                                        <div class="col-md-6" show-errors>
+                                            <input class="form-control" name="scedulavad" required  vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula" ng-model="formSearch.cedula"  ng-keyup="$event.keyCode == 13 && buscar_menor_cedulado(formData)" />
                                         </div>
+
+                                        <input type="hidden" ng-model="formData.minorId" ng-init="formSearch.letrame='V'">
+                                        <input type="hidden" ng-model="formData.minorId">
+                                        
                                         
                                         <div class="col-md-2">
-                                            <button ng-click="buscar_menor_cedulado()" class="btn btn-saime-stand">Buscar</button>
+                                            <button ng-click="buscar_menor_cedulado(formData)" class="btn btn-saime-stand">Buscar</button>
                                         </div>
-                                        
                                     </div>
-                                    <br>
 
-                                    
-                                
-                            </div>
-                            <br>
-                        </div>
-                        
-                        
-                    </div>
-
-                   
-                    <br><br>
-                
-            </div>
-
-
-            <div style="display:none; {{step2}}">
-
-                <form name="formData" class="form-horizontal">
-                    <div style="display:block; {{step3}}">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <button ng-click="atras1()" type="button" class="btn btn-saime-stand">
-                                    <span class="fa fa-chevron-left fa-lg"></span>
-                                </button>
-
-                            </div>
-                            <div class="col-md-8">
-                                <h5 align="center">Los campos con asterisco (*) son requeridos</h5><br>
-                                <p><h3>Datos Personales</h3></p>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="hidden" ng-model="formData.minorType"  ng-init="formData.minorType='1'">
-                                        <input vld-texto type="text" placeholder="*  Primer nombre" ng-model="formData.name1" >*
-                                        <input vld-texto type="text" placeholder="*  Primer apellido" ng-model="formData.lastName1" >*
-
-                                        <input placeholder="*  Fecha de Nacimiento" ng-model="formData.bDate" type="text" datepicker-popup="{{format}}" is-open="opened" datepicker-options="dateOptions" close-text="Cerrar" ng-click="date_open($event)" readOnly/>
-                                          
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input vld-texto type="text" placeholder="Segundo nombre" ng-model="formData.name2">        
-                                        <input vld-texto type="text" placeholder="Segundo apellido" ng-model="formData.lastName2">
-
-                                        <ui-select ng-model="formData.gender" ng-disabled="disabled" style="width: 100%;" title="Genero">
-                                            <ui-select-match placeholder="*  Genero...">{{$select.selected.genero}}</ui-select-match>
-                                            <ui-select-choices repeat="genero.id as genero in generos">
-                                              <span ng-bind-html="genero.genero"></span>
-                                            </ui-select-choices>
-                                        </ui-select>
-                                    </div>    
                                 </div>
-                                <br>
-                            </div>
-                            <div class="col-md-2"></div>
-                        </div>
 
-                        <hr>
-
-                        <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-8">
-                                <p><h3>Datos De Nacionalidad</h3></p>
-
-
-                                <ui-select ng-model="formData.countryIni" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Pais">
-                                    <ui-select-match placeholder="*  Pa&iacute;s...">{{$select.selected.descripcion}}</ui-select-match>
-                                    <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
-                                      <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
-                                      
-                                    </ui-select-choices>
-                                </ui-select>
-
-                                <br>
-
-                                <ui-select on-select="get_municipios()" ng-model="formData.state" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Estado">
-                                    <ui-select-match placeholder="*  Estado...">{{$select.selected.descripcion}}</ui-select-match>
-                                    <ui-select-choices repeat="estado.identidadfederal as estado in estados | filter: $select.search">
-                                      <span ng-bind-html="estado.descripcion | highlight: $select.search"></span>
-                                      
-                                    </ui-select-choices>
-                                </ui-select>
-
-                                <br>
-
-                                <ui-select on-select="get_parroquias()" ng-model="formData.town" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Municipio">
-                                    <ui-select-match placeholder="*  Municipio..">{{$select.selected.descripcion}}</ui-select-match>
-                                    <ui-select-choices repeat="municipio.idmunicipio as municipio in municipios | filter: $select.search">
-                                      <span ng-bind-html="municipio.descripcion | highlight: $select.search"></span>
-                                    </ui-select-choices>
-                                </ui-select>
-
-                                <br>
-
-                                <ui-select ng-model="formData.parish" ng-disabled="disabled" style="width: 100%;" title="Seleccione la Parroquia">
-                                    <ui-select-match placeholder="*  Parroquia...">{{$select.selected.descripcion}}</ui-select-match>
-                                    <ui-select-choices repeat="parroquia.idparrquia as parroquia in parroquias | filter: $select.search">
-                                      <span ng-bind-html="parroquia.descripcion | highlight: $select.search"></span>
-                                    </ui-select-choices>
-                                </ui-select>
-
-                                <br>
-
-                                <input vld-texto ng-model="formData.city" type="text" placeholder="*  Ciudad" >
+                                <div class="col-md-2"></div>
                                 
-                            </div>
-                            <div class="col-md-2"></div>
-                            
-                        </div>
-
-                        <hr>
-                       
-                        <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-8">
-                                <p><h3>Responsabilidad Legal</h3></p>
-                                               
-                                    <div class="form-group">
-
-                                        <div class="col-sm-2">                                      
-
-                                            <ui-select ng-model="formSearch.letram" ng-disabled="disabled" style="width: 100%;" title="Letra">
-                                                <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
-                                                <ui-select-choices repeat="letra.id as letra in letras">
-                                                  <span ng-bind-html="letra.letra"></span>
-                                                </ui-select-choices>
-                                            </ui-select>
-
-                                        </div>
-
-                                        <div class="col-sm-8">
-
-                                            <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula de la madre..." ng-model="formSearch.cedulam">
-                                            <input type="hidden" ng-model="formData.motherId">
-
-                                        </div>
-
-                                         <div class="col-sm-2">
-                                            <button ng-click="buscar_madre()" class="btn btn-saime-stand">Buscar</button>
-                                        </div>
-                                        
-                                       
-                                    </div>
-
-
-                                    <div class="form-group">
-
-                                        <div class="col-sm-2">
-                                            <ui-select ng-model="formSearch.letrap" ng-disabled="disabled" style="width: 100%;" title="Letra">
-                                                <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
-                                                <ui-select-choices repeat="letra.id as letra in letras">
-                                                  <span ng-bind-html="letra.letra"></span>
-                                                </ui-select-choices>
-                                            </ui-select>
-                                        </div>
-
-                                        <div class="col-sm-8">
-                                             <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula del padre..." ng-model="formSearch.cedulap">
-                                            <input type="hidden" ng-model="formData.fatherId">
-                                        </div>
-
-                                        <div class="col-sm-2">
-                                            <button ng-click="buscar_padre()" class="btn btn-saime-stand">Buscar</button>
-                                        </div>
-                                        
-                                    </div>
-
-
-                                    <div class="form-group">
-
-                                        <div class="col-sm-2">
-                                            <ui-select  ng-model="formSearch.letral" ng-disabled="disabled" style="width: 100%;" title="Letra">
-                                                <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
-                                                <ui-select-choices repeat="letra.id as letra in letras">
-                                                  <span ng-bind-html="letra.letra"></span>
-                                                </ui-select-choices>
-                                            </ui-select>
-                                        </div>
-
-                                        <div class="col-sm-8">
-                                             <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula representante legal..." ng-model="formSearch.cedulal" >
-                                            <input type="hidden" ng-model="formData.legalId">
-                                        </div>
-
-                                        <div class="col-sm-2">
-                                            <button ng-click="buscar_legal()" class="btn btn-saime-stand">Buscar</button>
-                                        </div>
-                                    </div>
-
-
-                                <br>
-                            </div>
-                            <div class="col-md-2"></div>
-                            
-                        </div>
-
-
-
-
-                        <div class="text-center">
-                            <div class="text-muted">
                                 
-                                <h4>Debe indicar al menos uno de los tres, Madre, Padre o Representante Legal</h4>
                             </div><br><br>
                             
-                            <button ng-click="continuar2(formData)" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
                         </div>
 
-                        <br>
+
+                        <div style="display:none; {{step2}}">
+
+                            
+                            <div style="display:block; {{step3}}">
+                                
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <button ng-click="atras1()" type="button" class="btn btn-saime-stand">
+                                            <span class="fa fa-chevron-left fa-lg"></span>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-8">
+
+                                        <p><h3>Datos Personales</h3></p><br>
+                                        <div class="row">
+                                            
+                                            <div class="col-md-6">
+                                                                                               
+                                                <label>Primer Nombre</label>
+                                                <input type="hidden" ng-model="formData.minorType" ng-init="formData.minorType='1'">
+                                                <input vld-texto type="text" readOnly ng-model="formData.name1" />
+                                            
+                                                <label>Primer Apellido</label>
+                                                <input vld-texto type="text" readOnly ng-model="formData.lastName1" />
+                                            
+                                                <label>Fecha de Nacimiento</label>
+                                                <input ng-model="formData.bDate" readOnly type="text" />
+                                                  
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label >Segundo Nombre</label>
+                                                <input vld-texto type="text" readOnly ng-model="formData.name2"/>
+
+                                                <label >Segundo Apellido</label>
+                                                <input vld-texto type="text" readOnly ng-model="formData.lastName2"/>
+                                                
+                                                <label >Sexo</label>
+                                                <input vld-texto type="text" readOnly ng-model="formData.gender"/>
+                                            </div>    
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <p><h3>Datos de Nacionalidad</h3></p>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.countryinivad.$invalid }">
+                                                <label class="control-label">Pa&iacute;s</label>
+
+                                                <ui-select name="countryinivad" ng-required="true" ng-model="formData.countryIni"  style="width: 100%;">
+                                                    <ui-select-match placeholder="Pa&iacute;s...">{{$select.selected.descripcion}}</ui-select-match>
+                                                    <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
+                                                      <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
+                                                      
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6" ng-class="{ 'has-error': formData.statevad.$invalid }">
+                                                <label class="control-label">Estado</label>
+                                                <ui-select name="statevad" ng-required="true" on-select="get_municipios()" ng-model="formData.state"  style="width: 100%;">
+                                                    <ui-select-match placeholder="Estado...">{{$select.selected.descripcion}}</ui-select-match>
+                                                    <ui-select-choices repeat="estado.identidadfederal as estado in estados | filter: $select.search">
+                                                      <span ng-bind-html="estado.descripcion | highlight: $select.search"></span>  
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+
+                                            
+                                            <div class="col-md-6" ng-class="{ 'has-error': formData.municipiovad.$invalid }">
+                                                <label class="control-label">Municipio</label>
+                                                <ui-select name="municipiovad" ng-required="true" on-select="get_parroquias()" ng-model="formData.town" style="width: 100%;">
+                                                    <ui-select-match placeholder="Municipio...">{{$select.selected.descripcion}}</ui-select-match>
+                                                    <ui-select-choices repeat="municipio.idmunicipio as municipio in municipios | filter: $select.search">
+                                                      <span ng-bind-html="municipio.descripcion | highlight: $select.search"></span>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+
+                                        </div>
+
+                                      
+                                        <div class="row">
+
+                                            <div class="col-md-6" ng-class="{ 'has-error': formData.parishvad.$invalid }">
+                                                <label class="control-label">Parroquia</label>
+                                                <ui-select name="parishvad" ng-required="true" ng-model="formData.parish" style="width: 100%;">
+                                                    <ui-select-match placeholder="Parroquia...">{{$select.selected.descripcion}}</ui-select-match>
+                                                    <ui-select-choices repeat="parroquia.idparrquia as parroquia in parroquias | filter: $select.search">
+                                                      <span ng-bind-html="parroquia.descripcion | highlight: $select.search"></span>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+
+                                            <div class="col-md-6 saime-input" show-errors>
+                                                <label class="control-label">Ciudad</label>
+                                                <input class="form-control" name="cityvad" vld-texto ng-model="formData.city" type="text" name="ciudadv" required>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                    
+                                </div>
+
+                                <hr>
+                               
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <p><h3>Responsabilidad Legal</h3></p>
+                                                       
+                                            <div class="form-group">
+
+                                                <div class="col-sm-2">                                      
+
+                                                    <ui-select ng-model="formSearch.letram" ng-disabled="disabled" style="width: 100%;" title="Letra">
+                                                        <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
+                                                        <ui-select-choices repeat="letra.id as letra in letras">
+                                                          <span ng-bind-html="letra.letra"></span>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+
+                                                </div>
+
+                                                <div class="col-sm-8">
+
+                                                    <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula de la madre..." ng-model="formSearch.cedulam">
+                                                    <input type="hidden" ng-model="formData.motherId">
+
+                                                </div>
+
+                                                 <div class="col-sm-2">
+                                                    <button ng-click="buscar_madre()" class="btn btn-saime-stand">Buscar</button>
+                                                </div>
+                                                
+                                               
+                                            </div>
+
+
+                                            <div class="form-group">
+
+                                                <div class="col-sm-2">
+                                                    <ui-select ng-model="formSearch.letrap" ng-disabled="disabled" style="width: 100%;" title="Letra">
+                                                        <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
+                                                        <ui-select-choices repeat="letra.id as letra in letras">
+                                                          <span ng-bind-html="letra.letra"></span>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </div>
+
+                                                <div class="col-sm-8">
+                                                     <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula del padre..." ng-model="formSearch.cedulap">
+                                                    <input type="hidden" ng-model="formData.fatherId">
+                                                </div>
+
+                                                <div class="col-sm-2">
+                                                    <button ng-click="buscar_padre()" class="btn btn-saime-stand">Buscar</button>
+                                                </div>
+                                                
+                                            </div>
+
+
+                                            <div class="form-group">
+
+                                                <div class="col-sm-2">
+                                                    <ui-select  ng-model="formSearch.letral" ng-disabled="disabled" style="width: 100%;" title="Letra">
+                                                        <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
+                                                        <ui-select-choices repeat="letra.id as letra in letras">
+                                                          <span ng-bind-html="letra.letra"></span>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </div>
+
+                                                <div class="col-sm-8">
+                                                     <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula representante legal..." ng-model="formSearch.cedulal" >
+                                                    <input type="hidden" ng-model="formData.legalId">
+                                                </div>
+
+                                                <div class="col-sm-2">
+                                                    <button ng-click="buscar_legal()" class="btn btn-saime-stand">Buscar</button>
+                                                </div>
+                                            </div>
+
+
+                                        <br>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                    
+                                </div>
+
+                                <div class="text-center">
+                                    <div class="text-muted">
+                                        <h4>Debe indicar al menos uno de los tres, Madre, Padre o Representante Legal</h4>
+                                    </div><br><br>
+                                    
+                                    <button ng-click="continuar2(formData)" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
+                                </div><br>
+
+                            </div>
+
+                            <!-- Parte 2 formulario -->
+                            <div style="display:none; {{step4}}">
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <button ng-click="atras2()" type="button" class="btn btn-saime-stand">
+                                            <span class="fa fa-chevron-left fa-lg"></span>
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="col-md-8">
+                                        <p><h3>Direcci&oacute;n Actual</h3></p>
+                                        
+                                        <div class="row">
+
+                                            <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.cstatevad.$invalid }">
+                                                <label class="control-label">Estado</label>
+                                                <ui-select name="cstatevad" ng-required="true" on-select="get_cmunicipios()" ng-model="formData.currentState" style="width: 100%;">
+                                                    <ui-select-match placeholder="Estado...">{{$select.selected.descripcion}}</ui-select-match>
+                                                    <ui-select-choices repeat="estado.identidadfederal as estado in estados | filter: $select.search">
+                                                      <span ng-bind-html="estado.descripcion | highlight: $select.search"></span>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.cmunicipiovad.$invalid }">
+                                                <label class="control-label">Municipio</label>
+                                                <ui-select name="cmunicipiovad" ng-required="true" on-select="get_cparroquias()" ng-model="formData.currentTown" style="width: 100%;">
+                                                    <ui-select-match placeholder="Municipio...">{{$select.selected.descripcion}}</ui-select-match>
+                                                    <ui-select-choices repeat="municipio.idmunicipio as municipio in cmunicipios | filter: $select.search">
+                                                      <span ng-bind-html="municipio.descripcion | highlight: $select.search"></span>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                                            
+                                        <div class="row">
+                                            <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.cparroquiavad.$invalid }">
+                                                <label class="control-label">Parroquia</label>
+                                                <ui-select name="cparroquiavad" ng-required="true" on-select="get_oficinas()" ng-model="formData.currentParish" style="width: 100%;">
+                                                    <ui-select-match placeholder="Parroquia...">{{$select.selected.descripcion}}</ui-select-match>
+                                                    <ui-select-choices repeat="parroquia.idparrquia as parroquia in cparroquias | filter: $select.search">
+                                                      <span ng-bind-html="parroquia.descripcion | highlight: $select.search"></span>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                                            
+
+                                        <div class="row">
+                                            <div class="col-sm-12 saime-input" show-errors>
+                                                <label class="control-label">Ciudad</label>
+                                                <input class="form-control" name="ccityvad" required vld-texto ng-model="formData.currentCity" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 saime-input" show-errors>    
+                                                <label class="control-label">Urbanizaci&oacute;n</label>                  
+                                                <input class="form-control" name="urbanizacionvad" required ng-model="formData.urbanization" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 saime-input" show-errors>
+                                                <label class="control-label">Nro. Casa / Apto.</label>
+                                                <input class="form-control" name="noaptovad" required ng-model="formData.noApto" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 saime-input" show-errors>
+                                                <label class="control-label">Av. / Calle</label>
+                                                <input class="form-control" name="streetvad" required ng-model="formData.street" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 saime-input" show-errors>
+                                                <label class="control-label">C&oacute;digo Postal</label>
+                                                <input class="form-control" name="pcodevad" required vld-pcode ng-model="formData.pCode" type="text">
+                                            </div>
+                                        </div>
+                                            
+                                        <div class="row">
+                                            <div class="col-sm-3 saime-input">
+                                                <ui-select ng-model="formNoData.phone_code_cell" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                                    <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
+                                                    <ui-select-choices repeat="codigo.numero as codigo in codigos">
+                                                      <span ng-bind-html="codigo.numero"></span>
+                                                    </ui-select-choices>
+                                                </ui-select>
+
+                                            </div>
+                                            <div class="col-sm-9 saime-input">
+                                                <input vld-telefono ng-model="formNoData.cellPhone" type="text" placeholder="Tel&eacute;fono Celular">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-3 saime-input">
+                                                <ui-select ng-model="formNoData.phone_code_home" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                                    <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
+                                                    <ui-select-choices repeat="codigo.numero as codigo in codigos">
+                                                      <span ng-bind-html="codigo.numero"></span>
+                                                    </ui-select-choices>
+                                                </ui-select>
+
+                                            </div>
+                                            <div class="col-sm-9 saime-input">
+                                                <input vld-telefono ng-model="formNoData.homePhone" type="text" placeholder="Tel&eacute;fono Residencial">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-3 saime-input">
+                                                <ui-select ng-model="formNoData.phone_code_work" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                                    <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
+                                                    <ui-select-choices repeat="codigo.numero as codigo in codigos">
+                                                      <span ng-bind-html="codigo.numero"></span>
+                                                    </ui-select-choices>
+                                                </ui-select>
+
+                                            </div>
+                                            <div class="col-sm-9 saime-input">
+                                                <input vld-telefono ng-model="formNoData.workPhone" type="text" placeholder="Tel&eacute;fono Trabajo">
+                                            </div>
+                                        </div><br>
+
+                                        <p class="saime-texto-recordatorio">
+                                            <i>(Debe ingresar al menos un tel&eacute;fono)</i>
+                                        </p>
+                                            
+
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+
+                                <div class="text-center">
+                                    <br><br>
+                                    <button ng-click="continuar3(formData)" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
+                                </div>
+                                
+                            </div>
+
+                            
+                            <div style="display:none; {{step5}}">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <button ng-click="atras3()" type="button" class="btn btn-saime-stand">
+                                            <span class="fa fa-chevron-left fa-lg"></span>
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="col-md-8">
+                                        <p><h3>Oficinas a las cuales puedes asistir: </h3></p><br>
+                                        
+                                        <div class="row">
+                                            <div ng-repeat="oficina in oficinas"  class="form-group">
+                                                <div class="col-md-1">
+                                                    <input type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina">
+                                                </div>
+                                                <div class="col-md-6 ">
+                                                    <label class="saime-label-checkboxes">{{oficina.nombreoficina}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <p>
+                                            <i>
+                                                Las oficinas que aparecen marcadas son las posibles oficinas d&oacute;nde se les 
+                                                asignar&aacute; la cita, si usted desea que el sistema no le asigne a una de estas oficinas
+                                                favor de descartarla. <b>Nota:</b> mientras m&aacute;s oficinas seleccione, su cita podr&aacute; ser
+                                                asignada con mayor rapidez, dependiendo de la saturaci&oacute;n de las mismas.
+                                            </i>
+                                        </p>
+                                        <br>
+                                        <br>
+                                            
+                                        <div align="center" class="saime-menu" role="group" aria-label="Vertical button group">
+                                            <button ng-click="guardar(formData)" type="button" class="btn btn-default saime-btn-yellow">Guardar datos</button>
+                                        </div><br>
+                                    </div>
+                                    <div class="col-md-2"></div>    
+                                </div>
+
+                            </div>
+                            <!-- Fin Parte 2 formulario -->
+
+                        </div>
 
                     </div>
 
-                    <!-- Parte 2 formulario -->
-                    <div style="display:none; {{step4}}">
 
+                        
+                    <div ng-if="error">
+                        
                         <div class="row">
                             <div class="col-md-2">
-                                <button ng-click="atras2()" type="button" class="btn btn-saime-stand">
+                                <button ng-click="atras_e()" type="button" class="btn btn-saime-stand">
                                     <span class="fa fa-chevron-left fa-lg"></span>
                                 </button>
                             </div>
-                            
-                            <div class="col-md-8">
-                                <p><h3>Direcci&oacute;n Actual</h3></p>
-                                <div class="row">
 
-                                    <ui-select on-select="get_cmunicipios()"  ng-model="formData.currentState" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Estado">
-                                        <ui-select-match placeholder="*  Estado...">{{$select.selected.descripcion}}</ui-select-match>
-                                        <ui-select-choices repeat="estado.identidadfederal as estado in estados | filter: $select.search">
-                                          <span ng-bind-html="estado.descripcion | highlight: $select.search"></span>
-                                        </ui-select-choices>
-                                    </ui-select>
+                            <div class="col-md-8"><br>
+                                <div align="center" ng-bind-html="error_msg">{{error_msg}}</div><br>
 
-                                    <br>
-
-
-                                    <ui-select on-select="get_cparroquias()" ng-model="formData.currentTown" ng-disabled="disabled" style="width: 100%;" title="Seleccione el Municipio">
-                                        <ui-select-match placeholder="*  Municipio...">{{$select.selected.descripcion}}</ui-select-match>
-                                        <ui-select-choices repeat="municipio.idmunicipio as municipio in municipios | filter: $select.search">
-                                          <span ng-bind-html="municipio.descripcion | highlight: $select.search"></span>
-                                        </ui-select-choices>
-                                    </ui-select>
-                                   
-                                    <br>
-
-                                    <ui-select on-select="get_oficinas()"  ng-model="formData.currentParish" ng-disabled="disabled" style="width: 100%;" title="Seleccione la Parroquia">
-                                        <ui-select-match placeholder="*  Parroquia...">{{$select.selected.descripcion}}</ui-select-match>
-                                        <ui-select-choices repeat="parroquia.idparrquia as parroquia in parroquias | filter: $select.search">
-                                          <span ng-bind-html="parroquia.descripcion | highlight: $select.search"></span>
-                                        </ui-select-choices>
-                                    </ui-select>
-                                    
-                                    <br>
-
-                                    <input vld-texto ng-model="formData.currentCity" type="text" placeholder="*  Ciudad">
-
-                                    <input ng-model="formData.urbanization" type="text" placeholder="*  Urbanizaci&oacute;n">
-                                    <input ng-model="formData.noApto" type="text" placeholder="*  Nro Casa / Apto">        
-                                    <input ng-model="formData.street" type="text" placeholder="*  Av / Calle ">
-                                    <input vld-pcode ng-model="formData.pCode" type="number" placeholder="*  C&oacute;digo Postal">
-                                    
-                                    <div class="form-group">
-                                        <div class="col-sm-3 saime-input">
-                                            <ui-select ng-model="formNoData.phone_code_cell" ng-disabled="disabled" style="width: 100%;" title="Codigo">
-                                                <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
-                                                <ui-select-choices repeat="codigo.numero as codigo in codigos">
-                                                  <span ng-bind-html="codigo.numero"></span>
-                                                </ui-select-choices>
-                                            </ui-select>
-
-                                        </div>
-                                        <div class="col-sm-9 saime-input">
-                                            <input vld-telefono ng-model="formNoData.cellPhone" type="number" placeholder="Tel&eacute;fono Celular">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-sm-3 saime-input">
-                                            <ui-select ng-model="formNoData.phone_code_home" ng-disabled="disabled" style="width: 100%;" title="Codigo">
-                                                <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
-                                                <ui-select-choices repeat="codigo.numero as codigo in codigos">
-                                                  <span ng-bind-html="codigo.numero"></span>
-                                                </ui-select-choices>
-                                            </ui-select>
-
-                                        </div>
-                                        <div class="col-sm-9 saime-input">
-                                            <input vld-telefono ng-model="formNoData.homePhone" type="number" placeholder="Tel&eacute;fono Residencial">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-sm-3 saime-input">
-                                            <ui-select ng-model="formNoData.phone_code_work" ng-disabled="disabled" style="width: 100%;" title="Codigo">
-                                                <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
-                                                <ui-select-choices repeat="codigo.numero as codigo in codigos">
-                                                  <span ng-bind-html="codigo.numero"></span>
-                                                </ui-select-choices>
-                                            </ui-select>
-
-                                        </div>
-                                        <div class="col-sm-9 saime-input">
-                                            <input vld-telefono ng-model="formNoData.workPhone" type="number" placeholder="Tel&eacute;fono Trabajo">
-                                        </div>
-                                    </div>
-
-
-                                    <br>
-                                    <p class="saime-texto-recordatorio">
-                                        <i>(Debe ingresar al menos un tel&eacute;fono)</i>
-                                    </p>
-                                    
-
-                                </div>
-
-
-                                <br>
                             </div>
+                            
                             <div class="col-md-2"></div>
                         </div>
-
-                        <div class="text-center">
-                            <br> 
-                            <button ng-click="continuar3(formData)" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
-                        </div>
-
-                        <br>
                     </div>
 
-
-
-                    <div style="display:none; {{step5}}">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <button ng-click="atras3()" type="button" class="btn btn-saime-stand">
-                                    <span class="fa fa-chevron-left fa-lg"></span>
-                                </button>
-                            </div>
-                            
-                            <div class="col-md-8">
-                                <p><h3>Oficias a las cuales puedes asistir: </h3></p>
-                               
-                                <br>
-                                <div class="row">
-
-
-                                    <div ng-repeat="oficina in oficinas"  class="form-group">
-                                        <div class="col-md-1">
-                                            <input type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina">
-                                        </div>
-                                        <div class="col-md-6 ">
-                                            <label class="saime-label-checkboxes">{{oficina.nombreoficina}}</label>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                
-                                <br>
-                                <br>
-                                <br>
-                                <p>
-                                    <i>
-                                        Las oficinas que aparecen marcadas son las posibles oficinas d&oacute;nde se les 
-                                        asignar&aacute; la cita, si usted desea que el sistema no le asigne a una de estas oficinas
-                                        favor de descartarla. <b>Nota:</b> mientras m&aacute;s oficinas seleccione, su cita podr&aacute; ser
-                                        asignada con mayor rapidez, dependiendo de la saturaci&oacute;n de las mismas.
-                                    </i>
-                                </p>
-                                <br>
-                                <br>
-                                    <div align="center" class="saime-error-input">
-                                        {{error2}}
-                                    </div>
-                                <br> 
-
-                                <br>
-                                    
-                                <div align="center" class="saime-menu" role="group" aria-label="Vertical button group">
-                                    <button ng-click="guardar(formData)" type="button" class="btn btn-default saime-btn-yellow">Guardar datos</button>
-                                </div>
-
-                                <br>
-                            </div>
-                            <div class="col-md-2"></div>    
-                        </div>
-
-                    </div>
-                    <!-- Fin Parte 2 formulario -->
-
-
-                    
-              
-                </form>
-
-
-            </div>
+            </form>
 
         </div>
     </div>

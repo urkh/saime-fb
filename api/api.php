@@ -79,8 +79,34 @@ switch ($_GET['opc']) {
         post_bearer_auth($URI="/saime-ws/v1.0/transaction/reject", $data);
         break;
 
-    case "lista_solicitudes":
+
+
+
+
+    case "mis_solicitudes_cita":
         post_bearer_auth($host, $uri="/saime-ws/v1.0/passport/listData", $data);
+        break;
+
+    case "ver_solicitudes_cita":
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/passport/viewData", $data);
+        break;
+
+    case "eliminar_solicitudes_cita":
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/passport/deleteData", $data);
+        break;
+
+
+    case "mis_solicitudes_cita_ext":
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/passport/listDataConsular", $data);
+        break;
+
+    case "ver_solicitudes_cita_ext":
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/passport/viewDataConsular", $data);
+        break;
+
+    case "eliminar_solicitudes_cita_ext":
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/passport/deleteDataConsular", $data);
+        break;
 
 
 
@@ -239,6 +265,8 @@ function post_bearer_auth($host, $uri, $datos){
 	$data = array('data' => parser_datos($datos), 'crc'=> gen_crc(parser_datos($datos)));
 	$response = Requests::post($host.$uri, $headers, json_encode($data));
 	echo $response->body;
+    //echo parser_datos($datos);
+    //echo gen_crc(parser_datos($datos));
 
 }
 
