@@ -141,77 +141,89 @@
                             <div class="col-md-8">
                                 <p><h3>Responsabilidad Legal</h3></p>
                                                
-                                     <div class="form-group">
+                                    <div class="form-group">
 
-                                            <div class="col-sm-2">                                      
+                                        <div class="col-sm-2">                                      
 
-                                                <ui-select ng-model="formSearch.letram" ng-disabled="disabled" style="width: 100%;" title="Letra">
-                                                    <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
-                                                    <ui-select-choices repeat="letra.id as letra in letras">
-                                                      <span ng-bind-html="letra.letra"></span>
-                                                    </ui-select-choices>
-                                                </ui-select>
+                                            <ui-select ng-model="formSearch.letram" ng-disabled="disabled" style="width: 100%;" title="Letra">
+                                                <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
+                                                <ui-select-choices repeat="letra.id as letra in letras">
+                                                  <span ng-bind-html="letra.letra"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
 
-                                            </div>
-
-                                            <div class="col-sm-8">
-
-                                                <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula de la madre..." ng-model="formSearch.cedulam">
-                                                <input type="hidden" ng-model="formData.motherId">
-
-                                            </div>
-
-                                             <div class="col-sm-2">
-                                                <button ng-click="buscar_madre()" class="btn btn-saime-stand">Buscar</button>
-                                            </div>
-                                            
-                                           
                                         </div>
 
+                                        <div class="col-sm-8">
 
-                                        <div class="form-group">
+                                            <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula de la madre..." ng-model="formSearch.cedulam">
+                                            <input type="hidden" ng-model="formData.motherId">
 
-                                            <div class="col-sm-2">
-                                                <ui-select ng-model="formSearch.letrap" ng-disabled="disabled" style="width: 100%;" title="Letra">
-                                                    <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
-                                                    <ui-select-choices repeat="letra.id as letra in letras">
-                                                      <span ng-bind-html="letra.letra"></span>
-                                                    </ui-select-choices>
-                                                </ui-select>
-                                            </div>
-
-                                            <div class="col-sm-8">
-                                                 <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula del padre..." ng-model="formSearch.cedulap">
-                                                <input type="hidden" ng-model="formData.fatherId">
-                                            </div>
-
-                                            <div class="col-sm-2">
-                                                <button ng-click="buscar_padre()" class="btn btn-saime-stand">Buscar</button>
-                                            </div>
-                                            
                                         </div>
 
-
-                                        <div class="form-group">
-
-                                            <div class="col-sm-2">
-                                                <ui-select  ng-model="formSearch.letral" ng-disabled="disabled" style="width: 100%;" title="Letra">
-                                                    <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
-                                                    <ui-select-choices repeat="letra.id as letra in letras">
-                                                      <span ng-bind-html="letra.letra"></span>
-                                                    </ui-select-choices>
-                                                </ui-select>
-                                            </div>
-
-                                            <div class="col-sm-8">
-                                                 <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula representante legal..." ng-model="formSearch.cedulal" >
-                                                <input type="hidden" ng-model="formData.legalId">
-                                            </div>
-
-                                            <div class="col-sm-2">
-                                                <button ng-click="buscar_legal()" class="btn btn-saime-stand">Buscar</button>
-                                            </div>
+                                        <div class="col-sm-1" ng-show="!formData.motherId.length">
+                                            <button ng-click="buscar_madre()" class="btn btn-saime-stand">Buscar</button>
                                         </div>
+
+                                        <div class="col-sm-1" ng-show="formData.motherId.length">
+                                            <a class="btn btn-danger btn-saime-rojo-stand " ng-click="limpiarm()"><i class="fa fa-times-circle"></i></a>
+                                        </div>
+                                        
+                                       
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <div class="col-sm-2">
+                                            <ui-select ng-model="formSearch.letrap" ng-disabled="disabled" style="width: 100%;" title="Letra">
+                                                <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
+                                                <ui-select-choices repeat="letra.id as letra in letras">
+                                                  <span ng-bind-html="letra.letra"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+
+                                        <div class="col-sm-8">
+                                             <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula del padre..." ng-model="formSearch.cedulap">
+                                            <input type="hidden" ng-model="formData.fatherId">
+                                        </div>
+
+                                        <div class="col-sm-1" ng-show="!formData.fatherId.length">
+                                            <button ng-click="buscar_padre()" class="btn btn-saime-stand">Buscar</button>
+                                        </div>
+
+                                        <div class="col-sm-1" ng-show="formData.fatherId.length">
+                                            <a class="btn btn-danger btn-saime-rojo-stand " ng-click="limpiarp()"><i class="fa fa-times-circle"></i></a>
+                                        </div>
+                                        
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <div class="col-sm-2">
+                                            <ui-select  ng-model="formSearch.letral" ng-disabled="disabled" style="width: 100%;" title="Letra">
+                                                <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
+                                                <ui-select-choices repeat="letra.id as letra in letras">
+                                                  <span ng-bind-html="letra.letra"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+
+                                        <div class="col-sm-8">
+                                             <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula representante legal..." ng-model="formSearch.cedulal" >
+                                            <input type="hidden" ng-model="formData.legalId">
+                                        </div>
+
+                                        <div class="col-sm-1" ng-show="!formData.legalId.length">
+                                            <button ng-click="buscar_legal()" class="btn btn-saime-stand">Buscar</button>
+                                        </div>
+
+                                        <div class="col-sm-1" ng-show="formData.legalId.length">
+                                            <a class="btn btn-danger btn-saime-rojo-stand " ng-click="limpiarl()"><i class="fa fa-times-circle"></i></a>
+                                        </div>
+                                    </div>
 
 
                                 <br>

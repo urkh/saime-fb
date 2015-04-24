@@ -63,6 +63,25 @@ label + input{
 	margin-top: -19px;
 }
 
+.btn-saime-rojo-stand {
+  color: gray;
+  background-image: -moz-linear-gradient(bottom, rgb(240,27,27) 0%, rgb(240,27,27) 100%);
+  background-image: -webkit-linear-gradient(bottom, rgb(240,27,27) 0%, rgb(240,27,27) 100%);
+  background-image: -o-linear-gradient(bottom, rgb(240,27,27) 0%, rgb(240,27,27) 100%);
+  background-image: -ms-linear-gradient(bottom, rgb(240,27,27) 0%, rgb(240,27,27) 100%);
+  border-radius: 5px !important;
+}
+
+
+.btn-saime-ver-stand {
+  color: gray;
+  background-image: -moz-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(240,199,29) 100%);
+  background-image: -webkit-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(240,199,29) 100%);
+  background-image: -o-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(240,199,29) 100%);
+  background-image: -ms-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(240,199,29) 100%);
+  border-radius: 5px !important;
+}
+
 .btn-saime-stand {
   color: gray;
   background-image: -moz-linear-gradient(bottom, rgb(240,199,29) 0%, rgb(246,218,59) 100%);

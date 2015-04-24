@@ -144,7 +144,7 @@
                                     <div class="col-md-8">
                                         <p><h3>Responsabilidad Legal</h3></p>
                                                        
-                                             <div class="form-group">
+                                            <div class="form-group">
 
                                                 <div class="col-sm-2">                                      
 
@@ -164,8 +164,12 @@
 
                                                 </div>
 
-                                                 <div class="col-sm-2">
+                                                <div class="col-sm-1" ng-show="!formData.motherId.length">
                                                     <button ng-click="buscar_madre()" class="btn btn-saime-stand">Buscar</button>
+                                                </div>
+
+                                                <div class="col-sm-1" ng-show="formData.motherId.length">
+                                                    <a class="btn btn-danger btn-saime-rojo-stand " ng-click="limpiarm()"><i class="fa fa-times-circle"></i></a>
                                                 </div>
                                                 
                                                
@@ -188,8 +192,12 @@
                                                     <input type="hidden" ng-model="formData.fatherId">
                                                 </div>
 
-                                                <div class="col-sm-2">
+                                                <div class="col-sm-1" ng-show="!formData.fatherId.length">
                                                     <button ng-click="buscar_padre()" class="btn btn-saime-stand">Buscar</button>
+                                                </div>
+
+                                                <div class="col-sm-1" ng-show="formData.fatherId.length">
+                                                    <a class="btn btn-danger btn-saime-rojo-stand " ng-click="limpiarp()"><i class="fa fa-times-circle"></i></a>
                                                 </div>
                                                 
                                             </div>
@@ -211,8 +219,12 @@
                                                     <input type="hidden" ng-model="formData.legalId">
                                                 </div>
 
-                                                <div class="col-sm-2">
+                                                <div class="col-sm-1" ng-show="!formData.legalId.length">
                                                     <button ng-click="buscar_legal()" class="btn btn-saime-stand">Buscar</button>
+                                                </div>
+
+                                                <div class="col-sm-1" ng-show="formData.legalId.length">
+                                                    <a class="btn btn-danger btn-saime-rojo-stand " ng-click="limpiarl()"><i class="fa fa-times-circle"></i></a>
                                                 </div>
                                             </div>
 

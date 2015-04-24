@@ -57,7 +57,11 @@
                                 <div class="col-md-3 text-right"><b>Fecha Planilla: </b></div>
                                 <div class="col-md-3">{{misc.fechaplanilla}} </div>
                                 <div class="col-md-2">
-                                    <a class="btn btn-saime-stand" ng-click="datos(misc.nombre, misc.cedula, misc.fechanacimiento)" ui-sref="saime.estado_cita_ven({idPlanillaPasaporte:misc.idplanillapasaporte})">Ver Cita</a>
+                                    <a class="btn btn-saime-stand" ng-click="datos(misc.nombre, misc.cedula, misc.fechanacimiento)" ui-sref="saime.estado_cita_ven({idPlanillaPasaporte:misc.idplanillapasaporte})"><i class="fa fa-check-circle"></i>Ver Cita</a>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <a class="btn btn-danger btn-saime-rojo-stand " ng-click="datos(misc.nombre, misc.cedula, misc.fechanacimiento, misc.idplanillapasaporte)" ui-sref="saime.eliminar_cita_ven({idPlanillaPasaporte:misc.idplanillapasaporte})"><i class="fa fa-times-circle"></i>  Eliminar</a>
                                 </div>
                             </div>
 

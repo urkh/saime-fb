@@ -15,19 +15,13 @@ var app = angular.module('app', [
     'app.services',
     'app.directives',
 
-    
-    
   ]);
 
 app.config(
   [          '$stateProvider', '$urlRouterProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide', '$facebookProvider',
     function ($stateProvider,   $urlRouterProvider,   $controllerProvider,   $compileProvider,   $filterProvider,   $provide,   $facebookProvider) {
         
-        // lazy controller, directive and service
         app.controller = $controllerProvider.register;
-        //app.directive  = $compileProvider.directive;
-        //app.filter     = $filterProvider.register;
-        //app.factory    = $provide.factory;
         app.service    = $provide.service;
         app.constant   = $provide.constant;
         app.value      = $provide.value;
@@ -181,6 +175,16 @@ app.config(
             .state('saime.estado_cita_ext', {
                 url: '/estado_cita_ext/planilla/:idPlanillaPasaporte',
                 templateUrl: 'templates/extranjero/estado_cita.html'
+            })
+
+            .state('saime.eliminar_cita_ext', {
+                url: '/eliminar_cita_ext/planilla/:idPlanillaPasaporte',
+                templateUrl: 'templates/extranjero/eliminar_cita.html'
+            })
+
+            .state('saime.eliminar_cita_ven', {
+                url: '/eliminar_cita_ven/planilla/:idPlanillaPasaporte',
+                templateUrl: 'templates/venezuela/eliminar_cita.html'
             })
 
 

@@ -323,6 +323,22 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
     }
 
 
+    $scope.limpiarl = function(){
+        $scope.formData.legalId=null;
+        $scope.formSearch.cedulal=null;
+    }
+
+    $scope.limpiarp = function(){
+        $scope.formData.fatherId=null;
+        $scope.formSearch.cedulap=null;
+    }
+
+    $scope.limpiarm = function(){
+        $scope.formData.motherId=null;
+        $scope.formSearch.cedulam=null;
+    }
+
+
 }]);
 
 
@@ -597,10 +613,25 @@ ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', 
         $scope.step2 = "display:block;";
     }
 
+    $scope.limpiarl = function(){
+      $scope.formData.legalId=null;
+      $scope.formSearch.cedulal=null;
+    }
+
+    $scope.limpiarp = function(){
+      $scope.formData.fatherId=null;
+      $scope.formSearch.cedulap=null;
+    }
+
+    $scope.limpiarm = function(){
+      $scope.formData.motherId=null;
+      $scope.formSearch.cedulam=null;
+    }
+
 
     $scope.date_clear = function () {
         $scope.dt = null;
-    };
+    }
   
     $scope.date_open = function($event) {
       console.log($event)
@@ -608,14 +639,14 @@ ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', 
         $event.stopPropagation();
         $scope.opened = false;
         $scope.opened = true;
-    };
+    }
 
 
     $scope.dateOptions = {
         formatYear: 'yy',
         startingDay: 1,
         class: 'datepicker'
-    };
+    }
 
     $scope.format = 'dd/MM/yyyy';
 
@@ -764,6 +795,8 @@ ctrl.controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '
     $scope.atras3 = function(){
         $scope.error = false;
     }
+
+    
 
 
 

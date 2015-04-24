@@ -1,0 +1,104 @@
+
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+  
+    <div class="col">
+    
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 class="m-n font-thin h3 text-black">Eliminar Cita</h1>
+                </div>
+            </div>
+        </div>
+    
+        <div class="wrapper-md" ng-controller="EliminarCitaExtCtrl">
+
+            <div class="panel hbox hbox-auto-xs no-border">
+                <div class="row">
+                    <div class="col-md-2">
+                        <button ui-sref="saime.mis_solicitudes_ext" type="button" class="btn btn-saime-stand">
+                            <span class="fa fa-chevron-left fa-lg"></span>
+                        </button>
+                    </div>                  
+
+
+                    <div class="col-md-8" ng-if="!error">
+
+
+                        <div>
+                            <div class="text-center"><br><br>
+                                <h1><i class="fa fa-info fa-3"></i></h1>
+                                <h5>Se proceder&aacute; a eliminar la solicitud</h5>
+                                <h5>de cita con los siguientes datos</h5>
+                                <br><br><br>
+                            </div>
+
+
+                            
+
+                                <div class="row">
+                                    <div class="col-md-2 text-right" ></div>
+
+                                    <div class="col-md-3 text-right" >
+                                        <b>ID Planilla: </b>
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{formData.idplanillapasaporte}}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 text-right" ></div>
+                                    <div class="col-md-3 text-right" >
+                                        <b>Nombre Completo: </b>
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{formData.nombre}}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 text-right" ></div>
+                                    <div class="col-md-3 text-right" >
+                                        <b>C&eacute;dula:</b>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span  ng-if="formData.cedula == ''">No Posee</span>{{formData.cedula}}    
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 text-right" ></div>
+                                    <div class="col-md-3 text-right" >
+                                        <b>Fecha Nacimiento:</b>
+                                    </div>
+                                    <div class="col-md-3">
+                                        {{formData.fecha}}
+                                    </div>
+                                </div><br>
+
+                            <hr>
+                        </div>
+                        <br>
+                        <div align="center" class="saime-menu" role="group" aria-label="Vertical button group">
+                            <button ng-click="eliminar()" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
+                        </div>
+                        
+                        
+
+                        
+
+
+                    </div>
+
+                    <div class="col-md-8" ng-if="error">
+                        <div align="center" ng-bind-html="error_msg">{{error_msg}}</div>
+                    </div>
+
+                    <div class="col-md-2"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

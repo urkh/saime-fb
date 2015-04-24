@@ -605,11 +605,12 @@ ctrl.controller('MisSolicitudesVenCtrl', ['$rootScope', '$scope', '$http', '$sta
         $scope.error_msg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
     });
 
-    $scope.datos = function(nombre, cedula, fechanac){
+    $scope.datos = function(nombre, cedula, fechanac, idplanillapasaporte){
 
         $rootScope.dcedula = cedula;
         $rootScope.nombre = nombre;
         $rootScope.fecha = fechanac;
+        $rootScope.idplanillapasaporte = idplanillapasaporte;
 
     }
 
@@ -629,6 +630,9 @@ ctrl.controller('MisSolicitudesExtCtrl', ['$rootScope', '$scope', '$http', '$sta
     }
 
     */
+
+    $rootScope.bcode = '955a22ce-d147-40bc-8fc7-a47aa49a2c56';
+
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -657,11 +661,12 @@ ctrl.controller('MisSolicitudesExtCtrl', ['$rootScope', '$scope', '$http', '$sta
         $scope.error_msg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
     });
 
-    $scope.datos = function(nombre, cedula, fechanac){
+    $scope.datos = function(nombre, cedula, fechanac, idplanillapasaporte){
 
         $rootScope.dcedula = cedula;
         $rootScope.nombre = nombre;
         $rootScope.fecha = fechanac;
+        $rootScope.idplanillapasaporte = idplanillapasaporte;
 
     }
 
@@ -816,5 +821,89 @@ ctrl.controller('EstadoCitaExtCtrl', ['$rootScope', '$scope', '$http', '$state',
 
 
 
+
+}]);
+
+
+ctrl.controller('EliminarCitaExtCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$timeout', function($rootScope, $scope, $http, $state, $stateParams, $timeout) {
+
+    /*
+    if(!$rootScope.authenticated){
+        $state.go('saime.autenticacion');
+    }
+    */
+
+    $("#header_status").hide();
+    $scope.formData = {};
+
+    $scope.formData.cedula = $rootScope.dcedula;
+    $scope.formData.nombre = $rootScope.nombre;
+    $scope.formData.fecha = $rootScope.fecha;
+    $scope.formData.idplanillapasaporte = $rootScope.idplanillapasaporte;
+   
+    $scope.eliminar = function(){
+        $scope.error = true;
+        $scope.error_msg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
+
+        $http.post("api/api.php?opc=eliminar_solicitudes_cita_ext&bcode="+$rootScope.bcode, {idplanillapasaporte: $stateParams.idPlanillaPasaporte}).success(function(response) {    
+             
+            if(response.errorCode === '00000'){
+                $scope.error_msg = response.consumerMessage;
+                $timeout(function(){
+                    $scope.error = false;
+                    $state.go("saime.mis_solicitudes_ext");
+                }, 1500);
+            }else{
+                $scope.error_msg = response.consumerMessage;
+            }  
+                   
+              
+        }).error(function(){
+            $scope.error_msg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+        });
+
+    }
+
+}]);
+
+
+ctrl.controller('EliminarCitaVenCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$timeout', function($rootScope, $scope, $http, $state, $stateParams, $timeout) {
+
+    /*
+    if(!$rootScope.authenticated){
+        $state.go('saime.autenticacion');
+    }
+    */
+
+    $("#header_status").hide();
+    $scope.formData = {};
+
+    $scope.formData.cedula = $rootScope.dcedula;
+    $scope.formData.nombre = $rootScope.nombre;
+    $scope.formData.fecha = $rootScope.fecha;
+    $scope.formData.idplanillapasaporte = $rootScope.idplanillapasaporte;
+   
+    $scope.eliminar = function(){
+        $scope.error = true;
+        $scope.error_msg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
+
+        $http.post("api/api.php?opc=eliminar_solicitudes_cita&bcode="+$rootScope.bcode, {idplanillapasaporte: $stateParams.idPlanillaPasaporte}).success(function(response) {    
+             
+            if(response.errorCode === '00000'){
+                $scope.error_msg = response.consumerMessage;
+                $timeout(function(){
+                    $scope.error = false;
+                    $state.go("saime.mis_solicitudes_ven");
+                }, 1500);
+            }else{
+                $scope.error_msg = response.consumerMessage;
+            }  
+                   
+              
+        }).error(function(){
+            $scope.error_msg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+        });
+
+    }
 
 }]);

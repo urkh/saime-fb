@@ -245,22 +245,37 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
 
 
     $scope.atras1 = function(){
-      $scope.step2 = "display:none;";
-      $scope.step1 = "display:block;";
+        $scope.step2 = "display:none;";
+        $scope.step1 = "display:block;";
     }
 
     $scope.atras2 = function(){
-      $scope.step4 = "display:none;";
-      $scope.step3 = "display:block;";
+        $scope.step4 = "display:none;";
+        $scope.step3 = "display:block;";
     }
 
     $scope.atras3 = function(){
-      $scope.step5 = "display:none;";
-      $scope.step4 = "display:block;";
+        $scope.step5 = "display:none;";
+        $scope.step4 = "display:block;";
     }
 
     $scope.atras_e = function(){
         $scope.error = false;
+    }
+
+    $scope.limpiarl = function(){
+        $scope.formData.legalId=null;
+        $scope.formSearch.cedulal=null;
+    }
+
+    $scope.limpiarp = function(){
+        $scope.formData.fatherId=null;
+        $scope.formSearch.cedulap=null;
+    }
+
+    $scope.limpiarm = function(){
+        $scope.formData.motherId=null;
+        $scope.formSearch.cedulam=null;
     }
 
 
@@ -474,6 +489,22 @@ ctrl.controller('FormRegistroMenorNcExtCtrl', ['$rootScope', '$state', '$timeout
 
     $scope.atras_e = function(){
         $scope.error = false;
+    }
+
+
+    $scope.limpiarl = function(){
+        $scope.formData.legalId=null;
+        $scope.formSearch.cedulal=null;
+    }
+
+    $scope.limpiarp = function(){
+        $scope.formData.fatherId=null;
+        $scope.formSearch.cedulap=null;
+    }
+
+    $scope.limpiarm = function(){
+        $scope.formData.motherId=null;
+        $scope.formSearch.cedulam=null;
     }
 
 
