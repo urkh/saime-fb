@@ -508,24 +508,17 @@ ctrl.controller('FormRegistroMenorNcExtCtrl', ['$rootScope', '$state', '$timeout
     }
 
 
-    $scope.date_clear = function () {
-        $scope.dt = null;
-    }
-  
+    $scope.maxDate = new Date();
+    $scope.today = new Date();
+    $scope.today.setFullYear($scope.today.getFullYear()-9)
+    $scope.minDate = new Date($scope.today)
+
+
     $scope.date_open = function($event) {
         $event.preventDefault();
         $event.stopPropagation();
-        $scope.opened = true;
-    }
-
-
-    $scope.dateOptions = {
-        formatYear: 'yy',
-        startingDay: 1,
-        class: 'datepicker'
-    }
-
-    $scope.format = 'dd/MM/yyyy';
+        $scope.formData.dopened = true;
+    };
 
 }]);
 

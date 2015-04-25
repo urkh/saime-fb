@@ -336,7 +336,7 @@ ctrl.controller('OlvidoContrasenaCtrl', ['$scope', '$http', '$state', function($
 
 
 
-ctrl.controller('RegistroCtrl', ['$scope', '$http', '$state', 'CodigoTelfFactory', function($scope, $http, $state, CodigoTelfFactory) {
+ctrl.controller('RegistroCtrl', ['$scope', '$http', '$state', 'CodigoCelFactory', function($scope, $http, $state, CodigoCelFactory) {
   $("#header_status").hide();
 
   $scope.formData = {};
@@ -349,7 +349,7 @@ ctrl.controller('RegistroCtrl', ['$scope', '$http', '$state', 'CodigoTelfFactory
       { id: 'E', letra: 'E'}
     ];
 
-  $scope.codigos = CodigoTelfFactory;
+  $scope.codigosc = CodigoCelFactory;
 
 
   $scope.guardar = function(form){

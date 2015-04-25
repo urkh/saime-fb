@@ -73,7 +73,7 @@
                                     <label class="control-label">C&oacute;digo</label>
                                     <ui-select name="phonecodevad" ng-required="true" ng-model="formNoData.phone_code"  style="width: 100%;">
                                         <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
-                                        <ui-select-choices repeat="codigo.numero as codigo in codigos">
+                                        <ui-select-choices repeat="codigo.numero as codigo in codigosc">
                                           <span ng-bind-html="codigo.numero"></span>
                                         </ui-select-choices>
                                     </ui-select>

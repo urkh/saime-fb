@@ -92,14 +92,27 @@ service.factory('ConsuladosFactory', ['$rootScope', '$http', function($rootScope
 }]);
 
 
+
+service.factory("CodigoCelFactory", function(){
+
+    return [
+
+        {numero: '0412'},
+        {numero: '0414'},
+        {numero: '0416'},
+        {numero: '0424'},
+        {numero: '0426'}
+    ]
+
+});
+
+
+
+
 service.factory("CodigoTelfFactory", function(){
 
   return [
-  	{numero: '0412'},
-    {numero: '0414'},
-    {numero: '0416'},
-    {numero: '0424'},
-    {numero: '0426'},
+  	
     
     {numero: '0212'},
     {numero: '0213'},

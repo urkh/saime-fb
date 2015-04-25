@@ -4,7 +4,7 @@
 var ctrl = angular.module('app.controllers_ven', []);
 
 
-ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', function($rootScope, $timeout, $scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory) {
+ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', 'CodigoCelFactory', function($rootScope, $timeout, $scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory, CodigoCelFactory) {
     
     /*
     if(!$rootScope.authenticated){
@@ -24,6 +24,7 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
 
 
     $scope.codigos = CodigoTelfFactory;
+    $scope.codigosc = CodigoCelFactory;
 
     $scope.buscar_menor_cedulado = function() {
 
@@ -345,7 +346,7 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
 
 
 
-ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', function($rootScope, $timeout, $scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory) {
+ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', 'CodigoCelFactory', function($rootScope, $timeout, $scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory, CodigoCelFactory) {
     
     /*
     if(!$rootScope.authenticated){
@@ -369,6 +370,7 @@ ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', 
 
 
     $scope.codigos = CodigoTelfFactory;
+    $scope.codigosc = CodigoCelFactory;
 
 
     $scope.buscar_madre = function() {
@@ -629,32 +631,24 @@ ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', 
     }
 
 
-    $scope.date_clear = function () {
-        $scope.dt = null;
-    }
-  
+    $scope.maxDate = new Date();
+    $scope.today = new Date();
+    $scope.today.setFullYear($scope.today.getFullYear()-9)
+    $scope.minDate = new Date($scope.today)
+
+
     $scope.date_open = function($event) {
-      console.log($event)
         $event.preventDefault();
         $event.stopPropagation();
-        $scope.opened = false;
-        $scope.opened = true;
-    }
+        $scope.formData.dopened = true;
+    };
 
-
-    $scope.dateOptions = {
-        formatYear: 'yy',
-        startingDay: 1,
-        class: 'datepicker'
-    }
-
-    $scope.format = 'dd/MM/yyyy';
 
 }]);
 
 
 
-ctrl.controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '$scope', '$http', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', '$timeout', function($rootScope, $state, $scope, $http, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory, $timeout) {
+ctrl.controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '$scope', '$http', '$timeout', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', 'CodigoCelFactory', function($rootScope, $state, $scope, $http, $timeout, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory, CodigoCelFactory) {
 
     
     /*
@@ -677,6 +671,7 @@ ctrl.controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '
 
 
     $scope.codigos = CodigoTelfFactory;
+    $scope.codigosc = CodigoCelFactory;
 
     $http.get("api/api.php?opc=get_paises&bcode="+$rootScope.bcode).success(function(response) { 
         $scope.paises = response.countryList

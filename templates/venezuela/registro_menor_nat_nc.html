@@ -54,7 +54,7 @@
                                         <div class="row">
                                             <div class="col-sm-12 saime-input" show-errors>
                                                 <label class="control-label">Fecha de Nacimiento</label>
-                                                <input class="form-control" name="bdatevad" required ng-model="formData.bDate" type="text" datepicker-popup="{{format}}" is-open="opened" datepicker-options="dateOptions" close-text="Cerrar" ng-click="date_open($event)" />
+                                                <input class="form-control" name="bdatevad" required ng-model="formData.bDate" type="text" datepicker-popup="dd/MM/yyyy" is-open="formData.dopened" min-date="{{minDate}}" max-date="{{maxDate}}" close-text="Cerrar" ng-click="date_open($event)" readonly />
                                             </div>
                                         </div>
                                           
@@ -319,9 +319,9 @@
 
                                 <div class="row">
                                     <div class="col-sm-3 saime-input">
-                                        <ui-select ng-model="formNoData.phone_code_cell" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                        <ui-select ng-model="formNoData.phone_code_cell" ng-disabled="disabled" style="width: 100%;">
                                             <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
-                                            <ui-select-choices repeat="codigo.numero as codigo in codigos">
+                                            <ui-select-choices repeat="codigo.numero as codigo in codigosc">
                                               <span ng-bind-html="codigo.numero"></span>
                                             </ui-select-choices>
                                         </ui-select>
@@ -334,7 +334,7 @@
 
                                 <div class="row">
                                     <div class="col-sm-3 saime-input">
-                                        <ui-select ng-model="formNoData.phone_code_home" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                        <ui-select ng-model="formNoData.phone_code_home" ng-disabled="disabled" style="width: 100%;">
                                             <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
                                             <ui-select-choices repeat="codigo.numero as codigo in codigos">
                                               <span ng-bind-html="codigo.numero"></span>
@@ -349,7 +349,7 @@
 
                                 <div class="row">
                                     <div class="col-sm-3 saime-input">
-                                        <ui-select ng-model="formNoData.phone_code_work" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                        <ui-select ng-model="formNoData.phone_code_work" ng-disabled="disabled" style="width: 100%;">
                                             <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
                                             <ui-select-choices repeat="codigo.numero as codigo in codigos">
                                               <span ng-bind-html="codigo.numero"></span>
