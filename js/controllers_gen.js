@@ -693,8 +693,6 @@ ctrl.controller('MisSolicitudesExtCtrl', ['$rootScope', '$scope', '$http', '$sta
         $state.go('saime.autenticacion');
     }
 
-    $rootScope.bcode = '955a22ce-d147-40bc-8fc7-a47aa49a2c56';
-
 
     $("#header_status").hide();
     $scope.formData = {};
