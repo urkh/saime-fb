@@ -1,6 +1,27 @@
 var dir = angular.module('app.directives', []);
 
 
+
+dir.directive('fbLikebox', ['$timeout', '$facebook', function($timeout, $facebook) {
+    return {
+        restrict: 'E',
+        templateUrl: "templates/_fblikebtn.html",
+        scope: { fbid: '='},
+        link: function($scope, $element, $attrs) {
+            
+            $facebook.promise.then(function(FB) {
+                $timeout(function() {
+                    return FB.XFBML.parse($element[0]);    
+                }, 15, false);
+            });
+                
+            
+        }
+    };
+}]);
+
+
+
 dir.directive('showErrors', function() {
     return {
       restrict: 'A',

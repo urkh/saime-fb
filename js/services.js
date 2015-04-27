@@ -8,19 +8,18 @@ service.factory("HeaderFactory", function(){
 
 
 
-service.factory('MunicipiosFactory', ['$rootScope', '$http', function($rootScope, $http) {
+
+service.factory('MunicipiosFactory', ['$rootScope', '$http', '$localStorage', function($rootScope, $http, $localStorage) {
 	
     return function(state){
 
     	municipios = [];
-
-		$http.get("api/api.php?opc=get_municipios&bcode="+$rootScope.bcode).success(function(response) { 
-		    for(var i=0; i < response.townList.length; i++){        
-		    	if(response.townList[i].identidadfederal == state ){
-		        	municipios.push(response.townList[i]);
-		        }
-		    }
-    	})
+        response = $localStorage.municipios;
+	    for(var i=0; i < response.townList.length; i++){        
+	    	if(response.townList[i].identidadfederal == state ){
+	        	municipios.push(response.townList[i]);
+	        }
+	    }
 
 	    return municipios;
     }
@@ -29,19 +28,17 @@ service.factory('MunicipiosFactory', ['$rootScope', '$http', function($rootScope
 
 
 
-service.factory('ParroquiasFactory', ['$rootScope', '$http', function($rootScope, $http) {
+service.factory('ParroquiasFactory', ['$rootScope', '$http', '$localStorage', function($rootScope, $http, $localStorage) {
 	
     return function(town){
 
     	parroquias = [];
-
-		$http.get("api/api.php?opc=get_parroquias&bcode="+$rootScope.bcode).success(function(response) { 
-		    for(var i=0; i < response.parishList.length; i++){        
-	          	if(response.parishList[i].idmunicipio == town ){
-	            	parroquias.push(response.parishList[i]);
-	          	}
-	        }
-    	})
+        response = $localStorage.parroquias;
+	    for(var i=0; i < response.parishList.length; i++){        
+          	if(response.parishList[i].idmunicipio == town ){
+            	parroquias.push(response.parishList[i]);
+          	}
+        }
 
 	    return parroquias;
     }
@@ -52,19 +49,18 @@ service.factory('ParroquiasFactory', ['$rootScope', '$http', function($rootScope
 
 
 
-service.factory('OficinasFactory', ['$rootScope', '$http', function($rootScope, $http) {
+service.factory('OficinasFactory', ['$rootScope', '$http', '$localStorage', function($rootScope, $http, $localStorage) {
 	
     return function(state){
 
     	oficinas = [];
+        response = $localStorage.oficinas;
 
-		$http.get("api/api.php?opc=get_oficinas&bcode="+$rootScope.bcode).success(function(response) { 
-		    for(var i=0; i < response.officeList.length; i++){        
-	          	if(response.officeList[i].idestado == state ){
-	            	oficinas.push(response.officeList[i]);
-	          	}
-	        }
-    	})
+	    for(var i=0; i < response.officeList.length; i++){        
+          	if(response.officeList[i].idestado == state ){
+            	oficinas.push(response.officeList[i]);
+          	}
+        }
 
 	    return oficinas;
     }
@@ -72,19 +68,18 @@ service.factory('OficinasFactory', ['$rootScope', '$http', function($rootScope, 
 }]);
 
 
-service.factory('ConsuladosFactory', ['$rootScope', '$http', function($rootScope, $http) {
+service.factory('ConsuladosFactory', ['$rootScope', '$http', '$localStorage', function($rootScope, $http, $localStorage) {
 	
     return function(country){
 
     	consulados = [];
+        response = $localStorage.consulados;
 
-		$http.get("api/api.php?opc=get_consulados&bcode="+$rootScope.bcode).success(function(response) { 
-		    for(var i=0; i < response.consularList.length; i++){        
-	          	if(response.consularList[i].idpais == country ){
-	            	consulados.push(response.consularList[i]);
-	          	}
-	        }
-    	})
+	    for(var i=0; i < response.consularList.length; i++){        
+          	if(response.consularList[i].idpais == country ){
+            	consulados.push(response.consularList[i]);
+          	}
+        }
 
 	    return consulados;
     }

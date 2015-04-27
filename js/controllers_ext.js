@@ -6,13 +6,13 @@ var ctrl = angular.module('app.controllers_ext', []);
 
 
 
-ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout', '$scope', '$http', 'ConsuladosFactory', function($rootScope, $state, $timeout, $scope, $http, ConsuladosFactory) {
+ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout', '$scope', '$http', '$localStorage', '$window', 'ConsuladosFactory', function($rootScope, $state, $timeout, $scope, $http, $localStorage, $window, ConsuladosFactory) {
 
-    /*
+    
     if(!$rootScope.authenticated){
-      $state.go('saime.autenticacion');
+        $state.go('saime.autenticacion');
     }
-    */
+    
 
     $scope.letras = [
         { id: 'V', letra: 'V'},
@@ -171,9 +171,12 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
 
 
 
-    $http.get("api/api.php?opc=get_paises&bcode="+$rootScope.bcode).success(function(response) { 
-        $scope.paises = response.countryList
-    })
+    //$http.get("api/api.php?opc=get_paises&bcode="+$rootScope.bcode).success(function(response) { 
+    //    $scope.paises = response.countryList
+    //})
+
+    $scope.paises = $localStorage.paises.countryList;
+
 
     $scope.get_consulados = function(){
         $scope.consulados = ConsuladosFactory($scope.formData.countrySede);
@@ -187,6 +190,7 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
 
     $scope.continuar2 = function(form){
         if((form.countryIni && form.city) && (form.motherId || form.fatherId || form.legalId)) {
+            $window.scrollTo(0, 0);
             $scope.step3 = "display:none;";
             $scope.step4 = "display:block;";
         }else{
@@ -196,6 +200,7 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
 
      $scope.continuar3 = function(form){
         if(form.currentCity && form.countrySede && form.pCode) {      
+            $window.scrollTo(0, 0);
             $scope.step4 = "display:none;";
             $scope.step5 = "display:block;";
         }else{
@@ -207,6 +212,15 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
 
     $scope.guardar = function(form){
         $scope.formData.country = $scope.formData.countryIni;
+
+
+        if(!$scope.formData.minorId){$scope.formData.minorId = null;}
+        if(!$scope.formData.fatherId){$scope.formData.fatherId = null;}
+        if(!$scope.formData.motherId){$scope.formData.motherId = null;}
+        if(!$scope.formData.legalId){$scope.formData.legalId = null;}
+        if(!$scope.formData.name2){$scope.formData.name2 = null;}
+        if(!$scope.formData.lastName2){$scope.formData.lastName2 = null;}
+        if(!$scope.formData.bDate){$scope.formData.bDate = null;}
         
         if($scope.formData.sedeConsular){
             $scope.error_msg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
@@ -219,6 +233,13 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
                 motherId: $scope.formData.motherId,
                 fatherId: $scope.formData.fatherId,
                 legalId: $scope.formData.legalId,
+                name1: $scope.formData.name1,
+                name2: $scope.formData.name2,
+                lastName1: $scope.formData.lastName1,
+                lastName2: $scope.formData.lastName2,
+                gender: $scope.formData.gender,
+                bDate: $scope.formData.bDate,
+                countryIni: $scope.formData.country,
                 country: $scope.formData.country,
                 city: $scope.formData.city,
                 currentCity: $scope.formData.currentCity,
@@ -285,12 +306,12 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
 
 
 
-ctrl.controller('FormRegistroMenorNcExtCtrl', ['$rootScope', '$state', '$timeout', '$scope', '$http', 'ConsuladosFactory', function($rootScope, $state, $timeout, $scope, $http, ConsuladosFactory) {
+ctrl.controller('FormRegistroMenorNcExtCtrl', ['$rootScope', '$state', '$timeout', '$scope', '$http', '$localStorage', '$window', 'ConsuladosFactory', function($rootScope, $state, $timeout, $scope, $http, $localStorage, $window, ConsuladosFactory) {
 
-    /*
+    
     if(!$rootScope.authenticated){
-      $state.go('saime.autenticacion');
-    }*/
+        $state.go('saime.autenticacion');
+    }
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -405,10 +426,7 @@ ctrl.controller('FormRegistroMenorNcExtCtrl', ['$rootScope', '$state', '$timeout
     }
 
 
-
-    $http.get("api/api.php?opc=get_paises&bcode="+$rootScope.bcode).success(function(response) { 
-        $scope.paises = response.countryList
-    })
+    $scope.paises = $localStorage.paises.countryList;
 
 
     $scope.get_consulados = function(){
@@ -418,6 +436,7 @@ ctrl.controller('FormRegistroMenorNcExtCtrl', ['$rootScope', '$state', '$timeout
 
     $scope.continuar1 = function(form){
         if((form.name1 && form.lastName1 && form.bDate && form.gender && form.countryIni && form.city) && (form.motherId || form.fatherId || form.legalId)) {
+            $window.scrollTo(0, 0);
             $scope.step1 = "display:none;";
             $scope.step2 = "display:block;";
         }else{
@@ -427,6 +446,7 @@ ctrl.controller('FormRegistroMenorNcExtCtrl', ['$rootScope', '$state', '$timeout
 
      $scope.continuar2 = function(form){
         if(form.currentCity && form.countrySede && form.pCode) {     
+            $window.scrollTo(0, 0);
             $scope.step2 = "display:none;";
             $scope.step3 = "display:block;";
         }else{
@@ -437,7 +457,15 @@ ctrl.controller('FormRegistroMenorNcExtCtrl', ['$rootScope', '$state', '$timeout
 
     $scope.guardar = function(form){
         $scope.formData.country = $scope.formData.countryIni;
-        $scope.formData.bDate = $scope.formData.bDate.format("dd/mm/yyyy");
+        $scope.formData.nobDate = $scope.formData.bDate.format("dd/mm/yyyy");
+
+
+        if(!$scope.formData.minorId){$scope.formData.minorId = null;}
+        if(!$scope.formData.fatherId){$scope.formData.fatherId = null;}
+        if(!$scope.formData.motherId){$scope.formData.motherId = null;}
+        if(!$scope.formData.legalId){$scope.formData.legalId = null;}
+        if(!$scope.formData.name2){$scope.formData.name2 = null;}
+        if(!$scope.formData.lastName2){$scope.formData.lastName2 = null;}
 
      
         if($scope.formData.sedeConsular){
@@ -452,6 +480,13 @@ ctrl.controller('FormRegistroMenorNcExtCtrl', ['$rootScope', '$state', '$timeout
                 motherId: $scope.formData.motherId,
                 fatherId: $scope.formData.fatherId,
                 legalId: $scope.formData.legalId,
+                name1: $scope.formData.name1,
+                name2: $scope.formData.name2,
+                lastName1: $scope.formData.lastName1,
+                lastName2: $scope.formData.lastName2,
+                gender: $scope.formData.gender,
+                bDate: $scope.formData.nobDate,
+                countryIni: $scope.formData.country,
                 country: $scope.formData.country,
                 city: $scope.formData.city,
                 currentCity: $scope.formData.currentCity,
@@ -525,13 +560,13 @@ ctrl.controller('FormRegistroMenorNcExtCtrl', ['$rootScope', '$state', '$timeout
 
 
 
-ctrl.controller('FormRegistroDatosPersonalesExtCtrl', ['$rootScope', '$state', '$timeout', '$scope', '$http', 'ConsuladosFactory',  function($rootScope, $state, $timeout, $scope, $http, ConsuladosFactory) {
+ctrl.controller('FormRegistroDatosPersonalesExtCtrl', ['$rootScope', '$state', '$timeout', '$scope', '$http', '$localStorage', '$window', 'ConsuladosFactory',  function($rootScope, $state, $timeout, $scope, $http, $localStorage, $window, ConsuladosFactory) {
  
-    /*
+    
     if(!$rootScope.authenticated){
-      $state.go('saime.autenticacion');
+        $state.go('saime.autenticacion');
     }
-    */
+    
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -544,10 +579,7 @@ ctrl.controller('FormRegistroDatosPersonalesExtCtrl', ['$rootScope', '$state', '
     $scope.formNoData.bDate = $rootScope.fechan;
     if($rootScope.sexo == 'F'){$scope.formNoData.gender = 'Femenino';}else{$scope.formNoData.gender = 'Masculino';}
 
-
-    $http.get("api/api.php?opc=get_paises&bcode="+$rootScope.bcode).success(function(response) { 
-        $scope.paises = response.countryList
-    })
+    $scope.paises = $localStorage.paises.countryList;
 
     $scope.get_consulados = function(){
         $scope.consulados = ConsuladosFactory($scope.formData.countrySede);
@@ -588,6 +620,7 @@ ctrl.controller('FormRegistroDatosPersonalesExtCtrl', ['$rootScope', '$state', '
     
     $scope.continuar1 = function(form){
         if(form.country && form.city && form.currentCity && form.pCode && form.countrySede) {
+            $window.scrollTo(0, 0);
             $scope.step1 = "display:none;";
             $scope.step2 = "display:block;";
         }else{

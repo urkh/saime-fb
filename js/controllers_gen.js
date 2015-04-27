@@ -14,7 +14,7 @@ ctrl.controller('AppCtrl', ['$scope', function($scope) {
 }]);
 
 
-ctrl.controller('AuthCtrl',['$scope', '$rootScope', '$facebook', '$http', '$state', '$window', function($scope, $rootScope, $facebook, $http, $state, $window){
+ctrl.controller('AuthCtrl',['$scope', '$rootScope', '$facebook', '$http', '$state', '$window', '$localStorage', function($scope, $rootScope, $facebook, $http, $state, $window, $localStorage){
 
     $window.scrollTo(0, 0);
     //$("#header_status").hidden();
@@ -82,6 +82,44 @@ ctrl.controller('AuthCtrl',['$scope', '$rootScope', '$facebook', '$http', '$stat
                         if(response2.errorCode === '90000'){
                             $state.go("saime.autenticacion");
                         }else{
+
+                              $http.get("api/api.php?opc=get_paises&bcode="+$rootScope.bcode).success(function(respponse) { 
+                                  if(response.errorCode==='00000'){
+                                      $localStorage.paises = respponse;
+                                  }
+                              });
+
+                              $http.get("api/api.php?opc=get_estados&bcode="+$rootScope.bcode).success(function(respponse) { 
+                                  if(response.errorCode==='00000'){
+                                      $localStorage.estados = respponse;
+                                  }
+                              });
+
+                              $http.get("api/api.php?opc=get_municipios&bcode="+$rootScope.bcode).success(function(respponse) { 
+                                  if(response.errorCode==='00000'){
+                                      $localStorage.municipios = respponse;
+                                  }
+                              });
+
+                              $http.get("api/api.php?opc=get_parroquias&bcode="+$rootScope.bcode).success(function(respponse) { 
+                                  if(response.errorCode==='00000'){
+                                      $localStorage.parroquias = respponse;
+                                  }
+                              });
+
+                              $http.get("api/api.php?opc=get_oficinas&bcode="+$rootScope.bcode).success(function(respponse) { 
+                                  if(response.errorCode==='00000'){
+                                      $localStorage.oficinas = respponse;
+                                  }
+                              });
+
+                              $http.get("api/api.php?opc=get_consulados&bcode="+$rootScope.bcode).success(function(respponse) { 
+                                  if(response.errorCode==='00000'){
+                                      $localStorage.consulados = respponse;
+                                  }
+                              });
+
+
                             $state.go("saime.inicio");
                         }
                     }).error(function(){
@@ -105,7 +143,7 @@ ctrl.controller('AuthCtrl',['$scope', '$rootScope', '$facebook', '$http', '$stat
 }]);
 
 
-ctrl.controller('SignInCtrl', ['$scope', '$http', '$state', '$rootScope', '$timeout', '$facebook', '$window', function($scope, $http, $state, $rootScope, $timeout, $facebook, $window) {
+ctrl.controller('SignInCtrl', ['$scope', '$http', '$state', '$rootScope', '$timeout', '$facebook', '$window', '$localStorage', function($scope, $http, $state, $rootScope, $timeout, $facebook, $window, $localStorage) {
      
     $("#header_status").hide();
     $window.scrollTo(0, 0);
@@ -164,6 +202,43 @@ ctrl.controller('SignInCtrl', ['$scope', '$http', '$state', '$rootScope', '$time
                             if(response2.errorCode === '90000'){
                                 $state.go("saime.autenticacion");
                             }else{
+
+                                $http.get("api/api.php?opc=get_paises&bcode="+$rootScope.bcode).success(function(respponse) { 
+                                    if(response.errorCode==='00000'){
+                                        $localStorage.paises = respponse;
+                                    }
+                                });
+
+                                $http.get("api/api.php?opc=get_estados&bcode="+$rootScope.bcode).success(function(respponse) { 
+                                    if(response.errorCode==='00000'){
+                                        $localStorage.estados = respponse;
+                                    }
+                                });
+
+                                $http.get("api/api.php?opc=get_municipios&bcode="+$rootScope.bcode).success(function(respponse) { 
+                                    if(response.errorCode==='00000'){
+                                        $localStorage.municipios = respponse;
+                                    }
+                                });
+
+                                $http.get("api/api.php?opc=get_parroquias&bcode="+$rootScope.bcode).success(function(respponse) { 
+                                    if(response.errorCode==='00000'){
+                                        $localStorage.parroquias = respponse;
+                                    }
+                                });
+
+                                $http.get("api/api.php?opc=get_oficinas&bcode="+$rootScope.bcode).success(function(respponse) { 
+                                    if(response.errorCode==='00000'){
+                                        $localStorage.oficinas = respponse;
+                                    }
+                                });
+
+                                $http.get("api/api.php?opc=get_consulados&bcode="+$rootScope.bcode).success(function(respponse) { 
+                                    if(response.errorCode==='00000'){
+                                        $localStorage.consulados = respponse;
+                                    }
+                                });
+
                                 $state.go("saime.inicio");
                             }
                         }).error(function(){
@@ -196,10 +271,12 @@ ctrl.controller('LikeFBCtrl', ['$scope', '$state', '$facebook', function($scope,
   $("#header_status").hide();
 
 
-  $scope.like = function(){
-      console.log("ssss")
-      $state.go("saime.auth");
-  }
+  $facebook.promise.then(function(FB) {
+      FB.Event.subscribe('edge.create', function(response) {
+          $state.go("saime.auth");
+      });
+  });
+
 
 
   $scope.icon = 'fa fa-share-alt';
@@ -228,19 +305,14 @@ ctrl.controller('LikeFBCtrl', ['$scope', '$state', '$facebook', function($scope,
 }]);
 
 
-ctrl.controller('MainCtrl', ['$rootScope', '$scope', '$http', '$state', '$facebook', '$window', function($rootScope, $scope, $http, $state, $facebook, $window) {
+ctrl.controller('MainCtrl', ['$rootScope', '$scope', '$http', '$state', '$facebook', '$window', '$localStorage', function($rootScope, $scope, $http, $state, $facebook, $window, $localStorage) {
   
-  $window.scrollTo(0, 0);
+    $window.scrollTo(0, 0);
 
-  $rootScope.bcode = '955a22ce-d147-40bc-8fc7-a47aa49a2c56';
-
-
-  /*
-  if(!$rootScope.authenticated){
-    $state.go('saime.autenticacion');
-  }
-
-  */
+   
+    if(!$rootScope.authenticated){
+        $state.go('saime.autenticacion');
+    }
 
     $("#header_status").hide();  
     
@@ -399,11 +471,10 @@ ctrl.controller('RegistroCtrl', ['$scope', '$http', '$state', 'CodigoCelFactory'
 
 ctrl.controller('NoticiasWebCtrl', ['$rootScope', '$scope', '$http', '$state', '$timeout', function($rootScope, $scope, $http, $state, $timeout) {
 
-  /*
+  
     if(!$rootScope.authenticated){
         $state.go('saime.autenticacion');
     }
-  */
 
 
     $("#header_status").hide();
@@ -427,11 +498,11 @@ ctrl.controller('NoticiasWebCtrl', ['$rootScope', '$scope', '$http', '$state', '
 ctrl.controller('OTramitesCtrl', ['$rootScope', '$scope', '$http', '$state', '$timeout', function($rootScope, $scope, $http, $state, $timeout) {
   
   
-    /*
+    
     if(!$rootScope.authenticated){
         $state.go('saime.autenticacion');
     }
-    */
+    
 
     $("#header_status").hide();
 
@@ -465,10 +536,10 @@ ctrl.controller('OTramitesCtrl', ['$rootScope', '$scope', '$http', '$state', '$t
 
 ctrl.controller('MapasCtrl', ['$rootScope', '$scope', '$facebook', '$http', '$state', function($rootScope, $scope, $facebook, $http, $state){
 
-  /*
+  
   if(!$rootScope.authenticated){
     $state.go('saime.autenticacion');
-  }*/
+  }
 
   $("#header_status").hide();
   
@@ -528,13 +599,10 @@ ctrl.controller('MapasCtrl', ['$rootScope', '$scope', '$facebook', '$http', '$st
 
 ctrl.controller('ListaTramitesCtrl', ['$rootScope', '$scope', '$http', '$state', '$timeout', function($rootScope, $scope, $http, $state, $timeout) {
 
-    /*
 
     if(!$rootScope.authenticated){
       $state.go('saime.autenticacion');
     }
-
-    */
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -570,13 +638,10 @@ ctrl.controller('ListaTramitesCtrl', ['$rootScope', '$scope', '$http', '$state',
 
 ctrl.controller('MisSolicitudesVenCtrl', ['$rootScope', '$scope', '$http', '$state', '$timeout', function($rootScope, $scope, $http, $state, $timeout) {
 
-    /*
 
     if(!$rootScope.authenticated){
       $state.go('saime.autenticacion');
     }
-
-    */
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -623,13 +688,10 @@ ctrl.controller('MisSolicitudesVenCtrl', ['$rootScope', '$scope', '$http', '$sta
 
 ctrl.controller('MisSolicitudesExtCtrl', ['$rootScope', '$scope', '$http', '$state', '$timeout', function($rootScope, $scope, $http, $state, $timeout) {
 
-    /*
 
     if(!$rootScope.authenticated){
-      $state.go('saime.autenticacion');
+        $state.go('saime.autenticacion');
     }
-
-    */
 
     $rootScope.bcode = '955a22ce-d147-40bc-8fc7-a47aa49a2c56';
 
@@ -681,11 +743,9 @@ ctrl.controller('MisSolicitudesExtCtrl', ['$rootScope', '$scope', '$http', '$sta
 
 ctrl.controller('EstadoTramiteCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$timeout', function($rootScope, $scope, $http, $state, $stateParams, $timeout) {
 
-    /*
     if(!$rootScope.authenticated){
         $state.go('saime.autenticacion');
     }
-    */
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -740,11 +800,9 @@ ctrl.controller('EstadoTramiteCtrl', ['$rootScope', '$scope', '$http', '$state',
 
 ctrl.controller('EstadoCitaVenCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$timeout', function($rootScope, $scope, $http, $state, $stateParams, $timeout) {
 
-    /*
     if(!$rootScope.authenticated){
         $state.go('saime.autenticacion');
     }
-    */
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -785,11 +843,9 @@ ctrl.controller('EstadoCitaVenCtrl', ['$rootScope', '$scope', '$http', '$state',
 
 ctrl.controller('EstadoCitaExtCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$timeout', function($rootScope, $scope, $http, $state, $stateParams, $timeout) {
 
-    /*
     if(!$rootScope.authenticated){
         $state.go('saime.autenticacion');
     }
-    */
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -827,11 +883,9 @@ ctrl.controller('EstadoCitaExtCtrl', ['$rootScope', '$scope', '$http', '$state',
 
 ctrl.controller('EliminarCitaExtCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$timeout', function($rootScope, $scope, $http, $state, $stateParams, $timeout) {
 
-    /*
     if(!$rootScope.authenticated){
         $state.go('saime.autenticacion');
     }
-    */
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -869,11 +923,9 @@ ctrl.controller('EliminarCitaExtCtrl', ['$rootScope', '$scope', '$http', '$state
 
 ctrl.controller('EliminarCitaVenCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$timeout', function($rootScope, $scope, $http, $state, $stateParams, $timeout) {
 
-    /*
     if(!$rootScope.authenticated){
         $state.go('saime.autenticacion');
     }
-    */
 
     $("#header_status").hide();
     $scope.formData = {};

@@ -65,8 +65,6 @@
                                 <p><h3>Datos de Nacionalidad</h3></p>
                                 <hr>
 
-
-                                
                                 <div class="row">
                                     <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.countryinivad.$invalid }">
                                         <label class="control-label">Pa&iacute;s</label>
@@ -81,8 +79,7 @@
                                     </div>
                                 </div>
 
-                                    
-
+                                
                                 <div class="row">
                                     <div class="col-md-6" ng-class="{ 'has-error': formData.statevad.$invalid }">
                                         <label class="control-label">Estado</label>
@@ -107,10 +104,8 @@
 
                                 </div>
 
-                              
                                 <div class="row">
 
-                                    
                                     <div class="col-md-6" ng-class="{ 'has-error': formData.parishvad.$invalid }">
                                         <label class="control-label">Parroquia</label>
                                         <ui-select name="parishvad" ng-required="true" ng-model="formData.parish" style="width: 100%;">
@@ -121,15 +116,14 @@
                                         </ui-select>
                                     </div>
 
-
                                     <div class="col-md-6 saime-input" show-errors>
                                         <label class="control-label">Ciudad</label>
                                         <input class="form-control" name="cityvad" vld-texto ng-model="formData.city" type="text" name="ciudadv" required>
                                     </div>
-
-                                        
                                     
                                 </div>
+                                
+                               
 
                             </div>
                             <div class="col-md-2"></div>
@@ -156,9 +150,10 @@
                                 <hr>
 
                                 <div class="row">
+
                                     <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.cstatevad.$invalid }">
                                         <label class="control-label">Estado</label>
-                                        <ui-select name="cstatevad" ng-required="true" on-select="get_municipios()" ng-model="formData.currentState" style="width: 100%;">
+                                        <ui-select name="cstatevad" ng-required="true" on-select="get_cmunicipios()" ng-model="formData.currentState" style="width: 100%;">
                                             <ui-select-match placeholder="Estado...">{{$select.selected.descripcion}}</ui-select-match>
                                             <ui-select-choices repeat="estado.identidadfederal as estado in estados | filter: $select.search">
                                               <span ng-bind-html="estado.descripcion | highlight: $select.search"></span>
@@ -171,9 +166,9 @@
                                 <div class="row">
                                     <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.cmunicipiovad.$invalid }">
                                         <label class="control-label">Municipio</label>
-                                        <ui-select name="cmunicipiovad" ng-required="true" on-select="get_parroquias()" ng-model="formData.currentTown" style="width: 100%;">
+                                        <ui-select name="cmunicipiovad" ng-required="true" on-select="get_cparroquias()" ng-model="formData.currentTown" style="width: 100%;">
                                             <ui-select-match placeholder="Municipio...">{{$select.selected.descripcion}}</ui-select-match>
-                                            <ui-select-choices repeat="municipio.idmunicipio as municipio in municipios | filter: $select.search">
+                                            <ui-select-choices repeat="municipio.idmunicipio as municipio in cmunicipios | filter: $select.search">
                                               <span ng-bind-html="municipio.descripcion | highlight: $select.search"></span>
                                             </ui-select-choices>
                                         </ui-select>
@@ -185,7 +180,7 @@
                                         <label class="control-label">Parroquia</label>
                                         <ui-select name="cparroquiavad" ng-required="true" on-select="get_oficinas()" ng-model="formData.currentParish" style="width: 100%;">
                                             <ui-select-match placeholder="Parroquia...">{{$select.selected.descripcion}}</ui-select-match>
-                                            <ui-select-choices repeat="parroquia.idparrquia as parroquia in parroquias | filter: $select.search">
+                                            <ui-select-choices repeat="parroquia.idparrquia as parroquia in cparroquias | filter: $select.search">
                                               <span ng-bind-html="parroquia.descripcion | highlight: $select.search"></span>
                                             </ui-select-choices>
                                         </ui-select>
@@ -326,7 +321,7 @@
 
                                 <br>
                                     
-                                <div class="saime-menu" role="group" aria-label="Vertical button group">
+                                <div align="center" class="saime-menu" role="group" aria-label="Vertical button group">
                                     <button ng-click="guardar(formData)" type="button" class="btn btn-default saime-btn-yellow">Guardar datos</button>
                                 </div>
 

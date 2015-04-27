@@ -4,13 +4,11 @@
 var ctrl = angular.module('app.controllers_ven', []);
 
 
-ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', 'CodigoCelFactory', function($rootScope, $timeout, $scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory, CodigoCelFactory) {
+ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '$http', '$state', '$localStorage', '$window', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', 'CodigoCelFactory', function($rootScope, $timeout, $scope, $http, $state, $localStorage, $window, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory, CodigoCelFactory) {
     
-    /*
     if(!$rootScope.authenticated){
       $state.go('saime.autenticacion');
     }
-    */
 
     $scope.letras = [
         { id: 'V', letra: 'V'},
@@ -172,13 +170,8 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
     }
 
 
-    $http.get("api/api.php?opc=get_paises&bcode="+$rootScope.bcode).success(function(response){ 
-        $scope.paises = response.countryList
-    })
-
-    $http.get("api/api.php?opc=get_estados&bcode="+$rootScope.bcode).success(function(response){ 
-        $scope.estados = response.stateList
-    })
+    $scope.paises = $localStorage.paises.countryList;
+    $scope.estados = $localStorage.estados.stateList;
 
 
     $scope.get_municipios = function(){
@@ -202,6 +195,7 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
     }
 
     $scope.continuar1 = function(){
+        $window.scrollTo(0, 0);
         $scope.step1 = "display:none;";
         $scope.step2 = "display:block;";
     }
@@ -211,6 +205,7 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
 
         if($scope.formData.minorType==='3'){
             if((form.countryIni && form.city) && (form.motherId || form.fatherId || form.legalId)) {
+                $window.scrollTo(0, 0);
                 $scope.step3 = "display:none;";
                 $scope.step4 = "display:block;";
             }else{
@@ -218,6 +213,7 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
             }
         }else{
             if((form.countryIni && form.state && form.town && form.parish && form.city) && (form.motherId || form.fatherId || form.legalId)) {
+                $window.scrollTo(0, 0);
                 $scope.step3 = "display:none;";
                 $scope.step4 = "display:block;";
             }else{
@@ -233,6 +229,7 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
         $scope.formData.workPhone = $scope.formNoData.phone_code_work + $scope.formNoData.workPhone;
 
         if((form.currentState && form.currentTown && form.currentParish && form.currentCity && form.urbanization && form.noApto && form.street && form.pCode) && ($scope.formData.cellPhone || $scope.formData.workPhone || $scope.formData.homePhone)) {                
+            $window.scrollTo(0, 0);
             $scope.step4 = "display:none;";
             $scope.step5 = "display:block;";
         }else{
@@ -246,6 +243,16 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
 
         $scope.formData.offices = $scope.formData.offices.toString() || "";
         $scope.formData.country = $scope.formData.countryIni;
+
+
+        if(!$scope.formData.minorId){$scope.formData.minorId = null;}
+        if(!$scope.formData.fatherId){$scope.formData.fatherId = null;}
+        if(!$scope.formData.motherId){$scope.formData.motherId = null;}
+        if(!$scope.formData.legalId){$scope.formData.legalId = null;}
+        if(!$scope.formData.name2){$scope.formData.name2 = null;}
+        if(!$scope.formData.lastName2){$scope.formData.lastName2 = null;}
+        if(!$scope.formData.bDate){$scope.formData.bDate = null;}
+
         
         if($scope.formData.offices != ""){
             $scope.error_msg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
@@ -346,12 +353,11 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
 
 
 
-ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', '$http', '$state', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', 'CodigoCelFactory', function($rootScope, $timeout, $scope, $http, $state, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory, CodigoCelFactory) {
+ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', '$http', '$state', '$localStorage', '$window', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', 'CodigoCelFactory', function($rootScope, $timeout, $scope, $http, $state, $localStorage, $window, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory, CodigoCelFactory) {
     
-    /*
     if(!$rootScope.authenticated){
-      $state.go('saime.autenticacion');
-    }*/
+        $state.go('saime.autenticacion');
+    }
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -469,14 +475,8 @@ ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', 
     }
 
 
-
-    $http.get("api/api.php?opc=get_paises&bcode="+$rootScope.bcode).success(function(response) { 
-        $scope.paises = response.countryList
-    })
-
-    $http.get("api/api.php?opc=get_estados&bcode="+$rootScope.bcode).success(function(response) { 
-        $scope.estados = response.stateList
-    })
+    $scope.paises = $localStorage.paises.countryList;
+    $scope.estados = $localStorage.estados.stateList;
 
 
     $scope.get_municipios = function(){
@@ -505,21 +505,22 @@ ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', 
     $scope.continuar1 = function(form){
 
 
-
       if(form.minorType=='4'){
 
           if((form.name1 && form.lastName1 && form.bDate && form.gender && form.countryIni && form.city) && (form.motherId || form.fatherId || form.legalId)) {
-              $scope.step1 = "display:none;";
-              $scope.step2 = "display:block;";
+                $window.scrollTo(0, 0);
+                $scope.step1 = "display:none;";
+                $scope.step2 = "display:block;";
           }else{
-              $scope.showErrorsCheckValidity = true;
+                $scope.showErrorsCheckValidity = true;
           }
       }else{
           if((form.name1 && form.lastName1 && form.bDate && form.gender && form.countryIni && form.state && form.town && form.parish && form.city) && (form.motherId || form.fatherId || form.legalId)) {
-              $scope.step1 = "display:none;";
-              $scope.step2 = "display:block;";
+                $window.scrollTo(0, 0);
+                $scope.step1 = "display:none;";
+                $scope.step2 = "display:block;";
           }else{
-              $scope.showErrorsCheckValidity = true;
+                $scope.showErrorsCheckValidity = true;
           }
 
       }
@@ -533,6 +534,7 @@ ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', 
         $scope.formData.workPhone = $scope.formNoData.phone_code_work + $scope.formNoData.workPhone;
 
         if((form.currentState && form.currentTown && form.currentParish && form.currentCity && form.urbanization && form.noApto && form.street && form.pCode) && ($scope.formData.cellPhone || $scope.formData.workPhone || $scope.formData.homePhone)) {              
+            $window.scrollTo(0, 0);
             $scope.step2 = "display:none;";
             $scope.step3 = "display:block;";
         }else{
@@ -544,9 +546,18 @@ ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', 
     $scope.guardar = function(form){
         $scope.formData.offices = $scope.formData.offices.toString() || "";
         $scope.formData.country = $scope.formData.countryIni;
-        $scope.formData.bDate = $scope.formData.bDate.format("dd/mm/yyyy");
+        
+        $scope.formData.nobDate = $scope.formData.bDate.format("dd/mm/yyyy");
+
+        if(!$scope.formData.minorId){$scope.formData.minorId = null;}
+        if(!$scope.formData.fatherId){$scope.formData.fatherId = null;}
+        if(!$scope.formData.motherId){$scope.formData.motherId = null;}
+        if(!$scope.formData.legalId){$scope.formData.legalId = null;}
+        if(!$scope.formData.name2){$scope.formData.name2 = null;}
+        if(!$scope.formData.lastName2){$scope.formData.lastName2 = null;}
       
         if($scope.formData.offices != ""){
+            $window.scrollTo(0, 0);
             $scope.error_msg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
             $scope.error = true;
 
@@ -563,7 +574,7 @@ ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', 
                 lastName1: $scope.formData.lastName1,
                 lastName2: $scope.formData.lastName2,
                 gender: $scope.formData.gender,
-                bDate: $scope.formData.bDate,
+                bDate: $scope.formData.nobDate,
                 country: $scope.formData.country,
                 countryIni: $scope.formData.countryIni,
                 parish: $scope.formData.parish,
@@ -648,14 +659,14 @@ ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', 
 
 
 
-ctrl.controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '$scope', '$http', '$timeout', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', 'CodigoCelFactory', function($rootScope, $state, $scope, $http, $timeout, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory, CodigoCelFactory) {
+ctrl.controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '$scope', '$http', '$timeout', '$localStorage', '$window', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', 'CodigoCelFactory', function($rootScope, $state, $scope, $http, $timeout, $localStorage, $window, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory, CodigoCelFactory) {
 
     
-    /*
+    
     if(!$rootScope.authenticated){
-      $state.go('saime.autenticacion');
+        $state.go('saime.autenticacion');
     }
-    */
+    
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -673,14 +684,8 @@ ctrl.controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '
     $scope.codigos = CodigoTelfFactory;
     $scope.codigosc = CodigoCelFactory;
 
-    $http.get("api/api.php?opc=get_paises&bcode="+$rootScope.bcode).success(function(response) { 
-        $scope.paises = response.countryList
-    })
-
-
-    $http.get("api/api.php?opc=get_estados&bcode="+$rootScope.bcode).success(function(response) { 
-        $scope.estados = response.stateList;
-    })
+    $scope.paises = $localStorage.paises.countryList;
+    $scope.estados = $localStorage.estados.stateList;
 
 
 
@@ -689,20 +694,19 @@ ctrl.controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '
     }
 
     $scope.get_parroquias = function(){
-      $scope.parroquias = ParroquiasFactory($scope.formData.town);
+        $scope.parroquias = ParroquiasFactory($scope.formData.town);
     }
 
-
     $scope.get_cmunicipios = function(){
-      $scope.municipios = MunicipiosFactory($scope.formData.currentState);
+        $scope.cmunicipios = MunicipiosFactory($scope.formData.currentState);
     }
 
     $scope.get_cparroquias = function(){
-      $scope.parroquias = ParroquiasFactory($scope.formData.currentTown);
+        $scope.cparroquias = ParroquiasFactory($scope.formData.currentTown);
     }
 
     $scope.get_oficinas = function(){
-      $scope.oficinas = OficinasFactory($scope.formData.currentState);
+        $scope.oficinas = OficinasFactory($scope.formData.currentState);
     }
 
 
@@ -712,25 +716,29 @@ ctrl.controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '
         //$scope.formData.bDate = moment($scope.formData.bDate).format("dd/mm/yyyy");  //moment(testDate).format('MM/DD/YYYY');
 
 
+
+
         $scope.alldata = {
-            cellPhone: $scope.formData.cellPhone,
-            city: $scope.formData.city,
-            country: $scope.formData.country,
+
             countryIni: $scope.formData.countryIni,
-            currentCity: $scope.formData.currentCity,
-            currentParish: $scope.formData.currentParish,
+            country: $scope.formData.country,
+            city: $scope.formData.city,
+            state: $scope.formData.state,
+            town: $scope.formData.town,
+            parish: $scope.formData.parish,
             currentState: $scope.formData.currentState,
             currentTown: $scope.formData.currentTown,
-            homePhone: $scope.formData.homePhone,
-            noApto: $scope.formData.noApto,
-            offices: $scope.formData.offices,
-            pCode: $scope.formData.pCode,
-            parish: $scope.formData.parish,
-            state: $scope.formData.state,
-            street: $scope.formData.street,
-            town: $scope.formData.town,
+            currentParish: $scope.formData.currentParish,
+            currentCity: $scope.formData.currentCity,
             urbanization: $scope.formData.urbanization,
-            workPhone: $scope.formData.workPhone
+            noApto: $scope.formData.noApto,
+            street: $scope.formData.street,
+            pCode: $scope.formData.pCode,
+            cellPhone: $scope.formData.cellPhone,
+            homePhone: $scope.formData.homePhone,
+            workPhone: $scope.formData.workPhone,
+            offices: $scope.formData.offices
+            
         }
       
       
@@ -756,6 +764,7 @@ ctrl.controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '
     
     $scope.continuar1 = function(form){
         if(form.countryIni && form.state && form.parish && form.town && form.city) {
+            $window.scrollTo(0, 0);
             $scope.step1 = "display:none;";
             $scope.step2 = "display:block;";
         }else{
@@ -770,6 +779,7 @@ ctrl.controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '
         $scope.formData.workPhone = $scope.formNoData.phone_code_work + $scope.formNoData.workPhone;
 
         if((form.currentState && form.currentTown && form.currentParish && form.currentCity && form.noApto && form.urbanization && form.street && form.pCode) && ($scope.formData.cellPhone || $scope.formData.workPhone || $scope.formData.homePhone)) {
+            $window.scrollTo(0, 0);
             $scope.step2 = "display:none;";
             $scope.step3 = "display:block;";
         }else{
