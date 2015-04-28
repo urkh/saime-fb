@@ -137,7 +137,7 @@ switch ($_GET['opc']) {
 
 
     case "get_oficina_quota":
-        post_bearer_auth($URI="/saime-ws/v1.0/passport/officeQuota");
+        post_bearer_auth($host, $uri="/saime-ws/v1.0/passport/officeQuota", $data);
         break;
 
 
@@ -274,7 +274,6 @@ function post_bearer_auth($host, $uri, $datos){
 function post_bearer_auth_fb($host, $uri, $datos){
 
     $headers = array('Content-Type' => 'application/json', 'Authorization' => 'Bearer '.$_GET['bcode']);
-    //$data = array('data' => parser_datos($datos), 'crc'=> gen_crc(parser_datos($datos)));
     $response = Requests::post($host.$uri, $headers, json_encode($datos));
     echo $response->body;
 
@@ -287,7 +286,6 @@ function get_basic_auth($host, $uri, $datos){
 	$headers = array('Content-Type' => 'application/json', 'Authorization' => 'Basic MzUzYjMwMmM0NDU3NGY1NjUwNDU2ODdlNTM0ZTdkNmE6Mjg2OTI0Njk3ZTYxNWE2NzJhNjQ2YTQ5MzU0NTY0NmM=');
 	$response = Requests::get($host.$uri, $headers);
 	echo $response->body;
-    //echo $_SESSION['access_token'];
 
 }
 
@@ -299,14 +297,12 @@ function post_basic_auth($host, $uri, $datos){
 	$data = array('data'=> parser_datos($datos), 'crc'=> gen_crc(parser_datos($datos)));
 	$response = Requests::post($host.$uri, $headers, json_encode($data));
 	echo $response->body;
-    //echo $_SESSION['access_token'];
-
+    
 }
 
 
 
 function logout(){
-    //session_destroy();
     echo '{"errorCode":"00000", "msg":"Sesion Finalizada"}';
 }
 

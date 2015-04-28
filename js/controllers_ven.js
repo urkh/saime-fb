@@ -225,7 +225,9 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
     }
 
     $scope.get_oficinas = function(){
-        $scope.oficinas = OficinasFactory($scope.formData.currentState);
+        $http.post("api/api.php?opc=get_oficina_quota&bcode="+$rootScope.bcode, {identidadfederal:$scope.formData.currentState}).success(function(response) { 
+            $scope.oficinas = response.pronosticosestadoList;
+        });
     }
 
     $scope.continuar1 = function(){
@@ -614,7 +616,9 @@ ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', 
     }
 
     $scope.get_oficinas = function(){
-        $scope.oficinas = OficinasFactory($scope.formData.currentState);
+        $http.post("api/api.php?opc=get_oficina_quota&bcode="+$rootScope.bcode, {identidadfederal:$scope.formData.currentState}).success(function(response) { 
+            $scope.oficinas = response.pronosticosestadoList;
+        });
     }
 
 
@@ -824,7 +828,9 @@ ctrl.controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '
     }
 
     $scope.get_oficinas = function(){
-        $scope.oficinas = OficinasFactory($scope.formData.currentState);
+        $http.post("api/api.php?opc=get_oficina_quota&bcode="+$rootScope.bcode, {identidadfederal:$scope.formData.currentState}).success(function(response) { 
+            $scope.oficinas = response.pronosticosestadoList;
+        });
     }
 
 

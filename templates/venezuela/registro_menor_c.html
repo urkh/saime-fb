@@ -300,7 +300,7 @@
 
                                             <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.cstatevad.$invalid }">
                                                 <label class="control-label">Estado</label>
-                                                <ui-select name="cstatevad" ng-required="true" on-select="get_cmunicipios()" ng-model="formData.currentState" style="width: 100%;">
+                                                <ui-select name="cstatevad" ng-required="true" on-select="get_cmunicipios(); get_oficinas();" ng-model="formData.currentState" style="width: 100%;">
                                                     <ui-select-match placeholder="Estado...">{{$select.selected.descripcion}}</ui-select-match>
                                                     <ui-select-choices repeat="estado.identidadfederal as estado in estados | filter: $select.search">
                                                       <span ng-bind-html="estado.descripcion | highlight: $select.search"></span>
@@ -325,7 +325,7 @@
                                         <div class="row">
                                             <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.cparroquiavad.$invalid }">
                                                 <label class="control-label">Parroquia</label>
-                                                <ui-select name="cparroquiavad" ng-required="true" on-select="get_oficinas()" ng-model="formData.currentParish" style="width: 100%;">
+                                                <ui-select name="cparroquiavad" ng-required="true" ng-model="formData.currentParish" style="width: 100%;">
                                                     <ui-select-match placeholder="Parroquia...">{{$select.selected.descripcion}}</ui-select-match>
                                                     <ui-select-choices repeat="parroquia.idparrquia as parroquia in cparroquias | filter: $select.search">
                                                       <span ng-bind-html="parroquia.descripcion | highlight: $select.search"></span>
@@ -449,7 +449,7 @@
                                                     <input type="checkbox" checklist-model="formData.offices" checklist-value="oficina.idoficina">
                                                 </div>
                                                 <div class="col-md-6 ">
-                                                    <label class="saime-label-checkboxes">{{oficina.nombreoficina}}</label>
+                                                    <label class="saime-label-checkboxes">{{oficina.nombreoficina}}, ({{oficina.cola}}) en cola</label>
                                                 </div>
                                             </div>
                                         </div>

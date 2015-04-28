@@ -46,10 +46,24 @@ service.factory('ParroquiasFactory', ['$rootScope', '$http', '$localStorage', fu
 }]);
 
 
-
-
-
 service.factory('OficinasFactory', ['$rootScope', '$http', '$localStorage', function($rootScope, $http, $localStorage) {
+    
+    return function(state){
+
+        //oficinas = [];
+        $http.post("api/api.php?opc=get_oficina_quota&bcode="+$rootScope.bcode, {identidadfederal:state}).success(function(response) { 
+
+            oficinas = response.pronosticosestadoList;
+
+            return oficinas;
+        });
+    }
+
+}]);
+
+
+
+service.factory('OficinasLFactory', ['$rootScope', '$http', '$localStorage', function($rootScope, $http, $localStorage) {
 	
     return function(state){
 
