@@ -28,9 +28,8 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
     $scope.buscar_menor_cedulado = function() {
 
         if($scope.formSearch.cedula){
-
-            $scope.error_msg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
-            $scope.error = true;
+            $scope.searchmsg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+            $scope.showModal = true;
 
             $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letrame, cedula: $scope.formSearch.cedula}).success(function(response) {
                 if(response.errorCode === '00000'){
@@ -39,7 +38,7 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
                         if(res.errorCode === '00000'){
                             $scope.formData.minorId = response.cedulado.idpersona; 
                             $scope.formSearch.cedula = response.cedulado.numerocedula +" "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
-                            $scope.error_msg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                            $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
 
                             $scope.formData.name1 = response.cedulado.primernombre;
                             $scope.formData.name2 = response.cedulado.segundonombre;
@@ -49,73 +48,35 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
                             response.cedulado.sexo == 'F' ? $scope.formData.gender = 'Femenino' : $scope.formData.gender = 'Masculino';
                             
                             $timeout(function(){
-                                $scope.error = false;
+                                $scope.showModal = false;
                                 $scope.continuar1();
-                            }, 1500);
+                            }, 2000);
 
                         }else{
-                            $scope.error_msg = res.consumerMessage;
-                        }
-
-                    }).error(function(){
-                        $scope.error_msg = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
-                    });
-
-                }else{
-                    $scope.error_msg = response.consumerMessage;
-                }
-            }).error(function(){
-                $scope.error_msg = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
-            });
-        
-        }else{
-            $scope.showErrorsCheckValidity = true;
-        }
-    }
-
-
-    $scope.buscar_menor_cedulado = function() {
-
-        if($scope.formSearch.cedula){
-            $window.scrollTo(0, 0);
-
-            $scope.error_msg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
-            $scope.error = true;
-
-            $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letrame, cedula: $scope.formSearch.cedula}).success(function(response) {
-                if(response.errorCode === '00000'){
-                    $http.post("api/api.php?opc=validar_cita_menor&bcode="+$rootScope.bcode, {idpersona:response.cedulado.idpersona, minorType:$scope.formData.minorType}).success(function(res) { 
-
-                        if(res.errorCode === '00000'){
-                            $scope.formData.minorId = response.cedulado.idpersona; 
-                            $scope.formSearch.cedula = response.cedulado.numerocedula +" "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
-                            $scope.error_msg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
-
-                            $scope.formData.name1 = response.cedulado.primernombre;
-                            $scope.formData.name2 = response.cedulado.segundonombre;
-                            $scope.formData.lastName1 = response.cedulado.primerapellido;
-                            $scope.formData.lastName2 = response.cedulado.segundoapellido;
-                            $scope.formData.bDate = response.cedulado.fechanacimiento;
-                            response.cedulado.sexo == 'F' ? $scope.formData.gender = 'Femenino' : $scope.formData.gender = 'Masculino';
-                            
+                            $scope.searchmsg = res.consumerMessage;
                             $timeout(function(){
-                                $scope.error = false;
-                                $scope.continuar1();
-                            }, 1500);
-
-                        }else{
-                            $scope.error_msg = res.consumerMessage;
+                                $scope.showModal = false;
+                            }, 2000);
                         }
 
                     }).error(function(){
-                        $scope.error_msg = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+                        $scope.searchmsg = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+                        $timeout(function(){
+                            $scope.showModal = false;
+                        }, 2000);
                     });
 
                 }else{
-                    $scope.error_msg = response.consumerMessage;
+                    $scope.searchmsg = response.consumerMessage;
+                    $timeout(function(){
+                        $scope.showModal = false;
+                    }, 2000);
                 }
             }).error(function(){
-                $scope.error_msg = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+                $scope.searchmsg = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
+                $timeout(function(){
+                    $scope.showModal = false;
+                }, 2000);
             });
         
         }else{
@@ -124,134 +85,138 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
     }
 
 
-
-    $scope.buscar_madre = function() {
+     $scope.buscar_madre = function() {
 
         if($scope.formSearch.cedulam, $scope.formSearch.letram){
-            $window.scrollTo(0, 0);
-            $scope.error_msg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
-            $scope.error = true;
+
+            $scope.searchmsg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+            $scope.showModal = true;
 
             $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letram, cedula: $scope.formSearch.cedulam}).success(function(response) {
                 if(response.errorCode === '00000'){
                     if(response.cedulado.sexo === 'F'){
-                        $window.scrollTo(0, 0);
                         $scope.formData.motherId = response.cedulado.idpersona; 
                         $scope.formSearch.cedulam = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
-                        $scope.error_msg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido;                         
+                        $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido;                         
                         $timeout(function(){
-                            $scope.error = false;
-                        }, 1500);
+                            $scope.showModal = false;
+                        }, 2000);
 
                     }else if(response.cedulado.sexo === 'M'){
-                        $window.scrollTo(0, 0);
-                        $scope.error_msg = "Est&aacute; colocando la c&eacute;dula de un ciudadano masculino.";
+                        $scope.searchmsg = "Est&aacute; colocando la c&eacute;dula de un ciudadano masculino.";
                         $timeout(function(){
-                            $scope.error = false;
-                        }, 1500);
+                            $scope.showModal = false;
+                        }, 2000);
 
                     }else{
-                        $window.scrollTo(0, 0);
-                        $scope.error_msg = "No se encontraron resultados";
+                        $scope.searchmsg = "No se encontraron resultados";
                         $timeout(function(){
-                            $scope.error = false;
-                        }, 1500);
+                            $scope.showModal = false;
+                        }, 2000);
                     }
 
                 }else{
-                    $scope.error_msg = response.consumerMessage;
+                    $scope.searchmsg = response.consumerMessage;
                     $timeout(function(){
-                        $scope.error = false;
-                    }, 1500);
+                        $scope.showModal = false;
+                    }, 2000);
                 }     
               
             }).error(function(){
-                $scope.error_msg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+                $scope.searchmsg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+                $timeout(function(){
+                    $scope.showModal = false;
+                }, 2000);
             });
         }
     }
+    
 
     $scope.buscar_padre = function(){
         
         if($scope.formSearch.cedulap, $scope.formSearch.letrap){
-            $window.scrollTo(0, 0);
-            $scope.error_msg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
-            $scope.error = true;
+            $scope.searchmsg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+            $scope.showModal = true;
 
             $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letrap, cedula: $scope.formSearch.cedulap}).success(function(response) {
                 if(response.errorCode === '00000'){
                     if(response.cedulado.sexo === 'M'){
-                        $window.scrollTo(0, 0);
+                        
                         $scope.formData.fatherId = response.cedulado.idpersona; 
                         $scope.formSearch.cedulap = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
-                        $scope.error_msg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                        $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
                         $timeout(function(){
-                            $scope.error = false;
-                        }, 1500);
+                            $scope.showModal = false;
+                        }, 2000);
 
                     }else if(response.cedulado.sexo === 'F'){
-                        $window.scrollTo(0, 0);
-                        $scope.error_msg = "Est&aacute; colocando la c&eacute;dula de un ciudadano femenino.";
+                        $scope.searchmsg = "Est&aacute; colocando la c&eacute;dula de un ciudadano femenino.";
                         $timeout(function(){
-                            $scope.error = false;
-                        }, 1500);
+                            $scope.showModal = false;
+                        }, 2000);
 
                     }else{
-                        $window.scrollTo(0, 0);
-                        $scope.error_msg = "No se encontraron resultados";
+                        $scope.searchmsg = "No se encontraron resultados";
                         $timeout(function(){
-                            $scope.error = false;
-                        }, 1500);
+                            $scope.showModal = false;
+                        }, 2000);
                     }
                     
                 }else{
-                    $window.scrollTo(0, 0);
                     $timeout(function(){
-                        $scope.error = false;
-                    }, 1500);
-                    $scope.error_msg = response.consumerMessage;
+                        $scope.showModal = false;
+                    }, 2000);
+                    $scope.searchmsg = response.consumerMessage;
                 }     
               
             }).error(function(){
-                $scope.error_msg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+                $scope.searchmsg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+                $timeout(function(){
+                    $scope.showModal = false;
+                }, 2000);
             });
-
         }
-
-
     }
+
 
     $scope.buscar_legal = function(){
         
         if($scope.formSearch.cedulal, $scope.formSearch.letral){
-            $window.scrollTo(0, 0);
-            $scope.error_msg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
-            $scope.error = true;
+            $scope.searchmsg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+            $scope.showModal = true;
 
             $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letral, cedula: $scope.formSearch.cedulal}).success(function(response) {
                 if(response.errorCode === '00000'){
-                    $window.scrollTo(0, 0);
+                    
                     $scope.formData.legalId = response.cedulado.idpersona; 
                     $scope.formSearch.cedulal = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
-                    $scope.error_msg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                    $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
                     $timeout(function(){
-                        $scope.error = false;
-                    }, 1500);
+                        $scope.showModal = false;
+                    }, 2000);
                   
                 }else{
-                    $window.scrollTo(0, 0);
+
+                    $scope.searchmsg = response.consumerMessage;
                     $timeout(function(){
-                        $scope.error = false;
-                    }, 1500);
-                    $scope.error_msg = response.consumerMessage;
+                        $scope.showModal = false;
+                    }, 2000);
+                    
                 }     
               
             }).error(function(){
-                $scope.error_msg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+                $scope.searchmsg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+                $timeout(function(){
+                    $scope.showModal = false;
+                }, 2000);
             });
 
         }
     }
+
+
+
+   
 
 
     $scope.paises = $localStorage.paises.countryList;
@@ -408,186 +373,138 @@ ctrl.controller('FormRegistroMenorNcExtCtrl', ['$rootScope', '$state', '$timeout
     ];
 
 
-
-    $scope.buscar_menor_cedulado = function() {
-
-        if($scope.formSearch.cedula){
-            $window.scrollTo(0, 0);
-
-            $scope.error_msg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
-            $scope.error = true;
-
-            $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letrame, cedula: $scope.formSearch.cedula}).success(function(response) {
-                if(response.errorCode === '00000'){
-                    $http.post("api/api.php?opc=validar_cita_menor&bcode="+$rootScope.bcode, {idpersona:response.cedulado.idpersona, minorType:$scope.formData.minorType}).success(function(res) { 
-
-                        if(res.errorCode === '00000'){
-                            $scope.formData.minorId = response.cedulado.idpersona; 
-                            $scope.formSearch.cedula = response.cedulado.numerocedula +" "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
-                            $scope.error_msg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
-
-                            $scope.formData.name1 = response.cedulado.primernombre;
-                            $scope.formData.name2 = response.cedulado.segundonombre;
-                            $scope.formData.lastName1 = response.cedulado.primerapellido;
-                            $scope.formData.lastName2 = response.cedulado.segundoapellido;
-                            $scope.formData.bDate = response.cedulado.fechanacimiento;
-                            response.cedulado.sexo == 'F' ? $scope.formData.gender = 'Femenino' : $scope.formData.gender = 'Masculino';
-                            
-                            $timeout(function(){
-                                $scope.error = false;
-                                $scope.continuar1();
-                            }, 1500);
-
-                        }else{
-                            $scope.error_msg = res.consumerMessage;
-                        }
-
-                    }).error(function(){
-                        $scope.error_msg = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
-                    });
-
-                }else{
-                    $scope.error_msg = response.consumerMessage;
-                }
-            }).error(function(){
-                $scope.error_msg = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.";
-            });
-        
-        }else{
-            $scope.showErrorsCheckValidity = true;
-        }
-    }
-
-
-
-    $scope.buscar_madre = function() {
+     $scope.buscar_madre = function() {
 
         if($scope.formSearch.cedulam, $scope.formSearch.letram){
-            $window.scrollTo(0, 0);
-            $scope.error_msg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
-            $scope.error = true;
+
+            $scope.searchmsg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+            $scope.showModal = true;
 
             $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letram, cedula: $scope.formSearch.cedulam}).success(function(response) {
                 if(response.errorCode === '00000'){
                     if(response.cedulado.sexo === 'F'){
-                        $window.scrollTo(0, 0);
                         $scope.formData.motherId = response.cedulado.idpersona; 
                         $scope.formSearch.cedulam = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
-                        $scope.error_msg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido;                         
+                        $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido;                         
                         $timeout(function(){
-                            $scope.error = false;
-                        }, 1500);
+                            $scope.showModal = false;
+                        }, 2000);
 
                     }else if(response.cedulado.sexo === 'M'){
-                        $window.scrollTo(0, 0);
-                        $scope.error_msg = "Est&aacute; colocando la c&eacute;dula de un ciudadano masculino.";
+                        $scope.searchmsg = "Est&aacute; colocando la c&eacute;dula de un ciudadano masculino.";
                         $timeout(function(){
-                            $scope.error = false;
-                        }, 1500);
+                            $scope.showModal = false;
+                        }, 2000);
 
                     }else{
-                        $window.scrollTo(0, 0);
-                        $scope.error_msg = "No se encontraron resultados";
+                        $scope.searchmsg = "No se encontraron resultados";
                         $timeout(function(){
-                            $scope.error = false;
-                        }, 1500);
+                            $scope.showModal = false;
+                        }, 2000);
                     }
 
                 }else{
-                    $scope.error_msg = response.consumerMessage;
+                    $scope.searchmsg = response.consumerMessage;
                     $timeout(function(){
-                        $scope.error = false;
-                    }, 1500);
+                        $scope.showModal = false;
+                    }, 2000);
                 }     
               
             }).error(function(){
-                $scope.error_msg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+                $scope.searchmsg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+                $timeout(function(){
+                    $scope.showModal = false;
+                }, 2000);
             });
         }
     }
+    
 
     $scope.buscar_padre = function(){
         
         if($scope.formSearch.cedulap, $scope.formSearch.letrap){
-            $window.scrollTo(0, 0);
-            $scope.error_msg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
-            $scope.error = true;
+            $scope.searchmsg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+            $scope.showModal = true;
 
             $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letrap, cedula: $scope.formSearch.cedulap}).success(function(response) {
                 if(response.errorCode === '00000'){
                     if(response.cedulado.sexo === 'M'){
-                        $window.scrollTo(0, 0);
+                        
                         $scope.formData.fatherId = response.cedulado.idpersona; 
                         $scope.formSearch.cedulap = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
-                        $scope.error_msg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                        $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
                         $timeout(function(){
-                            $scope.error = false;
-                        }, 1500);
+                            $scope.showModal = false;
+                        }, 2000);
 
                     }else if(response.cedulado.sexo === 'F'){
-                        $window.scrollTo(0, 0);
-                        $scope.error_msg = "Est&aacute; colocando la c&eacute;dula de un ciudadano femenino.";
+                        $scope.searchmsg = "Est&aacute; colocando la c&eacute;dula de un ciudadano femenino.";
                         $timeout(function(){
-                            $scope.error = false;
-                        }, 1500);
+                            $scope.showModal = false;
+                        }, 2000);
 
                     }else{
-                        $window.scrollTo(0, 0);
-                        $scope.error_msg = "No se encontraron resultados";
+                        $scope.searchmsg = "No se encontraron resultados";
                         $timeout(function(){
-                            $scope.error = false;
-                        }, 1500);
+                            $scope.showModal = false;
+                        }, 2000);
                     }
                     
                 }else{
-                    $window.scrollTo(0, 0);
                     $timeout(function(){
-                        $scope.error = false;
-                    }, 1500);
-                    $scope.error_msg = response.consumerMessage;
+                        $scope.showModal = false;
+                    }, 2000);
+                    $scope.searchmsg = response.consumerMessage;
                 }     
               
             }).error(function(){
-                $scope.error_msg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+                $scope.searchmsg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+                $timeout(function(){
+                    $scope.showModal = false;
+                }, 2000);
             });
-
         }
-
-
     }
+
 
     $scope.buscar_legal = function(){
         
         if($scope.formSearch.cedulal, $scope.formSearch.letral){
-            $window.scrollTo(0, 0);
-            $scope.error_msg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
-            $scope.error = true;
+            $scope.searchmsg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+            $scope.showModal = true;
 
             $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letral, cedula: $scope.formSearch.cedulal}).success(function(response) {
                 if(response.errorCode === '00000'){
-                    $window.scrollTo(0, 0);
+                    
                     $scope.formData.legalId = response.cedulado.idpersona; 
                     $scope.formSearch.cedulal = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
-                    $scope.error_msg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                    $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
                     $timeout(function(){
-                        $scope.error = false;
-                    }, 1500);
+                        $scope.showModal = false;
+                    }, 2000);
                   
                 }else{
-                    $window.scrollTo(0, 0);
+
+                    $scope.searchmsg = response.consumerMessage;
                     $timeout(function(){
-                        $scope.error = false;
-                    }, 1500);
-                    $scope.error_msg = response.consumerMessage;
+                        $scope.showModal = false;
+                    }, 2000);
+                    
                 }     
               
             }).error(function(){
-                $scope.error_msg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+                $scope.searchmsg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
+                $timeout(function(){
+                    $scope.showModal = false;
+                }, 2000);
             });
 
         }
     }
 
+
+
+  
 
     $scope.paises = $localStorage.paises.countryList;
 
