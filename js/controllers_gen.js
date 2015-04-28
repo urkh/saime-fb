@@ -483,7 +483,14 @@ ctrl.controller('NoticiasWebCtrl', ['$rootScope', '$scope', '$http', '$state', '
 
     $http.post("api/api.php?opc=get_noticias_web&bcode="+$rootScope.bcode, {pageNo:"1", pageSize:"10"}).success(function(response) { 
         if(response.errorCode==='00000'){
-            $scope.noticias = response.noticiaWebList;
+
+            var noticias = response.noticiaWebList;
+
+            for(var i=0; i<noticias.length; i++){
+                noticias[i].contenido = noticias[i].contenido.replace(/<\/?[^>]+>/gi, '');
+            }
+ 
+            $scope.noticias = noticias;
             $scope.error = false;
         }else{
             $scope.error_msg = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
