@@ -37,7 +37,7 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
 
                         if(res.errorCode === '00000'){
                             $scope.formData.minorId = response.cedulado.idpersona; 
-                            $scope.formSearch.cedula = response.cedulado.numerocedula +" "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                            //$scope.formSearch.cedula = response.cedulado.numerocedula +" "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
                             $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
 
                             $scope.formData.name1 = response.cedulado.primernombre;
@@ -96,7 +96,7 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
                 if(response.errorCode === '00000'){
                     if(response.cedulado.sexo === 'F'){
                         $scope.formData.motherId = response.cedulado.idpersona; 
-                        $scope.formSearch.cedulam = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                        //$scope.formSearch.cedulam = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
                         $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido;                         
                         $timeout(function(){
                             $scope.showModal = false;
@@ -143,7 +143,7 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
                     if(response.cedulado.sexo === 'M'){
                         
                         $scope.formData.fatherId = response.cedulado.idpersona; 
-                        $scope.formSearch.cedulap = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                        //$scope.formSearch.cedulap = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
                         $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
                         $timeout(function(){
                             $scope.showModal = false;
@@ -189,7 +189,7 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
                 if(response.errorCode === '00000'){
                     
                     $scope.formData.legalId = response.cedulado.idpersona; 
-                    $scope.formSearch.cedulal = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                    //$scope.formSearch.cedulal = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
                     $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
                     $timeout(function(){
                         $scope.showModal = false;
@@ -384,7 +384,7 @@ ctrl.controller('FormRegistroMenorNcExtCtrl', ['$rootScope', '$state', '$timeout
                 if(response.errorCode === '00000'){
                     if(response.cedulado.sexo === 'F'){
                         $scope.formData.motherId = response.cedulado.idpersona; 
-                        $scope.formSearch.cedulam = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                        //$scope.formSearch.cedulam = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
                         $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido;                         
                         $timeout(function(){
                             $scope.showModal = false;
@@ -431,7 +431,7 @@ ctrl.controller('FormRegistroMenorNcExtCtrl', ['$rootScope', '$state', '$timeout
                     if(response.cedulado.sexo === 'M'){
                         
                         $scope.formData.fatherId = response.cedulado.idpersona; 
-                        $scope.formSearch.cedulap = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                        //$scope.formSearch.cedulap = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
                         $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
                         $timeout(function(){
                             $scope.showModal = false;
@@ -477,7 +477,7 @@ ctrl.controller('FormRegistroMenorNcExtCtrl', ['$rootScope', '$state', '$timeout
                 if(response.errorCode === '00000'){
                     
                     $scope.formData.legalId = response.cedulado.idpersona; 
-                    $scope.formSearch.cedulal = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                    //$scope.formSearch.cedulal = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
                     $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
                     $timeout(function(){
                         $scope.showModal = false;

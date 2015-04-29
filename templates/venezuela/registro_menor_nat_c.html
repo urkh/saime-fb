@@ -32,12 +32,12 @@
                                 </div>
 
 
-                                <div class="col-md-8">
+                                <div  class="col-md-8">
                                     
-                                    <div class="row">
-                                        <div class="col-md-2"></div>
+                                    <div class="row"><br>
+                                        <div class="col-xs-2"></div>
 
-                                        <div class="col-md-6" show-errors>
+                                        <div class="col-xs-6" show-errors>
                                             <input class="form-control" name="scedulavad" required  vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula" ng-model="formSearch.cedula"  ng-keyup="$event.keyCode == 13 && buscar_menor_cedulado(formData)" />
                                         </div>
 
@@ -45,7 +45,7 @@
                                         <input type="hidden" ng-model="formData.minorId">
                                         
                                         
-                                        <div class="col-md-2">
+                                        <div class="col-xs-2">
                                             <button ng-click="buscar_menor_cedulado(formData)" class="btn btn-saime-stand">Buscar</button>
                                         </div>
                                     </div>
@@ -150,90 +150,99 @@
                                     <div class="col-md-8">
                                         <p><h3>Responsabilidad Legal</h3></p>
                                                        
-                                            <div class="form-group">
+                                        <div class="row">
 
-                                                <div class="col-sm-2">                                      
+                                            <div class="col-xs-2">                                      
 
-                                                    <ui-select ng-model="formSearch.letram" ng-disabled="disabled" style="width: 100%;" title="Letra">
-                                                        <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
-                                                        <ui-select-choices repeat="letra.id as letra in letras">
-                                                          <span ng-bind-html="letra.letra"></span>
-                                                        </ui-select-choices>
-                                                    </ui-select>
+                                                <ui-select ng-model="formSearch.letram" ng-disabled="disabled" style="width: 100%;" title="Letra">
+                                                    <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
+                                                    <ui-select-choices repeat="letra.id as letra in letras">
+                                                      <span ng-bind-html="letra.letra"></span>
+                                                    </ui-select-choices>
+                                                </ui-select>
 
-                                                </div>
+                                            </div>
 
-                                                <div class="col-sm-8">
+                                            <div class="col-xs-10">
 
-                                                    <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula de la madre..." ng-model="formSearch.cedulam">
+                                                <div class="input-group">
+
+                                                    <input class="form-control" vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula de la madre..." ng-model="formSearch.cedulam">
                                                     <input type="hidden" ng-model="formData.motherId">
 
-                                                </div>
+                                                    <span class="input-group-btn" ng-show="!formData.motherId.length">
+                                                        <button ng-click="buscar_madre()" class="btn btn-saime-stand">Buscar</button>
+                                                    </span>
 
-                                                <div class="col-sm-1" ng-show="!formData.motherId.length">
-                                                    <button ng-click="buscar_madre()" class="btn btn-saime-stand">Buscar</button>
-                                                </div>
+                                                    <span class="input-group-btn" ng-show="formData.motherId.length">
+                                                        <a class="btn btn-danger btn-saime-rojo-stand " ng-click="limpiarm()">
+                                                            <i class="fa fa-times-circle"></i>
+                                                        </a>
+                                                    </span>
 
-                                                <div class="col-sm-1" ng-show="formData.motherId.length">
-                                                    <a class="btn btn-danger btn-saime-rojo-stand " ng-click="limpiarm()"><i class="fa fa-times-circle"></i></a>
                                                 </div>
-                                                
-                                               
                                             </div>
 
+                                        </div><br>
+                                            
+                                           
+                                        <div class="row">
 
-                                            <div class="form-group">
+                                            <div class="col-xs-2">
+                                                <ui-select ng-model="formSearch.letrap" ng-disabled="disabled" style="width: 100%;" title="Letra">
+                                                    <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
+                                                    <ui-select-choices repeat="letra.id as letra in letras">
+                                                      <span ng-bind-html="letra.letra"></span>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
 
-                                                <div class="col-sm-2">
-                                                    <ui-select ng-model="formSearch.letrap" ng-disabled="disabled" style="width: 100%;" title="Letra">
-                                                        <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
-                                                        <ui-select-choices repeat="letra.id as letra in letras">
-                                                          <span ng-bind-html="letra.letra"></span>
-                                                        </ui-select-choices>
-                                                    </ui-select>
-                                                </div>
-
-                                                <div class="col-sm-8">
-                                                     <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula del padre..." ng-model="formSearch.cedulap">
+                                            <div class="col-xs-10">
+                                                <div class="input-group">
+                                                    <input class="form-control" vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula del padre..." ng-model="formSearch.cedulap">
                                                     <input type="hidden" ng-model="formData.fatherId">
-                                                </div>
 
-                                                <div class="col-sm-1" ng-show="!formData.fatherId.length">
-                                                    <button ng-click="buscar_padre()" class="btn btn-saime-stand">Buscar</button>
-                                                </div>
+                                                    <span class="input-group-btn" ng-show="!formData.fatherId.length">
+                                                        <button ng-click="buscar_padre()" class="btn btn-saime-stand">Buscar</button>
+                                                    </span>
 
-                                                <div class="col-sm-1" ng-show="formData.fatherId.length">
-                                                    <a class="btn btn-danger btn-saime-rojo-stand " ng-click="limpiarp()"><i class="fa fa-times-circle"></i></a>
+                                                    <span class="input-group-btn" ng-show="formData.fatherId.length">
+                                                        <a class="btn btn-danger btn-saime-rojo-stand " ng-click="limpiarp()"><i class="fa fa-times-circle"></i></a>
+                                                    </span>
+
                                                 </div>
-                                                
+                                            </div>
+                                            
+                                        </div><br>
+
+
+                                        <div class="row">
+
+                                            <div class="col-xs-2">
+                                                <ui-select  ng-model="formSearch.letral" ng-disabled="disabled" style="width: 100%;" title="Letra">
+                                                    <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
+                                                    <ui-select-choices repeat="letra.id as letra in letras">
+                                                      <span ng-bind-html="letra.letra"></span>
+                                                    </ui-select-choices>
+                                                </ui-select>
                                             </div>
 
-
-                                            <div class="form-group">
-
-                                                <div class="col-sm-2">
-                                                    <ui-select  ng-model="formSearch.letral" ng-disabled="disabled" style="width: 100%;" title="Letra">
-                                                        <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
-                                                        <ui-select-choices repeat="letra.id as letra in letras">
-                                                          <span ng-bind-html="letra.letra"></span>
-                                                        </ui-select-choices>
-                                                    </ui-select>
-                                                </div>
-
-                                                <div class="col-sm-8">
-                                                     <input vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula representante legal..." ng-model="formSearch.cedulal" >
+                                            <div class="col-xs-10">
+                                                <div class="input-group">
+                                                    <input class="form-control" vld-cedula type="text" placeholder="N&uacute;mero de c&eacute;dula representante legal..." ng-model="formSearch.cedulal" >
                                                     <input type="hidden" ng-model="formData.legalId">
-                                                </div>
+                                                
 
-                                                <div class="col-sm-1" ng-show="!formData.legalId.length">
-                                                    <button ng-click="buscar_legal()" class="btn btn-saime-stand">Buscar</button>
-                                                </div>
+                                                    <span class="input-group-btn" ng-show="!formData.legalId.length">
+                                                        <button ng-click="buscar_legal()" class="btn btn-saime-stand">Buscar</button>
+                                                    </span>
 
-                                                <div class="col-sm-1" ng-show="formData.legalId.length">
-                                                    <a class="btn btn-danger btn-saime-rojo-stand " ng-click="limpiarl()"><i class="fa fa-times-circle"></i></a>
+                                                    <span class="input-group-btn" ng-show="formData.legalId.length">
+                                                        <a class="btn btn-danger btn-saime-rojo-stand " ng-click="limpiarl()"><i class="fa fa-times-circle"></i></a>
+                                                    </span>
                                                 </div>
                                             </div>
-
+                                        </div>
 
                                         <br>
                                     </div>
@@ -340,7 +349,7 @@
                                         
                                             
                                         <div class="row">
-                                            <div class="col-sm-3 saime-input">
+                                            <div class="col-xs-3 saime-input">
                                                 <ui-select ng-model="formNoData.phone_code_cell" ng-disabled="disabled" style="width: 100%;">
                                                     <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
                                                     <ui-select-choices repeat="codigo.numero as codigo in codigosc">
@@ -349,13 +358,13 @@
                                                 </ui-select>
 
                                             </div>
-                                            <div class="col-sm-9 saime-input">
+                                            <div class="col-xs-9 saime-input">
                                                 <input vld-telefono ng-model="formNoData.cellPhone" type="text" placeholder="Tel&eacute;fono Celular">
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-3 saime-input">
+                                            <div class="col-xs-3 saime-input">
                                                 <ui-select ng-model="formNoData.phone_code_home" ng-disabled="disabled" style="width: 100%;">
                                                     <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
                                                     <ui-select-choices repeat="codigo.numero as codigo in codigos">
@@ -364,13 +373,13 @@
                                                 </ui-select>
 
                                             </div>
-                                            <div class="col-sm-9 saime-input">
+                                            <div class="col-xs-9 saime-input">
                                                 <input vld-telefono ng-model="formNoData.homePhone" type="text" placeholder="Tel&eacute;fono Residencial">
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-3 saime-input">
+                                            <div class="col-xs-3 saime-input">
                                                 <ui-select ng-model="formNoData.phone_code_work" ng-disabled="disabled" style="width: 100%;">
                                                     <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
                                                     <ui-select-choices repeat="codigo.numero as codigo in codigos">
@@ -379,7 +388,7 @@
                                                 </ui-select>
 
                                             </div>
-                                            <div class="col-sm-9 saime-input">
+                                            <div class="col-xs-9 saime-input">
                                                 <input vld-telefono ng-model="formNoData.workPhone" type="text" placeholder="Tel&eacute;fono Trabajo">
                                             </div>
                                         </div><br>

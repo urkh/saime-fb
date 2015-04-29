@@ -23,7 +23,7 @@
                     <div class="row">
                         
                             <div class="form-group" >
-                                <div class="col-sm-3 saime-input" ng-class="{ 'has-error': formData.letravad.$invalid }">
+                                <div class="col-xs-3 saime-input" ng-class="{ 'has-error': formData.letravad.$invalid }">
                                     <label class="control-label">Letra</label>
                                     <ui-select name="letravad" ng-required="true" ng-model="formData.letra" style="width: 100%;">
                                         <ui-select-match placeholder="Letra...">{{$select.selected.letra}}</ui-select-match>
@@ -32,7 +32,7 @@
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
-                                <div class="col-sm-9 saime-input" show-errors>
+                                <div class="col-xs-9 saime-input" show-errors>
                                     <label class="control-label">N&uacute;mero de C&eacute;dula</label>
                                     <input type="text" class="form-control" vld-cedula name="cedulav" ng-model="formData.cedula" required placeholder="" />
                                 </div>
@@ -69,7 +69,7 @@
                             </div>
 
                             <div class="form-group">
-                                <div class="col-sm-3 saime-input" ng-class="{ 'has-error': formData.phonecodevad.$invalid }">
+                                <div class="col-xs-3 saime-input" ng-class="{ 'has-error': formData.phonecodevad.$invalid }">
                                     <label class="control-label">C&oacute;digo</label>
                                     <ui-select name="phonecodevad" ng-required="true" ng-model="formNoData.phone_code"  style="width: 100%;">
                                         <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
@@ -79,7 +79,7 @@
                                     </ui-select>
 
                                 </div>
-                                <div show-errors class="col-sm-9 saime-input">
+                                <div show-errors class="col-xs-9 saime-input">
                                     <label class="control-label">Tel&eacute;fono</label>
                                     <input class="form-control" vld-telefono ng-model="formNoData.phone" name="phonev" type="text" required />
                                 </div>
