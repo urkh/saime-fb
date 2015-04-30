@@ -12,34 +12,33 @@
              
         <div class="wrapper-md" ng-controller="NoticiasWebCtrl">
             <div  class="row">
-                <div class="col-md-2"><button ui-sref="saime.inicio" type="button" class="btn btn-saime-stand">
+                <div class="col-md-2">
+                    <button ui-sref="saime.inicio" type="button" class="btn btn-saime-stand">
                         <span class="fa fa-chevron-left fa-lg"></span>
-                    </button></div>
-                <div class="col-md-8"></div>
-                <div class="col-md-2"></div>
-            </div>
-
-            <div ng-repeat="noticia in noticias"  class="row" ng-if="!error">
-
-                <div class="col-md-2"></div><br>
-                
-                <div class="col-md-8">
-                    <div class="saime-fecha-noticias">{{noticia.fecha}}</div>
-                    <p class="saime-titulo-noticias"><a target="_blank" href="http://www.saime.gob.ve/{{noticia.nombre}}">{{noticia.titulo}}</a></p>
-
-                    <div class="saime-contenido-noticias"  ng-bind-html="noticia.contenido"></div>
-                    <hr><br>
+                    </button>
                 </div>
+                
+                <div class="col-md-8"><br><br>
+                    
+                    <div ng-repeat="noticia in noticias" class="row" ng-if="!error">
+                       
+                        <div class="col-md-12">
+                            <div class="saime-fecha-noticias">{{noticia.fecha}}</div>
+                            <p class="saime-titulo-noticias"><a target="_blank" href="http://www.saime.gob.ve/{{noticia.nombre}}">{{noticia.titulo}}</a></p>
 
+                            <div class="saime-contenido-noticias"  ng-bind-html="noticia.contenido"></div>
+                            <hr><br>
+                        </div>
 
+                    </div>
+
+                    <div class="row" ng-if="error">
+                        <div align="center" ng-bind-html="error_msg">{{error_msg}}</div>
+                    </div>
+
+                </div>
                 <div class="col-md-2"></div>
-
             </div>
-
-            <div class="row" ng-if="error">
-                <div align="center" ng-bind-html="error_msg">{{error_msg}}</div>
-            </div>
-
             
         </div>
     </div>
