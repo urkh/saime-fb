@@ -4,8 +4,8 @@ include('Requests-1.6.0/library/Requests.php');
 
 Requests::register_autoloader();
 
-//$host = "http://android.saime.gob.ve";
-$host = "http://android.lab.saime.gob.ve";
+$host = "http://android.saime.gob.ve";
+//$host = "http://android.lab.saime.gob.ve";
 
 
 $data = json_decode(file_get_contents("php://input"));

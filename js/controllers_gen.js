@@ -408,60 +408,66 @@ ctrl.controller('OlvidoContrasenaCtrl', ['$scope', '$http', '$state', function($
 
 
 
-ctrl.controller('RegistroCtrl', ['$scope', '$http', '$state', 'CodigoCelFactory', function($scope, $http, $state, CodigoCelFactory) {
-  $("#header_status").hide();
+ctrl.controller('RegistroCtrl', ['$scope', '$http', '$state', '$timeout', 'CodigoCelFactory', function($scope, $http, $state, $timeout, CodigoCelFactory) {
+    $("#header_status").hide();
 
-  $scope.formData = {};
-  $scope.formNoData = {};
-  var original = $scope.formData;
+    $scope.formData = {};
+    $scope.formNoData = {};
+    var original = $scope.formData;
 
-  
-  $scope.letras = [
-      { id: 'V', letra: 'V'},
-      { id: 'E', letra: 'E'}
+
+    $scope.letras = [
+        { id: 'V', letra: 'V'},
+        { id: 'E', letra: 'E'}
     ];
 
-  $scope.codigosc = CodigoCelFactory;
+    $scope.codigosc = CodigoCelFactory;
 
+    $scope.guardar = function(form){
 
-  $scope.guardar = function(form){
-      
-      $scope.formData.phone = $scope.formNoData.phone_code + $scope.formNoData.phone;
+        $scope.formData.phone = $scope.formNoData.phone_code + $scope.formNoData.phone;
 
-      if(form.cedula && form.firstName && form.lastName && form.email && form.altEmail && $scope.formData.phone){
+        if(form.cedula && form.firstName && form.lastName && form.email && $scope.formData.phone){
 
-          $scope.alldata = {
-              'letra':$scope.formData.letra,
-              'cedula':$scope.formData.cedula,
-              'firstName':$scope.formData.firstName,
-              'lastName':$scope.formData.lastName,
-              'email':$scope.formData.email,
-              'altEmail':$scope.formData.altEmail,
-              'phone':$scope.formData.phone
-          }
+            if($scope.formData.altEmail == null){$scope.formData.altEmail = "";}
 
-          $scope.error = true;
-          $scope.error_msg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
+            $scope.alldata = {
+                'letra':$scope.formData.letra,
+                'cedula':$scope.formData.cedula,
+                'firstName':$scope.formData.firstName,
+                'lastName':$scope.formData.lastName,
+                'email':$scope.formData.email,
+                'altEmail':$scope.formData.altEmail,
+                'phone':$scope.formData.phone
+            }
 
-          $http.post("api/api.php?opc=reg_usuario", $scope.alldata).success(function(response) {
-              if(response.errorCode==='00000'){
-                  $state.go("saime.registro_usuario_exitoso");
-              }else{
-                  $scope.error_msg = response.consumerMessage;
-              }
-          }).error(function(response){
-              $scope.error_msg = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
-          });
-      }else{
-        $scope.showErrorsCheckValidity = true;
-      }  
+            $scope.error = true;
+            $scope.error_msg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...';
+
+            $http.post("api/api.php?opc=reg_usuario", $scope.alldata).success(function(response) {
+                if(response.errorCode==='00000'){
+                    $state.go("saime.registro_usuario_exitoso");
+                }else{
+                    $scope.error_msg = response.consumerMessage;
+                    $timeout(function(){
+                        $scope.error = false;
+                    }, 3000);
+                }
+            }).error(function(response){
+                $scope.error_msg = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
+            });
+
+        }else{
+            $scope.$broadcast('show-errors-check-validity');
+        }  
     }
 
 
     $scope.reset = function(){
-      $scope.formData = angular.copy({});
-      $scope.formNoData = angular.copy({});
+        $scope.formData = angular.copy({});
+        $scope.formNoData = angular.copy({});
     }
+
       
 
 }]);
@@ -621,6 +627,9 @@ ctrl.controller('ListaTramitesCtrl', ['$rootScope', '$scope', '$http', '$state',
         if(response.errorCode === '00000'){
             $scope.tramites = response.CeduladoloadList;
             $scope.error = false;
+        }
+        else if(response.errorCode === '90000'){
+            $scope.error_msg = "Ud. no ha realizado solicitudes personal o a menores";
         }else{
             $scope.error_msg = response.consumerMessage;
         }
@@ -644,7 +653,6 @@ ctrl.controller('ListaTramitesCtrl', ['$rootScope', '$scope', '$http', '$state',
 
 
 ctrl.controller('MisSolicitudesVenCtrl', ['$rootScope', '$scope', '$http', '$state', '$timeout', function($rootScope, $scope, $http, $state, $timeout) {
-
 
     if(!$rootScope.authenticated){
       $state.go('saime.autenticacion');
@@ -888,6 +896,7 @@ ctrl.controller('EstadoCitaExtCtrl', ['$rootScope', '$scope', '$http', '$state',
 
 ctrl.controller('EliminarCitaExtCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$timeout', function($rootScope, $scope, $http, $state, $stateParams, $timeout) {
 
+    
     if(!$rootScope.authenticated){
         $state.go('saime.autenticacion');
     }
@@ -911,7 +920,7 @@ ctrl.controller('EliminarCitaExtCtrl', ['$rootScope', '$scope', '$http', '$state
                 $timeout(function(){
                     $scope.error = false;
                     $state.go("saime.mis_solicitudes_ext");
-                }, 1500);
+                }, 3000);
             }else{
                 $scope.error_msg = response.consumerMessage;
             }  
@@ -927,6 +936,7 @@ ctrl.controller('EliminarCitaExtCtrl', ['$rootScope', '$scope', '$http', '$state
 
 
 ctrl.controller('EliminarCitaVenCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$timeout', function($rootScope, $scope, $http, $state, $stateParams, $timeout) {
+
 
     if(!$rootScope.authenticated){
         $state.go('saime.autenticacion');
@@ -951,7 +961,7 @@ ctrl.controller('EliminarCitaVenCtrl', ['$rootScope', '$scope', '$http', '$state
                 $timeout(function(){
                     $scope.error = false;
                     $state.go("saime.mis_solicitudes_ven");
-                }, 1500);
+                }, 3000);
             }else{
                 $scope.error_msg = response.consumerMessage;
             }  

@@ -1,5 +1,15 @@
 .angular-google-map-container { height: 500px; }
 
+
+.form-group .help-block {
+  display: none;
+}
+
+.form-group.has-error .help-block {
+  display: block;
+}
+
+
 input {
   height: 34px !important;
   width: 100%;

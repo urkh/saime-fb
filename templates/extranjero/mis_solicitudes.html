@@ -15,53 +15,60 @@
            
             <div class="panel hbox hbox-auto-xs no-border">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <button ui-sref="saime.menu_solicitud_ext" type="button" class="btn btn-saime-stand">
                             <span class="fa fa-chevron-left fa-lg"></span>
                         </button>
                     </div>
 
 
-                    <div class="col-md-8" ng-if="!error">
+                    <div class="col-md-6 col-center" ng-if="!error">
                         <div ng-repeat="misc in misc">
 
                             
                             <div class="row">
-                                <div class="col-md-3 text-right" >
+                                <div class="col-xs-3"></div>
+                                <div class="col-xs-3 text-right" >
                                     <b >Nombre Completo: </b>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-xs-4">
                                       {{misc.nombre}} 
                                 </div>
 
-                                <div class="col-md-2"></div>
+                                
                             </div>
 
                             <div class="row">
-                                <div class="col-md-3 text-right"><b>C&eacute;dula: </b></div>
-                                <div class="col-md-3">
-                                    <span ng-if="misc.cedula == ''">No Posee</span>{{misc.cedula}}    
+                                <div class="col-xs-3"></div> 
+                                <div class="col-xs-3 text-right"><b>C&eacute;dula: </b></div>
+                                <div class="col-xs-3">
+                                    <span ng-if="misc.cedula == null">No Posee</span>{{misc.cedula}}    
                                 </div>
-                                <div class="col-md-2">
-                                     
-                                </div> 
+                                
                             </div>
 
                             <div class="row">
-                                <div class="col-md-3 text-right"><b>Fecha de Nacimiento: </b></div>
-                                <div class="col-md-3">{{misc.fechanacimiento}}</div>
-                                <div class="col-md-2"></div>
+                                <div class="col-xs-3"></div>    
+                                <div class="col-xs-3 text-right"><b>Fecha de Nacimiento: </b></div>
+                                <div class="col-xs-3">{{misc.fechanacimiento}}</div>
+                                
                             </div>
 
                             <div class="row">
-                                <div class="col-md-3 text-right"><b>Fecha Planilla: </b></div>
-                                <div class="col-md-3">{{misc.fechaplanilla}} </div>
-                                <div class="col-md-2">
+                                <div class="col-xs-3 text-right"><b>Fecha de Solicitud: </b></div>
+                                <div class="col-xs-3">{{misc.fechaplanilla}} </div>
+                                
+                            </div><br>
+
+
+                            <div class="row">
+                                <div class="col-xs-3"></div>
+                                <div class="col-xs-3 text-right">
                                     <a class="btn btn-saime-ver-stand" ng-click="datos(misc.nombre, misc.cedula, misc.fechanacimiento)" ui-sref="saime.estado_cita_ext({idPlanillaPasaporte:misc.idplanillapasaporte})"><i class="fa fa-check-circle"></i>  Ver Cita</a>
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-xs-3 text-left">
                                     <a class="btn btn-danger btn-saime-rojo-stand " ng-click="datos(misc.nombre, misc.cedula, misc.fechanacimiento, misc.idplanillapasaporte)" ui-sref="saime.eliminar_cita_ext({idPlanillaPasaporte:misc.idplanillapasaporte})"><i class="fa fa-times-circle"></i>  Eliminar</a>
                                 </div>
                             </div>
@@ -77,11 +84,11 @@
                     </div>
 
 
-                    <div class="col-md-8" ng-if="error">
+                    <div class="col-md-6" ng-if="error">
                         <div align="center" ng-bind-html="error_msg">{{error_msg}}</div>
                     </div>
                     
-                    <div class="col-md-2"></div>
+                    <div class="col-md-3"></div>
 
                     
                 </div>

@@ -21,8 +21,11 @@
                     <p><h3>Datos Personales</h3></p>
                     <hr>
                     <div class="row">
+
+
+                           
                         
-                            <div class="form-group" >
+                            <div class="form-group">
                                 <div class="col-xs-3 saime-input" ng-class="{ 'has-error': formData.letravad.$invalid }">
                                     <label class="control-label">Letra</label>
                                     <ui-select name="letravad" ng-required="true" ng-model="formData.letra" style="width: 100%;">
@@ -32,39 +35,49 @@
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
-                                <div class="col-xs-9 saime-input" show-errors>
-                                    <label class="control-label">N&uacute;mero de C&eacute;dula</label>
-                                    <input type="text" class="form-control" vld-cedula name="cedulav" ng-model="formData.cedula" required placeholder="" />
+
+
+                                <div  class="form-group" showo-errors>
+                                    <div class="col-xs-8 saime-input" >
+                                        <label class="control-label">N&uacute;mero de C&eacute;dula</label>
+                                        <input align="right" type="text" class="form-control" vld-cedula name="cedulav" ng-model="formData.cedula" required />
+                                        <p class="help-block" ng-if="formData.cedulav.$error.required">El campo c&eacute;dula es requerido</p>
+                                    </div>
                                 </div>
 
                             </div>
 
 
-                            <div class="form-group">
-                                <div class="col-sm-12 saime-input" show-errors>
+                            <div class="form-group" showo-errors>
+                                <div class="col-sm-12 saime-input" >
                                     <label class="control-label">Primer Nombre</label>
                                     <input class="form-control" vld-texto ng-model="formData.firstName" name="firstnamev" type="text" required />
+                                    <p class="help-block" ng-if="formData.firstnamev.$error.required">El primer nombre es requerido</p>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-sm-12 saime-input" show-errors>
+                            <div class="form-group" showo-errors>
+                                <div class="col-sm-12 saime-input" >
                                     <label class="control-label">Primer Apellido</label>
                                     <input class="form-control" vld-texto ng-model="formData.lastName" name="lastnamev" type="text" required />
+                                    <p class="help-block" ng-if="formData.lastnamev.$error.required">El primer apellido es requerido</p>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-sm-12 saime-input" show-errors>
+                            <div class="form-group" showo-errors>
+                                <div class="col-sm-12 saime-input" >
                                     <label class="control-label">Correo Electr&oacute;nico</label>
                                     <input class="form-control" ng-model="formData.email" name="emailv" type="email" required />
+                                    <p class="help-block" ng-if="formData.emailv.$error.required">El campo correo electr&oacute;nico es requerido</p>
+                                    <p class="help-block" ng-if="formData.emailv.$error.email">Debe ingresar un correo v&aacute;lido</p>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-sm-12 saime-input" show-errors>
+                            <div class="form-group" showo-errors>
+                                <div class="col-sm-12 saime-input" >
                                     <label class="control-label">Correo Alternativo</label>
-                                    <input class="form-control" ng-model="formData.altEmail" name="altemailv" type="email" required />
+                                    <input class="form-control" ng-model="formData.altEmail" name="altemailv" type="email" />
+                                    <p class="help-block" ng-if="formData.altemailv.$error.email">Debe ingresar un correo v&aacute;lido</p>
                                 </div>
                             </div>
 
@@ -79,10 +92,15 @@
                                     </ui-select>
 
                                 </div>
-                                <div show-errors class="col-xs-9 saime-input">
-                                    <label class="control-label">Tel&eacute;fono</label>
-                                    <input class="form-control" vld-telefono ng-model="formNoData.phone" name="phonev" type="text" required />
+
+                                <div class="form-group" showo-errors>
+                                    <div  class="col-xs-8 saime-input">
+                                        <label class="control-label">Tel&eacute;fono</label>
+                                        <input class="form-control" vld-telefono ng-model="formNoData.phone" name="phonev" type="text" required />
+                                        <p class="help-block" ng-if="formData.phonev.$error.required">El tel&eacute;fono es requerido</p>
+                                    </div>
                                 </div>
+
                             </div>
 
                             <br>               
