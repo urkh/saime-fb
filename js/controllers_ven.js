@@ -79,7 +79,7 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
             });
         
         }else{
-            $scope.showErrorsCheckValidity = true;
+            $scope.$broadcast('show-errors-check-validity');
         }
     }
 
@@ -87,119 +87,143 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
 
     $scope.buscar_madre = function() {
 
-        if($scope.formSearch.cedulam, $scope.formSearch.letram){
 
-            $scope.searchmsg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+        if(($scope.formSearch.letram == "E") && ($scope.formSearch.letrap == "E")){
+            $scope.searchmsg = 'Al menos uno de los padres debe ser Venezolano'; 
             $scope.showModal = true;
 
-            $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letram, cedula: $scope.formSearch.cedulam}).success(function(response) {
-                if(response.errorCode === '00000'){
-                    if(response.cedulado.sexo === 'F'){
+            $timeout(function(){
+                $scope.showModal = false;
+            }, 3000);
 
-                        if(response.cedulado.edad >= 18){
+        }else{
 
-                            $scope.formData.motherId = response.cedulado.idpersona; 
-                            $scope.formSearch.cedulam = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
-                            $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido;                         
+            if($scope.formSearch.cedulam, $scope.formSearch.letram){
+
+                $scope.searchmsg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+                $scope.showModal = true;
+
+                $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letram, cedula: $scope.formSearch.cedulam}).success(function(response) {
+                    if(response.errorCode === '00000'){
+                        if(response.cedulado.sexo === 'F'){
+
+                            if(response.cedulado.edad >= 18){
+
+                                $scope.formData.motherId = response.cedulado.idpersona; 
+                                $scope.formSearch.cedulam = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                                $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido;                         
+                                $timeout(function(){
+                                    $scope.showModal = false;
+                                }, 3000);
+
+
+                            }else{
+
+                                $scope.searchmsg = "El representante legal que est&aacute; ingresando debe ser mayor de edad"; 
+                                $timeout(function(){
+                                    $scope.showModal = false;
+                                }, 3000);
+
+                            }
+
+                        }else if(response.cedulado.sexo === 'M'){
+                            $scope.searchmsg = "Est&aacute; colocando la c&eacute;dula de un ciudadano masculino.";
                             $timeout(function(){
                                 $scope.showModal = false;
                             }, 3000);
-
 
                         }else{
-
-                            $scope.searchmsg = "El representante legal que est&aacute; ingresando debe ser mayor de edad"; 
+                            $scope.searchmsg = "No se encontraron resultados";
                             $timeout(function(){
                                 $scope.showModal = false;
                             }, 3000);
-
                         }
 
-                    }else if(response.cedulado.sexo === 'M'){
-                        $scope.searchmsg = "Est&aacute; colocando la c&eacute;dula de un ciudadano masculino.";
-                        $timeout(function(){
-                            $scope.showModal = false;
-                        }, 3000);
-
                     }else{
-                        $scope.searchmsg = "No se encontraron resultados";
+                        $scope.searchmsg = response.consumerMessage;
                         $timeout(function(){
                             $scope.showModal = false;
                         }, 3000);
-                    }
-
-                }else{
-                    $scope.searchmsg = response.consumerMessage;
+                    }     
+                  
+                }).error(function(){
+                    $scope.searchmsg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
                     $timeout(function(){
                         $scope.showModal = false;
                     }, 3000);
-                }     
-              
-            }).error(function(){
-                $scope.searchmsg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
-                $timeout(function(){
-                    $scope.showModal = false;
-                }, 3000);
-            });
+                });
+            }
         }
     }
     
 
     $scope.buscar_padre = function(){
-        
-        if($scope.formSearch.cedulap, $scope.formSearch.letrap){
-            $scope.searchmsg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+
+
+        if(($scope.formSearch.letram == "E") && ($scope.formSearch.letrap == "E")){
+            $scope.searchmsg = 'Al menos uno de los padres debe ser Venezolano'; 
             $scope.showModal = true;
 
-            $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letrap, cedula: $scope.formSearch.cedulap}).success(function(response) {
-                if(response.errorCode === '00000'){
-                    if(response.cedulado.sexo === 'M'){
+            $timeout(function(){
+                $scope.showModal = false;
+            }, 3000);
 
-                        if(response.cedulado.edad >= 18){
-                        
-                            $scope.formData.fatherId = response.cedulado.idpersona; 
-                            $scope.formSearch.cedulap = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
-                            $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+        }else{
+        
+            if($scope.formSearch.cedulap, $scope.formSearch.letrap){
+                $scope.searchmsg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+                $scope.showModal = true;
+
+                $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letrap, cedula: $scope.formSearch.cedulap}).success(function(response) {
+                    if(response.errorCode === '00000'){
+                        if(response.cedulado.sexo === 'M'){
+
+                            if(response.cedulado.edad >= 18){
+                            
+                                $scope.formData.fatherId = response.cedulado.idpersona; 
+                                $scope.formSearch.cedulap = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                                $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                                $timeout(function(){
+                                    $scope.showModal = false;
+                                }, 3000);
+
+
+                            }else{
+
+                                $scope.searchmsg = "El representante legal que est&aacute; ingresando debe ser mayor de edad"; 
+                                $timeout(function(){
+                                    $scope.showModal = false;
+                                }, 3000);
+
+                            }
+
+                        }else if(response.cedulado.sexo === 'F'){
+                            $scope.searchmsg = "Est&aacute; colocando la c&eacute;dula de un ciudadano femenino.";
                             $timeout(function(){
                                 $scope.showModal = false;
                             }, 3000);
-
 
                         }else{
-
-                            $scope.searchmsg = "El representante legal que est&aacute; ingresando debe ser mayor de edad"; 
+                            $scope.searchmsg = "No se encontraron resultados";
                             $timeout(function(){
                                 $scope.showModal = false;
                             }, 3000);
-
                         }
-
-                    }else if(response.cedulado.sexo === 'F'){
-                        $scope.searchmsg = "Est&aacute; colocando la c&eacute;dula de un ciudadano femenino.";
-                        $timeout(function(){
-                            $scope.showModal = false;
-                        }, 3000);
-
+                        
                     }else{
-                        $scope.searchmsg = "No se encontraron resultados";
                         $timeout(function(){
                             $scope.showModal = false;
                         }, 3000);
-                    }
-                    
-                }else{
+                        $scope.searchmsg = response.consumerMessage;
+                    }     
+                  
+                }).error(function(){
+                    $scope.searchmsg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
                     $timeout(function(){
                         $scope.showModal = false;
                     }, 3000);
-                    $scope.searchmsg = response.consumerMessage;
-                }     
-              
-            }).error(function(){
-                $scope.searchmsg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
-                $timeout(function(){
-                    $scope.showModal = false;
-                }, 3000);
-            });
+                });
+            }
         }
     }
 
@@ -298,7 +322,12 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
                 $scope.step3 = "display:none;";
                 $scope.step4 = "display:block;";
             }else{
-                $scope.showErrorsCheckValidity = true;
+                if(form.motherId || form.fatherId || form.legalId){
+                    $scope.showparenterror = false;
+                }else{
+                    $scope.showparenterror = true;
+                }
+                $scope.$broadcast('show-errors-check-validity');
             }
         }else{
             if((form.countryIni && form.city) && (form.motherId || form.fatherId || form.legalId)) {
@@ -306,7 +335,12 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
                 $scope.step3 = "display:none;";
                 $scope.step4 = "display:block;";
             }else{
-                $scope.showErrorsCheckValidity = true;
+                if(form.motherId || form.fatherId || form.legalId){
+                    $scope.showparenterror = false;
+                }else{
+                    $scope.showparenterror = true;
+                }
+                $scope.$broadcast('show-errors-check-validity');
             }
         }
 
@@ -322,7 +356,12 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
             $scope.step4 = "display:none;";
             $scope.step5 = "display:block;";
         }else{
-            $scope.showErrorsCheckValidity = true;
+            if($scope.formData.cellPhone || $scope.formData.workPhone || $scope.formData.homePhone){
+                $scope.showphoneterror = false;
+            }else{
+                $scope.showphoneterror = true;
+            }
+            $scope.$broadcast('show-errors-check-validity');
         }  
     }
 
@@ -447,10 +486,10 @@ ctrl.controller('FormRegistroMenorCCtrl', ['$rootScope', '$timeout', '$scope', '
 
 ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', '$http', '$state', '$localStorage', '$window', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', 'CodigoCelFactory', function($rootScope, $timeout, $scope, $http, $state, $localStorage, $window, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory, CodigoCelFactory) {
     
+    
     if(!$rootScope.authenticated){
         $state.go('saime.autenticacion');
     }
-    
 
     $("#header_status").hide();
     $scope.formData = {};
@@ -475,119 +514,143 @@ ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', 
 
     $scope.buscar_madre = function() {
 
-        if($scope.formSearch.cedulam, $scope.formSearch.letram){
 
-            $scope.searchmsg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+        if(($scope.formSearch.letram == "E") && ($scope.formSearch.letrap == "E")){
+            $scope.searchmsg = 'Al menos uno de los padres debe ser Venezolano'; 
             $scope.showModal = true;
 
-            $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letram, cedula: $scope.formSearch.cedulam}).success(function(response) {
-                if(response.errorCode === '00000'){
-                    if(response.cedulado.sexo === 'F'){
+            $timeout(function(){
+                $scope.showModal = false;
+            }, 3000);
 
-                        if(response.cedulado.edad >= 18){
+        }else{
 
-                            $scope.formData.motherId = response.cedulado.idpersona; 
-                            $scope.formSearch.cedulam = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
-                            $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido;                         
+            if($scope.formSearch.cedulam, $scope.formSearch.letram){
+
+                $scope.searchmsg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+                $scope.showModal = true;
+
+                $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letram, cedula: $scope.formSearch.cedulam}).success(function(response) {
+                    if(response.errorCode === '00000'){
+                        if(response.cedulado.sexo === 'F'){
+
+                            if(response.cedulado.edad >= 18){
+
+                                $scope.formData.motherId = response.cedulado.idpersona; 
+                                $scope.formSearch.cedulam = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                                $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido;                         
+                                $timeout(function(){
+                                    $scope.showModal = false;
+                                }, 3000);
+
+
+                            }else{
+
+                                $scope.searchmsg = "El representante legal que est&aacute; ingresando debe ser mayor de edad"; 
+                                $timeout(function(){
+                                    $scope.showModal = false;
+                                }, 3000);
+
+                            }
+
+                        }else if(response.cedulado.sexo === 'M'){
+                            $scope.searchmsg = "Est&aacute; colocando la c&eacute;dula de un ciudadano masculino.";
                             $timeout(function(){
                                 $scope.showModal = false;
                             }, 3000);
-
 
                         }else{
-
-                            $scope.searchmsg = "El representante legal que est&aacute; ingresando debe ser mayor de edad"; 
+                            $scope.searchmsg = "No se encontraron resultados";
                             $timeout(function(){
                                 $scope.showModal = false;
                             }, 3000);
-
                         }
 
-                    }else if(response.cedulado.sexo === 'M'){
-                        $scope.searchmsg = "Est&aacute; colocando la c&eacute;dula de un ciudadano masculino.";
-                        $timeout(function(){
-                            $scope.showModal = false;
-                        }, 3000);
-
                     }else{
-                        $scope.searchmsg = "No se encontraron resultados";
+                        $scope.searchmsg = response.consumerMessage;
                         $timeout(function(){
                             $scope.showModal = false;
                         }, 3000);
-                    }
-
-                }else{
-                    $scope.searchmsg = response.consumerMessage;
+                    }     
+                  
+                }).error(function(){
+                    $scope.searchmsg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
                     $timeout(function(){
                         $scope.showModal = false;
                     }, 3000);
-                }     
-              
-            }).error(function(){
-                $scope.searchmsg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
-                $timeout(function(){
-                    $scope.showModal = false;
-                }, 3000);
-            });
+                });
+            }
         }
     }
     
 
     $scope.buscar_padre = function(){
-        
-        if($scope.formSearch.cedulap, $scope.formSearch.letrap){
-            $scope.searchmsg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+
+
+        if(($scope.formSearch.letram == "E") && ($scope.formSearch.letrap == "E")){
+            $scope.searchmsg = 'Al menos uno de los padres debe ser Venezolano'; 
             $scope.showModal = true;
 
-            $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letrap, cedula: $scope.formSearch.cedulap}).success(function(response) {
-                if(response.errorCode === '00000'){
-                    if(response.cedulado.sexo === 'M'){
+            $timeout(function(){
+                $scope.showModal = false;
+            }, 3000);
 
-                        if(response.cedulado.edad >= 18){
-                        
-                            $scope.formData.fatherId = response.cedulado.idpersona; 
-                            $scope.formSearch.cedulap = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
-                            $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+        }else{
+        
+            if($scope.formSearch.cedulap, $scope.formSearch.letrap){
+                $scope.searchmsg = '<img src="img/icons/ajax-loader.gif" width="25" height="25" /> Cargando, por favor espere...'; 
+                $scope.showModal = true;
+
+                $http.post("api/api.php?opc=get_cedula&bcode="+$rootScope.bcode, {letra: $scope.formSearch.letrap, cedula: $scope.formSearch.cedulap}).success(function(response) {
+                    if(response.errorCode === '00000'){
+                        if(response.cedulado.sexo === 'M'){
+
+                            if(response.cedulado.edad >= 18){
+                            
+                                $scope.formData.fatherId = response.cedulado.idpersona; 
+                                $scope.formSearch.cedulap = response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                                $scope.searchmsg = "<b>Resultado:</b> " + response.cedulado.numerocedula +" - "+response.cedulado.primernombre+" "+response.cedulado.primerapellido; 
+                                $timeout(function(){
+                                    $scope.showModal = false;
+                                }, 3000);
+
+
+                            }else{
+
+                                $scope.searchmsg = "El representante legal que est&aacute; ingresando debe ser mayor de edad"; 
+                                $timeout(function(){
+                                    $scope.showModal = false;
+                                }, 3000);
+
+                            }
+
+                        }else if(response.cedulado.sexo === 'F'){
+                            $scope.searchmsg = "Est&aacute; colocando la c&eacute;dula de un ciudadano femenino.";
                             $timeout(function(){
                                 $scope.showModal = false;
                             }, 3000);
-
 
                         }else{
-
-                            $scope.searchmsg = "El representante legal que est&aacute; ingresando debe ser mayor de edad"; 
+                            $scope.searchmsg = "No se encontraron resultados";
                             $timeout(function(){
                                 $scope.showModal = false;
                             }, 3000);
-
                         }
-
-                    }else if(response.cedulado.sexo === 'F'){
-                        $scope.searchmsg = "Est&aacute; colocando la c&eacute;dula de un ciudadano femenino.";
-                        $timeout(function(){
-                            $scope.showModal = false;
-                        }, 3000);
-
+                        
                     }else{
-                        $scope.searchmsg = "No se encontraron resultados";
                         $timeout(function(){
                             $scope.showModal = false;
                         }, 3000);
-                    }
-                    
-                }else{
+                        $scope.searchmsg = response.consumerMessage;
+                    }     
+                  
+                }).error(function(){
+                    $scope.searchmsg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
                     $timeout(function(){
                         $scope.showModal = false;
                     }, 3000);
-                    $scope.searchmsg = response.consumerMessage;
-                }     
-              
-            }).error(function(){
-                $scope.searchmsg = 'Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo.';
-                $timeout(function(){
-                    $scope.showModal = false;
-                }, 3000);
-            });
+                });
+            }
         }
     }
 
@@ -685,7 +748,12 @@ ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', 
                 $scope.step1 = "display:none;";
                 $scope.step2 = "display:block;";
           }else{
-                $scope.showErrorsCheckValidity = true;
+                if(form.motherId || form.fatherId || form.legalId){
+                    $scope.showparenterror = false;
+                }else{
+                    $scope.showparenterror = true;
+                }
+                $scope.$broadcast('show-errors-check-validity');
           }
       }else{
           if((form.name1 && form.lastName1 && form.bDate && form.gender && form.countryIni && form.city) && (form.motherId || form.fatherId || form.legalId)) {
@@ -693,7 +761,13 @@ ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', 
                 $scope.step1 = "display:none;";
                 $scope.step2 = "display:block;";
           }else{
-                $scope.showErrorsCheckValidity = true;
+                if(form.motherId || form.fatherId || form.legalId){
+                    $scope.showparenterror = false;
+                }else{
+                    $scope.showparenterror = true;
+                }
+
+                $scope.$broadcast('show-errors-check-validity');
           }
 
       }
@@ -711,7 +785,12 @@ ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', 
             $scope.step2 = "display:none;";
             $scope.step3 = "display:block;";
         }else{
-            $scope.showErrorsCheckValidity = true;
+            if($scope.formData.cellPhone || $scope.formData.workPhone || $scope.formData.homePhone){
+                $scope.showphoneterror = false;
+            }else{
+                $scope.showphoneterror = true;
+            }
+            $scope.$broadcast('show-errors-check-validity');
         }  
     }
 
@@ -838,8 +917,7 @@ ctrl.controller('FormRegistroMenorNcCtrl', ['$rootScope', '$timeout', '$scope', 
 
 ctrl.controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '$scope', '$http', '$timeout', '$localStorage', '$window', 'MunicipiosFactory', 'ParroquiasFactory', 'OficinasFactory', 'CodigoTelfFactory', 'CodigoCelFactory', function($rootScope, $state, $scope, $http, $timeout, $localStorage, $window, MunicipiosFactory, ParroquiasFactory, OficinasFactory, CodigoTelfFactory, CodigoCelFactory) {
 
-    
-    
+       
     if(!$rootScope.authenticated){
         $state.go('saime.autenticacion');
     }
@@ -941,7 +1019,7 @@ ctrl.controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '
             });
 
         }else{
-            $scope.showErrorsCheckValidity = true;
+            $scope.$broadcast('show-errors-check-validity');
         }  
     }
     
@@ -952,7 +1030,7 @@ ctrl.controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '
             $scope.step1 = "display:none;";
             $scope.step2 = "display:block;";
         }else{
-            $scope.showErrorsCheckValidity = true;
+            $scope.$broadcast('show-errors-check-validity');
         }  
     }
 
@@ -967,7 +1045,12 @@ ctrl.controller('FormRegistroDatosPersonalesVenCtrl', ['$rootScope', '$state', '
             $scope.step2 = "display:none;";
             $scope.step3 = "display:block;";
         }else{
-            $scope.showErrorsCheckValidity = true;
+            if($scope.formData.cellPhone || $scope.formData.workPhone || $scope.formData.homePhone){
+                $scope.showphoneterror = false;
+            }else{
+                $scope.showphoneterror = true;
+            }
+            $scope.$broadcast('show-errors-check-validity');
         }  
     }
 

@@ -32,7 +32,7 @@
                                     <b >Nombre Completo: </b>
                                 </div>
 
-                                <div class="col-xs-4">
+                                <div class="col-xs-3 text-left">
                                       {{misc.nombre}} 
                                 </div>
 
@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="col-xs-3"></div> 
                                 <div class="col-xs-3 text-right"><b>C&eacute;dula: </b></div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-3 text-left" >
                                     <span ng-if="misc.cedula == null">No Posee</span>{{misc.cedula}}    
                                 </div>
                                 
@@ -51,13 +51,14 @@
                             <div class="row">
                                 <div class="col-xs-3"></div>    
                                 <div class="col-xs-3 text-right"><b>Fecha de Nacimiento: </b></div>
-                                <div class="col-xs-3">{{misc.fechanacimiento}}</div>
+                                <div class="col-xs-3 text-left">{{misc.fechanacimiento}}</div>
                                 
                             </div>
 
                             <div class="row">
+                                <div class="col-xs-3"></div>
                                 <div class="col-xs-3 text-right"><b>Fecha de Solicitud: </b></div>
-                                <div class="col-xs-3">{{misc.fechaplanilla}} </div>
+                                <div class="col-xs-3 text-left">{{misc.fechaplanilla}} </div>
                                 
                             </div><br>
 
@@ -69,7 +70,7 @@
                                 </div>
 
                                 <div class="col-xs-3 text-left">
-                                    <a class="btn btn-danger btn-saime-rojo-stand " ng-click="datos(misc.nombre, misc.cedula, misc.fechanacimiento, misc.idplanillapasaporte)" ui-sref="saime.eliminar_cita_ext({idPlanillaPasaporte:misc.idplanillapasaporte})"><i class="fa fa-times-circle"></i>  Eliminar</a>
+                                    <a class="btn btn-danger btn-saime-rojo-stand " ng-click="datos(misc.nombre, misc.cedula, misc.fechanacimiento, misc.idplanillapasaporte)" ui-sref="saime.eliminar_cita_ext({idPlanillaPasaporte:misc.idplanillapasaporte})"><i class="fa fa-times-circle"></i>  Eliminar solicitud</a>
                                 </div>
                             </div>
 

@@ -21,27 +21,30 @@
                     <p><h3>Datos Personales</h3></p>
                     <hr>
                     <div class="row">
-
-
                            
                         
                             <div class="form-group">
-                                <div class="col-xs-3 saime-input" ng-class="{ 'has-error': formData.letravad.$invalid }">
-                                    <label class="control-label">Letra</label>
-                                    <ui-select name="letravad" ng-required="true" ng-model="formData.letra" style="width: 100%;">
-                                        <ui-select-match placeholder="Letra...">{{$select.selected.letra}}</ui-select-match>
-                                        <ui-select-choices repeat="letra.id as letra in letras">
-                                          <span ng-bind-html="letra.letra"></span>
-                                        </ui-select-choices>
-                                    </ui-select>
-                                </div>
 
+                                <div class="form-group" >
 
-                                <div  class="form-group" showo-errors>
-                                    <div class="col-xs-8 saime-input" >
-                                        <label class="control-label">N&uacute;mero de C&eacute;dula</label>
-                                        <input align="right" type="text" class="form-control" vld-cedula name="cedulav" ng-model="formData.cedula" required />
-                                        <p class="help-block" ng-if="formData.cedulav.$error.required">El campo c&eacute;dula es requerido</p>
+                                    <div class="col-sm-12 saime-input">
+
+                                        <div class="form-group_se" showo-errors>
+                                            <div class="col-xs-3 saime-input" >
+                                                <label class="control-label">Tipo</label>
+                                                 <select class="form-control" name="letravad" ng-model="formData.letra" ng-options="letra.id for letra in letras" required></select>
+                                                 <p class="help-block" ng-if="formData.letravad.$error.required">Debe seleccionar el tipo de c&eacute;dula</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group_se" showo-errors>
+                                            <div class="col-xs-9 saime-input" >
+                                                <label class="control-label">N&uacute;mero de C&eacute;dula</label>
+                                                <input align="right" type="text" class="form-control" vld-cedula name="cedulav" ng-model="formData.cedula" required />
+                                                <p class="help-block" ng-if="formData.cedulav.$error.required">El campo c&eacute;dula es requerido</p>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
 
@@ -81,35 +84,45 @@
                                 </div>
                             </div>
 
+
                             <div class="form-group">
-                                <div class="col-xs-3 saime-input" ng-class="{ 'has-error': formData.phonecodevad.$invalid }">
-                                    <label class="control-label">C&oacute;digo</label>
-                                    <ui-select name="phonecodevad" ng-required="true" ng-model="formNoData.phone_code"  style="width: 100%;">
-                                        <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
-                                        <ui-select-choices repeat="codigo.numero as codigo in codigosc">
-                                          <span ng-bind-html="codigo.numero"></span>
-                                        </ui-select-choices>
-                                    </ui-select>
 
-                                </div>
+                                <div class="form-group" >
 
-                                <div class="form-group" showo-errors>
-                                    <div  class="col-xs-8 saime-input">
-                                        <label class="control-label">Tel&eacute;fono</label>
-                                        <input class="form-control" vld-telefono ng-model="formNoData.phone" name="phonev" type="text" required />
-                                        <p class="help-block" ng-if="formData.phonev.$error.required">El tel&eacute;fono es requerido</p>
+                                    <div class="col-sm-12 saime-input">
+
+                                        <div class="form-group_se" showo-errors>
+                                            <div class="col-xs-3 saime-input" >
+                                                <label class="control-label">C&oacute;digo</label>
+                                                 <select class="form-control" name="phonecodevad" ng-model="formNoData.phone_code" ng-options="codigo.numero for codigo in codigosc" required></select>
+                                                 <p class="help-block" ng-if="formData.phonecodevad.$error.required">Debe seleccionar el c&oacute;digo de tel&eacute;fono </p>
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="form-group_se" showo-errors>
+                                            <div  class="col-xs-9 saime-input">
+                                                <label class="control-label">Tel&eacute;fono</label>
+                                                <input class="form-control" vld-telefono ng-model="formNoData.phone" name="phonev" type="text" required />
+                                                <p class="help-block" ng-if="formData.phonev.$error.required">El tel&eacute;fono es requerido</p>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
 
                             </div>
 
+
+
+
                             <br>               
                             
                             <div class="form-group">
-                                <div class="col-md-6 col-center">
+                                <div class="col-xs-6 col-center">
                                     <button ng-click="guardar(formData)" type="button" class="btn saime-btn-yellow full-width">Aceptar</button>
                                 </div>
-                                <div class="col-md-6 col-center">
+                                <div class="col-xs-6 col-center">
                                     <button ng-click="reset()" type="button" class="btn saime-btn-blue full-width">Restablecer</button>
                                 </div>
                             </div>

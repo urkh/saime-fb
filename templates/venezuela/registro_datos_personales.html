@@ -66,8 +66,8 @@
                                 <hr>
 
                                 <div class="row">
-                                    <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.countryinivad.$invalid }">
-                                        <label class="control-label">Pa&iacute;s</label>
+                                    <div class="col-sm-12 saime-input form-group_se" showo-errors >
+                                        <label class="control-label">Pa&iacute;s de Nacimiento</label>
 
                                         <ui-select name="countryinivad" on-select="show_entity()" ng-required="true" ng-model="formData.countryIni"  style="width: 100%;">
                                             <ui-select-match placeholder="Pa&iacute;s...">{{$select.selected.descripcion}}</ui-select-match>
@@ -76,13 +76,14 @@
                                               
                                             </ui-select-choices>
                                         </ui-select>
+                                        <p class="help-block" ng-if="formData.countryinivad.$error.required">Debe seleccionar el pa&iacute;s</p>
                                     </div>
                                 </div>
 
                                 
                                 <div style="display:none; {{showEntity}}">
                                     <div class="row">
-                                        <div class="col-md-6" ng-class="{ 'has-error': formData.statevad.$invalid }">
+                                        <div class="col-md-6" >
                                             <label class="control-label">Estado</label>
                                             <ui-select name="statevad" on-select="get_municipios()" ng-model="formData.state"  style="width: 100%;">
                                                 <ui-select-match placeholder="Estado...">{{$select.selected.descripcion}}</ui-select-match>
@@ -93,7 +94,7 @@
                                         </div>
 
                                         
-                                        <div class="col-md-6" ng-class="{ 'has-error': formData.municipiovad.$invalid }">
+                                        <div class="col-md-6" >
                                             <label class="control-label">Municipio</label>
                                             <ui-select name="municipiovad" on-select="get_parroquias()" ng-model="formData.town" style="width: 100%;">
                                                 <ui-select-match placeholder="Municipio...">{{$select.selected.descripcion}}</ui-select-match>
@@ -108,7 +109,7 @@
 
                                     <div class="row">
 
-                                        <div class="col-md-12" ng-class="{ 'has-error': formData.parishvad.$invalid }">
+                                        <div class="col-md-12" >
                                             <label class="control-label">Parroquia</label>
                                             <ui-select name="parishvad" ng-model="formData.parish" style="width: 100%;">
                                                 <ui-select-match placeholder="Parroquia...">{{$select.selected.descripcion}}</ui-select-match>
@@ -125,9 +126,10 @@
 
                                 <div class="row">
 
-                                    <div class="col-md-12 saime-input" show-errors>
+                                    <div class="col-sm-12 saime-input form-group_se" showo-errors>
                                         <label class="control-label">Ciudad</label>
                                         <input class="form-control" name="cityvad" vld-texto ng-model="formData.city" type="text" name="ciudadv" required>
+                                        <p class="help-block" ng-if="formData.ccityvad.$error.required">El campo ciudad es obligatorio</p>
                                     </div>
                                     
                                 </div>
@@ -160,7 +162,7 @@
 
                                 <div class="row">
 
-                                    <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.cstatevad.$invalid }">
+                                    <div class="col-sm-12 saime-input form-group_se" showo-errors >
                                         <label class="control-label">Estado</label>
                                         <ui-select name="cstatevad" ng-required="true" on-select="get_cmunicipios(); get_oficinas();" ng-model="formData.currentState" style="width: 100%;">
                                             <ui-select-match placeholder="Estado...">{{$select.selected.descripcion}}</ui-select-match>
@@ -168,12 +170,13 @@
                                               <span ng-bind-html="estado.descripcion | highlight: $select.search"></span>
                                             </ui-select-choices>
                                         </ui-select>
+                                        <p class="help-block" ng-if="formData.cstatevad.$error.required">Debe seleccionar el estado</p>
                                     </div>
 
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.cmunicipiovad.$invalid }">
+                                    <div class="col-sm-12 saime-input form-group_se" showo-errors>
                                         <label class="control-label">Municipio</label>
                                         <ui-select name="cmunicipiovad" ng-required="true" on-select="get_cparroquias()" ng-model="formData.currentTown" style="width: 100%;">
                                             <ui-select-match placeholder="Municipio...">{{$select.selected.descripcion}}</ui-select-match>
@@ -181,11 +184,12 @@
                                               <span ng-bind-html="municipio.descripcion | highlight: $select.search"></span>
                                             </ui-select-choices>
                                         </ui-select>
+                                        <p class="help-block" ng-if="formData.cmunicipiovad.$error.required">Debe seleccionar el municipio</p>
                                     </div>
                                 </div>
                                     
                                 <div class="row">
-                                    <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.cparroquiavad.$invalid }">
+                                    <div class="col-sm-12 saime-input form-group_se" showo-errors>
                                         <label class="control-label">Parroquia</label>
                                         <ui-select name="cparroquiavad" ng-required="true" ng-model="formData.currentParish" style="width: 100%;">
                                             <ui-select-match placeholder="Parroquia...">{{$select.selected.descripcion}}</ui-select-match>
@@ -193,42 +197,48 @@
                                               <span ng-bind-html="parroquia.descripcion | highlight: $select.search"></span>
                                             </ui-select-choices>
                                         </ui-select>
+                                        <p class="help-block" ng-if="formData.cparroquiavad.$error.required">Debe seleccionar la parroquia</p>
                                     </div>
                                 </div>
                                     
 
                                 <div class="row">
-                                    <div class="col-sm-12 saime-input" show-errors>
+                                    <div class="col-sm-12 saime-input form-group_se" showo-errors>
                                         <label class="control-label">Ciudad</label>
                                         <input class="form-control" name="ccityvad" required vld-texto ng-model="formData.currentCity" type="text">
+                                        <p class="help-block" ng-if="formData.ccityvad.$error.required">El campo ciudad es obligatorio</p>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-12 saime-input" show-errors>    
+                                    <div class="col-sm-12 saime-input form-group_se" showo-errors>    
                                         <label class="control-label">Urbanizaci&oacute;n</label>                  
                                         <input class="form-control" name="urbanizacionvad" required ng-model="formData.urbanization" type="text">
+                                        <p class="help-block" ng-if="formData.urbanizacionvad.$error.required">El campo urbanizaci&oacute;n es obligatorio</p>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-12 saime-input" show-errors>
+                                    <div class="col-sm-12 saime-input form-group_se" showo-errors>
                                         <label class="control-label">Nro. Casa / Apto.</label>
                                         <input class="form-control" name="noaptovad" required ng-model="formData.noApto" type="text">
+                                        <p class="help-block" ng-if="formData.noaptovad.$error.required">El campo Nro. Casa / Apto. es obligatorio</p>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-12 saime-input" show-errors>
+                                    <div class="col-sm-12 saime-input form-group_se" showo-errors>
                                         <label class="control-label">Av. / Calle</label>
                                         <input class="form-control" name="streetvad" required ng-model="formData.street" type="text">
+                                        <p class="help-block" ng-if="formData.streetvad.$error.required">El campo Av. / Calle es obligatorio</p>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-12 saime-input" show-errors>
+                                    <div class="col-sm-12 saime-input form-group_se" showo-errors>
                                         <label class="control-label">C&oacute;digo Postal</label>
                                         <input class="form-control" name="pcodevad" required vld-pcode ng-model="formData.pCode" type="text">
+                                        <p class="help-block" ng-if="formData.pcodevad.$error.required">El campo c&oacute;digo postal es obligatorio</p>
                                     </div>
                                 </div>
 
@@ -278,7 +288,10 @@
                                     </div>
                                 </div><br>
 
-                                <p class="saime-texto-recordatorio"><i>(Debe ingresar al menos un tel&eacute;fono)</i></p><br><br>
+                                <p ng-show="showphoneterror" class="saime-texto-recordatorio">
+                                    <i style="color:#8B0000;">(Debe ingresar al menos un tel&eacute;fono)</i>
+                                </p>
+                                <br><br>
                                 
                                 <div class="row">
                                     <div class="text-center">

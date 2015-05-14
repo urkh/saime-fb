@@ -68,21 +68,23 @@
                             <hr>
                         </div>
 
+                        <div class="text-center">
+                            <h4 class="m-n font-thin h3 text-black"><b>Responsabilidad Legal</b></h4>
+                        </div><br>
+
 
                     
                         <div ng-repeat="vp in vinculosperfil">
-                            <div class="text-center">
-                                <h4 class="m-n font-thin h3 text-black"><b>Representante Legal</b></h4>
-                            </div><br>
-
                             
+
+
                             <div class="row">
                                 <div class="col-xs-3 text-right" ></div>
                                 <div class="col-xs-3 text-right" >
-                                    <b>Nombre Completo: </b>
+                                    <b>{{vp.vinculo}}</b>
                                 </div>
-                                <div class="col-xs-4">
-                                    {{vp.nombre}}
+                                <div class="col-xs-3">
+                                    
                                 </div>
                             </div>
                             
@@ -100,12 +102,17 @@
                             <div class="row">
                                 <div class="col-xs-3 text-right" ></div>
                                 <div class="col-xs-3 text-right" >
-                                    <b>Vinculo:</b>
+                                    <b>Nombre Completo: </b>
                                 </div>
-                                <div class="col-xs-3">
-                                    {{vp.vinculo}}
+                                <div class="col-xs-4">
+                                    {{vp.nombre}}
                                 </div>
                             </div>
+                            
+
+                            
+
+                            
 
                             <hr>
                         </div>
@@ -115,6 +122,8 @@
                             <div class="text-center">
                                 <h4 class="m-n font-thin h3 text-black"><b>Datos de Nacionalidad</b></h4>
                             </div><br>
+
+                            <!--
                             
                             <div class="row">
                                 <div class="col-xs-3 text-right" ></div>
@@ -125,6 +134,7 @@
                                     {{pp.fechaplanilla}}
                                 </div>
                             </div>
+                            -->
                             
                             <div class="row">
                                 <div class="col-xs-3 text-right" ></div>
@@ -274,7 +284,7 @@
                             <div class="row" ng-repeat="ofi in oficinas">
                                 <div class="col-xs-3"></div>
                                 <div class="col-xs-3 text-right" >
-                                    <li><ul>{{ofi}}</ul></li>
+                                    <li>  {{ofi}}</li>
                                 </div>
                                 <div class="col-xs-3"></div>
                             </div>

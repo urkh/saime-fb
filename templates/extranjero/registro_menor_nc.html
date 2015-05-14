@@ -14,17 +14,18 @@
         <div class="bg-light lter b-b wrapper-md saime-bg">
           <div class="row">
             <div class="col-md-12 text-center">
-              <h2 class="m-n font-thin  text-black">Venezolanos por Nacimiento</h2>
+              <h2 class="m-n font-thin  text-black">Venezolanos por Naturalizaci&oacute;n</h2>
               <h2 class="m-n font-thin  text-black">menores de 9 a&ntilde;os no cedulados</h2>
             </div>
           </div>
         </div>
         
         <div class="wrapper-md" ng-controller="FormRegistroMenorNcExtCtrl">
-            <modal searchmsg="" visible="showModal"></modal>
+            <modal searchmsg="" visible="showModal"></modal>    
             <form name="formData" class="form-horizontal" novalidate>
 
                 <div ng-if="!error">
+                
                     <div style="display:block; {{step1}}">
                         <div class="row">
                             <div class="col-md-2">
@@ -34,30 +35,32 @@
 
                             </div>
                             <div class="col-md-8">
-
                                 <p><h3>Datos Personales</h3></p>
                                 <div class="row">
                                     <div class="col-md-6">
                                                            
                                         <div class="row">
-                                            <div class="col-sm-12 saime-input" show-errors>
+                                            <div class="col-sm-12 saime-input form-group_se" showo-errors>
                                                 <label class="control-label">Primer Nombre</label>
                                                 <input type="hidden" ng-model="formData.minorType" ng-init="formData.minorType='2'">
                                                 <input class="form-control" name="name1vad" required vld-texto type="text" ng-model="formData.name1" />
+                                                <p class="help-block" ng-if="formData.name1vad.$error.required">El primer nombre es requerido</p>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-12 saime-input" show-errors>
+                                            <div class="col-sm-12 saime-input form-group_se" showo-errors>
                                                 <label class="control-label">Primer Apellido</label>
                                                 <input class="form-control" name="lastname1vad" required vld-texto type="text" ng-model="formData.lastName1" />
+                                                <p class="help-block" ng-if="formData.lastname1vad.$error.required">El primer apellido es requerido</p>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-12 saime-input" show-errors>
+                                            <div class="col-sm-12 saime-input form-group_se" showo-errors>
                                                 <label class="control-label">Fecha de Nacimiento</label>
                                                 <input class="form-control" name="bdatevad" required ng-model="formData.bDate" type="text" datepicker-popup="dd/MM/yyyy" is-open="formData.dopened" min-date="{{minDate}}" max-date="{{maxDate}}" close-text="Cerrar" ng-click="date_open($event)" readonly />
+                                                <p class="help-block" ng-if="formData.bdatevad.$error.required">La fecha de nacimiento es requerida</p>
                                             </div>
                                         </div>
                                           
@@ -66,14 +69,14 @@
                                     <div class="col-md-6">
 
                                         <div class="row">
-                                            <div class="col-sm-12 saime-input" show-errors>
+                                            <div class="col-sm-12 saime-input">
                                                 <label class="control-label">Segundo Nombre</label>
                                                 <input class="form-control" name="name2vad" vld-texto type="text" ng-model="formData.name2"/>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-12 saime-input" show-errors>
+                                            <div class="col-sm-12 saime-input">
 
                                                 <label class="control-label">Segundo Apellido</label>
                                                 <input class="form-control" name="lastname2vad" vld-texto type="text" ng-model="formData.lastName2"/>
@@ -81,14 +84,17 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-12" ng-class="{ 'has-error': formData.sexovad.$invalid }">
+                                            <div class="col-md-12 saime-input form-group_se" showo-errors >
                                                 <label class="control-label">Sexo</label>
+                                               
                                                 <ui-select name="sexovad" ng-required="true" ng-model="formData.gender" style="width: 100%;">
                                                     <ui-select-match placeholder="Sexo...">{{$select.selected.genero}}</ui-select-match>
                                                     <ui-select-choices repeat="genero.id as genero in generos">
                                                       <span ng-bind-html="genero.genero"></span>
                                                     </ui-select-choices>
                                                 </ui-select>
+                                                <p class="help-block" ng-if="formData.sexovad.$error.required">Debe seleccionar el sexo</p>
+                                                
                                             </div>
                                         </div>
                                                 
@@ -105,12 +111,12 @@
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
-                                <p><h3>Datos de Nacionalidad</h3></p>
+                                <p><h3>Datos De Nacionalidad</h3></p>
 
 
                                 <div class="row">
-                                    <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.countryinivad.$invalid }">
-                                        <label class="control-label">Pa&iacute;s</label>
+                                    <div class="col-sm-12 saime-input form-group_se" showo-errors >
+                                        <label class="control-label">Pa&iacute;s de Nacimiento</label>
 
                                         <ui-select name="countryinivad" ng-required="true" ng-model="formData.countryIni"  style="width: 100%;">
                                             <ui-select-match placeholder="Pa&iacute;s...">{{$select.selected.descripcion}}</ui-select-match>
@@ -119,14 +125,18 @@
                                               
                                             </ui-select-choices>
                                         </ui-select>
+                                        <p class="help-block" ng-if="formData.countryinivad.$error.required">Debe seleccionar el pa&iacute;s</p>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-12 saime-input" show-errors>
+
+                                    <div class="col-md-12 saime-input form-group_se" showo-errors>
                                         <label class="control-label">Ciudad</label>
                                         <input class="form-control" name="cityvad" vld-texto ng-model="formData.city" type="text" name="ciudadv" required>
+                                        <p class="help-block" ng-if="formData.cityvad.$error.required">El campo ciudad es obligatorio</p>
                                     </div>
+                                    
                                 </div>
                                 
                             </div>
@@ -140,7 +150,6 @@
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
                                 <p><h3>Responsabilidad Legal</h3></p>
-                                               
                                     <div class="row">
 
                                         <div class="col-xs-2">                                      
@@ -233,8 +242,8 @@
                                                 </span>
                                             </div>
                                         </div>
-                                    </div>
-
+                                    </div>           
+                                    
                                 <br>
                             </div>
                             <div class="col-md-2"></div>
@@ -242,10 +251,9 @@
                         </div>
 
                         <div class="text-center">
-                            <div class="text-muted">
-                                <h4>Debe indicar al menos uno de los tres, Madre, Padre o Representante Legal</h4>
-                            </div>
-                            <br>                           
+                            <div ng-show="showparenterror" class="text-muted">
+                                <h4 style="color:#8B0000;">Debe indicar al menos uno de los tres, Madre, Padre o Representante Legal</h4>
+                            </div><br><br>                      
                             <button ng-click="continuar1(formData)" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
                         </div>
 
@@ -263,43 +271,53 @@
                             
                             <div class="col-md-8">
                                 <p><h3>Direcci&oacute;n Actual</h3></p>
-                                <div class="row">
-                                        
-                                    <div class="col-md-6 saime-input" show-errors>
-                                        <label class="control-label">Ciudad Actual</label>
-                                        <input class="form-control" name="ccityvad" vld-texto ng-model="formData.currentCity" type="text" name="ciudadv" required>
-                                    </div>
-
-                                    <div class="col-md-6 saime-input" show-errors>
-                                        <label class="control-label">C&oacute;digo Postal</label>
-                                        <input class="form-control" name="pcodevad" required vld-pcode ng-model="formData.pCode" type="text">
-                                    </div>
-                                    
-                                </div>
 
                                 <div class="row">
-                                    <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.countrysedevad.$invalid }">
+                                    <div class="col-sm-12 saime-input form-group_se" showo-errors >
                                         <label class="control-label">Pa&iacute;s sede</label>
-                                        <ui-select name="countrysedevad" ng-required="true" on-select="get_consulados()"  ng-model="formData.countrySede" style="width: 100%;">
+                                        <ui-select name="countrysedevad" ng-required="true" on-select="get_consulados($select.selected.descripcion)"  ng-model="formData.countrySede" style="width: 100%;">
                                             <ui-select-match placeholder="Pa&iacute;s sede...">{{$select.selected.descripcion}}</ui-select-match>
                                             <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
                                               <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
                                               
                                             </ui-select-choices>
                                         </ui-select>
+                                        <p class="help-block" ng-if="formData.countrysedevad.$error.required">Debe seleccionar el pa&iacute;s sede</p>
                                     </div>
-                                </div><br>
+                                </div>
+
+
+                                <div class="row">
+                                        
+                                    <div class="col-md-6 saime-input form-group_se" showo-errors>
+                                        <label class="control-label">Ciudad</label>
+                                        <input class="form-control" name="ccityvad" vld-texto ng-model="formData.currentCity" type="text" name="ciudadv" required>
+                                        <p class="help-block" ng-if="formData.ccityvad.$error.required">El campo ciudad actual es obligatorio</p>
+                                    </div>
+
+                                    <div class="col-md-6 saime-input form-group_se" showo-errors>
+                                        <label class="control-label">C&oacute;digo Postal</label>
+                                        <input class="form-control" name="pcodevad" required vld-pcode ng-model="formData.pCode" type="text">
+                                        <p class="help-block" ng-if="formData.pcodevad.$error.required">El campo c&oacute;digo postal es obligatorio</p>
+                                    </div>
+                                    
+                                </div>
+
+                                <br>
                                      
                                     
                             </div>
                             <div class="col-md-2"></div>
                         </div>
+                        <br><br>
 
                         <div class="form-group">
                             <div class="text-center">
                                 <button ng-click="continuar2(formData)" type="button" class="btn btn-saime-stand saime-btn-lg">Continuar</button>
                             </div>
                         </div>
+
+                        
 
                     </div>
                     
@@ -314,9 +332,10 @@
                             </div>
                             
                             <div class="col-md-8 col-center saime-terminos-texto">
-                                <p><h3>Consulados: </h3></p>
-                               
+                                <p><h3>Sede Consular: </h3></p>
+                                <hr>
                                 <div class="row">
+
                                     <div ng-repeat="consulado in consulados" class="saime-radio-all">
                                         <div class="saime-radio">
                                             <input ng-model="formData.sedeConsular" type="radio" id="{{consulado.idsedeconsular}}" value="{{consulado.idsedeconsular}}" />
@@ -326,27 +345,31 @@
                                         </div>
                                         <div class="saime-radio-label-md8">{{consulado.sedeconsular}}</div>
                                     </div>
+
+                                    <div align="center" ng-hide="consulados.length">Actualmente no existe sede consular disponible para <b>{{cosede}}</b>!</div>
+
+                                    <br>
+                                    <br>
+                                    <p ng-hide="!consulados.length" align="center">
+                                        <i>
+                                            Los consulados que aparecen listados son los posibles lugares d&oacute;nde se les asignar&aacute; la cita. 
+                                        </i>
+                                    </p>
+                                    <br> 
+                                    <br>
+
+                                    <div ng-hide="!consulados.length" align="center" class="saime-menu" role="group" aria-label="Vertical button group">
+                                        <button ng-click="guardar(formData)" type="button" class="btn btn-saime-stand saime-btn-lg">Guardar datos</button>
+                                    </div><br>
+
                                 </div>
-                                
-                                <br>
-                                <br>
-                                <br>
-                                <p>
-                                    <i>
-                                        Los consulados que aparecen listados son los posibles lugares d&oacute;nde se les asignar&aacute; la cita. 
-                                    </i>
-                                </p>
-                                <br>
-                                <br>
-                                    
-                                <div align="center" class="saime-menu" role="group" aria-label="Vertical button group">
-                                    <button ng-click="guardar(formData)" type="button" class="btn btn-saime-stand saime-btn-lg">Guardar datos</button>
-                                </div><br>
                             </div>
                             <div class="col-md-2"></div>    
                         </div>
 
                     </div>
+
+
 
                 </div>
 

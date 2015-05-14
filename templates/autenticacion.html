@@ -22,11 +22,14 @@
                 <div class="col-md-6" ng-if="!error"><br>
                 
                     <form name="formData" class="form-horizontal" novalidate>
-                        <div class="form-group" show-errors>
-                            <input class="form-control" required type="text" placeholder="Usuario" ng-model="formData.username" name="usernamev" focus="true">                            
+                        <div class="form-group" showo-errors>
+                            <input class="form-control" required type="text" placeholder="Usuario" ng-model="formData.username" name="usernamev" focus="true">
+                            <p class="help-block" ng-if="formData.usernamev.$error.required">El campo usuario es requerido </p>
+                                                        
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" showo-errors>
                             <input class="form-control" required type="password" placeholder="Contraseña" ng-model="formData.password" name="passwordv">     
+                            <p class="help-block" ng-if="formData.passwordv.$error.required">El campo contrase&ntilde;a es requerido </p>
                         </div>
                         <br>
 

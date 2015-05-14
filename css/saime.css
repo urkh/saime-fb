@@ -10,6 +10,16 @@
 }
 
 
+
+.form-group_se .help-block {
+  display: none;
+}
+
+.form-group_se.has-error .help-block {
+  display: block;
+}
+
+
 input {
   height: 34px !important;
   width: 100%;

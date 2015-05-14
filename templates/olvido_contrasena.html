@@ -21,8 +21,10 @@
                 <div class="col-md-6" ng-if="!error">
                     
                         <p>La confirmaci&oacute;n de la nueva contrase&ntilde;a que se le asignar&aacute; ser&aacute; enviada a su direcci&oacute;n de correo electr&oacute;nico</p><br>
-                        <div class="form-group" show-errors>
-                            <input required name="emailv" class="form-control" ng-model="formData.email" type="email" placeholder="Correo Electronico" ng-keyup="$event.keyCode == 13 && enviar(formData)">                            
+                        <div class="form-group" showo-errors>
+                            <input required name="emailv" class="form-control" ng-model="formData.email" type="email" placeholder="Correo Electronico" ng-keyup="$event.keyCode == 13 && enviar(formData)">     
+                            <p class="help-block" ng-if="formData.emailv.$error.required">El campo contrase&ntilde;a es requerido </p>
+                            <p class="help-block" ng-if="formData.emailv.$error.email">Debe ingresar un correo v&aacute;lido</p>                       
                         </div>
                         <br>
                         <br>

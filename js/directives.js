@@ -152,14 +152,17 @@ dir.directive('showoErrors', function($timeout) {
 dir.directive('vldTexto', function () {
     return function (scope, element, attr) {
         element.bind('keydown keypress', function (event) {
-            if(event.which >= 48 && event.which <= 57){
-                event.preventDefault();
 
-            }else{
+            if((event.which >= 65 && event.which <= 90) || (event.which >= 97 && event.which <= 122) || (event.which == 8) || (event.which == 9) || (event.which == 16)) {
+
                 if(event.target.value.length > 31) {
                    var input = element.context.value;
                    element.context.value = input.substring(0, input.length-1);
                 }
+
+            }else{
+              event.preventDefault();
+                
             }
         });
     };
@@ -172,7 +175,7 @@ dir.directive('vldCedula', function () {
         element.bind('keydown keypress', function (event) {
 
             if((event.which >= 48 && event.which <= 57) || (event.which == 8) || (event.which >= 96 && event.which <= 105)){
-                if(event.target.value.length >= 10) {
+                if(event.target.value.length >= 8) {
                     //event.preventDefault();
                     var input = element.context.value;
                     element.context.value = input.substring(0, input.length-1);

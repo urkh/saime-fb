@@ -4,8 +4,8 @@ include('Requests-1.6.0/library/Requests.php');
 
 Requests::register_autoloader();
 
-$host = "http://android.saime.gob.ve";
-//$host = "http://android.lab.saime.gob.ve";
+//$host = "http://android.saime.gob.ve";
+$host = "http://android.lab.saime.gob.ve";
 
 
 $data = json_decode(file_get_contents("php://input"));
@@ -233,12 +233,13 @@ function get_login($username, $password, $host){
         $refresh_token = $json['refresh_token'];
         $expires_in = $json['expires_in'];
         $scope = $json['scope'];
+        //$gender = $json['gender'];
 
         $headers = array('Content-Type' => 'application/json', 'Authorization' => 'Bearer '.$json['access_token']);
         $response = Requests::get($host."/saime-ws/v1.0/me", $headers);
         $json = json_decode($response->body, true);
         
-        echo '{"status":"granted", "msg":"Bienvenido, '.$json['firstName'].' '.$json['lastName'].'", "bcode":"'.$bcode.'", "token_type":"'.$token_type.'", "refresh_token":"'.$refresh_token.'", "expires_in":"'.$expires_in.'", "scope":"'.$scope.'"}';
+        echo '{"status":"granted", "msg":"'.$json['firstName'].' '.$json['lastName'].'", "bcode":"'.$bcode.'", "token_type":"'.$token_type.'", "refresh_token":"'.$refresh_token.'", "expires_in":"'.$expires_in.'", "scope":"'.$scope.'", "gender":"'.$json['gender'].'"}';
         
     }else{
         echo '{"status":"denied", "msg":"(!) El correo electronico o la contraseña ingresados no son correctos, por favor verifiquelos"}';

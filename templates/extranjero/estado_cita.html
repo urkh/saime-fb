@@ -60,7 +60,7 @@
                                 <div class="col-xs-3 text-right" >
                                     <b>Fecha Nacimiento:</b>
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-3 ">
                                     {{formData.fecha}}
                                 </div>
                             </div>
@@ -68,20 +68,22 @@
                             <hr>
                         </div>
 
+
+                        <div class="text-center">
+                            <h4 class="m-n font-thin h3 text-black"><b>Responsabilidad Legal</b></h4>
+                        </div><br>
+
                     
                         <div ng-repeat="vp in vinculosperfil">
-                            <div class="text-center">
-                                <h4 class="m-n font-thin h3 text-black"><b>Vinculo</b></h4>
-                            </div><br>
-
+                            
                             
                             <div class="row">
                                 <div class="col-xs-3 text-right" ></div>
                                 <div class="col-xs-3 text-right" >
-                                    <b>Nombre Completo: </b>
+                                    <b>{{vp.vinculo}}</b>
                                 </div>
-                                <div class="col-xs-4">
-                                    {{vp.nombre}}
+                                <div class="col-xs-3">
+                                    
                                 </div>
                             </div>
                             
@@ -99,12 +101,14 @@
                             <div class="row">
                                 <div class="col-xs-3 text-right" ></div>
                                 <div class="col-xs-3 text-right" >
-                                    <b>Representante Legal:</b>
+                                    <b>Nombre Completo: </b>
                                 </div>
-                                <div class="col-xs-3">
-                                    {{vp.vinculo}}
+                                <div class="col-xs-4">
+                                    {{vp.nombre}}
                                 </div>
                             </div>
+
+                            
 
                             <hr>
                         </div>
@@ -115,6 +119,7 @@
                                 <h4 class="m-n font-thin h3 text-black"><b>Direcci&oacute;n Actual</b></h4>
                             </div><br>
                             
+                            <!--
                             <div class="row">
                                 <div class="col-xs-3 text-right" ></div>
                                 <div class="col-xs-3 text-right" >
@@ -124,6 +129,7 @@
                                     {{pp.fechaplanilla}}
                                 </div>
                             </div>
+                            -->
                             
                             <div class="row">
                                 <div class="col-xs-3 text-right" ></div>
@@ -161,6 +167,8 @@
                             <br>
 
                         </div>
+
+                        <hr>
 
 
 

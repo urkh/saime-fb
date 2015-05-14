@@ -55,6 +55,12 @@ ctrl.controller('AuthCtrl',['$scope', '$rootScope', '$facebook', '$http', '$stat
                 if(response.errorCode === '00000'){
                     $rootScope.authenticated = true;
                     $rootScope.bcode = response.facebookProfile.accessToken;
+                    
+                    if(response.facebookProfile.gender === "male"){
+                        $rootScope.bsaludo = "Bienvenido, "+response.facebookProfile.name;
+                    }else{
+                        $rootScope.bsaludo = "Bienvenida, "+response.facebookProfile.name;
+                    }
 
                     $scope.fb_public_profile = {
                         'facebookId':fbresponse.id, 
@@ -84,37 +90,37 @@ ctrl.controller('AuthCtrl',['$scope', '$rootScope', '$facebook', '$http', '$stat
                         }else{
 
                               $http.get("api/api.php?opc=get_paises&bcode="+$rootScope.bcode).success(function(respponse) { 
-                                  if(response.errorCode==='00000'){
+                                  if(respponse.errorCode==='00000'){
                                       $localStorage.paises = respponse;
                                   }
                               });
 
                               $http.get("api/api.php?opc=get_estados&bcode="+$rootScope.bcode).success(function(respponse) { 
-                                  if(response.errorCode==='00000'){
+                                  if(respponse.errorCode==='00000'){
                                       $localStorage.estados = respponse;
                                   }
                               });
 
                               $http.get("api/api.php?opc=get_municipios&bcode="+$rootScope.bcode).success(function(respponse) { 
-                                  if(response.errorCode==='00000'){
+                                  if(respponse.errorCode==='00000'){
                                       $localStorage.municipios = respponse;
                                   }
                               });
 
                               $http.get("api/api.php?opc=get_parroquias&bcode="+$rootScope.bcode).success(function(respponse) { 
-                                  if(response.errorCode==='00000'){
+                                  if(respponse.errorCode==='00000'){
                                       $localStorage.parroquias = respponse;
                                   }
                               });
 
                               $http.get("api/api.php?opc=get_oficinas&bcode="+$rootScope.bcode).success(function(respponse) { 
-                                  if(response.errorCode==='00000'){
+                                  if(respponse.errorCode==='00000'){
                                       $localStorage.oficinas = respponse;
                                   }
                               });
 
                               $http.get("api/api.php?opc=get_consulados&bcode="+$rootScope.bcode).success(function(respponse) { 
-                                  if(response.errorCode==='00000'){
+                                  if(respponse.errorCode==='00000'){
                                       $localStorage.consulados = respponse;
                                   }
                               });
@@ -204,40 +210,47 @@ ctrl.controller('SignInCtrl', ['$scope', '$http', '$state', '$rootScope', '$time
                             }else{
 
                                 $http.get("api/api.php?opc=get_paises&bcode="+$rootScope.bcode).success(function(respponse) { 
-                                    if(response.errorCode==='00000'){
+                                    if(respponse.errorCode==='00000'){
                                         $localStorage.paises = respponse;
                                     }
                                 });
 
                                 $http.get("api/api.php?opc=get_estados&bcode="+$rootScope.bcode).success(function(respponse) { 
-                                    if(response.errorCode==='00000'){
+                                    if(respponse.errorCode==='00000'){
                                         $localStorage.estados = respponse;
                                     }
                                 });
 
                                 $http.get("api/api.php?opc=get_municipios&bcode="+$rootScope.bcode).success(function(respponse) { 
-                                    if(response.errorCode==='00000'){
+                                    if(respponse.errorCode==='00000'){
                                         $localStorage.municipios = respponse;
                                     }
                                 });
 
                                 $http.get("api/api.php?opc=get_parroquias&bcode="+$rootScope.bcode).success(function(respponse) { 
-                                    if(response.errorCode==='00000'){
+                                    if(respponse.errorCode==='00000'){
                                         $localStorage.parroquias = respponse;
                                     }
                                 });
 
                                 $http.get("api/api.php?opc=get_oficinas&bcode="+$rootScope.bcode).success(function(respponse) { 
-                                    if(response.errorCode==='00000'){
+                                    if(respponse.errorCode==='00000'){
                                         $localStorage.oficinas = respponse;
                                     }
                                 });
 
                                 $http.get("api/api.php?opc=get_consulados&bcode="+$rootScope.bcode).success(function(respponse) { 
-                                    if(response.errorCode==='00000'){
+                                    if(respponse.errorCode==='00000'){
                                         $localStorage.consulados = respponse;
                                     }
                                 });
+
+
+                                if(response.gender === "M"){
+                                    $rootScope.bsaludo = "Bienvenido, "+response.msg;
+                                }else{
+                                    $rootScope.bsaludo = "Bienvenida, "+response.msg;
+                                }
 
                                 $state.go("saime.inicio");
                             }
@@ -257,7 +270,8 @@ ctrl.controller('SignInCtrl', ['$scope', '$http', '$state', '$rootScope', '$time
             })
 
         }else{
-            $scope.showErrorsCheckValidity = true;
+            //$scope.showErrorsCheckValidity = true;
+            $scope.$broadcast('show-errors-check-validity');
         }
 
     }
@@ -400,7 +414,7 @@ ctrl.controller('OlvidoContrasenaCtrl', ['$scope', '$http', '$state', function($
                 $scope.error_msg = "Ha ocurrido un error de comunicación con el servidor, por favor intente de nuevo."
             })
         }else{
-            $scope.showErrorsCheckValidity = true;
+            $scope.$broadcast('show-errors-check-validity');
         }  
     }  
 
@@ -425,14 +439,14 @@ ctrl.controller('RegistroCtrl', ['$scope', '$http', '$state', '$timeout', 'Codig
 
     $scope.guardar = function(form){
 
-        $scope.formData.phone = $scope.formNoData.phone_code + $scope.formNoData.phone;
+        $scope.formData.phone = $scope.formNoData.phone_code.numero + $scope.formNoData.phone;
 
         if(form.cedula && form.firstName && form.lastName && form.email && $scope.formData.phone){
 
             if($scope.formData.altEmail == null){$scope.formData.altEmail = "";}
 
             $scope.alldata = {
-                'letra':$scope.formData.letra,
+                'letra':$scope.formData.letra.letra,
                 'cedula':$scope.formData.cedula,
                 'firstName':$scope.formData.firstName,
                 'lastName':$scope.formData.lastName,
@@ -703,7 +717,6 @@ ctrl.controller('MisSolicitudesVenCtrl', ['$rootScope', '$scope', '$http', '$sta
 
 ctrl.controller('MisSolicitudesExtCtrl', ['$rootScope', '$scope', '$http', '$state', '$timeout', function($rootScope, $scope, $http, $state, $timeout) {
 
-
     if(!$rootScope.authenticated){
         $state.go('saime.autenticacion');
     }
@@ -896,7 +909,6 @@ ctrl.controller('EstadoCitaExtCtrl', ['$rootScope', '$scope', '$http', '$state',
 
 ctrl.controller('EliminarCitaExtCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$timeout', function($rootScope, $scope, $http, $state, $stateParams, $timeout) {
 
-    
     if(!$rootScope.authenticated){
         $state.go('saime.autenticacion');
     }
@@ -936,7 +948,6 @@ ctrl.controller('EliminarCitaExtCtrl', ['$rootScope', '$scope', '$http', '$state
 
 
 ctrl.controller('EliminarCitaVenCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$timeout', function($rootScope, $scope, $http, $state, $stateParams, $timeout) {
-
 
     if(!$rootScope.authenticated){
         $state.go('saime.autenticacion');

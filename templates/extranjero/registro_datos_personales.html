@@ -65,8 +65,8 @@
                                 <hr>
 
                                 <div class="row">
-                                    <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.countryinivad.$invalid }">
-                                        <label class="control-label">Pa&iacute;s</label>
+                                    <div class="col-sm-12 saime-input form-group_se" showo-errors >
+                                        <label class="control-label">Pa&iacute;s de Nacimiento</label>
 
                                         <ui-select name="countryinivad" ng-required="true" ng-model="formData.country"  style="width: 100%;">
                                             <ui-select-match placeholder="Pa&iacute;s...">{{$select.selected.descripcion}}</ui-select-match>
@@ -75,50 +75,73 @@
                                               
                                             </ui-select-choices>
                                         </ui-select>
+                                        <p class="help-block" ng-if="formData.countryinivad.$error.required">Debe seleccionar el pa&iacute;s</p>
                                     </div>
                                 </div>
 
 
                                 <div class="row">
                                     
-                                    <div class="col-md-6 saime-input" show-errors>
+                                    <div class="col-md-12 saime-input form-group_se" showo-errors>
                                         <label class="control-label">Ciudad</label>
                                         <input class="form-control" name="cityvad" vld-texto ng-model="formData.city" type="text" name="ciudadv" required>
-                                    </div>
-
-                                    <div class="col-md-6 saime-input" show-errors>
-                                        <label class="control-label">Ciudad Actual</label>
-                                        <input class="form-control" name="ccityvad" vld-texto ng-model="formData.currentCity" type="text" name="ciudadv" required>
+                                        <p class="help-block" ng-if="formData.cityvad.$error.required">El campo ciudad es obligatorio</p>
                                     </div>
                                     
                                 </div>
+                               
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
 
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <p><h3>Direcci&oacute;n Actual</h3></p>
+                                <hr>
 
                                 <div class="row">
-                                    <div class="col-sm-12 saime-input" show-errors>
-                                        <label class="control-label">C&oacute;digo Postal</label>
-                                        <input class="form-control" name="pcodevad" required vld-pcode ng-model="formData.pCode" type="text">
-                                    </div>
-                                </div>
-
-
-                                <div class="row">
-                                    <div class="col-sm-12 saime-input" ng-class="{ 'has-error': formData.countrysedevad.$invalid }">
-                                        <label class="control-label">Pa&iacute;s sede</label>
-                                        <ui-select name="countrysedevad" ng-required="true" on-select="get_consulados()"  ng-model="formData.countrySede" style="width: 100%;">
-                                            <ui-select-match placeholder="Pa&iacute;s sede...">{{$select.selected.descripcion}}</ui-select-match>
+                                    <div class="col-sm-12 saime-input form-group_se" showo-errors >
+                                        <label class="control-label">Pa&iacute;s</label>
+                                        <ui-select name="countrysedevad" ng-required="true" on-select="get_consulados($select.selected.descripcion)"  ng-model="formData.countrySede" style="width: 100%;">
+                                            <ui-select-match placeholder="Pa&iacute;s...">{{$select.selected.descripcion}}</ui-select-match>
                                             <ui-select-choices repeat="pais.idpais as pais in paises | filter: $select.search" value="{{$select.selected.idpais}}">
                                               <span ng-bind-html="pais.descripcion | highlight: $select.search"></span>
                                               
                                             </ui-select-choices>
                                         </ui-select>
+                                        <p class="help-block" ng-if="formData.countrysedevad.$error.required">Debe seleccionar el pa&iacute;s sede</p>
                                     </div>
                                 </div>
 
-                               
+
+                                <div class="row">
+                                    <div class="col-md-12 saime-input form-group_se" showo-errors>
+                                        <label class="control-label">Ciudad Actual</label>
+                                        <input class="form-control" name="ccityvad" vld-texto ng-model="formData.currentCity" type="text" name="ciudadv" required>
+                                        <p class="help-block" ng-if="formData.cityvad.$error.required">El campo ciudad actual es obligatorio</p>
+                                    </div>
+                                    
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-12 saime-input form-group_se" showo-errors>
+                                        <label class="control-label">C&oacute;digo Postal</label>
+                                        <input class="form-control" name="pcodevad" required vld-pcode ng-model="formData.pCode" type="text">
+                                        <p class="help-block" ng-if="formData.pcodevad.$error.required">El campo c&oacute;digo postal es obligatorio</p>
+                                    </div>
+                                </div>
+
+
                             </div>
+
+
                             <div class="col-md-2"></div>
+                            
                         </div>
+
+
                         <br><br>
                         <div class="text-center">
                             <br> 
@@ -135,8 +158,8 @@
                             </div>
                             
 
-                            <div class="col-md-8">
-                                <p><h3>Consulados:</h3></p>
+                            <div class="col-md-8 col-center saime-terminos-texto">
+                                <p><h3>Sede Consular:</h3></p>
                                 <hr>
                                 <div class="row">
 
@@ -150,9 +173,11 @@
                                         <div class="saime-radio-label-md8">{{consulado.sedeconsular}}</div>
                                     </div>
 
+                                    <div align="center" ng-hide="consulados.length">Actualmente no existe sede consular disponible para <b>{{cosede}}</b>!</div>
+
                                     <br>
                                     <br>
-                                    <p>
+                                    <p ng-hide="!consulados.length" align="center">
                                         <i>
                                             Los consulados que aparecen listados son los posibles lugares d&oacute;nde se les asignar&aacute; la cita. 
                                         </i>
@@ -160,7 +185,7 @@
                                     <br> 
                                     <br>
 
-                                    <div align="center" class="saime-menu" role="group" aria-label="Vertical button group">
+                                    <div ng-hide="!consulados.length" align="center" class="saime-menu" role="group" aria-label="Vertical button group">
                                         <button ng-click="guardar(formData)" type="button" class="btn btn-saime-stand saime-btn-lg">Guardar datos</button>
                                     </div><br>
 
