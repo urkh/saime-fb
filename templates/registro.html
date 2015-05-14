@@ -32,7 +32,17 @@
                                         <div class="form-group_se" showo-errors>
                                             <div class="col-xs-3 saime-input" >
                                                 <label class="control-label">Tipo</label>
+
+                                                    <!--
                                                  <select class="form-control" name="letravad" ng-model="formData.letra" ng-options="letra.id for letra in letras" required></select>
+                                                 -->
+                                                 <ui-select name="letravad" required="true" ng-model="formData.letra" ng-disabled="disabled" style="width: 100%;" title="Letra">
+                                                    <ui-select-match placeholder="Tipo...">{{$select.selected.letra}}</ui-select-match>
+                                                    <ui-select-choices repeat="letra.id as letra in letras">
+                                                      <span ng-bind-html="letra.letra"></span>
+                                                    </ui-select-choices>
+                                                </ui-select>
+
                                                  <p class="help-block" ng-if="formData.letravad.$error.required">Debe seleccionar el tipo de c&eacute;dula</p>
                                             </div>
                                         </div>
@@ -94,7 +104,16 @@
                                         <div class="form-group_se" showo-errors>
                                             <div class="col-xs-3 saime-input" >
                                                 <label class="control-label">C&oacute;digo</label>
+                                                 
+                                                <!--
                                                  <select class="form-control" name="phonecodevad" ng-model="formNoData.phone_code" ng-options="codigo.numero for codigo in codigosc" required></select>
+                                                 -->
+                                                 <ui-select name="phonecodevad" required="true" ng-model="formNoData.phone_code" ng-disabled="disabled" style="width: 100%;" title="Codigo">
+                                                    <ui-select-match placeholder="C&oacute;digo...">{{$select.selected.numero}}</ui-select-match>
+                                                    <ui-select-choices repeat="codigo.numero as codigo in codigosc">
+                                                      <span ng-bind-html="codigo.numero"></span>
+                                                    </ui-select-choices>
+                                                </ui-select>
                                                  <p class="help-block" ng-if="formData.phonecodevad.$error.required">Debe seleccionar el c&oacute;digo de tel&eacute;fono </p>
                                             </div>
                                         </div>

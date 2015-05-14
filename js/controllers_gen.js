@@ -439,14 +439,14 @@ ctrl.controller('RegistroCtrl', ['$scope', '$http', '$state', '$timeout', 'Codig
 
     $scope.guardar = function(form){
 
-        $scope.formData.phone = $scope.formNoData.phone_code.numero + $scope.formNoData.phone;
+        $scope.formData.phone = $scope.formNoData.phone_code + $scope.formNoData.phone;
 
         if(form.cedula && form.firstName && form.lastName && form.email && $scope.formData.phone){
 
             if($scope.formData.altEmail == null){$scope.formData.altEmail = "";}
 
             $scope.alldata = {
-                'letra':$scope.formData.letra.letra,
+                'letra':$scope.formData.letra,
                 'cedula':$scope.formData.cedula,
                 'firstName':$scope.formData.firstName,
                 'lastName':$scope.formData.lastName,
