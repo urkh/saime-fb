@@ -127,6 +127,47 @@
                                         </div>
                                     </div>
 
+                                        <div class="row">
+
+                                            <div class="col-sm-12 saime-input form-group_se" showo-errors >
+                                                <label class="control-label">Estado</label>
+                                                <ui-select name="statevad" on-select="get_municipios()" ng-required="true" ng-model="formData.state"  style="width: 100%;">
+                                                    <ui-select-match placeholder="Estado...">{{$select.selected.descripcion}}</ui-select-match>
+                                                    <ui-select-choices repeat="estado.identidadfederal as estado in estados | filter: $select.search">
+                                                      <span ng-bind-html="estado.descripcion | highlight: $select.search"></span>  
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                                <p class="help-block" ng-if="formData.statevad.$error.required">Debe seleccionar el estado</p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 saime-input form-group_se" showo-errors>
+                                                <label class="control-label">Municipio</label>
+                                                <ui-select name="municipiovad" on-select="get_parroquias()" ng-required="true" ng-model="formData.town" style="width: 100%;">
+                                                    <ui-select-match placeholder="Municipio...">{{$select.selected.descripcion}}</ui-select-match>
+                                                    <ui-select-choices repeat="municipio.idmunicipio as municipio in municipios | filter: $select.search">
+                                                      <span ng-bind-html="municipio.descripcion | highlight: $select.search"></span>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                                <p class="help-block" ng-if="formData.municipiovad.$error.required">Debe seleccionar el municipio</p>
+                                            </div>
+                                        </div>
+                                            
+                                        <div class="row">
+                                            <div class="col-sm-12 saime-input form-group_se" showo-errors>
+                                                <label class="control-label">Parroquia</label>
+                                                <ui-select name="parishvad" ng-required="true" ng-model="formData.parish" style="width: 100%;">
+                                                    <ui-select-match placeholder="Parroquia...">{{$select.selected.descripcion}}</ui-select-match>
+                                                    <ui-select-choices repeat="parroquia.idparrquia as parroquia in parroquias | filter: $select.search">
+                                                      <span ng-bind-html="parroquia.descripcion | highlight: $select.search"></span>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                                <p class="help-block" ng-if="formData.parishvad.$error.required">Debe seleccionar la parroquia</p>
+                                            </div>
+                                        </div>
+
                                     <div class="row">
 
                                         <div class="col-md-12 saime-input form-group_se" showo-errors>

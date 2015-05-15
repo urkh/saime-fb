@@ -6,7 +6,7 @@ var ctrl = angular.module('app.controllers_ext', []);
 
 
 
-ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout', '$scope', '$http', '$localStorage', '$window', 'ConsuladosFactory', function($rootScope, $state, $timeout, $scope, $http, $localStorage, $window, ConsuladosFactory) {
+ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout', '$scope', '$http', '$localStorage', '$window', 'ConsuladosFactory', 'MunicipiosFactory', 'ParroquiasFactory', function($rootScope, $state, $timeout, $scope, $http, $localStorage, $window, ConsuladosFactory, MunicipiosFactory, ParroquiasFactory) {
 
     if(!$rootScope.authenticated){
         $state.go('saime.autenticacion');
@@ -51,7 +51,8 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
                             }, 3000);
 
                         }else{
-                            $scope.searchmsg = res.consumerMessage;
+                            //$scope.searchmsg = res.consumerMessage;
+                            $scope.searchmsg = "Por favor, verifique que el número de cédula que ha introducido al sistema es correcto. No existe ningún menor venezolano por nacimiento o naturalizado con el número de cédula insertado";
                             $timeout(function(){
                                 $scope.showModal = false;
                             }, 3000);
@@ -272,6 +273,15 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
 
 
     $scope.paises = $localStorage.paises.countryList;
+    $scope.estados = $localStorage.estados.stateList;
+
+    $scope.get_municipios = function(){
+        $scope.municipios = MunicipiosFactory($scope.formData.state);
+    }
+
+    $scope.get_parroquias = function(){
+        $scope.parroquias = ParroquiasFactory($scope.formData.town);
+    }
 
 
     $scope.get_consulados = function(cosede){
@@ -286,7 +296,7 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
 
 
     $scope.continuar2 = function(form){
-        if((form.countryIni && form.city) && (form.motherId || form.fatherId || form.legalId)) {
+        if((form.countryIni && form.state && form.parish && form.town && form.city) && (form.motherId || form.fatherId || form.legalId)) {
             $window.scrollTo(0, 0);
             $scope.step3 = "display:none;";
             $scope.step4 = "display:block;";
@@ -343,6 +353,9 @@ ctrl.controller('FormRegistroMenorCExtCtrl', ['$rootScope', '$state', '$timeout'
                 bDate: $scope.formData.bDate,
                 countryIni: $scope.formData.country,
                 country: $scope.formData.country,
+                parish: $scope.formData.parish,
+                state: $scope.formData.state,
+                town: $scope.formData.town,
                 city: $scope.formData.city,
                 currentCity: $scope.formData.currentCity,
                 pCode: $scope.formData.pCode,
